@@ -1,3 +1,4 @@
+using Site13Kernel.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,28 +10,80 @@ namespace Site13Kernel.Core
         public List<ControlledBehavior> OnInit=new List<ControlledBehavior>();
         public List<ControlledBehavior> OnRefresh=new List<ControlledBehavior>();
         public List<ControlledBehavior> OnFixedRefresh=new List<ControlledBehavior>();
-
+        public bool CrossScene=false;
         void Start()
+        {
+            if (CrossScene)
+            {
+                DontDestroyOnLoad(this.gameObject);
+            }
+            foreach (var item in OnInit)
+            {
+                try
+                {
+                    InitBehavior(item);
+                }
+                catch (System.Exception e)
+                {
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
+                }
+            }
+            foreach (var item in OnInit)
+            {
+                try
+                {
+                    item.Init();
+
+                }
+                catch (System.Exception e)
+                {
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
+                }
+            }
+        }
+        public T GetBehavior<T>() where T: ControlledBehavior
         {
             foreach (var item in OnInit)
             {
-                InitBehavior(item);
+                if (item is T t)
+                {
+                    return t;
+                }
             }
-            foreach (var item in OnInit)
+            foreach (var item in OnRefresh)
             {
-                item.Init();
+                if (item is T t)
+                {
+                    return t;
+                }
             }
+            foreach (var item in OnFixedRefresh)
+            {
+                if (item is T t)
+                {
+                    return t;
+                }
+            }
+            return null;
         }
         public void InitBehavior(ControlledBehavior behavior)
         {
-            behavior.Parent= this;
+            behavior.Parent = this;
         }
         void Update()
         {
             float DeltaTime=Time.deltaTime;
             foreach (var item in OnRefresh)
             {
-                item.Refresh(DeltaTime);
+                    item.Refresh(DeltaTime);
+                //try
+                //{
+                //    item.Refresh(DeltaTime);
+                //}
+                //catch (System.Exception e)
+                //{
+                //    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
+                //}
             }
         }
         private void FixedUpdate()
@@ -39,7 +92,15 @@ namespace Site13Kernel.Core
             float DeltaTime=Time.fixedDeltaTime;
             foreach (var item in OnFixedRefresh)
             {
-                item.FixedRefresh(DeltaTime);
+                    item.FixedRefresh(DeltaTime);
+                //try
+                //{
+                //    item.FixedRefresh(DeltaTime);
+                //}
+                //catch (System.Exception e)
+                //{
+                //    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
+                //}
             }
         }
     }

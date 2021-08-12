@@ -6,6 +6,7 @@ namespace Site13Kernel.Core
 {
     public class ControlledBehavior : MonoBehaviour
     {
+        [HideInInspector]
         public BehaviorController Parent;
         public virtual void Init()
         {
