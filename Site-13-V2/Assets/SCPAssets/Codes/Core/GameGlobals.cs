@@ -1,3 +1,4 @@
+using Site13Kernel.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,5 +10,10 @@ namespace Site13Kernel.Core
     public class GameGlobals
     {
         public AudioSource MainUIBGM;
+        public GameDefinition CurrentGameDef;
+        public void Init()
+        {
+            CurrentGameDef = new GameDefinition();
+        }
     }
 }

@@ -55,7 +55,9 @@ namespace Site13Kernel.UEFI
         {
 
         }
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public virtual async Task Run()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
 
         }
