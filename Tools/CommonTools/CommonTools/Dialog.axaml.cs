@@ -86,10 +86,11 @@ namespace CommonTools
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
+            this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.SystemChrome;
             this.ExtendClientAreaToDecorationsHint = true;
             //this.TransparencyLevelHint = WindowTransparencyLevel.Blur;
             this.SystemDecorations = SystemDecorations.BorderOnly;
+            this.CanResize = false;
             CancelButton = this.FindControl<Button>("CancelButton");
             OKButton = this.FindControl<Button>("OKButton");
             ContentPresenter = this.FindControl<Grid>("ContentPresenter");

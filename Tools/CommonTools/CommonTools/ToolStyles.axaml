@@ -41,6 +41,10 @@
   <Style Selector="TextBlock.Header1">
     <Setter Property="FontSize" Value="24"/>
   </Style>
+  <Style Selector="TextBlock.Header2">
+    <Setter Property="Margin" Value="5,5,5,5"/>
+    <Setter Property="FontSize" Value="20"/>
+  </Style>
   <Style Selector="TextBox">
     <Setter Property="Margin" Value="2"/>
     <Setter Property="BorderThickness" Value="0,0,0,2"/>
@@ -96,7 +100,18 @@
     <Setter Property="Margin" Value="2,2"/>
   </Style>
   <Style Selector="Button.VMini">
+    <Setter Property="Padding" Value="15,2"/>
+  </Style>
+  <Style Selector="Button.VMini2">
     <Setter Property="Padding" Value="15,4"/>
+  </Style>
+  <Style Selector="Button.Fill">
+    <Setter Property="VerticalAlignment" Value="Stretch"/>
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+  </Style>
+  <Style Selector="Button.CenterContent  /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
   </Style>
   <!-- PointerOverState -->
   <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">

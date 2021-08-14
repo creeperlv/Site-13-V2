@@ -39,6 +39,19 @@
                     </Canvas>
                   </Viewbox>
                 </StackPanel>
+                <Button.Flyout>
+                  <!--<Flyout>
+                    <StackPanel>
+                      <Button Classes="VMini">
+
+                      </Button>
+                    </StackPanel>
+                  </Flyout>-->
+                  <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                    <MenuItem Header="Language Defition"/>
+                    <MenuItem Header="Resource"/>
+                  </MenuFlyout>
+                </Button.Flyout>
               </Button>
               <Grid Classes="Spliter"/>
               <Button Classes="CommandButton">
@@ -108,7 +121,32 @@
       </Grid>
       <GridSplitter Background="{DynamicResource CommonBorder}" Grid.Column="1"/>
       <Grid Grid.Column="2" Background="{DynamicResource CommonEditorBackground}">
-        <ScrollViewer Margin="0,0,8,8">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Fields" Classes="Header2" VerticalAlignment="Center"/>
+            <Button Classes="CommandButton VMini" Name="AddFieldButton">
+              <StackPanel Orientation="Horizontal">
+                <Grid Margin="0" Width="20" Height="20">
+                  <Viewbox Width="24" Height="24" VerticalAlignment="Center">
+                    <Canvas Width="24" Height="24">
+                      <Path Fill="{DynamicResource CommonIconForeground_Plain}" Data="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                    </Canvas>
+                  </Viewbox>
+                  <Viewbox Width="18" Height="18" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Canvas Width="24" Height="24">
+                      <Path Fill="{DynamicResource CommonAccent}" Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                    </Canvas>
+                  </Viewbox>
+                </Grid>
+              </StackPanel>
+            </Button>
+          </StackPanel>
+        </Grid>
+        <ScrollViewer Grid.Row="1" Margin="0,0,8,8">
           <StackPanel x:Name="CentralEditor"></StackPanel>
         </ScrollViewer>
       </Grid>

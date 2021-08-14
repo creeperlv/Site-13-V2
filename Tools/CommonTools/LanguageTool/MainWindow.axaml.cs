@@ -20,25 +20,26 @@ namespace LanguageTool
         void Init()
         {
             MarkdownScrollViewer markdownScrollViewer=new MarkdownScrollViewer();
-            markdownScrollViewer.Markdown = $"# Site-13 Tool Set\n\n## Language Tool\n\n- Version:{typeof(MainWindow).Assembly.GetName().Version}\n\n" +
-                $"## Third-Party Libs\n\n- AvaloniaUI\n\n- Markdown.Avalonia";
+            markdownScrollViewer.Markdown =LibInfo.GetAboutString("Language Tool");
             AboutButton.Click += (_, _) => {
                 Dialog dialog=new Dialog();
+                dialog.Height = 400;
                 dialog.DialogTitle = "About";
                 dialog.DialogContent = markdownScrollViewer;
                 dialog.isCancelEnabled=false;
                 dialog.ShowDialog(this);
             };
+            AddFieldButton.Click += (_, _) => {
+                CentralEditor.Children.Add(new Field());
+            };
             Load();
         }
         void Load()
         {
-            CentralEditor.Children.Add(new Field());
-            CentralEditor.Children.Add(new Field());
-            CentralEditor.Children.Add(new Field());
         }
         StackPanel CentralEditor;
         Button AboutButton;
+        Button AddFieldButton;
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
@@ -49,6 +50,7 @@ namespace LanguageTool
             this.Background = new SolidColorBrush(Colors.Transparent);
             CentralEditor=this.FindControl<StackPanel>("CentralEditor");
             AboutButton = this.FindControl<Button>("AboutButton");
+            AddFieldButton = this.FindControl<Button>("AddFieldButton");
             Init();
             //this.SystemDecorations = SystemDecorations.BorderOnly;
         }

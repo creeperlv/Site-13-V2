@@ -9,10 +9,18 @@
     <DockPanel Margin="5">
       <Grid DockPanel.Dock="Bottom"
             Background="{DynamicResource CommonHeaderBackground}">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-          <Button Content="OK" Name="OKButton" Classes="VMini Accent"/>
-          <Button Content="Cancel" Name="CancelButton" Classes="VMini"/>
-        </StackPanel>
+        <Grid Margin="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+          <Button  Name="OKButton" Classes="VMini2 Accent Fill CenterContent">
+            <TextBlock Text="OK" HorizontalAlignment="Center"/>
+          </Button>
+          <Button Grid.Column="1" Content="Cancel" Name="CancelButton" Classes="VMini2 Fill CenterContent">
+            <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+          </Button>
+        </Grid>
       </Grid>
       <Grid DockPanel.Dock="Top" Height="28" IsHitTestVisible="False"
    Background="{DynamicResource CommonSidePanelBackground}">

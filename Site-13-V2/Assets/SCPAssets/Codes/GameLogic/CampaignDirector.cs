@@ -1,21 +1,22 @@
+using Site13Kernel.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Site13Kernel
+namespace Site13Kernel.GameLogic
 {
-    public class CampaignDirector : MonoBehaviour
+    public class CampaignDirector : ControlledBehavior
     {
-        // Start is called before the first frame update
-        void Start()
+        public override void Init()
         {
         
         }
-
-        // Update is called once per frame
-        void Update()
+        public override void Refresh(float DeltaTime)
         {
         
+        }
+        public override void FixedRefresh(float DeltaTime)
+        {
         }
     }
 }
