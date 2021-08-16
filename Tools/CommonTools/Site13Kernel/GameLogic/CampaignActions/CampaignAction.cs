@@ -11,9 +11,16 @@ namespace Site13Kernel.GameLogic.CampaignActions
     {
     }
     [Catalog("Scene")]
-    [Description("Enables all objects under target scene")]
+    [Description("Enables all objects under target scene.")]
     [Serializable]
     public class EnableSceneByName : CampaignAction
+    {
+        public string Name;
+    }
+    [Catalog("Scene")]
+    [Description("Sets a scene as Active scene by name.")]
+    [Serializable]
+    public class SetActiveSceneByName : CampaignAction
     {
         public string Name;
     }

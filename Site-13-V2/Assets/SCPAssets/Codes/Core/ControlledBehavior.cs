@@ -21,5 +21,20 @@ namespace Site13Kernel.Core
 
         }
     }
-
+    public class SyncInitializer : MonoBehaviour
+    {
+        public bool isDone=false;
+        public virtual void Init()
+        {
+        
+        }
+        public virtual void Execute()
+        {
+        
+        }
+        public virtual void FixedExecute()
+        {
+        
+        }
+    }
 }

@@ -41,7 +41,15 @@ namespace Site13Kernel.Core
                 }
             }
         }
-        public T GetBehavior<T>() where T: ControlledBehavior
+        public void UnregisterRefresh<T>(T obj) where T : ControlledBehavior
+        {
+            OnRefresh.Remove(obj);
+        }
+        public void UnregisterFixedRefresh<T>(T obj) where T : ControlledBehavior
+        {
+            OnFixedRefresh.Remove(obj);
+        }
+        public T GetBehavior<T>() where T : ControlledBehavior
         {
             foreach (var item in OnInit)
             {
@@ -75,15 +83,18 @@ namespace Site13Kernel.Core
             float DeltaTime=Time.deltaTime;
             foreach (var item in OnRefresh)
             {
+#if DEBUG
+                try
+                {
+#endif
                     item.Refresh(DeltaTime);
-                //try
-                //{
-                //    item.Refresh(DeltaTime);
-                //}
-                //catch (System.Exception e)
-                //{
-                //    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
-                //}
+#if DEBUG
+                }
+                catch (System.Exception e)
+                {
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
+                }
+#endif
             }
         }
         private void FixedUpdate()
@@ -92,15 +103,18 @@ namespace Site13Kernel.Core
             float DeltaTime=Time.fixedDeltaTime;
             foreach (var item in OnFixedRefresh)
             {
+#if DEBUG
+                try
+                {
+#endif
                     item.FixedRefresh(DeltaTime);
-                //try
-                //{
-                //    item.FixedRefresh(DeltaTime);
-                //}
-                //catch (System.Exception e)
-                //{
-                //    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
-                //}
+#if DEBUG
+                }
+                catch (System.Exception e)
+                {
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
+                }
+#endif
             }
         }
     }
