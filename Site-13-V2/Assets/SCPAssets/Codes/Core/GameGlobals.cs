@@ -9,10 +9,12 @@ namespace Site13Kernel.Core
     [Serializable]
     public class GameGlobals
     {
+        public string AppData;
         public AudioSource MainUIBGM;
         public GameDefinition CurrentGameDef;
         public void Init()
         {
+            AppData = Application.persistentDataPath;
             CurrentGameDef = new GameDefinition();
         }
     }

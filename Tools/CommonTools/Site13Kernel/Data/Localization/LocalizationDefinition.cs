@@ -15,6 +15,7 @@ namespace Site13Kernel.Data.Localization
     [Serializable]
     public class RefLocalizedImage
     {
+        public string Name;
         public string Path;
     }
     [Serializable]

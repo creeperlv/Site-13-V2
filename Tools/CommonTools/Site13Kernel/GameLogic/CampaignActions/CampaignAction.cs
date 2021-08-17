@@ -35,8 +35,12 @@ namespace Site13Kernel.GameLogic.CampaignActions
     [Serializable]
     public class WaitForEnterAABB : CampaignAction
     {
-        public float3 A;
-        public float3 B;
+        public float AX;
+        public float AY;
+        public float AZ;
+        public float BX;
+        public float BY;
+        public float BZ;
     }
     [Catalog("Game Logic")]
     [Description("Wait for player health reachs a certain level.\r\nNegative: Smaller than value.\r\nPositive: Greater than value.")]

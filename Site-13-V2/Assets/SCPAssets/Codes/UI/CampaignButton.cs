@@ -33,7 +33,7 @@ namespace Site13Kernel.UI
             CampaignParent = parent;
             parent.Children.Add(this);
             this.definition= definition;
-            BackgroundImage.sprite = GameRuntime.CurrentGlobals.CurrentGameDef.Sprites[this.definition.ImageID].LoadedSprite;
+            BackgroundImage.sprite = GameRuntime.CurrentGlobals.CurrentGameDef.Sprites[this.definition.ImageName].LoadedSprite;
             MissionName.text = Language.Find(this.definition.NameID, this.definition.DispFallback);
         }
         public void Hint()

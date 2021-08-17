@@ -21,6 +21,6 @@ namespace Site13Kernel.Data
         public string NameID;
         public string DispFallback;
         public int TargetScene;
-        public int ImageID;
+        public string ImageName;
     }
 }
