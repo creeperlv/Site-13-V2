@@ -59,9 +59,14 @@ namespace Site13Kernel.Diagnostics
 #endif
             _Input.onSubmit.AddListener((string cmd) =>
             {
-                var result=CommandLineTool.Analyze(cmd);
-                var a=result.RealParameter;
-                Debugger.CurrentDebugger.Log($">{a[0].EntireArgument}", LogLevel.Normal);
+                if (cmd != "")
+                {
+                    var result=CommandLineTool.Analyze(cmd);
+                    var a=result.RealParameter;
+                    Debugger.CurrentDebugger.Log($">{a[0].EntireArgument}", LogLevel.Normal);
+                    
+                }
+                _Input.text = "";
             });
         }
         public override void Refresh(float DeltaTime)

@@ -1,3 +1,4 @@
+using Site13Kernel.Core;
 using Site13Kernel.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,10 +50,11 @@ namespace Site13Kernel.UEFI
             }
         }
     }
-    public class UEFIBase : MonoBehaviour
+    public class UEFIBase : ControlledBehavior
     {
-        public virtual void Init()
+        public new virtual void Init()
         {
+           
 
         }
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
