@@ -12,9 +12,12 @@ Some assets are collected from some Third-party website, there must be some copy
 
 Main development activity of Site-13 is on this branch.
 
-## Copyright
+## Licensing
 
-CC BY-SA 3.0
+### Art and story content
 
-![CC BY-SA](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg)
+CC BY-SA 3.0 ![CC BY-SA](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg)
 
+### Code
+
+Codes here are licensed under [the MIT License](/LICENSE)
