@@ -14,13 +14,13 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_Fog: 1
+  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 0
-  m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  m_LinearFogEnd: 50
+  m_AmbientSkyColor: {r: 0.42796704, g: 0.42796704, b: 0.42796704, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -3812,89 +3812,22 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!1 &859024981
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 859024983}
-  - component: {fileID: 859024982}
-  m_Layer: 0
-  m_Name: InputProcessor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &859024982
+--- !u!114 &859024982 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8343147023056777634, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+  m_PrefabInstance: {fileID: 8343147022233870324}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859024981}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3db8e3728a37ec441897f577592c0218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
-  InputDefinitions:
-  - Name: MoveVertical
-    isButton: 0
-    AcceptMouse: 0
-    Axis: 0
-    Intensity: 3
-    DeadZone: 0
-    PositiveKeys: 77000000
-    NegativeKeys: 73000000
-    GamepadInput: []
-  - Name: MoveHorizontal
-    isButton: 0
-    AcceptMouse: 0
-    Axis: 0
-    Intensity: 3
-    DeadZone: 0
-    PositiveKeys: 64000000
-    NegativeKeys: 61000000
-    GamepadInput: []
-  - Name: MouseH
-    isButton: 0
-    AcceptMouse: 1
-    Axis: 1
-    Intensity: 3
-    DeadZone: 0
-    PositiveKeys: 13010000
-    NegativeKeys: 14010000
-    GamepadInput: []
-  - Name: MouseV
-    isButton: 0
-    AcceptMouse: 1
-    Axis: 2
-    Intensity: -3
-    DeadZone: 0
-    PositiveKeys: 11010000
-    NegativeKeys: 12010000
-    GamepadInput: []
-  Names: []
---- !u!4 &859024983
+--- !u!4 &859024983 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+  m_PrefabInstance: {fileID: 8343147022233870324}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859024981}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1305160826}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &867873573
 GameObject:
   m_ObjectHideFlags: 0
@@ -4985,7 +4918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313953216}
   m_LocalRotation: {x: -0.010325448, y: -0.9060373, z: 0.4224921, w: -0.022142997}
-  m_LocalPosition: {x: 0, y: 4.5, z: 5.25}
+  m_LocalPosition: {x: 0, y: 8.82, z: 5.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5421,7 +5354,7 @@ MonoBehaviour:
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
-  m_ClearDepth: 0
+  m_ClearDepth: 1
   m_AllowXRRendering: 1
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
@@ -6299,12 +6232,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
-  MoveSpeed: 3
+  MoveSpeed: 4
+  RunningSpeed: 8
+  RunningJumpHeight: 2
   MouseHoriztonalIntensity: 5
   cc: {fileID: 1936720497}
   Head: {fileID: 793758245}
-  MaxV: 35
-  MinV: -40
+  MaxV: 75
+  MinV: -75
+  JumpP00: 1.2
+  Gravity: 9.8
 --- !u!136 &1936720496
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6859,6 +6796,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e18924308c5e44ba799fc5fea4b1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parent: {fileID: 0}
+  ControlledAnimator: {fileID: 0}
+  TakeOut: 
+  Combat: 
+  Reload: 
+  MaxRecoil: 0
+  RecoilRecoverSpeed: 0
+  Projectile: {fileID: 0}
 --- !u!1 &2088207386
 GameObject:
   m_ObjectHideFlags: 0
@@ -7248,3 +7193,60 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146376234}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &8343147022233870324
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1305160826}
+    m_Modifications:
+    - target: {fileID: 8343147023056777633, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_Name
+      value: InputProcessor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}

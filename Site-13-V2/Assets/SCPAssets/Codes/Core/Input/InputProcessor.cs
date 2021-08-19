@@ -36,17 +36,32 @@ namespace Site13Kernel.Core.CustomizedInput
                     KeyUp.Add(item.Name, false);
             }
         }
+        /// <summary>
+        /// True on frame.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
         public bool GetInputDown(string Name)
         {
-            return false;
+            return KeyDown[Name];
         }
+        /// <summary>
+        /// True on frame.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
         public bool GetInputUp(string Name)
         {
-            return false;
+            return KeyUp[Name];
         }
+        /// <summary>
+        /// Trus during the press time.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
         public bool GetInput(string Name)
         {
-            return false;
+            return Key[Name];
         }
         public float GetAxis(string Name)
         {
@@ -126,7 +141,7 @@ namespace Site13Kernel.Core.CustomizedInput
                     }
                     else if (item.Axis == SnapAxis.Y)
                     {
-                        v=Input.GetAxis("Mouse Vertical");
+                        v = Input.GetAxis("Mouse Vertical");
                     }
                     if (Mathf.Abs(v) > item.DeadZone)
                     {
@@ -136,7 +151,7 @@ namespace Site13Kernel.Core.CustomizedInput
                             Axis[item.Name] = v;
                         }
                     }
-                    
+
                 }
             }
         }
