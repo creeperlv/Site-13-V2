@@ -5,10 +5,17 @@ using UnityEngine;
 
 namespace Site13Kernel.Core
 {
-    public class DebugBehaviorController : BehaviorController
+    public class ControlledController : BaseController,IControllable
     {
-#if DEBUG
-        void Start()
+        public bool CrossScene=false;
+
+        public BaseController Parent
+        {
+            get => throw new System.NotImplementedException();
+            set => throw new System.NotImplementedException();
+        }
+
+        public void Init()
         {
             if (CrossScene)
             {
@@ -23,7 +30,7 @@ namespace Site13Kernel.Core
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
             }
             foreach (var item in _OnInit)
@@ -35,45 +42,47 @@ namespace Site13Kernel.Core
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
             }
         }
-        void Update()
+
+        public void Refresh(float DeltaTime)
         {
-            float DeltaTime=Time.deltaTime;
             foreach (var item in _OnRefresh)
             {
+#if DEBUG
                 try
                 {
+#endif
                     item.Refresh(DeltaTime);
+#if DEBUG
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
+#endif
             }
         }
-        private void FixedUpdate()
-        {
 
-            float DeltaTime=Time.fixedDeltaTime;
+        public void FixedRefresh(float DeltaTime)
+        {
             foreach (var item in _OnFixedRefresh)
             {
+#if DEBUG
                 try
                 {
+#endif
                     item.FixedRefresh(DeltaTime);
+#if DEBUG
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
+#endif
             }
         }
-#else
-    void Start(){
-        GameObject.Destroy(this.gameObject);
-    }
-#endif
     }
 }

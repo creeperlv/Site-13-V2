@@ -6,7 +6,7 @@ This repo is a remake of old Site-13 for the old one is too heavy to modify.
 
 ## ⚠Some assets are from internet
 
-Some assets are collected from some Third-party website, there must be some copyright problems, if it offend you, please contact me to delete it.
+Some assets are collected from some Third-party website, there must be some copyright problems, if it offends you, please contact me to delete it.
 
 ## About This Branch
 

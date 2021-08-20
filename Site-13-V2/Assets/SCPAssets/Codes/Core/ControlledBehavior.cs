@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Site13Kernel.Core
 {
-    public class ControlledBehavior : MonoBehaviour
+    public class ControlledBehavior : MonoBehaviour, IControllable
     {
-        [HideInInspector]
-        public BehaviorController Parent;
+
+        public virtual BaseController Parent {
+            get;set;
+        }
         public virtual void Init()
         {
 
@@ -21,20 +22,30 @@ namespace Site13Kernel.Core
 
         }
     }
+    public interface IControllable
+    {
+        BaseController Parent {
+            get;
+            set;
+        }
+        void Init();
+        void Refresh(float DeltaTime);
+        void FixedRefresh(float DeltaTime);
+    }
     public class SyncInitializer : MonoBehaviour
     {
         public bool isDone=false;
         public virtual void Init()
         {
-        
+
         }
         public virtual void Execute()
         {
-        
+
         }
         public virtual void FixedExecute()
         {
-        
+
         }
     }
 }

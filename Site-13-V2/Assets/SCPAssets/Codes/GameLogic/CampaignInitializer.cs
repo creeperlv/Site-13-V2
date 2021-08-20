@@ -10,8 +10,8 @@ namespace Site13Kernel.GameLogic
         public List<SyncInitializer> syncInitizers= new List<SyncInitializer>();
         public override void Init()
         {
-            Parent.OnRefresh.Add(this);
-            Parent.OnFixedRefresh.Add(this);
+            Parent._OnRefresh.Add(this);
+            Parent._OnFixedRefresh.Add(this);
             foreach (var item in syncInitizers)
             {
                 item.Init();

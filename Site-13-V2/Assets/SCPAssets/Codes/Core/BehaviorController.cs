@@ -5,11 +5,8 @@ using UnityEngine;
 
 namespace Site13Kernel.Core
 {
-    public class BehaviorController : MonoBehaviour
+    public class BehaviorController : BaseController
     {
-        public List<ControlledBehavior> OnInit=new List<ControlledBehavior>();
-        public List<ControlledBehavior> OnRefresh=new List<ControlledBehavior>();
-        public List<ControlledBehavior> OnFixedRefresh=new List<ControlledBehavior>();
         public bool CrossScene=false;
         void Start()
         {
@@ -17,7 +14,8 @@ namespace Site13Kernel.Core
             {
                 DontDestroyOnLoad(this.gameObject);
             }
-            foreach (var item in OnInit)
+            SerializeAll();
+            foreach (var item in _OnInit)
             {
                 try
                 {
@@ -28,7 +26,7 @@ namespace Site13Kernel.Core
                     Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
             }
-            foreach (var item in OnInit)
+            foreach (var item in _OnInit)
             {
                 try
                 {
@@ -41,47 +39,10 @@ namespace Site13Kernel.Core
                 }
             }
         }
-        public void UnregisterRefresh<T>(T obj) where T : ControlledBehavior
-        {
-            OnRefresh.Remove(obj);
-        }
-        public void UnregisterFixedRefresh<T>(T obj) where T : ControlledBehavior
-        {
-            OnFixedRefresh.Remove(obj);
-        }
-        public T GetBehavior<T>() where T : ControlledBehavior
-        {
-            foreach (var item in OnInit)
-            {
-                if (item is T t)
-                {
-                    return t;
-                }
-            }
-            foreach (var item in OnRefresh)
-            {
-                if (item is T t)
-                {
-                    return t;
-                }
-            }
-            foreach (var item in OnFixedRefresh)
-            {
-                if (item is T t)
-                {
-                    return t;
-                }
-            }
-            return null;
-        }
-        public void InitBehavior(ControlledBehavior behavior)
-        {
-            behavior.Parent = this;
-        }
         void Update()
         {
             float DeltaTime=Time.deltaTime;
-            foreach (var item in OnRefresh)
+            foreach (var item in _OnRefresh)
             {
 #if DEBUG
                 try
@@ -92,6 +53,7 @@ namespace Site13Kernel.Core
                 }
                 catch (System.Exception e)
                 {
+                    Debug.LogError(e);
                     Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
 #endif
@@ -101,7 +63,7 @@ namespace Site13Kernel.Core
         {
 
             float DeltaTime=Time.fixedDeltaTime;
-            foreach (var item in OnFixedRefresh)
+            foreach (var item in _OnFixedRefresh)
             {
 #if DEBUG
                 try

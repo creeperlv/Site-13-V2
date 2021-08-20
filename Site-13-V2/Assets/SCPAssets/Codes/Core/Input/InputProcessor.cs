@@ -21,7 +21,7 @@ namespace Site13Kernel.Core.CustomizedInput
         public override void Init()
         {
             CurrentInput = this;
-            Parent.OnRefresh.Add(this);
+            Parent.RegisterRefresh(this);
             foreach (var item in InputDefinitions)
             {
                 if (!Names.Contains(item.Name))
@@ -70,6 +70,7 @@ namespace Site13Kernel.Core.CustomizedInput
         }
         public override void Refresh(float DeltaTime)
         {
+            //Debug.Log("Running");
             {
 
                 for (int i = 0; i < Names.Count; i++)
