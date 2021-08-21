@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Site13Kernel.Diagnostics.Functinos
+namespace Site13Kernel.Diagnostics.Functions
 {
     public class SceneJumper : IDiagnosticsFunction
     {
@@ -46,10 +46,10 @@ namespace Site13Kernel.Diagnostics.Functinos
             Debugger.CurrentDebugger.Log("SceneJumper <SceneName:string> [IsAdditive:bool]");
         }
     }
-    public interface IDiagnosticsFunction
-    {
-        string GetCommandName();
-        void Help();
-        void Execute(List<Argument> arguments);
-    }
+    //public interface IDiagnosticsFunction
+    //{
+    //    string GetCommandName();
+    //    void Help();
+    //    void Execute(List<Argument> arguments);
+    //}
 }

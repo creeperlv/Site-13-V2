@@ -17,8 +17,22 @@ namespace Site13Kernel.UI
         public Transform CampaignHolder;
         public GameObject CampaignButton;
         public List<ButtonedPage> pages=new List<ButtonedPage>();
+        int SelectedPage=0;
+        public float AnimationSpeed=4;
+        public ButtonGroup SettingsPageTabs;
+        public List<GameObject> SettingsPages;
         public override void Init()
         {
+            {
+                SettingsPageTabs.Init();
+                SettingsPageTabs.OnSelected = (i) => {
+                    foreach (var item in SettingsPages)
+                    {
+                        item.SetActive(false);
+                    }
+                    SettingsPages[i].SetActive(true);
+                };
+            }
             {
                 for (int i = CampaignHolder.childCount - 1; i >= 0; i--)
                 {
@@ -38,45 +52,94 @@ namespace Site13Kernel.UI
             if (GameRuntime.CurrentGlobals.MainUIBGM != null)
                 if (!GameRuntime.CurrentGlobals.MainUIBGM.isPlaying)
                     GameRuntime.CurrentGlobals.MainUIBGM.Play();
-            foreach (var item in pages)
             {
-                foreach (var btn in item.Buttons)
+                var i=0;
+                foreach (var item in pages)
                 {
-                    btn.onClick.AddListener(() =>
+                    var ii=i;
+                    foreach (var btn in item.Buttons)
                     {
-                        HideAllPages();
-                        item.Show();
-                    });
+                        btn.onClick.AddListener(() =>
+                        {
+                            SelectedPage = ii;
+                        });
+                    }
+                    i++;
                 }
             }
-            SettingsButton.onClick.AddListener(() => {
-                this.GetComponent<CanvasGroup>().interactable=false;
-                SceneManager.LoadScene("SettingsUI", LoadSceneMode.Additive);
-                //SettingsPage.OnBack = () => {
-                //    this. GetComponent<CanvasGroup>().interactable = true;
-                //};
-            });
+            Parent.RegisterRefresh(this);
+
+            //SettingsButton.onClick.AddListener(() => {
+            //    this.GetComponent<CanvasGroup>().interactable=false;
+            //    SceneManager.LoadScene("SettingsUI", LoadSceneMode.Additive);
+            //    //SettingsPage.OnBack = () => {
+            //    //    this. GetComponent<CanvasGroup>().interactable = true;
+            //    //};
+            //});
         }
-        void HideAllPages()
+        public override void Refresh(float DeltaTime)
         {
-            foreach (var item in pages)
             {
-                item.Hide();
+                //Update Page Status.
+                var  _DeltaTime =DeltaTime* AnimationSpeed;
+                for (int i = 0; i < pages.Count; i++)
+                {
+                    if (SelectedPage == i)
+                    {
+                        pages[i].Show(_DeltaTime);
+                    }
+                    else
+                    {
+                        pages[i].Hide(_DeltaTime);
+
+                    }
+                }
             }
         }
+        //void HideAllPages()
+        //{
+        //    foreach (var item in pages)
+        //    {
+        //        item.Hide();
+        //    }
+        //}
     }
     [Serializable]
     public class ButtonedPage
     {
-        public List<Button> Buttons;
-        public GameObject Page;
-        public void Hide()
+        public List<UIButton> Buttons;
+        public CanvasGroup Page;
+        public void Hide(float DeltaTime)
         {
-            Page.SetActive(false);
+            if (Page.alpha > 0)
+            {
+                Page.alpha -= DeltaTime;
+                //var d=1+1-Page.alpha;
+                //Page.transform.localScale = new Vector3(d, d, d);
+
+                var d=1-Page.alpha;
+                d *= -400;
+                Page.transform.localPosition = new Vector3(Page.transform.localPosition.x, Page.transform.localPosition.y, d);
+            }
+            else
+            {
+                if (Page.gameObject.activeSelf)
+                    Page.gameObject.SetActive(false);
+            }
+
         }
-        public void Show()
+        public void Show(float DeltaTime)
         {
-            Page.SetActive(true);
+            if (!Page.gameObject.activeSelf)
+                Page.gameObject.SetActive(true);
+
+            if (Page.alpha < 1)
+            {
+                Page.alpha += DeltaTime;
+                var d=1-Page.alpha;
+                d *= -400;
+                Page.transform.localPosition = new Vector3(Page.transform.localPosition.x, Page.transform.localPosition.y, d);
+            }
         }
     }
 

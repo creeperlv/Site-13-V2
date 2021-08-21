@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Site13Kernel</RootNamespace>
+    <UnityVersion>2021.2.0b7</UnityVersion>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(OutDir)$(TargetFileName)&quot; &quot;$(SolutionDir)..\..\Site-13-V2\Assets\Plug-in\$(TargetFileName)&quot;" />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Unity3D" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Site13Kernel\Site13Kernel.csproj" />
+  </ItemGroup>
+
+</Project>

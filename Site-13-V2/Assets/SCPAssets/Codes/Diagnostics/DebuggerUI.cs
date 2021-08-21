@@ -1,6 +1,6 @@
 using CLUNL.Utilities;
 using Site13Kernel.Core;
-using Site13Kernel.Diagnostics.Functinos;
+using Site13Kernel.Diagnostics.Functions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +14,6 @@ namespace Site13Kernel.Diagnostics
     {
         public Text Output;
         public InputField _Input;
-        Dictionary<string, IDiagnosticsFunction> _func=new Dictionary<string, IDiagnosticsFunction>();
         public override void Init()
         {
             Parent.RegisterRefresh(this);
@@ -67,33 +66,19 @@ namespace Site13Kernel.Diagnostics
 #endif
             if (_Input != null)
             {
+                FunctionCollection.GatherFunctions();
 
-                {
-                    //Init functions.
-                    var DLLS=AppDomain.CurrentDomain.GetAssemblies();
-                    foreach (var DLL in DLLS)
-                    {
-                        foreach (var t in DLL.GetTypes())
-                        {
-                            if (t.GetInterface("IDiagnosticsFunction") != null)
-                            {
-                                var func=(IDiagnosticsFunction) Activator.CreateInstance(t);
-                                _func.Add(func.GetCommandName().ToUpper(), func);
-                            }
-                        }
-                    }
-                }
                 _Input.onSubmit.AddListener((string cmd) =>
                 {
                     if (cmd != "")
                     {
                         var result=CommandLineTool.Analyze(cmd);
                         var a=result.RealParameter;
-                        Debugger.CurrentDebugger.Log($">{a[0].EntireArgument}", LogLevel.Normal);
-                        var CMD=a[0].EntireArgument.ToUpper();
-                        if (_func.ContainsKey(CMD))
+                        Debugger.CurrentDebugger.Log($">{cmd}", LogLevel.Normal);
+                        var CMD=a[0].EntireArgument;
+                        if (FunctionCollection._func.ContainsKey(CMD))
                         {
-                            var func=_func[CMD];
+                            var func=FunctionCollection._func[CMD];
                             a.RemoveAt(0);
                             func.Execute(a);
                         }
@@ -101,7 +86,7 @@ namespace Site13Kernel.Diagnostics
                         {
                             Debugger.CurrentDebugger.Log($"\"{a[0].EntireArgument}\" not found!", LogLevel.Warning);
                             Debugger.CurrentDebugger.Log($"Available functinos:", LogLevel.Normal);
-                            foreach (var item in _func.Keys)
+                            foreach (var item in FunctionCollection._func.Keys)
                             {
                                 Debugger.CurrentDebugger.Log($"{item}", LogLevel.Normal);
 
@@ -127,7 +112,7 @@ namespace Site13Kernel.Diagnostics
                 else
                 {
                     this.gameObject.SetActive(true);
-                
+
                 }
             }
         }
