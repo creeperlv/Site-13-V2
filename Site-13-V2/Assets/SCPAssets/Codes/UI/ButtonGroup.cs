@@ -22,8 +22,8 @@ namespace Site13Kernel.UI
                     //item.IsOn = true;
                     if (b == true)
                     {
-                        UnselectAll(item);
                         Selected = i;
+                        UnselectOthers(item);
                         if (OnSelected != null)
                         {
                             OnSelected(i);
@@ -40,7 +40,7 @@ namespace Site13Kernel.UI
                 index++;
             }
         }
-        public void UnselectAll(ToggleButton Exception)
+        public void UnselectOthers(ToggleButton Exception)
         {
             foreach (var item in Buttons)
             {

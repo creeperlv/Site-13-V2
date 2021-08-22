@@ -1,4 +1,6 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Site13Kernel.Core
@@ -6,8 +8,9 @@ namespace Site13Kernel.Core
     public class ControlledBehavior : MonoBehaviour, IControllable
     {
 
-        public virtual BaseController Parent {
-            get;set;
+        public virtual BaseController Parent
+        {
+            get; set;
         }
         public virtual void Init()
         {
@@ -24,7 +27,8 @@ namespace Site13Kernel.Core
     }
     public interface IControllable
     {
-        BaseController Parent {
+        BaseController Parent
+        {
             get;
             set;
         }

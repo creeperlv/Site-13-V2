@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Site13Kernel.Core
 {
-    public class FPSController : ControlledBehavior,ICheckpointData
+    public class FPSController : ControlledBehavior, ICheckpointData
     {
         public float MoveSpeed=1f;
         public float RunningSpeed=1f;
@@ -24,7 +24,7 @@ namespace Site13Kernel.Core
             Cursor.visible = false;
             Parent.RegisterRefresh(this);
             Pi2 = math.PI * 2;
-            WalkDistance=math.PI/ 2;
+            WalkDistance = math.PI / 2;
         }
         bool isRunning=false;
         public float JumpP00=1f;
@@ -40,8 +40,14 @@ namespace Site13Kernel.Core
         public float FPSCamSwingIntensity=0.1f;
         public float FPSCamSwingSpeed=1;
         float Pi2;
+        public int FrameDelay=1;
         public override void Refresh(float DeltaTime)
         {
+            if (FrameDelay > 0)
+            {
+                FrameDelay--;
+                return;
+            }
             if (InputProcessor.CurrentInput.GetInputDown("Run"))
             {
                 isRunning = true;
@@ -54,7 +60,7 @@ namespace Site13Kernel.Core
                 //Move
                 if (cc.isGrounded == true)
                 {
-                    if (InputProcessor.CurrentInput.GetInput("Jump"))
+                    if (InputProcessor.CurrentInput.GetInputDown("Jump"))
                     {
                         if (isRunning)
                         {
@@ -76,37 +82,81 @@ namespace Site13Kernel.Core
                     var V=new Vector3(MH,0,MV);
                     if (MV == 0 && MH == 0)
                     {
-                        _MOVE -= _MOVE*MoveFriction * DeltaTime;
+                        _MOVE -= _MOVE * MoveFriction * DeltaTime;
                     }
                     else
                     {
 
-                        var _V=V.normalized*(Mathf.Sqrt(MV*MV+MH*MH));
+                        //var _V=V.normalized*(Mathf.Sqrt(MV*MV+MH*MH)/Sqrt2);
+                        //if (isRunning)
+                        //{
+                        //    _V *= RunningSpeed;
+                        //}
+                        //else
+                        //{
+                        //    _V *= MoveSpeed;
+                        //}
+                        //_MOVE = cc.transform.right * _V.x + cc.transform.forward * _V.z;
+                        _MOVE = cc.transform.right * (MH*math.sqrt(1-(MV*MV)*.5f)) + cc.transform.forward * (MV * math.sqrt(1 - (MH * MH)*.5f));
                         if (isRunning)
                         {
-                            _V *= RunningSpeed;
+                            _MOVE *= RunningSpeed;
                         }
                         else
                         {
-                            _V *= MoveSpeed;
+                            _MOVE *= MoveSpeed;
                         }
-                        _MOVE = cc.transform.right * _V.x + cc.transform.forward * _V.z;
-                        WalkDistance += _MOVE.magnitude * DeltaTime* FPSCamSwingSpeed;
-                        if (WalkDistance > Pi2)
-                        {
-                            WalkDistance = 0;
-                        }
-                        var LP=FPSCam.localPosition;
-                        LP.x = math.cos(WalkDistance) * FPSCamSwingIntensity;
-                        FPSCam.localPosition=LP;
+                        //if (cc.velocity.magnitude != 0)
+                        //{
+                        //}
+                        //WalkDistance += _V.magnitude * DeltaTime * FPSCamSwingSpeed;
                     }
 
                 }
-                cc.SimpleMove(_MOVE);
-                
+                else
+                {
+                    //if (DELTA.x == 0)
+                    //{
+                    //    _MOVE.x = 0;
 
-                _JUMP_V.y -= Gravity * DeltaTime;
+                    //}
+                    //if (DELTA.z == 0)
+                    //{
+                    //    _MOVE.z = 0;
+                    //}
+                }
+
+                if (!cc.isGrounded)
+                    cc.Move(_MOVE * DeltaTime);
+                else
+                    cc.SimpleMove(_MOVE);
+                if (cc.velocity.x == 0)
+                {
+                    _MOVE.x = 0;
+                }
+                if (cc.velocity.y == 0)
+                {
+                    _MOVE.y = 0;
+                }
+                //Debug.Log(cc.velocity.magnitude);
+                if (cc.isGrounded)
+                {
+
+                    WalkDistance += cc.velocity.magnitude*DeltaTime * FPSCamSwingSpeed;
+                    //Debug.Log("");
+                    //WalkDistance += DELTA.magnitude * FPSCamSwingSpeed;
+                    if (WalkDistance > Pi2)
+                    {
+                        WalkDistance = 0;
+                    }
+                    var LP=FPSCam.localPosition;
+                    LP.x = math.cos(WalkDistance) * FPSCamSwingIntensity;
+                    FPSCam.localPosition = LP;
+                }
+                if (!cc.isGrounded)
+                    _JUMP_V.y -= Gravity * DeltaTime;
                 cc.Move(_JUMP_V * DeltaTime);
+
             }
             {
                 //View rotation
@@ -137,7 +187,7 @@ namespace Site13Kernel.Core
 
         public List<object> Save()
         {
-            return new List<object> {transform.position,transform.rotation,Weapon0.Weapon,Weapon1.Weapon };
+            return new List<object> { transform.position, transform.rotation, Weapon0.Weapon, Weapon1.Weapon };
         }
 
         public void Load(List<object> data)
