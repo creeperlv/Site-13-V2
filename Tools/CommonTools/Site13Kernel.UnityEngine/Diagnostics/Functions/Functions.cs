@@ -22,6 +22,7 @@ namespace Site13Kernel.Diagnostics.Functions
     public class FunctionCollection
     {
         public static Dictionary<string, IDiagnosticsFunction> _func=new Dictionary<string, IDiagnosticsFunction>();
+        public static Dictionary<string,List<string>> Aliases=new Dictionary<string, List<string>>();
         public static void GatherFunctions()
         {
             {
@@ -34,19 +35,19 @@ namespace Site13Kernel.Diagnostics.Functions
                         if (t.GetInterface("IDiagnosticsFunction") != null)
                         {
                             var func=(IDiagnosticsFunction) Activator.CreateInstance(t);
+                            var _NAME=func.GetCommandName();
                             {
-                                var name=func.GetCommandName();
-                                if (!_func.ContainsKey(name))
-                                    _func.Add(name, func);
+                                if (!_func.ContainsKey(_NAME))
+                                    _func.Add(_NAME, func);
                                 else
-                                    _func[name] = func;
+                                    _func[_NAME] = func;
                             }
-                            foreach (var name in func.GetAlias())
+                            var ALIAS=func.GetAlias();
                             {
-                                if (!_func.ContainsKey(name))
-                                    _func.Add(name, func);
+                                if (!Aliases.ContainsKey(_NAME))
+                                    Aliases.Add(_NAME, ALIAS);
                                 else
-                                    _func[name] = func;
+                                    Aliases[_NAME].AddRange(ALIAS);
                             }
                         }
                     }
@@ -87,7 +88,7 @@ namespace Site13Kernel.Diagnostics.Functions
         }
         public List<string> GetAlias()
         {
-            return new List<string> { "echo","Console.WriteLine" };
+            return new List<string> { "echo", "Console.WriteLine" };
         }
     }
 }

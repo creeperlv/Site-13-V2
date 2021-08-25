@@ -12,10 +12,15 @@ namespace Site13Kernel.Core
         public string AppData;
         public AudioSource MainUIBGM;
         public GameDefinition CurrentGameDef;
+
+        public bool isDebugFunctionEnabled=false;
         public void Init()
         {
             AppData = Application.persistentDataPath;
             CurrentGameDef = new GameDefinition();
+#if DEBUG
+            isDebugFunctionEnabled = true;
+#endif
         }
     }
 }

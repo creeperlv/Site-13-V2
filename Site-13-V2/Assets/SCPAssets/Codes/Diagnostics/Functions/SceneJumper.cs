@@ -32,7 +32,17 @@ namespace Site13Kernel.Diagnostics.Functions
                 {
                     isAdditive = bool.Parse(arguments[1]);
                 }
-                SceneManager.LoadScene(arguments[0].EntireArgument, isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
+                if (int.TryParse(arguments[0].EntireArgument, out var i))
+                {
+                    SceneManager.LoadScene(i, isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
+
+                }
+                else
+                {
+                    SceneManager.LoadScene(arguments[0].EntireArgument, isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
+
+                }
+
             }
         }
 
@@ -43,7 +53,7 @@ namespace Site13Kernel.Diagnostics.Functions
 
         public void Help()
         {
-            Debugger.CurrentDebugger.Log("SceneJumper <SceneName:string> [IsAdditive:bool]");
+            Debugger.CurrentDebugger.Log("SceneJumper <SceneName:string>|<SceneID:int> [IsAdditive:bool]");
         }
     }
     //public interface IDiagnosticsFunction
