@@ -11,12 +11,13 @@ namespace Site13Kernel.UEFI
         public BaseMap Mapping;
         public override void Init()
         {
-            base.Init();
+            ApplicationData.Init(Mapping);
         }
         public override async Task Run()
         {
-            await Task.Run(()=> { 
-            
+            await Task.Run(() =>
+            {
+
             });
         }
     }

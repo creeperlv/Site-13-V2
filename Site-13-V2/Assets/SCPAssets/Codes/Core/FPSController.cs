@@ -4,6 +4,7 @@ using Site13Kernel.GameLogic;
 using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -57,6 +58,11 @@ namespace Site13Kernel.Core
         [HideInInspector]
         public float WRTween=0;
         float FPSCamSwingIntensitySwitchDelta;
+        [Header("Zoom")]
+        public float NormalFOV=9.8f;
+        public float ZoomFOV;
+        public float ZoomSpeed;
+        public CanvasGroup ZoomHUD;
         public void SwapWeapon()
         {
             UseWeapon(UsingWeapon == 0 ? 1 : 0);
@@ -93,7 +99,7 @@ namespace Site13Kernel.Core
                 return;
             }
             Weapon = UsingWeapon == 0 ? Weapon0 : Weapon1;
-            if (InputProcessor.CurrentInput.GetInputDown("Run"))
+            if (InputProcessor.CurrentInput.GetInputDown("Run") && toZoom == false)
             {
                 isRunning = true;
             }
@@ -134,6 +140,150 @@ namespace Site13Kernel.Core
                 }
 
             }
+            Zoom(DeltaTime);
+            Move(DeltaTime);
+            Rotation(DeltaTime);
+            {
+                //Weapons
+                Weapon.Refresh(DeltaTime);
+            }
+        }
+        bool toZoom=false;
+        bool InternalZoom=false;
+        bool WeaponZooom=false;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ShowWeapon()
+        {
+            Weapon.ControlledAnimator.gameObject.SetActive(true);
+
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void HideWeapon()
+        {
+            Weapon.ControlledAnimator.gameObject.SetActive(false);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Zoom(float DeltaTime)
+        {
+            {
+                if (InputProcessor.CurrentInput.GetInputDown("Zoom"))
+                {
+                    isRunning = false;
+                    toZoom = true;
+                    HideWeapon();
+                }
+                if (InputProcessor.CurrentInput.GetInputUp("Zoom"))
+                {
+                    toZoom = false;
+                    ShowWeapon();
+                }
+            }
+            if (Weapon.CanZoom)
+            {
+                //ZoomHUD
+                InternalZoom = false;
+                WeaponZooom = toZoom;
+            }
+            else
+            {
+                InternalZoom = toZoom;
+            }
+            if (Weapon != null)
+            {
+                if (Weapon.CanZoom)
+                {
+                    if (WeaponZooom)
+                    {
+                        if (Weapon.ZoomHUD.alpha < 1)
+                            Weapon.ZoomHUD.alpha += DeltaTime * ZoomSpeed;
+                        if (Camera.main.fieldOfView > Weapon.ZoomFov)
+                            Camera.main.fieldOfView -= math.abs(NormalFOV - Weapon.ZoomFov) * DeltaTime * ZoomSpeed;
+                    }
+                    else
+                    {
+                        if (Weapon.ZoomHUD.alpha > 0)
+                            Weapon.ZoomHUD.alpha -= DeltaTime * ZoomSpeed;
+                        if (Camera.main.fieldOfView < NormalFOV)
+                            Camera.main.fieldOfView += math.abs(NormalFOV - Weapon.ZoomFov) * DeltaTime * ZoomSpeed;
+                    }
+                }
+            }
+            else
+            {
+                {
+                    if (InternalZoom)
+                    {
+                        if (Weapon != null)
+                        {
+                            if (Weapon.HUDCanvas != null)
+                            {
+                                if (Weapon.HUDCanvas.activeSelf)
+                                {
+                                    Weapon.HUDCanvas.SetActive(false);
+                                }
+                            }
+                        }
+                        if (Camera.main.fieldOfView > ZoomFOV)
+                            Camera.main.fieldOfView -= math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
+                    }
+                    else
+                    {
+                        if (Weapon != null)
+                        {
+                            if (Weapon.HUDCanvas != null)
+                            {
+                                if (!Weapon.HUDCanvas.activeSelf)
+                                {
+                                    Weapon.HUDCanvas.SetActive(true);
+                                }
+                            }
+                        }
+                        if (Camera.main.fieldOfView < NormalFOV)
+                            Camera.main.fieldOfView += math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
+                    }
+                }
+
+            }
+            {
+                if (InternalZoom)
+                {
+                    if (ZoomHUD.alpha < 1)
+                        ZoomHUD.alpha += DeltaTime * ZoomSpeed;
+                }
+                else
+                {
+                    if (ZoomHUD.alpha > 0)
+                        ZoomHUD.alpha -= DeltaTime * ZoomSpeed;
+                }
+            }
+
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Rotation(float DeltaTime)
+        {
+            {
+                //View rotation
+                cc.transform.Rotate(0, InputProcessor.CurrentInput.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime, 0);
+                var Head_V=InputProcessor.CurrentInput.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime;
+                var ea=Head.localEulerAngles;
+                ea.x += Head_V;
+                if (ea.x < 180)
+                {
+                    ea.x = Mathf.Clamp(ea.x, MinV, MaxV);
+                }
+                else
+                {
+                    ea.x = Mathf.Clamp(ea.x, 360 + MinV, 360);
+
+                }
+                Head.localEulerAngles = ea;
+            }
+
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Move(float DeltaTime)
+        {
+
             {
                 //Move
                 if (cc.isGrounded == true)
@@ -265,27 +415,6 @@ namespace Site13Kernel.Core
                 cc.Move(_JUMP_V * DeltaTime);
 
             }
-            {
-                //View rotation
-                cc.transform.Rotate(0, InputProcessor.CurrentInput.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime, 0);
-                var Head_V=InputProcessor.CurrentInput.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime;
-                var ea=Head.localEulerAngles;
-                ea.x += Head_V;
-                if (ea.x < 180)
-                {
-                    ea.x = Mathf.Clamp(ea.x, MinV, MaxV);
-                }
-                else
-                {
-                    ea.x = Mathf.Clamp(ea.x, 360 + MinV, 360);
-
-                }
-                Head.localEulerAngles = ea;
-            }
-            {
-                //Weapons
-                Weapon.Refresh(DeltaTime);
-            }
         }
         public override void FixedRefresh(float DeltaTime)
         {
@@ -293,7 +422,7 @@ namespace Site13Kernel.Core
 
         public string GetName()
         {
-            throw new System.NotImplementedException();
+            return "Player-0";
         }
 
         public List<object> Save()

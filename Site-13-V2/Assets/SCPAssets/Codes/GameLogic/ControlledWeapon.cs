@@ -3,6 +3,7 @@ using Site13Kernel.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Site13Kernel.GameLogic
@@ -10,12 +11,15 @@ namespace Site13Kernel.GameLogic
     public class ControlledWeapon : ControlledBehavior
     {
         public Weapon Weapon;
+        [Header("Zoom")]
+        public bool CanZoom=false;
+        public CanvasGroup ZoomHUD=null;
+        public float ZoomFov=50;
+        [Header("Movement")]
         public Vector3 NormalPosition;
         public Vector3 RunningPosition;
         public Vector3 NormalRotationEuler;
         public Vector3 RunningRotationEuler;
-        public Quaternion NormalRotation;
-        public Quaternion RunningRotation;
         public Animator ControlledAnimator;
         public string TakeOut="TakeOut";
         public string Combat="Combat";
@@ -27,6 +31,7 @@ namespace Site13Kernel.GameLogic
         bool PseudoFire1=false;
         public List<ControlledCrosshair> Crosshairs;
         public float Recoil=0;
+        public GameObject HUDCanvas;
         public void Fire()
         {
             PseudoFire0 = true;
@@ -48,6 +53,8 @@ namespace Site13Kernel.GameLogic
             //a = true;
             this.Recoil = Recoil;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime)
         {
             //if (a)
