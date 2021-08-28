@@ -154,13 +154,13 @@ namespace Site13Kernel.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ShowWeapon()
         {
-            Weapon.ControlledAnimator.gameObject.SetActive(true);
+            Weapon.ShowCoreWeaponAnimator();
 
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void HideWeapon()
         {
-            Weapon.ControlledAnimator.gameObject.SetActive(false);
+            Weapon.HideCoreWeaponAnimator();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Zoom(float DeltaTime)

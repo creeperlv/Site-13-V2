@@ -24,6 +24,7 @@ namespace Site13Kernel.GameLogic
         public string TakeOut="TakeOut";
         public string Combat="Combat";
         public string Reload="Reload";
+        public string Idle="Idle";
         public float MaxRecoil=2;
         public float RecoilRecoverSpeed=5;
         public GameObject Projectile;
@@ -40,14 +41,33 @@ namespace Site13Kernel.GameLogic
         {
             PseudoFire0 = false;
         }
+        bool isInited = false;
         public override void Init()
         {
             foreach (var item in Crosshairs)
             {
                 item.Init();
             }
+            ControlledAnimator.SetTrigger(TakeOut);
+            isInited = true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ShowCoreWeaponAnimator()
+        {
+            ControlledAnimator.gameObject.SetActive(true);
+            if (isInited)
+            {
+                ControlledAnimator.SetTrigger(Idle);
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void HideCoreWeaponAnimator()
+        {
+            ControlledAnimator.gameObject.SetActive(false);
         }
         //bool a=true;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetRecoil(float Recoil)
         {
             //a = true;
