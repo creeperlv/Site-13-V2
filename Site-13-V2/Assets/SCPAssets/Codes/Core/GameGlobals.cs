@@ -12,7 +12,7 @@ namespace Site13Kernel.Core
         public string AppData;
         public AudioSource MainUIBGM;
         public GameDefinition CurrentGameDef;
-
+        public SubtitleController SubtitleController;
         public bool isDebugFunctionEnabled=false;
         public void Init()
         {

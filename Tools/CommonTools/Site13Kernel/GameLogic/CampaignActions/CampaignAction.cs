@@ -71,11 +71,21 @@ namespace Site13Kernel.GameLogic.CampaignActions
     public class ShowPlayer : CampaignAction
     {
     }
+    [Catalog("Story")]
+    [Description("Shows a subtitle (Main subtitle only).")]
+    [Serializable]
+
+    public class ShowSubtitle : CampaignAction
+    {
+        public string ID;
+        public string Fallback;
+        public float Duration;
+    }
     [Catalog("Game Logic")]
     [Description("The end mark of a campaign mission.")]
     [Serializable]
     public class EndCampaign : CampaignAction
     {
-    
+
     }
 }
