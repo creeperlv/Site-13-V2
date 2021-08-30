@@ -42,13 +42,14 @@ namespace Site13Kernel.Core
         void Update()
         {
             float DeltaTime=Time.deltaTime;
+            float UDeltaTime=Time.unscaledDeltaTime;
             foreach (var item in _OnRefresh)
             {
 #if DEBUG
                 try
                 {
 #endif
-                    item.Refresh(DeltaTime);
+                    item.Refresh(DeltaTime,UDeltaTime);
 #if DEBUG
                 }
                 catch (System.Exception e)
@@ -63,13 +64,14 @@ namespace Site13Kernel.Core
         {
 
             float DeltaTime=Time.fixedDeltaTime;
+            float UDeltaTime=Time.fixedUnscaledDeltaTime;
             foreach (var item in _OnFixedRefresh)
             {
 #if DEBUG
                 try
                 {
 #endif
-                    item.FixedRefresh(DeltaTime);
+                    item.FixedRefresh(DeltaTime,UDeltaTime);
 #if DEBUG
                 }
                 catch (System.Exception e)

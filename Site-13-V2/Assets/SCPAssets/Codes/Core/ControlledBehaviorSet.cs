@@ -47,18 +47,18 @@ namespace Site13Kernel.Core
                 item.Init();
             }
         }
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             foreach (var item in SubBehaviors)
             {
-                item.Refresh(DeltaTime);
+                item.Refresh(DeltaTime,UnscaledDeltaTime);
             }
         }
-        public override void FixedRefresh(float DeltaTime)
+        public override void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
             foreach (var item in SubBehaviors)
             {
-                item.FixedRefresh(DeltaTime);
+                item.FixedRefresh(DeltaTime,UnscaledDeltaTime);
             }
         }
     }

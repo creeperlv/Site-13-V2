@@ -30,16 +30,17 @@ namespace Site13Kernel.Core
         }
         [HideInInspector]
         public List<Subtitle> ShowedSubtitles;
-        private void FixedUpdate()
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             foreach (var item in ShowedSubtitles)
             {
-
+                item.CurrentTimeD += DeltaTime;
             }
         }
         public override void Init()
         {
             GameRuntime.CurrentGlobals.SubtitleController = this;
+            Parent.RegisterRefresh(this);
         }
     }
     public class Subtitle

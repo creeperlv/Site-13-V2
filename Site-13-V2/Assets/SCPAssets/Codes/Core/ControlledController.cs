@@ -47,7 +47,7 @@ namespace Site13Kernel.Core
             }
         }
 
-        public void Refresh(float DeltaTime)
+        public void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             foreach (var item in _OnRefresh)
             {
@@ -55,7 +55,7 @@ namespace Site13Kernel.Core
                 try
                 {
 #endif
-                    item.Refresh(DeltaTime);
+                    item.Refresh(DeltaTime,UnscaledDeltaTime);
 #if DEBUG
                 }
                 catch (System.Exception e)
@@ -66,7 +66,7 @@ namespace Site13Kernel.Core
             }
         }
 
-        public void FixedRefresh(float DeltaTime)
+        public void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
             foreach (var item in _OnFixedRefresh)
             {
@@ -74,7 +74,7 @@ namespace Site13Kernel.Core
                 try
                 {
 #endif
-                    item.FixedRefresh(DeltaTime);
+                    item.FixedRefresh(DeltaTime,UnscaledDeltaTime);
 #if DEBUG
                 }
                 catch (System.Exception e)

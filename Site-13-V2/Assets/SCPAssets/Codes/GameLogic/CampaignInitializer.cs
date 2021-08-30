@@ -17,7 +17,7 @@ namespace Site13Kernel.GameLogic
                 item.Init();
             }
         }
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             foreach (var item in syncInitizers)
             {
@@ -25,7 +25,7 @@ namespace Site13Kernel.GameLogic
             }
             CollectIsDone();
         }
-        public override void FixedRefresh(float DeltaTime)
+        public override void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
             foreach (var item in syncInitizers)
             {

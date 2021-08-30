@@ -77,7 +77,7 @@ namespace Site13Kernel.UI
             //    //};
             //});
         }
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             {
                 //Update Page Status.

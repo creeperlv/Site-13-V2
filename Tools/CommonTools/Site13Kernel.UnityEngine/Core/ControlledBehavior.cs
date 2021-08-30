@@ -16,11 +16,11 @@ namespace Site13Kernel.Core
         {
 
         }
-        public virtual void Refresh(float DeltaTime)
+        public virtual void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
 
         }
-        public virtual void FixedRefresh(float DeltaTime)
+        public virtual void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
 
         }
@@ -33,8 +33,8 @@ namespace Site13Kernel.Core
             set;
         }
         void Init();
-        void Refresh(float DeltaTime);
-        void FixedRefresh(float DeltaTime);
+        void Refresh(float DeltaTime,float UnscaledDeltaTime);
+        void FixedRefresh(float DeltaTime, float UnscaledDeltaTime);
     }
     public class SyncInitializer : MonoBehaviour
     {

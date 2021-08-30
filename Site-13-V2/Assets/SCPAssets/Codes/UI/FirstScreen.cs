@@ -30,7 +30,7 @@ namespace Site13Kernel.UI
         }
         int State0=0;
         bool State1=false;
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             if (State0 < 2)
                 if (Input.anyKeyDown)

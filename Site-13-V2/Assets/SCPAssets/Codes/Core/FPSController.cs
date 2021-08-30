@@ -12,12 +12,12 @@ namespace Site13Kernel.Core
 {
     public class FPSController : ControlledBehavior, ICheckpointData
     {
-        public float MoveSpeed=1f;
-        public float WalkRecoil=.2f;
-        public float RunningSpeed=1f;
-        public float RunRecoil=.5f;
-        public float RunningJumpHeight=1f;
-        public float MouseHoriztonalIntensity=1f;
+        public float MoveSpeed = 1f;
+        public float WalkRecoil = .2f;
+        public float RunningSpeed = 1f;
+        public float RunRecoil = .5f;
+        public float RunningJumpHeight = 1f;
+        public float MouseHoriztonalIntensity = 1f;
         public CharacterController cc;
         public Transform Head;
         public float MaxV;
@@ -35,10 +35,10 @@ namespace Site13Kernel.Core
             if (Weapon1 != null)
                 Weapon1.Init();
         }
-        bool isRunning=false;
-        public float JumpP00=1f;
-        public float Gravity=9.8f;
-        public float MoveFriction=9.8f;
+        bool isRunning = false;
+        public float JumpP00 = 1f;
+        public float Gravity = 9.8f;
+        public float MoveFriction = 9.8f;
         public ControlledWeapon Weapon0;
         public ControlledWeapon Weapon1;
         public Transform FPSCam;
@@ -46,20 +46,20 @@ namespace Site13Kernel.Core
         Vector3 _MOVE;
         public float Cycle;
         float WalkDistance;
-        public float FPSCamSwingIntensity=0.1f;
-        public float FPSCamSwingRunningIntensity=0.1f;
-        public float FPSCamSwingIntensitySwitchSpeed=1f;
-        public float FPSCamSwingSpeed=1;
+        public float FPSCamSwingIntensity = 0.1f;
+        public float FPSCamSwingRunningIntensity = 0.1f;
+        public float FPSCamSwingIntensitySwitchSpeed = 1f;
+        public float FPSCamSwingSpeed = 1;
         float Pi2;
-        public int FrameDelay=1;
-        public int UsingWeapon=0;
+        public int FrameDelay = 1;
+        public int UsingWeapon = 0;
         [HideInInspector]
-        public float CurrentFPSCamSwingIntensity=0f;
+        public float CurrentFPSCamSwingIntensity = 0f;
         [HideInInspector]
-        public float WRTween=0;
+        public float WRTween = 0;
         float FPSCamSwingIntensitySwitchDelta;
         [Header("Zoom")]
-        public float NormalFOV=9.8f;
+        public float NormalFOV = 9.8f;
         public float ZoomFOV;
         public float ZoomSpeed;
         public CanvasGroup ZoomHUD;
@@ -91,7 +91,7 @@ namespace Site13Kernel.Core
                 );
         }
         ControlledWeapon Weapon;
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             if (FrameDelay > 0)
             {
@@ -143,14 +143,22 @@ namespace Site13Kernel.Core
             Zoom(DeltaTime);
             Move(DeltaTime);
             Rotation(DeltaTime);
+            FireControl(DeltaTime);
             {
                 //Weapons
-                Weapon.Refresh(DeltaTime);
+                Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
         }
-        bool toZoom=false;
-        bool InternalZoom=false;
-        bool WeaponZooom=false;
+        public void FireControl(float DeltaTime)
+        {
+            if (InputProcessor.CurrentInput.GetInputDown("Fire"))
+                Weapon.Fire();
+            if (InputProcessor.CurrentInput.GetInputUp("Fire"))
+                Weapon.Unfire();
+        }
+        bool toZoom = false;
+        bool InternalZoom = false;
+        bool WeaponZooom = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ShowWeapon()
         {
@@ -264,8 +272,8 @@ namespace Site13Kernel.Core
             {
                 //View rotation
                 cc.transform.Rotate(0, InputProcessor.CurrentInput.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime, 0);
-                var Head_V=InputProcessor.CurrentInput.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime;
-                var ea=Head.localEulerAngles;
+                var Head_V = InputProcessor.CurrentInput.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime;
+                var ea = Head.localEulerAngles;
                 ea.x += Head_V;
                 if (ea.x < 180)
                 {
@@ -305,9 +313,9 @@ namespace Site13Kernel.Core
                     {
                         _JUMP_V.y = -2;
                     }
-                    var MV=InputProcessor.CurrentInput.GetAxis("MoveVertical");
-                    var MH=InputProcessor.CurrentInput.GetAxis("MoveHorizontal");
-                    var V=new Vector3(MH,0,MV);
+                    var MV = InputProcessor.CurrentInput.GetAxis("MoveVertical");
+                    var MH = InputProcessor.CurrentInput.GetAxis("MoveHorizontal");
+                    var V = new Vector3(MH, 0, MV);
                     if (MV == 0 && MH == 0)
                     {
                         _MOVE -= _MOVE * MoveFriction * DeltaTime;
@@ -357,7 +365,7 @@ namespace Site13Kernel.Core
                     cc.SimpleMove(_MOVE);
                 //if (cc.velocity.magnitude != 0)
                 {
-                    var md=cc.velocity.magnitude * DeltaTime * FPSCamSwingSpeed;
+                    var md = cc.velocity.magnitude * DeltaTime * FPSCamSwingSpeed;
                     if (cc.isGrounded)
                     {
 
@@ -367,7 +375,7 @@ namespace Site13Kernel.Core
                         {
                             WalkDistance = 0;
                         }
-                        var LP=FPSCam.localPosition;
+                        var LP = FPSCam.localPosition;
                         //if (md != 0)
                         {
                             if (isRunning)
@@ -416,7 +424,7 @@ namespace Site13Kernel.Core
 
             }
         }
-        public override void FixedRefresh(float DeltaTime)
+        public override void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
         }
 

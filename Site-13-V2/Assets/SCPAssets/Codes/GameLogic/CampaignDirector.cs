@@ -11,11 +11,11 @@ namespace Site13Kernel.GameLogic
         public override void Init()
         {
         }
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
         
         }
-        public override void FixedRefresh(float DeltaTime)
+        public override void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
         }
     }

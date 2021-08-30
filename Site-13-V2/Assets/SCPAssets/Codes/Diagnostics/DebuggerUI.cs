@@ -115,7 +115,7 @@ namespace Site13Kernel.Diagnostics
                 });
             }
         }
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             if (Input.GetKeyDown(KeyCode.F1))
             {
@@ -131,7 +131,7 @@ namespace Site13Kernel.Diagnostics
                 }
             }
         }
-        public override void FixedRefresh(float DeltaTime)
+        public override void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
             Debugger.CurrentDebugger.LSync();
         }

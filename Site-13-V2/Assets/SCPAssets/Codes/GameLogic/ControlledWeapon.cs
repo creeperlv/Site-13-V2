@@ -12,31 +12,33 @@ namespace Site13Kernel.GameLogic
     {
         public Weapon Weapon;
         [Header("Zoom")]
-        public bool CanZoom=false;
-        public CanvasGroup ZoomHUD=null;
-        public float ZoomFov=50;
+        public bool CanZoom = false;
+        public CanvasGroup ZoomHUD = null;
+        public float ZoomFov = 50;
         [Header("Movement")]
         public Vector3 NormalPosition;
         public Vector3 RunningPosition;
         public Vector3 NormalRotationEuler;
         public Vector3 RunningRotationEuler;
         public Animator ControlledAnimator;
-        public string TakeOut="TakeOut";
-        public string Combat="Combat";
-        public string Reload="Reload";
-        public string Idle="Idle";
-        public float MaxRecoil=2;
-        public float RecoilRecoverSpeed=5;
+        public string TakeOut = "TakeOut";
+        public string Combat = "Combat";
+        public string Reload = "Reload";
+        public string Idle = "Idle";
+        public float MaxRecoil = 2;
+        public float RecoilRecoverSpeed = 5;
         public GameObject Projectile;
-        bool PseudoFire0=false;
-        bool PseudoFire1=false;
+        bool PseudoFire0 = false;
+        bool PseudoFire1 = false;
         public List<ControlledCrosshair> Crosshairs;
-        public float Recoil=0;
+        public float Recoil = 0;
         public GameObject HUDCanvas;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fire()
         {
             PseudoFire0 = true;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unfire()
         {
             PseudoFire0 = false;
@@ -75,7 +77,7 @@ namespace Site13Kernel.GameLogic
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             //if (a)
             {

@@ -12,14 +12,22 @@ namespace Site13Kernel.Core.CustomizedInput
     public class InputProcessor : ControlledBehavior
     {
         public static InputProcessor CurrentInput;
-        public Dictionary<string, float> Axis=new Dictionary<string, float>();
-        public Dictionary<string, bool> KeyDown=new Dictionary<string, bool>();
-        public Dictionary<string, bool> Key=new Dictionary<string, bool>();
-        public Dictionary<string, bool> KeyUp=new Dictionary<string, bool>();
+        public Dictionary<string, float> Axis = new Dictionary<string, float>();
+        public Dictionary<string, bool> KeyDown = new Dictionary<string, bool>();
+        public Dictionary<string, bool> Key = new Dictionary<string, bool>();
+        public Dictionary<string, bool> KeyUp = new Dictionary<string, bool>();
         public List<InputDefinition> InputDefinitions;
         public List<string> Names;
         public override void Init()
         {
+            if (CurrentInput != null)
+            {
+                Parent.UnregisterRefresh(this);
+                Parent.UnregisterFixedRefresh(this);
+                Parent.OnInit.Remove(this);
+                Destroy(this);
+                return;
+            }
             CurrentInput = this;
             Parent.RegisterRefresh(this);
             foreach (var item in InputDefinitions)
@@ -68,14 +76,14 @@ namespace Site13Kernel.Core.CustomizedInput
             return Axis[Name];
 
         }
-        public override void Refresh(float DeltaTime)
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             //Debug.Log("Running");
             {
 
                 for (int i = 0; i < Names.Count; i++)
                 {
-                    var item=Names[i];
+                    var item = Names[i];
                     Key[item] = false;
                     KeyDown[item] = false;
                     KeyUp[item] = false;
@@ -105,7 +113,7 @@ namespace Site13Kernel.Core.CustomizedInput
                 {
                     foreach (var key in item.PositiveKeys)
                     {
-                        var v=  (Input.GetKey(key)?1:0)*item.Intensity;
+                        var v = (Input.GetKey(key) ? 1 : 0) * item.Intensity;
                         if (v > Axis[item.Name])
                         {
                             Axis[item.Name] = v;
@@ -113,7 +121,7 @@ namespace Site13Kernel.Core.CustomizedInput
                     }
                     foreach (var key in item.NegativeKeys)
                     {
-                        var v=  (Input.GetKey(key)?1:0)*item.Intensity;
+                        var v = (Input.GetKey(key) ? 1 : 0) * item.Intensity;
                         if (v > Mathf.Abs(Axis[item.Name]))
                         {
 
@@ -123,7 +131,7 @@ namespace Site13Kernel.Core.CustomizedInput
                     }
                     foreach (var key in item.GamepadInput)
                     {
-                        var v=Input.GetAxis(key);
+                        var v = Input.GetAxis(key);
                         if (Mathf.Abs(v) > Mathf.Abs(Axis[item.Name]))
                         {
                             Axis[item.Name] = v;
@@ -134,7 +142,7 @@ namespace Site13Kernel.Core.CustomizedInput
 
                 if (item.AcceptMouse)
                 {
-                    float v=0;
+                    float v = 0;
                     if (item.Axis == SnapAxis.X)
                     {
                         v = Input.GetAxis("Mouse Horizontal");
@@ -167,8 +175,8 @@ namespace Site13Kernel.Core.CustomizedInput
         public bool isButton;
         public bool AcceptMouse;
         public SnapAxis Axis;
-        public float Intensity=1;
-        public float DeadZone=0.12f;
+        public float Intensity = 1;
+        public float DeadZone = 0.12f;
         /// <summary>
         /// Produce Axis value as positive values.
         /// </summary>
