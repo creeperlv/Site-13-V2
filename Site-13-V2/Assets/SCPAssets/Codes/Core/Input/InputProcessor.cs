@@ -24,8 +24,8 @@ namespace Site13Kernel.Core.CustomizedInput
             {
                 Parent.UnregisterRefresh(this);
                 Parent.UnregisterFixedRefresh(this);
-                Parent.OnInit.Remove(this);
-                Destroy(this);
+                //Parent.OnInit.Remove(this);
+                Destroy(this.gameObject);
                 return;
             }
             CurrentInput = this;

@@ -1,3 +1,4 @@
+using Site13Kernel.Core;
 using Site13Kernel.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,13 +9,16 @@ namespace Site13Kernel.UEFI
 {
     public class TestEFI : UEFIBase
     {
-        public override async Task Run()
+#if DEBUG
+        public override void Init()
         {
-            for (int i = 0; i < 50; i++)
-            {
-                await Task.Delay(100);
-                Debugger.CurrentDebugger.Log($"Task Seq:{i}");
-            }
+            StartCoroutine(DelayedAction());
         }
+        IEnumerator DelayedAction()
+        {
+            yield return null;
+            GameRuntime.CurrentGlobals.SubtitleController.ShowSubtitle(new Subtitle { ID = "", Fallback = "Test Subtitle", Duration = 4 });
+        }
+#endif
     }
 }
