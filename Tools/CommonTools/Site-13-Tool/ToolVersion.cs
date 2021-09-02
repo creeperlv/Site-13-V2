@@ -1,4 +1,5 @@
 ﻿using CLUNL.ConsoleAppHelper;
+using Site13Kernel.Data.Localization;
 
 namespace Site_13_Tool
 {
@@ -7,7 +8,7 @@ namespace Site_13_Tool
     {
         public string GetVersionString()
         {
-            return this.GetType().Assembly.GetName().Version.ToString();
+            return typeof(LocalizationDefinition).Assembly.GetName().Version.ToString();
         }
     }
 }
