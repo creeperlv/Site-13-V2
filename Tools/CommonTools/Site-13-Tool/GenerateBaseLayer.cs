@@ -1,4 +1,5 @@
 ﻿using CLUNL.ConsoleAppHelper;
+using Site13Kernel.Tools.Data.Localization;
 using System;
 using System.IO;
 
@@ -13,6 +14,17 @@ namespace Site_13_Tool
     {
         public void Execute(ParameterList Parameters, string MainParameter)
         {
+            /**
+             *
+             * ROOT\Locales\
+             *              Locales.json
+             *              en-us\
+             *                    Locale.json
+             *                    Language.lang
+             *                    ... Other Resources
+             *              ... Other Language Codes
+             * 
+             **/
             var obj = Parameters.Query("output");
             if (obj is bool b)
             {
@@ -52,6 +64,9 @@ namespace Site_13_Tool
                 Output.OutLine($"Fetal Error:{e}");
                 return;
             }
+            var LOCALE= LanguageTools.GenerateLocalizationBase();
+
+            //LOCALE.Item1.InstalledLocalizations.Add(LOCALE.Item2.LanguageCode,LOCALE.Item2.)
             StandardOutputs.OutputNotImplMsg();
         }
     }

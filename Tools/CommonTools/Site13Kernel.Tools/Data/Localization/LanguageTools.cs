@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CLUNL.Localization;
+using Newtonsoft.Json;
 using Site13Kernel.Data.Localization;
 using System;
 using System.Collections.Generic;
@@ -24,14 +25,16 @@ namespace Site13Kernel.Tools.Data.Localization
             var Content = JsonConvert.SerializeObject(definition, settings);
             return Content;
         }
-        public static (LocalizationDefinitionCollection, LocalizationDefinition) GenerateLocalizationBase()
+        public static (LocalizationDefinitionCollection, LocalizationDefinition, LanguageDefinition) GenerateLocalizationBase()
         {
             LocalizationDefinitionCollection localizationDefinitionCollection = new LocalizationDefinitionCollection();
             LocalizationDefinition definition = new LocalizationDefinition();
+            LanguageDefinition ld = new LanguageDefinition();
+
             definition.LanguageCode = "en-US";
-            return (localizationDefinitionCollection, definition);
+            return (localizationDefinitionCollection, definition, ld);
             //return (SerializeDefinitionCollection(localizationDefinitionCollection), SerializeDefinition(definition));
         }
-        
+
     }
 }
