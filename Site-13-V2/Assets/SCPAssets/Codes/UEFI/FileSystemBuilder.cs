@@ -8,10 +8,10 @@ namespace Site13Kernel.UEFI
 {
     public class FileSystemBuilder : UEFIBase
     {
-        public BaseMap Mapping;
+        //public BaseMap Mapping;
         public override void Init()
         {
-            ApplicationData.Init(Mapping);
+            //ApplicationData.Init(Mapping);
         }
         public override async Task Run()
         {
