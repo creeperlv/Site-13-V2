@@ -1,3 +1,4 @@
+using Site13Kernel.Data;
 using Site13Kernel.GameLogic.CampaignActions;
 using System;
 using System.Collections;
@@ -9,6 +10,6 @@ namespace Site13Kernel.Core
     [Serializable]
     public class GameLocals 
     {
-        public List<CampaignAction> CurrentScipt;
+        public SerialCampaignScript CurrentScipt;
     }
 }

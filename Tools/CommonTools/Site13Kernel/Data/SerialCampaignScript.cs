@@ -3,6 +3,7 @@ using Site13Kernel.GameLogic.CampaignActions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Site13Kernel.Data
@@ -34,9 +35,27 @@ namespace Site13Kernel.Data
         }
         public static SerialCampaignScript Deserialize(List<string> contents)
         {
-            var Data=Deserializer.Deserialize<CampaignAction>(contents);
+            var Data = Deserializer.Deserialize<CampaignAction>(contents);
             SerialCampaignScript campaignActions = new SerialCampaignScript();
-            campaignActions.CoreData=Data;
+            campaignActions.CoreData = Data;
+            return campaignActions;
+        }
+        public static SerialCampaignScript Deserialize(string contents)
+        {
+            List<string> _Data = new List<string>();
+            SerialCampaignScript campaignActions = new SerialCampaignScript();
+            using(var SR=new StringReader(contents))
+            {
+                campaignActions.CoreData = new List<CampaignAction>();
+                Deserializer.Deserialize(SR, ref campaignActions.CoreData);
+                //string L;
+                //while ((L=SR.ReadLine())!=null)
+                //{
+                //    _Data.Add(L);
+                //}
+            }
+            //var Data = Deserializer.Deserialize<CampaignAction>(_Data);
+            //campaignActions.CoreData = Data;
             return campaignActions;
         }
         public int GetPosition()
@@ -63,11 +82,17 @@ namespace Site13Kernel.Data
         {
             return CoreData.GetEnumerator();
         }
+
+        public CampaignAction CurrentData()
+        {
+            return CoreData[Index];
+        }
     }
     public interface ISerialData<T>
     {
         int Position { get; set; }
         T NextData();
+        T CurrentData();
         int GetPosition();
         void SetPosition(int position);
     }
