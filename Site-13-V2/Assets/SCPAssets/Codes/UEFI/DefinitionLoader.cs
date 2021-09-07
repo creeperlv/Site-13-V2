@@ -12,17 +12,18 @@ namespace Site13Kernel.UEFI
 {
     public class DefinitionLoader : UEFIBase
     {
-        public List<MissionCollection> missionCollections= new List<MissionCollection>();
-        public List<RefSprite> sprites= new List<RefSprite>();
-        public List<RefTexture2D> textures= new List<RefTexture2D>();
+        public List<MissionCollection> missionCollections = new List<MissionCollection>();
+        public List<RefSprite> sprites = new List<RefSprite>();
+        public List<RefTexture2D> textures = new List<RefTexture2D>();
+        public int MainMenuSceneID;// Preserve for future need of using another main menu.
         public override void Init()
         {
             StartCoroutine(LoadResources());
         }
         IEnumerator LoadResources()
         {
-            Dictionary<string,RefSprite> _sprites=new Dictionary<string, RefSprite>();
-            Dictionary<string,RefTexture2D> _textures=new Dictionary<string, RefTexture2D>();
+            Dictionary<string, RefSprite> _sprites = new Dictionary<string, RefSprite>();
+            Dictionary<string, RefTexture2D> _textures = new Dictionary<string, RefTexture2D>();
             foreach (var item in sprites)
             {
                 switch (item.WorkMode)
@@ -38,7 +39,7 @@ namespace Site13Kernel.UEFI
                         break;
                     case WorkMode.ExternalFile:
                         {
-                            var uri="file://"+Path.Combine(Application.persistentDataPath,item.Path);
+                            var uri = "file://" + Path.Combine(Application.persistentDataPath, item.Path);
                             yield return LoadSprite(uri, item);
                         }
                         break;
@@ -67,7 +68,7 @@ namespace Site13Kernel.UEFI
                         break;
                     case WorkMode.ExternalFile:
                         {
-                            var uri="file://"+Path.Combine(Application.persistentDataPath,item.Path);
+                            var uri = "file://" + Path.Combine(Application.persistentDataPath, item.Path);
                             yield return LoadTexture(uri, item);
                         }
                         break;
@@ -123,6 +124,7 @@ namespace Site13Kernel.UEFI
         {
             await Task.Run(() =>
             {
+                GameRuntime.CurrentGlobals.MainMenuSceneID = MainMenuSceneID;
                 GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections = missionCollections;
             });
         }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Site13Kernel.Diagnostics.Errors;
+using Site13Kernel.Diagnostics.Warns;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
@@ -90,6 +92,14 @@ namespace Site13Kernel.Diagnostics
         public void Log(object obj, LogLevel logLevel = LogLevel.Normal)
         {
             Logs.Enqueue((obj, logLevel));
+        }
+        public void Log(ISite13Error obj)
+        {
+            Logs.Enqueue((obj.ToString(), LogLevel.Error));
+        }
+        public void Log(ISite13Warn obj)
+        {
+            Logs.Enqueue((obj.ToString(), LogLevel.Warning));
         }
         public void CheckAndSaveLog()
         {

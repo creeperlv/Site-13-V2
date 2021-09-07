@@ -11,7 +11,6 @@ namespace Site13Kernel.UI
     {
         public Image Cover;
         public TMPro.TMP_Text HintText;
-        public int MainMenuSceneID;
         Color c1;
         Color c2;
         public AudioSource MainUIBGM;
@@ -25,11 +24,12 @@ namespace Site13Kernel.UI
                 GameRuntime.CurrentGlobals.MainUIBGM = MainUIBGM;
                 DontDestroyOnLoad(MainUIBGM);
                 GameRuntime.CurrentGlobals.MainUIBGM.Play();
-            }else
+            }
+            else
                 MainUIBGM.Stop();
         }
-        int State0=0;
-        bool State1=false;
+        int State0 = 0;
+        bool State1 = false;
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             if (State0 < 2)
@@ -84,7 +84,7 @@ namespace Site13Kernel.UI
                     break;
                 case 3:
                     {
-                        SceneManager.LoadScene(MainMenuSceneID);
+                        SceneManager.LoadScene(GameRuntime.CurrentGlobals.MainMenuSceneID);
                     }
                     break;
                 default:

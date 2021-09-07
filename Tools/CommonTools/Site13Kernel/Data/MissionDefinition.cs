@@ -18,9 +18,9 @@ namespace Site13Kernel.Data
     [Serializable]
     public class MissionDefinition
     {
+        public string TargetScript;
         public string NameID;
         public string DispFallback;
-        public int TargetScene;
         public string ImageName;
     }
 }

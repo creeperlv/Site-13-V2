@@ -14,6 +14,8 @@ namespace Site13Kernel.Core
         public GameDefinition CurrentGameDef;
         public SubtitleController SubtitleController;
         public bool isDebugFunctionEnabled=false;
+        public int NextCampaign;
+        public int MainMenuSceneID;
         public void Init()
         {
             AppData = Application.persistentDataPath;
