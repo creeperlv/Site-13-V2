@@ -97,6 +97,22 @@ namespace Site13Kernel.Diagnostics
         {
             Logs.Enqueue((obj.ToString(), LogLevel.Error));
         }
+        public void LogError(object message, object Context)
+        {
+            Logs.Enqueue(($"Error on {{{Context}}}\r\n{message}", LogLevel.Error));
+        }
+        public void LogError(object message)
+        {
+            Logs.Enqueue(($"Error: {message}", LogLevel.Error));
+        }
+        public void LogWarning(object message, object Context)
+        {
+            Logs.Enqueue(($"Warning on {{{Context}}}\r\n{message}", LogLevel.Warning));
+        }
+        public void LogWarning(object message)
+        {
+            Logs.Enqueue(($"Warning: {message}", LogLevel.Warning));
+        }
         public void Log(ISite13Warn obj)
         {
             Logs.Enqueue((obj.ToString(), LogLevel.Warning));

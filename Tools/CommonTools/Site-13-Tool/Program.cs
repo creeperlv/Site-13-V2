@@ -3,7 +3,7 @@ using System;
 
 namespace Site_13_Tool
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {

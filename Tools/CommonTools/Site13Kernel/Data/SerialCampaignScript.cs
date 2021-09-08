@@ -44,7 +44,7 @@ namespace Site13Kernel.Data
         {
             List<string> _Data = new List<string>();
             SerialCampaignScript campaignActions = new SerialCampaignScript();
-            using(var SR=new StringReader(contents))
+            using (var SR = new StringReader(contents))
             {
                 campaignActions.CoreData = new List<CampaignAction>();
                 Deserializer.Deserialize(SR, ref campaignActions.CoreData);
@@ -87,11 +87,22 @@ namespace Site13Kernel.Data
         {
             return CoreData[Index];
         }
+
+        public bool MoveNext()
+        {
+
+            Index++;
+            if (Index < CoreData.Count)
+                return true;
+            Index = CoreData.Count - 1;
+            return false;
+        }
     }
     public interface ISerialData<T>
     {
         int Position { get; set; }
         T NextData();
+        bool MoveNext();
         T CurrentData();
         int GetPosition();
         void SetPosition(int position);

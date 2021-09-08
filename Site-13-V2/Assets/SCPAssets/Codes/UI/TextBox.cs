@@ -405,72 +405,8 @@ namespace Site13Kernel.UI
             }
         }
 
-        /// <summary>
-        /// Specifies the type of the input text content.
-        /// </summary>
-        /// <remarks>
-        /// The ContentType affects character validation, keyboard type used (on platforms with on-screen keyboards), whether the InputField accepts multiple lines, and whether the text is autocorrected (on platforms that offer input auto-correction) or is treated as a password where the characters are not shown directly.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// <![CDATA[
-        /// using UnityEngine;
-        /// using System.Collections;
-        /// using UnityEngine.UI; // Required when Using UI elements.
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     public InputField mainInputField;
-        ///     public string playerName;
-        ///
-        ///     void Start()
-        ///     {
-        ///         //Changes the character limit in the main input field.
-        ///         mainInputField.characterLimit = playerName.Length;
-        ///     }
-        /// }
-        /// ]]>
-        ///</code>
-        /// </example>
         public ContentType contentType { get { return m_ContentType; } set { if (SetPropertyUtility.SetStruct(ref m_ContentType, value)) EnforceContentType(); } }
 
-        /// <summary>
-        /// The LineType used by the InputField.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// <![CDATA[
-        /// using UnityEngine;
-        /// using System.Collections;
-        /// using UnityEngine.UI; // Required when Using UI elements.
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     public GameObject mainInputField;
-        ///
-        ///     //When you press a button, this method is called.
-        ///     public void ChangeInputField(int type)
-        ///     {
-        ///         if (type == 0)
-        ///         {
-        ///             //Change the input field to "Single Line" line type.
-        ///             mainInputField.GetComponent<InputField>().lineType = InputField.LineType.SingleLine;
-        ///         }
-        ///         else if (type == 1)
-        ///         {
-        ///             //Change the input field to "MultiLine Newline" line type.
-        ///             mainInputField.GetComponent<InputField>().lineType = InputField.LineType.MultiLineNewline;
-        ///         }
-        ///         else if (type == 2)
-        ///         {
-        ///             //Change the input field to "MultiLine Submit" line type.
-        ///             mainInputField.GetComponent<InputField>().lineType = InputField.LineType.MultiLineSubmit;
-        ///         }
-        ///     }
-        /// }
-        /// ]]>
-        ///</code>
-        /// </example>
         public LineType lineType
         {
             get { return m_LineType; }
@@ -484,19 +420,10 @@ namespace Site13Kernel.UI
             }
         }
 
-        /// <summary>
-        /// The type of input expected. See InputField.InputType.
-        /// </summary>
         public InputType inputType { get { return m_InputType; } set { if (SetPropertyUtility.SetStruct(ref m_InputType, value)) SetToCustom(); } }
 
-        /// <summary>
-        /// The TouchScreenKeyboard being used to edit the Input Field.
-        /// </summary>
         public TouchScreenKeyboard touchScreenKeyboard { get { return m_Keyboard; } }
 
-        /// <summary>
-        /// They type of mobile keyboard that will be used.
-        /// </summary>
         public TouchScreenKeyboardType keyboardType
         {
             get { return m_KeyboardType; }
@@ -507,97 +434,23 @@ namespace Site13Kernel.UI
             }
         }
 
-        /// <summary>
-        /// The type of validation to perform on a character
-        /// </summary>
         public CharacterValidation characterValidation { get { return m_CharacterValidation; } set { if (SetPropertyUtility.SetStruct(ref m_CharacterValidation, value)) SetToCustom(); } }
 
-        /// <summary>
-        /// Set the InputField to be read only.
-        /// </summary>
-        /// <remarks>
-        /// Setting read only allows for highlighting of text without allowing modifications via keyboard.
-        /// </remarks>
+
         public bool readOnly { get { return m_ReadOnly; } set { m_ReadOnly = value; } }
 
-        /// <summary>
-        /// If the input field supports multiple lines.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// <![CDATA[
-        /// using UnityEngine;
-        /// using System.Collections;
-        /// using UnityEngine.UI; // Required when Using UI elements.
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     public InputField mainInputField;
-        ///
-        ///     public void Update()
-        ///     {
-        ///         //Check to see if the input field is set to allow multiple lines.
-        ///         if (mainInputField.multiLine)
-        ///         {
-        ///             //Set the input field to only allow Single Lines, if it is currently set to allow Multiple lines.
-        ///             mainInputField.lineType = InputField.LineType.SingleLine;
-        ///             //Print to console
-        ///             Debug.Log("The main input field is now set to allow single lines only!");
-        ///         }
-        ///     }
-        /// }
-        /// ]]>
-        ///</code>
-        /// </example>
         public bool multiLine { get { return m_LineType == LineType.MultiLineNewline || lineType == LineType.MultiLineSubmit; } }
 
-        /// <summary>
-        /// The character used to hide text in password field.
-        /// </summary>
-        /// <remarks>
-        /// Not shown in the inspector.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// <![CDATA[
-        /// using UnityEngine;
-        /// using System.Collections;
-        /// using UnityEngine.UI; // Required when Using UI elements.
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     public InputField mainInputField;
-        ///
-        ///     void Start()
-        ///     {
-        ///         // changes the password symbol. 0 = $, 1 = ! 2 = £ and so on.
-        ///         mainInputField.asteriskChar = "$!£%&*"[0];
-        ///     }
-        /// }
-        /// ]]>
-        ///</code>
-        /// </example>
         public char asteriskChar { get { return m_AsteriskChar; } set { if (SetPropertyUtility.SetStruct(ref m_AsteriskChar, value)) UpdateLabel(); } }
 
-        /// <summary>
-        /// If the InputField was canceled and will revert back to the original text upon DeactivateInputField.
-        /// </summary>
         public bool wasCanceled { get { return m_WasCanceled; } }
 
-        /// <summary>
-        /// Clamp a value (by reference) between 0 and the current text length.
-        /// </summary>
-        /// <param name="pos">The input position to be clampped</param>
         protected void ClampPos(ref int pos)
         {
             if (pos < 0) pos = 0;
             else if (pos > text.Length) pos = text.Length;
         }
 
-        /// <summary>
-        /// Current position of the cursor.
-        /// Getters are public Setters are protected
-        /// </summary>
 
         protected int caretPositionInternal { get { return m_CaretPosition + compositionString.Length; } set { m_CaretPosition = value; ClampPos(ref m_CaretPosition); } }
         protected int caretSelectPositionInternal { get { return m_CaretSelectPosition + compositionString.Length; } set { m_CaretSelectPosition = value; ClampPos(ref m_CaretSelectPosition); } }
@@ -609,25 +462,12 @@ namespace Site13Kernel.UI
         public int caretSelectPosition { get { return selectionFocusPosition; } protected set { selectionFocusPosition = value; } }
 #endif
 
-        /// <summary>
-        /// Get: Returns the focus position as thats the position that moves around even during selection.
-        /// Set: Set both the anchor and focus position such that a selection doesn't happen
-        /// </summary>
 
         public int caretPosition
         {
             get { return m_CaretSelectPosition + compositionString.Length; }
             set { selectionAnchorPosition = value; selectionFocusPosition = value; }
         }
-
-        /// <summary>
-        /// The beginning point of the selection.
-        /// </summary>
-        /// <remarks>
-        /// When making a selection with a mouse, the anchor is where in the document the mouse button is initially pressed.
-        /// Get: Returns the beginning position of selection
-        /// Set: If Input.compositionString is 0 set the fixed position.
-        /// </remarks>
         public int selectionAnchorPosition
         {
             get { return m_CaretPosition + compositionString.Length; }
@@ -640,15 +480,6 @@ namespace Site13Kernel.UI
                 ClampPos(ref m_CaretPosition);
             }
         }
-
-        /// <summary>
-        /// The end point of the selection.
-        /// </summary>
-        /// <remarks>
-        /// When making a selection with a mouse, the focus is where in the document the mouse button is released.
-        /// Get: Returns the end position of selection
-        /// Set: If Input.compositionString is 0 set the variable position.
-        /// </remarks>
         public int selectionFocusPosition
         {
             get { return m_CaretSelectPosition + compositionString.Length; }
@@ -663,8 +494,6 @@ namespace Site13Kernel.UI
         }
 
 #if UNITY_EDITOR
-        // Remember: This is NOT related to text validation!
-        // This is Unity's own OnValidate method which is invoked when changing values in the Inspector.
         protected override void OnValidate()
         {
             base.OnValidate();
@@ -795,63 +624,15 @@ namespace Site13Kernel.UI
                 m_CachedInputRenderer.SetMaterial(m_TextComponent.GetModifiedMaterial(Graphic.defaultGraphicMaterial), Texture2D.whiteTexture);
         }
 
-        /// <summary>
-        /// Focus the input field initializing properties.
-        /// </summary>
-        /// <remarks>
-        /// Handles what happens after a user selects an InputField. This is a protected property. To return the focus state use InputField.isFocused. To shift focus to another GameObject, use EventSystem.SetSelectedGameObject.
-        /// A common use of this is allowing the user to type once focussed. Another way is outputting a message when the user clicks on a field(often seen when creating passwords).
-        /// </remarks>
-        /// <example>
-        /// //Create an Input Field by going to __Create__>__UI__>__Input Field__. Attach this script to the Input Field GameObject
-        /// <code>
-        /// <![CDATA[
-        /// using UnityEngine;
-        /// using UnityEngine.UI;
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     InputField m_InputField;
-        ///     void Start()
-        ///     {
-        ///         //Fetch the Input Field component from the GameObject
-        ///         m_InputField = GetComponent<InputField>();
-        ///     }
-        ///
-        ///     void Update()
-        ///     {
-        ///         //Check if the Input Field is in focus and able to alter
-        ///         if (m_InputField.isFocused)
-        ///         {
-        ///             //Change the Color of the Input Field's Image to green
-        ///             m_InputField.GetComponent<Image>().color = Color.green;
-        ///         }
-        ///     }
-        /// }
-        /// ]]>
-        ///</code>
-        /// </example>
         protected void OnFocus()
         {
             SelectAll();
         }
-
-        /// <summary>
-        /// Highlight the whole InputField.
-        /// </summary>
-        /// <remarks>
-        /// Sets the caretPosition to the length of the text and caretSelectPos to 0.
-        /// </remarks>
         protected void SelectAll()
         {
             caretPositionInternal = text.Length;
             caretSelectPositionInternal = 0;
         }
-
-        /// <summary>
-        /// Move the caret index to end of text.
-        /// </summary>
-        /// <param name="shift">Only move the selection position to facilate selection</param>
         public void MoveTextEnd(bool shift)
         {
             int position = text.Length;
@@ -868,10 +649,6 @@ namespace Site13Kernel.UI
             UpdateLabel();
         }
 
-        /// <summary>
-        /// Move the caret index to start of text.
-        /// </summary>
-        /// <param name="shift">Only move the selection position to facilate selection</param>
         public void MoveTextStart(bool shift)
         {
             int position = 0;
@@ -901,8 +678,6 @@ namespace Site13Kernel.UI
             }
         }
 
-        // Returns true if the TouchScreenKeyboard should be used. On Android and Chrome OS, we only want to use the
-        // TouchScreenKeyboard if in-place editing is not allowed (i.e. when we do not have a hardware keyboard available).
         private bool TouchScreenKeyboardShouldBeUsed()
         {
             RuntimePlatform platform = Application.platform;
@@ -920,8 +695,6 @@ namespace Site13Kernel.UI
             return !TouchScreenKeyboard.isSupported || m_TouchKeyboardAllowsInPlaceEditing;
         }
 
-        // In-place editing can change state if a hardware keyboard becomes available or is hidden while the input field is activated.
-        // This currently only happens on Chrome OS devices (that support laptop and tablet mode).
         private bool InPlaceEditingChanged()
         {
             return m_TouchKeyboardAllowsInPlaceEditing != TouchScreenKeyboard.isInPlaceEditingAllowed;
@@ -956,10 +729,6 @@ namespace Site13Kernel.UI
             }
         }
 
-        /// <summary>
-        /// Update the text based on input.
-        /// </summary>
-        // TODO: Make LateUpdate a coroutine instead. Allows us to control the update to only be when the field is active.
         protected virtual void LateUpdate()
         {
             // Only activate if we are not already activated.
@@ -1151,11 +920,6 @@ namespace Site13Kernel.UI
             return generator.lineCount;
         }
 
-        /// <summary>
-        /// Given an input position in local space on the Text return the index for the selection cursor at this position.
-        /// </summary>
-        /// <param name="pos">Mouse position.</param>
-        /// <returns>Character index with in value.</returns>
         protected int GetCharacterIndexFromPosition(Vector2 pos)
         {
             TextGenerator gen = m_TextComponent.cachedTextGenerator;
@@ -1198,10 +962,6 @@ namespace Site13Kernel.UI
                 (InPlaceEditing() || m_HideMobileInput);
         }
 
-        /// <summary>
-        /// Capture the OnBeginDrag callback from the EventSystem and ensure we should listen to the drag events to follow.
-        /// </summary>
-        /// <param name="eventData">The data passed by the EventSystem</param>
         public virtual void OnBeginDrag(PointerEventData eventData)
         {
             if (!MayDrag(eventData))
@@ -1210,10 +970,6 @@ namespace Site13Kernel.UI
             m_UpdateDrag = true;
         }
 
-        /// <summary>
-        /// If we are able to drag, try and select the character range underneath the bounding rect.
-        /// </summary>
-        /// <param name="eventData"></param>
         public virtual void OnDrag(PointerEventData eventData)
         {
             if (!MayDrag(eventData))
@@ -1274,10 +1030,6 @@ namespace Site13Kernel.UI
             m_DragCoroutine = null;
         }
 
-        /// <summary>
-        /// Capture the OnEndDrag callback from the EventSystem and cancel the listening of drag events.
-        /// </summary>
-        /// <param name="eventData">The eventData sent by the EventSystem.</param>
         public virtual void OnEndDrag(PointerEventData eventData)
         {
             if (!MayDrag(eventData))
@@ -1286,9 +1038,6 @@ namespace Site13Kernel.UI
             m_UpdateDrag = false;
         }
 
-        /// <summary>
-        /// The action to perform when the event system sends a pointer down Event.
-        /// </summary>
         public override void OnPointerDown(PointerEventData eventData)
         {
             if (!MayDrag(eventData))
@@ -2595,33 +2344,6 @@ namespace Site13Kernel.UI
             }
             return (char)0;
         }
-
-        /// <summary>
-        /// Function to activate the InputField to begin processing Events.
-        /// </summary>
-        /// <remarks>
-        /// Will only activate if deactivated.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// <![CDATA[
-        /// using UnityEngine;
-        /// using System.Collections;
-        /// using UnityEngine.UI;
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     public InputField mainInputField;
-        ///
-        ///     // Activate the main input field when the scene starts.
-        ///     void Start()
-        ///     {
-        ///         mainInputField.ActivateInputField();
-        ///     }
-        /// }
-        /// ]]>
-        ///</code>
-        /// </example>
         public void ActivateInputField()
         {
             if (m_TextComponent == null || m_TextComponent.font == null || !IsActive() || !IsInteractable())
@@ -2708,29 +2430,6 @@ namespace Site13Kernel.UI
             ActivateInputField();
         }
 
-        /// <summary>
-        /// Function to deactivate the InputField to stop the processing of Events and send OnSubmit if not canceled.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// <![CDATA[
-        /// using UnityEngine;
-        /// using System.Collections;
-        /// using UnityEngine.UI; // Required when Using UI elements.
-        ///
-        /// public class Example : MonoBehaviour
-        /// {
-        ///     public InputField mainInputField;
-        ///
-        ///     // Deactivates the main input field when the scene starts.
-        ///     void Start()
-        ///     {
-        ///         mainInputField.DeactivateInputField();
-        ///     }
-        /// }
-        /// ]]>
-        ///</code>
-        /// </example>
         public void DeactivateInputField()
         {
             // Not activated do nothing.
