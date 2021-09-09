@@ -12,28 +12,33 @@ using UnityEngine.UI.CoroutineTween;
 
 namespace Site13Kernel.UI
 {
-    public partial class ComboBox :
-        IEditable, IPropertiedObject, IVisualElement
+    public partial class ComboBox : IEditable, IPropertiedObject, IVisualElement
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object GetValue()
         {
             return this.value;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void InitValue(object obj)
         {
             value = (int)obj;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetCallback(Action<object> callback)
         {
             this.callback = callback;
         }
-        Action<object> callback;
+        Action<object> callback=null;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Callback()
         {
+            if(callback!= null)
             callback(this.value);
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetValue(object obj)
         {
             value = (int)obj;
@@ -72,19 +77,35 @@ namespace Site13Kernel.UI
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetProperty(Property p)
         {
-            throw new NotImplementedException();
+            SetProperty(p.Key, p.Value);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Property GetProperty(string name)
         {
-            throw new NotImplementedException();
+            var v = GetPropertyValue(name);
+            if (v != null) return new Property { Key = name, Value = v };
+            else return null;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
 
         public object GetPropertyValue(string name)
         {
-            throw new NotImplementedException();
+            switch (name)
+            {
+                case "Selection":
+                    return value;
+                case "Visibility":
+                    {
+                        return this.gameObject.activeSelf;
+                    }
+                default:
+                    break;
+            }
+            return null;
         }
     }
 }

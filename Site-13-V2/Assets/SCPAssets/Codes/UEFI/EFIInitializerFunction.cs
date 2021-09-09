@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 namespace Site13Kernel.UEFI
@@ -9,6 +10,7 @@ namespace Site13Kernel.UEFI
     public class EFIInitializerFunction : UEFIBase
     {
         public GameObject BackgroundObject;
+        public UniversalRenderPipelineAsset TargetAsset;
         public override void Init()
         {
             GameRuntime.CurrentGlobals.Init();

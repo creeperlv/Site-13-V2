@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Site13Kernel.Core
 {
@@ -16,6 +17,7 @@ namespace Site13Kernel.Core
         public bool isDebugFunctionEnabled=false;
         public int NextCampaign;
         public int MainMenuSceneID;
+        public UniversalRenderPipelineAsset UsingAsset;
         public void Init()
         {
             AppData = Application.persistentDataPath;

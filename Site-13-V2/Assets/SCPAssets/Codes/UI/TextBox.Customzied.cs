@@ -7,16 +7,19 @@ namespace Site13Kernel.UI
     //Extension part of TextBox.
     public partial class TextBox : IEditable, IVisualElement, IPropertiedObject
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object GetValue()
         {
             return text;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void InitValue(object obj)
         {
             text = obj.ToString();
         }
-        Action<object> callback;
+        Action<object> callback=null;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetCallback(Action<object> callback)
         {
             this.callback = callback;
@@ -24,6 +27,7 @@ namespace Site13Kernel.UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Callback()
         {
+            if(callback!=null)
             callback(text);
         }
         public void SetValue(object obj)
