@@ -1,4 +1,5 @@
 using Site13Kernel.Core;
+using Site13Kernel.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,12 @@ namespace Site13Kernel.UEFI
         public UniversalRenderPipelineAsset TargetAsset;
         public override void Init()
         {
+            GameEnv.DataPath = Application.persistentDataPath;
+
+            Settings.Init();
+
             GameRuntime.CurrentGlobals.Init();
+
             GameObject.Instantiate(BackgroundObject, transform.root.parent, true);
         }
     }

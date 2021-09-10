@@ -10,5 +10,4 @@ namespace Site13Kernel.Core
         public string Key;
         public object Value;
     }
-
 }

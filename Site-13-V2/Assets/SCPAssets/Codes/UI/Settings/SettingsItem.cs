@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Site13Kernel.UI.Settings
 {
-    public class SettingsItem : MonoBehaviour
+    public class SettingsItem : SettingsBehavior
     {
         public string SettingsItemID;
         public Text Description;
@@ -25,6 +25,8 @@ namespace Site13Kernel.UI.Settings
                             if (v is float f)
                             {
                                 GameRuntime.CurrentGlobals.UsingAsset.renderScale = f;
+                                Data.Settings.CurrentSettings.RenderScale=f;
+                                Data.Settings.Save();
                             }
                         });
                     }
@@ -37,6 +39,8 @@ namespace Site13Kernel.UI.Settings
                             if (v is bool b)
                             {
                                 Screen.fullScreen = b;
+                                Data.Settings.CurrentSettings.FullScreen=b;
+                                Data.Settings.Save();
                             }
                         });
                     }
@@ -45,6 +49,17 @@ namespace Site13Kernel.UI.Settings
                     break;
             }
         }
+        public override void Init()
+        {
 
+        }
+
+    }
+    public class SettingsBehavior : MonoBehaviour
+    {
+        public virtual void Init()
+        {
+
+        }
     }
 }
