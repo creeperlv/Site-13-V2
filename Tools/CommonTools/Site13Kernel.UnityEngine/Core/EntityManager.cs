@@ -2,16 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace Site13Kernel.Core
 {
     public class EntityManager
     {
         List<Memory<IComponent>> entities;
-        Dictionary<Entity,Object> Entity_Gameobject;
+        Dictionary<Entity,GameObject> Entity_Gameobject;
         public void Init()
         {
-            Entity_Gameobject = new Dictionary<Entity, object>(100);
+            Entity_Gameobject = new Dictionary<Entity, GameObject>(100);
             entities = new List<Memory<IComponent>>(100);
         }
         public List<Entity> GetEntities<T>()
@@ -126,7 +127,7 @@ namespace Site13Kernel.Core
             Entity_Gameobject.Clear();
             entities.Clear();
         }
-        public Entity CreateInstanceCopy(Entity entity, Object BindedObj)
+        public Entity CreateInstanceCopy(Entity entity, GameObject BindedObj)
         {
             Entity __ENTITY=new Entity();
             __ENTITY.ID = RandomTool.NextInt();
@@ -202,6 +203,12 @@ namespace Site13Kernel.Core
             }
             return null;
         }
+    }
+    public class EntityQuery
+    {
+        public List<Type> QueriedTypes;
+        public Dictionary<Entity, object> EGPairs;
+
     }
     public struct Entity : IComponent
     {

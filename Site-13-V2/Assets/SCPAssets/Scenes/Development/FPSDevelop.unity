@@ -7315,6 +7315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc9b783ecb68b54ca11b8a7629763e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundObject: {fileID: 0}
+  TargetAsset: {fileID: 0}
 --- !u!4 &1031362890
 Transform:
   m_ObjectHideFlags: 0
@@ -12683,7 +12685,7 @@ MonoBehaviour:
   Cycle: 0
   FPSCamSwingIntensity: 0.01
   FPSCamSwingRunningIntensity: 0.06
-  FPSCamSwingIntensitySwitchSpeed: 5
+  FPSCamSwingIntensitySwitchSpeed: 2
   FPSCamSwingSpeed: 3
   FrameDelay: 1
   UsingWeapon: 0
@@ -13530,6 +13532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066300698}
   - component: {fileID: 2066300699}
+  - component: {fileID: 2066300700}
   m_Layer: 7
   m_Name: P90
   m_TagString: Untagged
@@ -13566,12 +13569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e18924308c5e44ba799fc5fea4b1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon:
-    WeaponID: P90
-    MaxCapacity: 0
-    CurrentBackup: 0
-    CurrentMagazine: 0
-    WeaponMode: 0
+  Weapon: {fileID: 2066300700}
   CanZoom: 1
   ZoomHUD: {fileID: 1147980357}
   ZoomFov: 30
@@ -13584,9 +13582,6 @@ MonoBehaviour:
   Combat: Combat
   Reload: Reload
   Idle: Idle
-  MaxRecoil: 1
-  RecoilRecoverSpeed: 1
-  Projectile: {fileID: 0}
   Crosshairs:
   - {fileID: 675690595}
   - {fileID: 1202187993}
@@ -13596,8 +13591,33 @@ MonoBehaviour:
   - {fileID: 1896350599}
   - {fileID: 1676878987}
   - {fileID: 1385581401}
-  Recoil: 0
   HUDCanvas: {fileID: 0}
+--- !u!114 &2066300700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066300697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db768bf0fe6c7d14b99c825cc6e3ac9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Base:
+    WeaponID: 
+    MaxCapacity: 0
+    CurrentBackup: 0
+    CurrentMagazine: 0
+    WeaponMode: 0
+  BulletPrefab: {fileID: 0}
+  FireInterval: 0
+  Recoil: 2
+  MaxRecoil: 2
+  RecoilRecoverSpeed: 5
+  FireType: 0
+  FIRE0: 0
+  FIRE1: 0
 --- !u!1 &2086497711
 GameObject:
   m_ObjectHideFlags: 0

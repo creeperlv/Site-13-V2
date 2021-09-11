@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.Data;
+using Site13Kernel.GameLogic.FPS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Site13Kernel.GameLogic
 {
     public class ControlledWeapon : ControlledBehavior
     {
-        public Weapon Weapon;
+        public BasicWeapon Weapon;
         [Header("Zoom")]
         public bool CanZoom = false;
         public CanvasGroup ZoomHUD = null;
@@ -25,23 +26,17 @@ namespace Site13Kernel.GameLogic
         public string Combat = "Combat";
         public string Reload = "Reload";
         public string Idle = "Idle";
-        public float MaxRecoil = 2;
-        public float RecoilRecoverSpeed = 5;
-        public GameObject Projectile;
-        bool PseudoFire0 = false;
-        bool PseudoFire1 = false;
         public List<ControlledCrosshair> Crosshairs;
-        public float Recoil = 0;
         public GameObject HUDCanvas;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fire()
         {
-            PseudoFire0 = true;
+            Weapon.FIRE0 = true;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unfire()
         {
-            PseudoFire0 = false;
+            Weapon.FIRE0 = false;
         }
         bool isInited = false;
         public override void Init()
@@ -73,7 +68,7 @@ namespace Site13Kernel.GameLogic
         public void SetRecoil(float Recoil)
         {
             //a = true;
-            this.Recoil = Recoil;
+            this.Weapon.Recoil = Recoil;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -82,19 +77,19 @@ namespace Site13Kernel.GameLogic
             //if (a)
             {
 
-                if (Recoil > 0)
+                if (Weapon.Recoil > 0)
                 {
-                    Recoil -= RecoilRecoverSpeed * DeltaTime;
+                    Weapon.Recoil -= Weapon.RecoilRecoverSpeed * DeltaTime;
                 }
-                else if (Recoil != 0)
+                else if (Weapon.Recoil != 0)
                 {
-                    Recoil = 0;
+                    Weapon.Recoil = 0;
                 }
                 //a = false;
             }
             foreach (var item in Crosshairs)
             {
-                item.UpdateCrosshair(Recoil);
+                item.UpdateCrosshair(Weapon.Recoil);
             }
         }
     }

@@ -6,7 +6,7 @@ namespace Site13Kernel.Core
 {
     public class SystemBase
     {
-        public virtual void Execute()
+        public virtual void Execute(float DT,float UDT)
         {
         }
     }

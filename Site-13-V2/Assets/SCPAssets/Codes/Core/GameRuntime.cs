@@ -9,5 +9,6 @@ namespace Site13Kernel.Core
 
         public static GameLocals CurrentLocals;
         public static GameGlobals CurrentGlobals=new GameGlobals();
+        public static Transform BulletHolder;
     }
 }

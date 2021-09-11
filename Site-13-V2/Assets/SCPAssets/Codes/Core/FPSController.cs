@@ -340,12 +340,12 @@ namespace Site13Kernel.Core
                         _MOVE = cc.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + cc.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f));
                         if (isRunning)
                         {
-                            Weapon.Recoil = (math.clamp(Weapon.Recoil, RunRecoil, 1f));
+                            Weapon.Weapon.Recoil = (math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
                             _MOVE *= RunningSpeed;
                         }
                         else
                         {
-                            Weapon.Recoil = (math.clamp(Weapon.Recoil, WalkRecoil, 1f));
+                            Weapon.Weapon.Recoil = (math.clamp(Weapon.Weapon.Recoil, WalkRecoil, 1f));
                             _MOVE *= MoveSpeed;
                         }
                         //if (cc.velocity.magnitude != 0)
@@ -357,7 +357,7 @@ namespace Site13Kernel.Core
                 }
                 else
                 {
-                    Weapon.Recoil = (math.clamp(Weapon.Recoil, RunRecoil, 1f));
+                    Weapon.Weapon.Recoil = (math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
                 }
                 if (!cc.isGrounded)
                     cc.Move(_MOVE * DeltaTime);
