@@ -31,12 +31,13 @@ namespace Site13Kernel.GameLogic
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fire()
         {
-            Weapon.FIRE0 = true;
+            Debug.Log("Fire_L0");
+            Weapon.Fire();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unfire()
         {
-            Weapon.FIRE0 = false;
+            Weapon.Unfire();
         }
         bool isInited = false;
         public override void Init()
@@ -87,6 +88,7 @@ namespace Site13Kernel.GameLogic
                 }
                 //a = false;
             }
+            Weapon.OnFrame(DeltaTime, UnscaledDeltaTime);
             foreach (var item in Crosshairs)
             {
                 item.UpdateCrosshair(Weapon.Recoil);

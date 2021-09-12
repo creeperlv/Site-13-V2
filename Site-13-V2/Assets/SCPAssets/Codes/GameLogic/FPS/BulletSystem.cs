@@ -14,9 +14,9 @@ namespace Site13Kernel.GameLogic.FPS
             GameRuntime.CurrentGlobals.CurrentBulletSystem = this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddBullet(GameObject Perfab, Vector3 Position, Quaternion quaternion)
+        public void AddBullet(GameObject Perfab, Vector3 Position, Quaternion rotation)
         {
-            var B=Instantiate(Perfab, Position, quaternion, GameRuntime.BulletHolder).GetComponent<BaseBullet>();
+            var B=Instantiate(Perfab, Position, rotation, GameRuntime.BulletHolder).GetComponent<BaseBullet>();
             B.Parent = this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

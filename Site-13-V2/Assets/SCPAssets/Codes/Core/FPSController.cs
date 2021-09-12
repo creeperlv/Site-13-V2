@@ -326,17 +326,6 @@ namespace Site13Kernel.Core
                     }
                     else
                     {
-
-                        //var _V=V.normalized*(Mathf.Sqrt(MV*MV+MH*MH)/Sqrt2);
-                        //if (isRunning)
-                        //{
-                        //    _V *= RunningSpeed;
-                        //}
-                        //else
-                        //{
-                        //    _V *= MoveSpeed;
-                        //}
-                        //_MOVE = cc.transform.right * _V.x + cc.transform.forward * _V.z;
                         _MOVE = cc.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + cc.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f));
                         if (isRunning)
                         {
@@ -348,10 +337,6 @@ namespace Site13Kernel.Core
                             Weapon.Weapon.Recoil = (math.clamp(Weapon.Weapon.Recoil, WalkRecoil, 1f));
                             _MOVE *= MoveSpeed;
                         }
-                        //if (cc.velocity.magnitude != 0)
-                        //{
-                        //}
-                        //WalkDistance += _V.magnitude * DeltaTime * FPSCamSwingSpeed;
                     }
 
                 }
