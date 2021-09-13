@@ -25,6 +25,13 @@ namespace Site13Kernel.Core
 
         public float ShieldRecoverSpeed;
         public float HPRecoverSpeed;
+
+        public float ShieldRecoverDelay;
+        public float HPRecoverDelay;
+
+        public float ShieldRecoverCountDown;
+        public float HPRecoverCountDown;
+
         public EntityController Controller;
 
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
@@ -40,7 +47,8 @@ namespace Site13Kernel.Core
             CurrentHP = math.max(0, CurrentHP - V2);
             if (CurrentHP <= 0)
                 Die();
-
+            ShieldRecoverCountDown = ShieldRecoverDelay;
+            HPRecoverCountDown = HPRecoverDelay;
         }
         /// <summary>
         /// If it returns true, it will breaks original Die function, means Destory and EntityController.Remove(this); will not be executed.

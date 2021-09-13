@@ -18,6 +18,7 @@ namespace Site13Kernel.GameLogic.FPS
         {
             var B=Instantiate(Perfab, Position, rotation, GameRuntime.BulletHolder).GetComponent<BaseBullet>();
             B.Parent = this;
+            ManagedBullets.Add(B);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)

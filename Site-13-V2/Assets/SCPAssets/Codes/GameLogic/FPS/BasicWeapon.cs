@@ -91,7 +91,6 @@ namespace Site13Kernel.GameLogic.FPS
         public void Fire()
         {
             FIRE0 = true;
-            Debug.Log("Fire_L1");
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unfire()

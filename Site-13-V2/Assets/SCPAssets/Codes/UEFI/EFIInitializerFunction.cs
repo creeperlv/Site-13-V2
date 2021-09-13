@@ -19,8 +19,8 @@ namespace Site13Kernel.UEFI
             Settings.Init();
 
             GameRuntime.CurrentGlobals.Init();
-
-            GameObject.Instantiate(BackgroundObject, transform.root.parent, true);
+            GameRuntime.CurrentGlobals.UsingAsset = TargetAsset;
+            Instantiate(BackgroundObject);
         }
     }
 }

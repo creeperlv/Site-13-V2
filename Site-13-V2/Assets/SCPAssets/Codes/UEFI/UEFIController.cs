@@ -52,11 +52,6 @@ namespace Site13Kernel.UEFI
     }
     public class UEFIBase : ControlledBehavior
     {
-        public new virtual void Init()
-        {
-           
-
-        }
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public virtual async Task Run()
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

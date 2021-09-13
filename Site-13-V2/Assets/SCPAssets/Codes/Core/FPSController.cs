@@ -26,8 +26,10 @@ namespace Site13Kernel.Core
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            FPSCam_BaseT = FPSCam.localPosition;
             Parent.RegisterRefresh(this);
             Pi2 = math.PI * 2;
+            PiD2 = math.PI * .5f;
             WalkDistance = math.PI / 2;
             FPSCamSwingIntensitySwitchDelta = FPSCamSwingRunningIntensity - FPSCamSwingIntensity;
             if (Weapon0 != null)
@@ -35,6 +37,7 @@ namespace Site13Kernel.Core
             if (Weapon1 != null)
                 Weapon1.Init();
         }
+        Vector3 FPSCam_BaseT;
         bool isRunning = false;
         public float JumpP00 = 1f;
         public float Gravity = 9.8f;
@@ -50,7 +53,10 @@ namespace Site13Kernel.Core
         public float FPSCamSwingRunningIntensity = 0.1f;
         public float FPSCamSwingIntensitySwitchSpeed = 1f;
         public float FPSCamSwingSpeed = 1;
+        public float WalkIncreasementIntensity = 1;
+        public float RunIncreasementIntensity = 0.5f;
         float Pi2;
+        float PiD2;
         public int FrameDelay = 1;
         public int UsingWeapon = 0;
         [HideInInspector]
@@ -63,14 +69,21 @@ namespace Site13Kernel.Core
         public float ZoomFOV;
         public float ZoomSpeed;
         public CanvasGroup ZoomHUD;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SwapWeapon()
         {
             UseWeapon(UsingWeapon == 0 ? 1 : 0);
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void UseWeapon(int i)
         {
             UsingWeapon = i;
         }
+        /// <summary>
+        /// Switch Walk/Running.s
+        /// </summary>
+        /// <param name="DeltaTime"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ApplyWR(float DeltaTime)
         {
             //Debug.Log(WRTween);
@@ -91,6 +104,7 @@ namespace Site13Kernel.Core
                 );
         }
         ControlledWeapon Weapon;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             if (FrameDelay > 0)
@@ -149,6 +163,7 @@ namespace Site13Kernel.Core
                 Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FireControl(float DeltaTime)
         {
             if (InputProcessor.CurrentInput.GetInputDown("Fire"))
@@ -354,12 +369,12 @@ namespace Site13Kernel.Core
                     if (cc.isGrounded)
                     {
 
-                        WalkDistance += md;
+                        WalkDistance += md*(isRunning? RunIncreasementIntensity: WalkIncreasementIntensity);
 
-                        if (WalkDistance > Pi2)
-                        {
-                            WalkDistance = 0;
-                        }
+                        //if (WalkDistance > Pi2)
+                        //{
+                        //    WalkDistance = 0;
+                        //}
                         var LP = FPSCam.localPosition;
                         //if (md != 0)
                         {
@@ -386,7 +401,8 @@ namespace Site13Kernel.Core
                                 }
                             }
                         }
-                        LP.x = math.cos(WalkDistance) * CurrentFPSCamSwingIntensity;
+                        LP.x = math.cos(WalkDistance%Pi2) * CurrentFPSCamSwingIntensity;
+                        LP.y = FPSCam_BaseT.y- math.abs(math.cos((WalkDistance) % Pi2) * CurrentFPSCamSwingIntensity*0.5f);
                         FPSCam.localPosition = LP;
                     }
                 }

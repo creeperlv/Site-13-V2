@@ -31,7 +31,6 @@ namespace Site13Kernel.GameLogic
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fire()
         {
-            Debug.Log("Fire_L0");
             Weapon.Fire();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
