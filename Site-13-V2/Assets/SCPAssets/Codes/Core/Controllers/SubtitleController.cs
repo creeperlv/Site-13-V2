@@ -1,10 +1,11 @@
 using CLUNL.Localization;
+using Site13Kernel.Data;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Site13Kernel.Core
+namespace Site13Kernel.Core.Controllers
 {
     public class SubtitleController : ControlledBehavior
     {
@@ -61,15 +62,6 @@ namespace Site13Kernel.Core
             GameRuntime.CurrentGlobals.SubtitleController = this;
             Parent.RegisterRefresh(this);
         }
-    }
-    public class Subtitle
-    {
-        public string ID;
-        public string Fallback;
-        public float Duration;
-        public float CurrentTimeD;
-        [HideInInspector]
-        public TMP_Text ControlledSubtitle;
     }
     public enum SubtitleType
     {

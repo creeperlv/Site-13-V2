@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Site13Kernel.Core
+namespace Site13Kernel.Core.Controllers
 {
-    public class DebugBehaviorController : BehaviorController
+    public class BehaviorController : BaseController
     {
-#if DEBUG
+        public bool CrossScene=false;
         void Start()
         {
             if (CrossScene)
@@ -23,7 +23,7 @@ namespace Site13Kernel.Core
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
             }
             foreach (var item in _OnInit)
@@ -35,7 +35,7 @@ namespace Site13Kernel.Core
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
             }
         }
@@ -45,14 +45,19 @@ namespace Site13Kernel.Core
             float UDeltaTime=Time.unscaledDeltaTime;
             foreach (var item in _OnRefresh)
             {
+#if DEBUG
                 try
                 {
+#endif
                     item.Refresh(DeltaTime,UDeltaTime);
+#if DEBUG
                 }
                 catch (System.Exception e)
                 {
                     Debug.LogError(e);
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
+#endif
             }
         }
         private void FixedUpdate()
@@ -62,20 +67,19 @@ namespace Site13Kernel.Core
             float UDeltaTime=Time.fixedUnscaledDeltaTime;
             foreach (var item in _OnFixedRefresh)
             {
+#if DEBUG
                 try
                 {
+#endif
                     item.FixedRefresh(DeltaTime,UDeltaTime);
+#if DEBUG
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
+                    Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
+#endif
             }
         }
-#else
-    void Start(){
-        GameObject.Destroy(this.gameObject);
-    }
-#endif
     }
 }

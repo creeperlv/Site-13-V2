@@ -7,6 +7,10 @@ namespace Site13Kernel.GameLogic
     public class AlwaysLookAt : ControlledBehavior
     {
         public Transform Target;
+        public override void Init()
+        {
+            Parent.RegisterRefresh(this);
+        }
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             this.transform.LookAt(Target);

@@ -14,6 +14,10 @@ namespace Site13Kernel.Utilities
     [Serializable]
     public struct MathUtilities
     {
+
+        public const float PI2 = math.PI * 2;
+        public const float PID2 = math.PI / 2;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ObtianAngle2DUpwards(float3 v1, float3 v2)
         {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Site13Kernel.Core
+namespace Site13Kernel.Core.Controllers
 {
     public class ControlledController : BaseController,IControllable
     {

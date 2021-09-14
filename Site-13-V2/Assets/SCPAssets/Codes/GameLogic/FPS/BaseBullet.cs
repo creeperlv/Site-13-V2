@@ -37,7 +37,7 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Hit(Collider collision)
         {
-            var Entity = collision.gameObject.GetComponent<BioEntity>();
+            var Entity = collision.gameObject.GetComponent<DamagableEntity>();
             var WeakPoint = collision.gameObject.GetComponent<WeakPoint>();
             if (WeakPoint != null)
             {

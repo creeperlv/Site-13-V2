@@ -1,3 +1,4 @@
+using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.FPS;
@@ -22,6 +23,7 @@ namespace Site13Kernel.Core
         public AudioSource MainUIBGM;
         public GameDefinition CurrentGameDef;
         public SubtitleController SubtitleController;
+        public EffectController CurrentEffectController;
         public void Init()
         {
             AppData = Application.persistentDataPath;

@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Site13Kernel.Core
+namespace Site13Kernel.Core.Controllers
 {
     public class FPSController : ControlledBehavior, ICheckpointData
     {
@@ -28,8 +28,6 @@ namespace Site13Kernel.Core
             Cursor.visible = false;
             FPSCam_BaseT = FPSCam.localPosition;
             Parent.RegisterRefresh(this);
-            Pi2 = math.PI * 2;
-            PiD2 = math.PI * .5f;
             WalkDistance = math.PI / 2;
             FPSCamSwingIntensitySwitchDelta = FPSCamSwingRunningIntensity - FPSCamSwingIntensity;
             if (Weapon0 != null)
@@ -55,8 +53,6 @@ namespace Site13Kernel.Core
         public float FPSCamSwingSpeed = 1;
         public float WalkIncreasementIntensity = 1;
         public float RunIncreasementIntensity = 0.5f;
-        float Pi2;
-        float PiD2;
         public int FrameDelay = 1;
         public int UsingWeapon = 0;
         [HideInInspector]
@@ -401,8 +397,8 @@ namespace Site13Kernel.Core
                                 }
                             }
                         }
-                        LP.x = math.cos(WalkDistance%Pi2) * CurrentFPSCamSwingIntensity;
-                        LP.y = FPSCam_BaseT.y- math.abs(math.cos((WalkDistance) % Pi2) * CurrentFPSCamSwingIntensity*0.5f);
+                        LP.x = math.cos(WalkDistance%MathUtilities.PI2) * CurrentFPSCamSwingIntensity;
+                        LP.y = FPSCam_BaseT.y + math.abs(math.cos((WalkDistance) % MathUtilities.PI2) * CurrentFPSCamSwingIntensity*0.5f);
                         FPSCam.localPosition = LP;
                     }
                 }

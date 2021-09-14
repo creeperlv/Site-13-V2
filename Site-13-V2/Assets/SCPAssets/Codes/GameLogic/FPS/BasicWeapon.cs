@@ -9,11 +9,12 @@ using UnityEngine;
 namespace Site13Kernel.GameLogic.FPS
 {
     [Serializable]
-    public class BasicWeapon : MonoBehaviour
+    public class BasicWeapon : ControlledBehavior
     {
         public Weapon Base;
-        public List<AudioSource>  GunSFXSources;
+        public List<AudioSource> GunSFXSources;
         public GameObject BulletPrefab;
+        public GameObject EffectPrefab;
         public List<AudioClip> FireSounds = new List<AudioClip>();
         public float FireInterval = 0;
         public float Recoil = 0;
@@ -27,6 +28,7 @@ namespace Site13Kernel.GameLogic.FPS
 
         public SpherePosition RelativeEmissionPoint;
         public Transform FirePoint;
+        public Transform EffectPoint;
         float CountDown = 0;
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
@@ -102,9 +104,12 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SingleFire()
         {
-            if(BulletPrefab!=null)
-            GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, this.transform.rotation);
-
+            if (BulletPrefab != null)
+                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, this.transform.rotation);
+            if (EffectPrefab != null)
+            {
+                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, EffectPoint.position, this.transform.rotation);
+            }
             GunSFXSources[SFXIndex].Stop();
             GunSFXSources[SFXIndex].clip = FireSounds[UnityEngine.Random.Range(0, FireSounds.Count)];
             GunSFXSources[SFXIndex].Play();

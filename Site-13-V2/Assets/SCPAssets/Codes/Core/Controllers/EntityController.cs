@@ -3,15 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Site13Kernel.GameLogic
+namespace Site13Kernel.Core.Controllers
 {
     public class EntityController : ControlledBehavior
     {
-        public List<BioEntity> ControlledEntities;
+        public List<DamagableEntity> ControlledEntities;
 
         public override void Init()
         {
-
         }
 
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
@@ -21,7 +20,7 @@ namespace Site13Kernel.GameLogic
                 ControlledEntities[i].Refresh(DeltaTime, UnscaledDeltaTime);
             }
         }
-        public void DestroyEntity(BioEntity entity)
+        public void DestroyEntity(DamagableEntity entity)
         {
             ControlledEntities.Remove(entity);
             Destroy(entity.gameObject);
