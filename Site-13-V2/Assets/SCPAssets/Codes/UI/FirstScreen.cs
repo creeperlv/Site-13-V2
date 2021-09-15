@@ -27,6 +27,7 @@ namespace Site13Kernel.UI
             }
             else
                 MainUIBGM.Stop();
+            Parent.RegisterRefresh(this);
         }
         int State0 = 0;
         bool State1 = false;

@@ -28,6 +28,7 @@ namespace Site13Kernel.Core.Controllers
             }
             foreach (var item in _OnInit)
             {
+                if (INTERRUPT_INIT) continue;
                 try
                 {
                     item.Init();
@@ -45,11 +46,12 @@ namespace Site13Kernel.Core.Controllers
             float UDeltaTime=Time.unscaledDeltaTime;
             foreach (var item in _OnRefresh)
             {
+                if (INTERRUPT_REFRESH) continue;
 #if DEBUG
                 try
                 {
 #endif
-                    item.Refresh(DeltaTime,UDeltaTime);
+                item.Refresh(DeltaTime,UDeltaTime);
 #if DEBUG
                 }
                 catch (System.Exception e)
@@ -67,11 +69,12 @@ namespace Site13Kernel.Core.Controllers
             float UDeltaTime=Time.fixedUnscaledDeltaTime;
             foreach (var item in _OnFixedRefresh)
             {
+                if (INTERRUPT_FIXED_REFRESH) continue;
 #if DEBUG
                 try
                 {
 #endif
-                    item.FixedRefresh(DeltaTime,UDeltaTime);
+                item.FixedRefresh(DeltaTime,UDeltaTime);
 #if DEBUG
                 }
                 catch (System.Exception e)

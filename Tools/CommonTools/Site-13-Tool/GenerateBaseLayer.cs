@@ -66,7 +66,7 @@ namespace Site_13_Tool
             }
             var LOCALE= LanguageTools.GenerateLocalizationBase();
 
-            //LOCALE.Item1.InstalledLocalizations.Add(LOCALE.Item2.LanguageCode,LOCALE.Item2.)
+            LOCALE.Item1.InstalledLocalizations.Add(LOCALE.Item2.LanguageCode, LOCALE.Item2.LanguageStringFile);
             StandardOutputs.OutputNotImplMsg();
         }
     }

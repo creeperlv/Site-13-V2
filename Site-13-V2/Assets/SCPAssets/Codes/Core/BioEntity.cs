@@ -22,6 +22,31 @@ namespace Site13Kernel.Core
 
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
+            if (CurrentHP < MaxHP)
+            {
+                if (HPRecoverCountDown > 0)
+                {
+                    HPRecoverCountDown -= DeltaTime;
+                }
+                else
+                {
+                    CurrentHP += HPRecoverSpeed * DeltaTime;
+                    CurrentHP = math.min(CurrentHP, MaxHP);
+                }
+            }
+
+            if (CurrentShield < MaxShield)
+            {
+                if (ShieldRecoverCountDown > 0)
+                {
+                    ShieldRecoverCountDown -= DeltaTime;
+                }
+                else
+                {
+                    CurrentShield += ShieldRecoverSpeed * DeltaTime;
+                    CurrentShield = math.min(CurrentShield, MaxShield);
+                }
+            }
 
         }
 

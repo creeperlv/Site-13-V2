@@ -32,6 +32,7 @@ namespace Site13Kernel.Tools.Data.Localization
             LanguageDefinition ld = new LanguageDefinition();
 
             definition.LanguageCode = "en-US";
+            definition.LanguageStringFile = "";
             return (localizationDefinitionCollection, definition, ld);
             //return (SerializeDefinitionCollection(localizationDefinitionCollection), SerializeDefinition(definition));
         }

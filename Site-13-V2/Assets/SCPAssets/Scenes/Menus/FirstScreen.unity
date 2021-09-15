@@ -1598,7 +1598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988a7669eb979e14a88d149e96b442b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
   Target: {fileID: 1740547652}
 --- !u!114 &1083106378
 MonoBehaviour:
@@ -2052,7 +2051,7 @@ GameObject:
   - component: {fileID: 1183817383}
   - component: {fileID: 1183817382}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2067,14 +2066,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183817381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d2007fd326f6a5458258ef9fe5826e1, type: 3}
+  m_Script: {fileID: 1355811167, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnInit_Interface: []
   OnInit:
   - {fileID: 1762787535}
-  OnRefresh:
-  - {fileID: 1762787535}
   - {fileID: 1083106377}
+  OnRefresh: []
   OnFixedRefresh: []
   CrossScene: 0
 --- !u!4 &1183817383
@@ -3077,10 +3076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f139c6890a374a24297a14b50aedcc2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
   Cover: {fileID: 888229478}
   HintText: {fileID: 1940422993}
-  MainMenuSceneID: 2
   MainUIBGM: {fileID: 143852866}
   Wooon: {fileID: 1269768418}
 --- !u!114 &1762787536
@@ -3095,7 +3092,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ba8f84263ae474aa25a52e18ecc601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
   SelfInit: 1
   localizedTexts: []
   localizedTMPTexts: []

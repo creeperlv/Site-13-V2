@@ -21,6 +21,9 @@ namespace Site13Kernel.Data.Localization
     [Serializable]
     public class LocalizationDefinitionCollection
     {
+        /// <summary>
+        /// Language Code - Relative Path.
+        /// </summary>
         public Dictionary<string,string> InstalledLocalizations=new Dictionary<string, string>();
     }
 }

@@ -41,6 +41,20 @@ namespace Site13Kernel.GameLogic.CampaignActions
         public float BX;
         public float BY;
         public float BZ;
+        /// <summary>
+        /// + for add/overwrite, - for remove
+        /// For example: +Flag, will add Flag into index.
+        ///              -Flag, will remove Flag from index.
+        /// </summary>
+        public string SetVariable = "";
+    }
+    public class IF : CampaignAction
+    {
+        public int InstructionCount;
+        /// <summary>
+        /// + for exist, - for not exist
+        /// </summary>
+        public string Condition;
     }
     [Catalog("Game Logic")]
     [Description("Wait for player health reachs a certain level.\r\nNegative: Smaller than value.\r\nPositive: Greater than value.")]
