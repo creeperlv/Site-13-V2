@@ -22,6 +22,7 @@ namespace Site13Kernel.GameLogic.FPS
         public float RecoilRecoverSpeed = 5;
 
         public WeaponFireType FireType = WeaponFireType.FullAuto;
+        public float NonAutoCap = 1;
 
         public bool FIRE0 = false;
         public byte FIRE1 = 0;
@@ -29,6 +30,7 @@ namespace Site13Kernel.GameLogic.FPS
         public SpherePosition RelativeEmissionPoint;
         public Transform FirePoint;
         public Transform EffectPoint;
+        public Transform CurrentEffectPoint;
         float CountDown = 0;
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
@@ -54,7 +56,7 @@ namespace Site13Kernel.GameLogic.FPS
                                 }
                         }
                         break;
-                    case WeaponFireType.SingleShot:
+                    case WeaponFireType.Heat:
                         break;
                     default:
                         break;
@@ -82,7 +84,7 @@ namespace Site13Kernel.GameLogic.FPS
                             FIRE1 = 2;
                         }
                         break;
-                    case WeaponFireType.SingleShot:
+                    case WeaponFireType.Heat:
                         break;
                     default:
                         break;
@@ -108,7 +110,7 @@ namespace Site13Kernel.GameLogic.FPS
                 GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, this.transform.rotation);
             if (EffectPrefab != null)
             {
-                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, EffectPoint.position, this.transform.rotation);
+                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation,Vector3.one,CurrentEffectPoint);
             }
             GunSFXSources[SFXIndex].Stop();
             GunSFXSources[SFXIndex].clip = FireSounds[UnityEngine.Random.Range(0, FireSounds.Count)];
@@ -124,6 +126,6 @@ namespace Site13Kernel.GameLogic.FPS
     {
         FullAuto,
         SemiAuto,
-        SingleShot
+        Heat
     }
 }

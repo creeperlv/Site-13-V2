@@ -99,6 +99,7 @@ namespace Site13Kernel.Core.Controllers
                     )
                 );
         }
+        bool isWalking = true;
         ControlledWeapon Weapon;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
@@ -121,6 +122,7 @@ namespace Site13Kernel.Core.Controllers
             {
                 if (WRTween < 1)
                 {
+                    isWalking = false;
                     WRTween += DeltaTime * FPSCamSwingIntensitySwitchSpeed;
                     ApplyWR(DeltaTime);
                 }
@@ -146,6 +148,7 @@ namespace Site13Kernel.Core.Controllers
                     {
                         WRTween = 0;
                         ApplyWR(DeltaTime);
+                        isWalking = true;
                     }
                 }
 
@@ -162,8 +165,15 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FireControl(float DeltaTime)
         {
-            if (InputProcessor.CurrentInput.GetInputDown("Fire"))
-                Weapon.Fire();
+            if (InputProcessor.CurrentInput.GetInput("Fire"))
+            {
+                if (isWalking)
+                    Weapon.Fire();
+                else Weapon.Unfire();
+            }
+            //if (InputProcessor.CurrentInput.GetInputDown("Fire"))
+            //{
+            //}
             if (InputProcessor.CurrentInput.GetInputUp("Fire"))
                 Weapon.Unfire();
         }
@@ -189,11 +199,13 @@ namespace Site13Kernel.Core.Controllers
                 {
                     isRunning = false;
                     toZoom = true;
+                    Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
                     HideWeapon();
                 }
                 if (InputProcessor.CurrentInput.GetInputUp("Zoom"))
                 {
                     toZoom = false;
+                    Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
                     ShowWeapon();
                 }
             }
@@ -365,7 +377,7 @@ namespace Site13Kernel.Core.Controllers
                     if (cc.isGrounded)
                     {
 
-                        WalkDistance += md*(isRunning? RunIncreasementIntensity: WalkIncreasementIntensity);
+                        WalkDistance += md * (isRunning ? RunIncreasementIntensity : WalkIncreasementIntensity);
 
                         //if (WalkDistance > Pi2)
                         //{
@@ -397,8 +409,8 @@ namespace Site13Kernel.Core.Controllers
                                 }
                             }
                         }
-                        LP.x = math.cos(WalkDistance%MathUtilities.PI2) * CurrentFPSCamSwingIntensity;
-                        LP.y = FPSCam_BaseT.y + math.abs(math.cos((WalkDistance) % MathUtilities.PI2) * CurrentFPSCamSwingIntensity*0.5f);
+                        LP.x = math.cos(WalkDistance % MathUtilities.PI2) * CurrentFPSCamSwingIntensity;
+                        LP.y = FPSCam_BaseT.y + math.abs(math.cos((WalkDistance) % MathUtilities.PI2) * CurrentFPSCamSwingIntensity * 0.5f);
                         FPSCam.localPosition = LP;
                     }
                 }

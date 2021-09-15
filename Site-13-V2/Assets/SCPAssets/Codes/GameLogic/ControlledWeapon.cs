@@ -16,6 +16,7 @@ namespace Site13Kernel.GameLogic
         public bool CanZoom = false;
         public CanvasGroup ZoomHUD = null;
         public float ZoomFov = 50;
+        public Transform ZoomEffectPoint;
         [Header("Movement")]
         public Vector3 NormalPosition;
         public Vector3 RunningPosition;

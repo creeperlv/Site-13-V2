@@ -12,14 +12,18 @@ namespace Site13Kernel.GameLogic.FPS
         public float BaseDamage= 50;
         public float WeakPointDamage = 50;
         public float LifeTime = 10;
-        public new BulletSystem Parent { get; set; }
+        //public Collider c;
+        [HideInInspector]
+        public BulletSystem ParentSystem { get; set; }
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
+
+            //c.attachedRigidbody.collisionDetectionMode= CollisionDetectionMode.
             LifeTime -= DeltaTime;
             Move(DeltaTime, UnscaledDeltaTime);
             if (LifeTime < 0)
             {
-                Parent.DestoryBullet(this);
+                ParentSystem.DestoryBullet(this);
             }
         }
         public virtual void Move(float DT, float UDT)
@@ -47,7 +51,7 @@ namespace Site13Kernel.GameLogic.FPS
             {
                 Entity.Damage(BaseDamage);
             }
-            Parent.DestoryBullet(this);
+            ParentSystem.DestoryBullet(this);
         }
     }
 }

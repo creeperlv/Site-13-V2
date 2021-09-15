@@ -18,8 +18,22 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation)
         {
-            ControlledEffects.Add(Instantiate(Prefab, Position, Rotation, transform).GetComponent<BaseEffect>());
+            Spawn(Prefab, Position, Rotation,Vector3.zero);
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale)
+        {
+            Spawn(Prefab, Position, Rotation, Scale, transform);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale,Transform Parent)
+        {
+            var go = Instantiate(Prefab, Position, Rotation, Parent);
+            go.transform.localScale = Scale;
+            ControlledEffects.Add(go.GetComponent<BaseEffect>());
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
