@@ -26,6 +26,7 @@ namespace Site13Kernel.UI
         public List<string> AboutDoc;
         public GameObject TextTemplate;
         public GameObject ImageTemplate;
+        
         public override void Init()
         {
             if (AboutContainer != null)
@@ -36,12 +37,12 @@ namespace Site13Kernel.UI
                     try
                     {
                         PLNEngineCore.Init(TextTemplate, ImageTemplate);
-                        PLNEngineCore.View(AboutContainer, AboutDoc.GetEnumerator(), Color.white, 24);
+                        PLNEngineCore.View(AboutContainer, AboutDoc, Color.white, 36);
                     }
                     catch (Exception e)
                     {
 
-                        Debug.Log("Fail:"+e);
+                        Debug.LogError("Fail:"+e);
                     }
                 }
             }

@@ -43,6 +43,7 @@ namespace Site13Kernel.Core.Controllers
         public ControlledWeapon Weapon0;
         public ControlledWeapon Weapon1;
         public Transform FPSCam;
+        public Transform FPSRealCam;
         Vector3 _JUMP_V;
         Vector3 _MOVE;
         public float Cycle;

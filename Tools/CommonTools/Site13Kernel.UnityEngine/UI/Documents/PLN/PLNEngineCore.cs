@@ -1,5 +1,6 @@
 ﻿using CLUNL.Localization;
 using Site13Kernel.Data;
+using Site13Kernel.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,26 +17,18 @@ namespace Site13Kernel.UI.Documents.PLN
             _TextTemplate = TextTemplate;
             _ImageTemplate = ImageTemplate;
         }
-        public static void ViewLanguage(Transform Container, IEnumerator<string> contents, Color DefaultColor, int BaseSize = 14)
+        public static void ViewLanguage(Transform Container, IEnumerable<string> contents, Color DefaultColor, int BaseSize = 14)
         {
-            View(Container, EnumStr(contents), DefaultColor, BaseSize);
+            View(Container, contents, DefaultColor, BaseSize);
         }
-        static IEnumerator<string> EnumStr(IEnumerator<string> contents)
+        public static void View(Transform Container, IEnumerable<string> contents, Color DefaultColor, int BaseSize = 14)
         {
-            string current = contents.Current;
-            while (contents.MoveNext())
+            
+            foreach (var item in contents)
             {
-                yield return Language.Find(current);
+                Process(item);
             }
-        }
-        public static void View(Transform Container, IEnumerator<string> contents, Color DefaultColor, int BaseSize = 14)
-        {
-            string current = contents.Current;
-            while (contents.MoveNext())
-            {
-                Process(current);
-                current = contents.Current;
-            }
+
             void Process(string item)
             {
                 if (item.StartsWith("[Img]"))
@@ -52,7 +45,11 @@ namespace Site13Kernel.UI.Documents.PLN
                 {
 
                     var t = GameObject.Instantiate(_TextTemplate, Container).GetComponent<Text>();
-                    //t.text = item;
+                    if (t == null)
+                    {
+                        Debugger.CurrentDebugger.LogError("Text is null, is TextTemplate inited?");
+                        return;
+                    }
                     t.fontSize = BaseSize;
                     t.color = DefaultColor;
                     SequentialProcessLine(item, t);
