@@ -120,6 +120,18 @@ namespace Site13Kernel.UI.Documents.PLN
                     t.fontSize = BaseSize + 8;
                     SequentialProcessLine(item, t);
                 }
+                else if (Line.StartsWith("[H5]"))
+                {
+                    var item = Line.Substring(4).Trim();
+                    t.fontSize = BaseSize + 10;
+                    SequentialProcessLine(item, t);
+                }
+                else if (Line.StartsWith("[H4]"))
+                {
+                    var item = Line.Substring(4).Trim();
+                    t.fontSize = BaseSize + 8;
+                    SequentialProcessLine(item, t);
+                }
                 else if (Line.StartsWith("[N1]"))
                 {
                     var item = Line.Substring(4).Trim();

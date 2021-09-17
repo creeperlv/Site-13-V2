@@ -85,6 +85,16 @@ namespace Site13Kernel.GameLogic.CampaignActions
     public class ShowPlayer : CampaignAction
     {
     }
+    [Catalog("Game Logic")]
+    [Description("Shows player.")]
+    [Serializable]
+    public class SpawnPlayer : CampaignAction
+    {
+        public string ID;
+        public float X;
+        public float Y;
+        public float Z;
+    }
     [Catalog("Story")]
     [Description("Shows a subtitle (Main subtitle only).")]
     [Serializable]

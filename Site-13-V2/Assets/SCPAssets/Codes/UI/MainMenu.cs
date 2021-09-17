@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.GameLogic;
+using Site13Kernel.UI.Documents.PLN;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,16 +17,39 @@ namespace Site13Kernel.UI
         #endregion
         public Transform CampaignHolder;
         public GameObject CampaignButton;
-        public List<ButtonedPage> pages=new List<ButtonedPage>();
-        int SelectedPage=0;
-        public float AnimationSpeed=4;
+        public List<ButtonedPage> pages = new List<ButtonedPage>();
+        int SelectedPage = 0;
+        public float AnimationSpeed = 4;
         public ButtonGroup SettingsPageTabs;
         public List<GameObject> SettingsPages;
+        public Transform AboutContainer;
+        public List<string> AboutDoc;
+        public GameObject TextTemplate;
+        public GameObject ImageTemplate;
         public override void Init()
         {
+            if (AboutContainer != null)
+            {
+                if (AboutDoc != null)
+                {
+                    Debug.Log("Start...");
+                    try
+                    {
+                        PLNEngineCore.Init(TextTemplate, ImageTemplate);
+                        PLNEngineCore.View(AboutContainer, AboutDoc.GetEnumerator(), Color.white, 24);
+                    }
+                    catch (Exception e)
+                    {
+
+                        Debug.Log("Fail:"+e);
+                    }
+                }
+            }
+            Debug.Log("Success");
             {
                 SettingsPageTabs.Init();
-                SettingsPageTabs.OnSelected = (i) => {
+                SettingsPageTabs.OnSelected = (i) =>
+                {
                     foreach (var item in SettingsPages)
                     {
                         item.SetActive(false);
@@ -38,14 +62,14 @@ namespace Site13Kernel.UI
                 {
                     Destroy(CampaignHolder.GetChild(i).gameObject);
                 }
-                CampaignButtonGroup group=new CampaignButtonGroup();
+                CampaignButtonGroup group = new CampaignButtonGroup();
                 if (GameRuntime.CurrentGlobals.CurrentGameDef != null)
                     if (GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections != null)
                         if (GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections.Count > 0)
                             foreach (var item in GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections[0].MissionDefinitions)
                             {
-                                var b=Instantiate(CampaignButton, CampaignHolder);
-                                var cb=b.GetComponent<CampaignButton>();
+                                var b = Instantiate(CampaignButton, CampaignHolder);
+                                var cb = b.GetComponent<CampaignButton>();
                                 cb.Init(group, item);
                             }
             }
@@ -53,10 +77,10 @@ namespace Site13Kernel.UI
                 if (!GameRuntime.CurrentGlobals.MainUIBGM.isPlaying)
                     GameRuntime.CurrentGlobals.MainUIBGM.Play();
             {
-                var i=0;
+                var i = 0;
                 foreach (var item in pages)
                 {
-                    var ii=i;
+                    var ii = i;
                     foreach (var btn in item.Buttons)
                     {
                         btn.onClick.AddListener(() =>
@@ -81,7 +105,7 @@ namespace Site13Kernel.UI
         {
             {
                 //Update Page Status.
-                var  _DeltaTime =DeltaTime* AnimationSpeed;
+                var _DeltaTime = DeltaTime * AnimationSpeed;
                 for (int i = 0; i < pages.Count; i++)
                 {
                     if (SelectedPage == i)
@@ -117,7 +141,7 @@ namespace Site13Kernel.UI
                 //var d=1+1-Page.alpha;
                 //Page.transform.localScale = new Vector3(d, d, d);
 
-                var d=1-Page.alpha;
+                var d = 1 - Page.alpha;
                 d *= -400;
                 Page.transform.localPosition = new Vector3(Page.transform.localPosition.x, Page.transform.localPosition.y, d);
             }
@@ -136,7 +160,7 @@ namespace Site13Kernel.UI
             if (Page.alpha < 1)
             {
                 Page.alpha += DeltaTime;
-                var d=1-Page.alpha;
+                var d = 1 - Page.alpha;
                 d *= -400;
                 Page.transform.localPosition = new Vector3(Page.transform.localPosition.x, Page.transform.localPosition.y, d);
             }
