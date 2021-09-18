@@ -39,8 +39,11 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DestoryBullet(BaseBullet B)
         {
-            Destroy(B.gameObject);
+
+            //Remove bullet reference before destorying it.
             ManagedBullets.Remove(B);
+
+            Destroy(B.gameObject);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DestoryAll()

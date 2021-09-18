@@ -12674,6 +12674,7 @@ GameObject:
   - component: {fileID: 1836104269}
   - component: {fileID: 1836104268}
   - component: {fileID: 1836104267}
+  - component: {fileID: 1836104270}
   m_Layer: 0
   m_Name: Cube_002
   m_TagString: Untagged
@@ -12759,6 +12760,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836104265}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1836104270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836104265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1330687725, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  ProtoTypeID: 
+  MaxHP: 0
+  CurrentHP: 0
+  HitEffect: 2
+  Controller: {fileID: 0}
 --- !u!1 &1862320745
 GameObject:
   m_ObjectHideFlags: 0
@@ -13294,6 +13313,7 @@ MonoBehaviour:
   ProtoTypeID: 
   MaxHP: 100
   CurrentHP: 100
+  HitEffect: 0
   Controller: {fileID: 0}
   MaxShield: 100
   CurrentShield: 100
@@ -14302,7 +14322,7 @@ MonoBehaviour:
   - {fileID: 1626857595}
   - {fileID: 2129778055}
   BulletPrefab: {fileID: 268917492707514845, guid: b79720304f9ef534aaaadff2f5754bd0, type: 3}
-  EffectPrefab: {fileID: 2716649869221781277, guid: 43533c105c4ea3441b4bf518d43b8de8, type: 3}
+  EffectPrefab: 0
   FireSounds:
   - {fileID: 8300000, guid: e9d46506884c45046972f43cecca6534, type: 3}
   - {fileID: 8300000, guid: bbe4a78fe9a586846bc56090ff8051bf, type: 3}

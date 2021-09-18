@@ -7,7 +7,7 @@ using Unity.Mathematics;
 
 namespace Site13Kernel.Core
 {
-    public class DamagableEntity : ControlledBehavior, ICheckpointData
+    public class DamagableEntity : ControlledBehavior, ICheckpointData, IHittable
     {
         public string Name;
 
@@ -15,6 +15,7 @@ namespace Site13Kernel.Core
 
         public float MaxHP;
         public float CurrentHP;
+        public int HitEffect;
 
         public EntityController Controller;
 
@@ -63,6 +64,11 @@ namespace Site13Kernel.Core
         public virtual List<object> SubSave()
         {
             return new List<object>();
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual int HitEffectHashCode()
+        {
+            return HitEffect;
         }
     }
 }

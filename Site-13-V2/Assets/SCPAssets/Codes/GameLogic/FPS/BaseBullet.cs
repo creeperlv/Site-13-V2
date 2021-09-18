@@ -41,6 +41,17 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Hit(Collider collision)
         {
+            var Hittable = collision.gameObject.GetComponent<IHittable>();
+            
+            if (Hittable != null)
+            {
+                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity,Vector3.one);
+            }
+            else
+            {
+                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
+
+            }
             var Entity = collision.gameObject.GetComponent<DamagableEntity>();
             var WeakPoint = collision.gameObject.GetComponent<WeakPoint>();
             if (WeakPoint != null)
@@ -51,6 +62,7 @@ namespace Site13Kernel.GameLogic.FPS
             {
                 Entity.Damage(BaseDamage);
             }
+
             ParentSystem.DestoryBullet(this);
         }
     }

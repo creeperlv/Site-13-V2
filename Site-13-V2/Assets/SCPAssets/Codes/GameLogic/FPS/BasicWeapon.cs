@@ -14,7 +14,7 @@ namespace Site13Kernel.GameLogic.FPS
         public Weapon Base;
         public List<AudioSource> GunSFXSources;
         public GameObject BulletPrefab;
-        public GameObject EffectPrefab;
+        public int EffectPrefab;
         public List<AudioClip> FireSounds = new List<AudioClip>();
         public float FireInterval = 0;
         public float Recoil = 0;
