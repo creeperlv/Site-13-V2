@@ -20,7 +20,7 @@ namespace Site13Kernel.GameLogic.FPS
         public float Recoil = 0;
         public float MaxRecoil = 2;
         public float RecoilRecoverSpeed = 5;
-
+        public BulletFireType BulletFireType;
         public WeaponFireType FireType = WeaponFireType.FullAuto;
         public float NonAutoCap = 1;
 
@@ -108,9 +108,13 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (BulletPrefab != null)
                 GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, this.transform.rotation);
-            if (EffectPrefab != null)
+            if (EffectPrefab != -1)
             {
                 GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation,Vector3.one,CurrentEffectPoint);
+            }
+            if(BulletFireType == BulletFireType.HitScan)
+            {
+
             }
             GunSFXSources[SFXIndex].Stop();
             GunSFXSources[SFXIndex].clip = FireSounds[UnityEngine.Random.Range(0, FireSounds.Count)];
@@ -121,11 +125,5 @@ namespace Site13Kernel.GameLogic.FPS
                 SFXIndex = 0;
             }
         }
-    }
-    public enum WeaponFireType
-    {
-        FullAuto,
-        SemiAuto,
-        Heat
     }
 }

@@ -12675,6 +12675,7 @@ GameObject:
   - component: {fileID: 1836104268}
   - component: {fileID: 1836104267}
   - component: {fileID: 1836104270}
+  - component: {fileID: 1836104271}
   m_Layer: 0
   m_Name: Cube_002
   m_TagString: Untagged
@@ -12778,6 +12779,18 @@ MonoBehaviour:
   CurrentHP: 0
   HitEffect: 2
   Controller: {fileID: 0}
+--- !u!114 &1836104271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836104265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd8aad56d160c64ca654ae5461b1683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1862320745
 GameObject:
   m_ObjectHideFlags: 0
@@ -14331,6 +14344,7 @@ MonoBehaviour:
   Recoil: 2
   MaxRecoil: 2
   RecoilRecoverSpeed: 5
+  BulletFireType: 0
   FireType: 0
   NonAutoCap: 1
   FIRE0: 0
