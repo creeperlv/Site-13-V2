@@ -15,6 +15,11 @@ namespace Site13Kernel.Core.Controllers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Register(DamagableEntity entity)
+        {
+            ControlledEntities.Add(entity);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             for (int i = ControlledEntities.Count - 1; i > 0; i--)

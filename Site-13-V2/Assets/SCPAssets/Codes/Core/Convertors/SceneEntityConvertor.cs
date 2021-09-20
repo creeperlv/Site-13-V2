@@ -6,10 +6,9 @@ namespace Site13Kernel.Core.Convertors
 {
     public class SceneEntityConvertor : BaseConvertor
     {
-
-    }
-    public class BaseConvertor : ControlledBehavior
-    {
-
+        public override void Init()
+        {
+            GameRuntime.CurrentLocals.CurrentDefaultController.Register(GetComponent<DamagableEntity>());
+        }
     }
 }
