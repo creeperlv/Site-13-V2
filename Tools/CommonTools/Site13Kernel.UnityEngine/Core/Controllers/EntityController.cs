@@ -17,6 +17,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Register(DamagableEntity entity)
         {
+            entity.Controller = this;
             ControlledEntities.Add(entity);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

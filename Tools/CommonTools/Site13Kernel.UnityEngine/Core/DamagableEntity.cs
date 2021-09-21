@@ -14,16 +14,22 @@ namespace Site13Kernel.Core
         public string ProtoTypeID;
 
         public float MaxHP;
+        public float InitHP;
         public float CurrentHP;
         public int HitEffect;
 
         public EntityController Controller;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Load(List<object> data)
         {
 
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override void Init()
+        {
+            CurrentHP = InitHP;
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Damage(float V)
         {

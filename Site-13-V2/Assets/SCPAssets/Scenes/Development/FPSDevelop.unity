@@ -319,6 +319,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41885245}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &49004357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 49004358}
+  - component: {fileID: 49004359}
+  m_Layer: 0
+  m_Name: EntityConvertorController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &49004358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49004357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1305160826}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &49004359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49004357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7b655fb0b86d14293fd878b78d14f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Convertors:
+  - {fileID: 1836104271}
 --- !u!1 &75443618
 GameObject:
   m_ObjectHideFlags: 0
@@ -9907,6 +9953,7 @@ Transform:
   - {fileID: 1217054214}
   - {fileID: 2099225022}
   - {fileID: 1812465384}
+  - {fileID: 49004358}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9925,6 +9972,8 @@ MonoBehaviour:
   OnInit_Interface: []
   OnInit:
   - {fileID: 1031362889}
+  - {fileID: 1812465385}
+  - {fileID: 49004359}
   OnRefresh: []
   OnFixedRefresh: []
   INTERRUPT_INIT: 0
@@ -12646,10 +12695,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1812465383}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1996549511, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 60c6268bbbb10ae4699393d825ae0074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ControlledEntities: []
+  ControlledEntities:
+  - {fileID: 1836104270}
 --- !u!1 &1812915907
 GameObject:
   m_ObjectHideFlags: 0
@@ -12821,8 +12871,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   ProtoTypeID: 
-  MaxHP: 0
-  CurrentHP: 0
+  MaxHP: 100
+  InitHP: 100
+  CurrentHP: 100
   HitEffect: 2
   Controller: {fileID: 0}
 --- !u!114 &1836104271
@@ -13371,6 +13422,7 @@ MonoBehaviour:
   Name: 
   ProtoTypeID: 
   MaxHP: 100
+  InitHP: 0
   CurrentHP: 100
   HitEffect: 0
   Controller: {fileID: 0}

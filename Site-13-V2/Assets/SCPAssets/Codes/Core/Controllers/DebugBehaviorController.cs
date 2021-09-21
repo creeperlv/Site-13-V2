@@ -10,6 +10,7 @@ namespace Site13Kernel.Core.Controllers
 #if DEBUG
         void Start()
         {
+            GameRuntime.CurrentLocals = new GameLocals();
             if (CrossScene)
             {
                 DontDestroyOnLoad(this.gameObject);
