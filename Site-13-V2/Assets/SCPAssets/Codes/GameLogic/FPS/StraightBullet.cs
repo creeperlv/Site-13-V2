@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.FPS
 {
+    /// <summary>
+    /// Hitscan Bullet, ignore hit action on physics.
+    /// </summary>
     public class StraightBullet : BaseBullet
     {
 
@@ -13,6 +16,11 @@ namespace Site13Kernel.GameLogic.FPS
         public override void Move(float DT, float UDT)
         {
             this.transform.Translate(Vector3.forward * Velocity * DT, Space.Self);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override void Hit(Collider collision)
+        {
+            ParentSystem.DestoryBullet(this);
         }
     }
 }

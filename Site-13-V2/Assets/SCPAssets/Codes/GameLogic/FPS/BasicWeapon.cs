@@ -12,6 +12,7 @@ namespace Site13Kernel.GameLogic.FPS
     public class BasicWeapon : ControlledBehavior
     {
         public Weapon Base;
+        public float MaxHitScanDistance;
         public List<AudioSource> GunSFXSources;
         public GameObject BulletPrefab;
         public int EffectPrefab;
@@ -32,6 +33,7 @@ namespace Site13Kernel.GameLogic.FPS
         public Transform EffectPoint;
         public Transform CurrentEffectPoint;
         float CountDown = 0;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
             if (FIRE0)
@@ -114,7 +116,34 @@ namespace Site13Kernel.GameLogic.FPS
             }
             if(BulletFireType == BulletFireType.HitScan)
             {
+                Physics.Raycast(FirePoint.position, FirePoint.forward, out var info, MaxHitScanDistance);
+                if (info.collider != null)
+                {
+                    {
+                        var Hittable = info.collider.GetComponent<IHittable>();
 
+                        if (Hittable != null)
+                        {
+                            GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, Quaternion.identity, Vector3.one);
+                        }
+                        else
+                        {
+                            GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, Quaternion.identity, Vector3.one);
+
+                        }
+                        var Entity = info.collider.GetComponent<DamagableEntity>();
+                        var WeakPoint = info.collider.GetComponent<WeakPoint>();
+                        if (WeakPoint != null)
+                        {
+                            WeakPoint.AttachedBioEntity.Damage(BulletPrefab.GetComponent<BaseBullet>().WeakPointDamage);
+                        }
+                        else if (Entity != null)
+                        {
+                            Entity.Damage(BulletPrefab.GetComponent<BaseBullet>().BaseDamage);
+                        }
+
+                    }
+                }
             }
             GunSFXSources[SFXIndex].Stop();
             GunSFXSources[SFXIndex].clip = FireSounds[UnityEngine.Random.Range(0, FireSounds.Count)];
