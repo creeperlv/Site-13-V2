@@ -8,6 +8,7 @@ namespace Site13Kernel.Core.Controllers
 {
     public class EntityController : ControlledBehavior
     {
+        public static Dictionary<int, GameObject> EntityPrefabMap;
         public List<DamagableEntity> ControlledEntities;
 
         public override void Init()
@@ -38,6 +39,45 @@ namespace Site13Kernel.Core.Controllers
                 ControlledEntities.Remove(entity);
                 Destroy(entity.gameObject);
             }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, DamagableEntity) Instantiate(int HashCode)
+        {
+            return Instantiate(EntityPrefabMap[HashCode]);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, DamagableEntity) Instantiate(GameObject gameObject)
+        {
+            var _Object = GameObject.Instantiate(gameObject);
+            var Entity = _Object.GetComponent<DamagableEntity>();
+            Register(Entity);
+            return (_Object, Entity);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, DamagableEntity) Instantiate(int HashCode, Vector3 Position, Quaternion Rotation)
+        {
+            return Instantiate(EntityPrefabMap[HashCode], Position, Rotation);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, DamagableEntity) Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation)
+        {
+            var _Object = GameObject.Instantiate(gameObject, Position, Rotation);
+            var Entity = _Object.GetComponent<DamagableEntity>();
+            Register(Entity);
+            return (_Object, Entity);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, DamagableEntity) Instantiate(int HashCode, Vector3 Position, Quaternion Rotation, Transform transform)
+        {
+            return Instantiate(EntityPrefabMap[HashCode], Position, Rotation, transform);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, DamagableEntity) Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform transform)
+        {
+            var _Object = GameObject.Instantiate(gameObject, Position, Rotation, transform);
+            var Entity = _Object.GetComponent<DamagableEntity>();
+            Register(Entity);
+            return (_Object, Entity);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DestroyEntity(DamagableEntity entity)

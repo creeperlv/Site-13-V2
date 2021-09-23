@@ -24,6 +24,7 @@ namespace Site13Kernel.Core
         public GameDefinition CurrentGameDef;
         public SubtitleController SubtitleController;
         public EffectController CurrentEffectController;
+        public Dictionary<int, GameObject> GeneralPrefabMap;
         public void Init()
         {
             AppData = Application.persistentDataPath;
