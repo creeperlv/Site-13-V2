@@ -19,20 +19,24 @@ namespace Site13Kernel.GameLogic.FPS
         public List<AudioClip> FireSounds = new List<AudioClip>();
         public float FireInterval = 0;
         public float Recoil = 0;
+        public float SingleFireRecoil = 0.5f;
         public float MaxRecoil = 2;
         public float RecoilRecoverSpeed = 5;
         public BulletFireType BulletFireType;
         public WeaponFireType FireType = WeaponFireType.FullAuto;
-        public float NonAutoCap = 1;
+        public float NonAutoCap = 1;//3 for BR55/75-Like weapon
 
         public bool FIRE0 = false;
+        public bool FIRE3 = false;
         public byte FIRE1 = 0;
+        public byte FIRE2 = 0; //Semi Auto Use
 
         public SpherePosition RelativeEmissionPoint;
         public Transform FirePoint;
         public Transform EffectPoint;
         public Transform CurrentEffectPoint;
         float CountDown = 0;
+        float SemiCountDown = 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
@@ -51,11 +55,15 @@ namespace Site13Kernel.GameLogic.FPS
                         break;
                     case WeaponFireType.SemiAuto:
                         {
-                            if (FIRE1 == 0)
-                                if (CountDown <= 0)
-                                {
-                                    FIRE1 = 1;
-                                }
+                            if (FIRE3)
+                                if (FIRE1 == 0)
+                                    if (CountDown <= 0)
+                                    {
+                                        //CountDown = FireInterval;
+                                        SemiCountDown = NonAutoCap;
+                                        FIRE1 = 1;
+                                        FIRE2 = 1;
+                                    }
                         }
                         break;
                     case WeaponFireType.Heat:
@@ -79,11 +87,9 @@ namespace Site13Kernel.GameLogic.FPS
                         }
                         break;
                     case WeaponFireType.SemiAuto:
-                        if (FIRE1 == 1)
+                        if (FIRE2 == 1)
                         {
-                            SingleFire();
-                            CountDown = FireInterval;
-                            FIRE1 = 2;
+                            SemiFireProgress(DeltaT, UnscaledDeltaT);
                         }
                         break;
                     case WeaponFireType.Heat:
@@ -94,27 +100,53 @@ namespace Site13Kernel.GameLogic.FPS
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SemiFireProgress(float DeltaTime, float UnscaledDeltaTime)
+        {
+            if (SemiCountDown > 0)
+            {
+
+                CountDown -= DeltaTime;
+                if (CountDown <= 0)
+                {
+                    SingleFire();
+                    CountDown = FireInterval;
+                    SemiCountDown--;
+                }
+            }
+            else
+            {
+                FIRE2 = 0;
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fire()
         {
             FIRE0 = true;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Press()
+        {
+            FIRE3 = true;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unfire()
         {
             FIRE0 = false;
+            FIRE3 = false;
             FIRE1 = 0;
         }
         int SFXIndex = 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SingleFire()
         {
+            Recoil = Math.Min(Recoil + SingleFireRecoil, MaxRecoil);
             if (BulletPrefab != null)
                 GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, this.transform.rotation);
             if (EffectPrefab != -1)
             {
-                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation,Vector3.one,CurrentEffectPoint);
+                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
             }
-            if(BulletFireType == BulletFireType.HitScan)
+            if (BulletFireType == BulletFireType.HitScan)
             {
                 Physics.Raycast(FirePoint.position, FirePoint.forward, out var info, MaxHitScanDistance);
                 if (info.collider != null)

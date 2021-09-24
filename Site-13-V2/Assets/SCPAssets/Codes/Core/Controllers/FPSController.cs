@@ -172,9 +172,13 @@ namespace Site13Kernel.Core.Controllers
                     Weapon.Fire();
                 else Weapon.Unfire();
             }
-            //if (InputProcessor.CurrentInput.GetInputDown("Fire"))
-            //{
-            //}
+            if (InputProcessor.CurrentInput.GetInputDown("Fire"))
+            {
+                if (isWalking)
+                    Weapon.Press();
+                else Weapon.Unfire();
+
+            }
             if (InputProcessor.CurrentInput.GetInputUp("Fire"))
                 Weapon.Unfire();
         }

@@ -13466,8 +13466,8 @@ MonoBehaviour:
   FPSRealCam: {fileID: 0}
   Cycle: 0
   FPSCamSwingIntensity: 0.015
-  FPSCamSwingRunningIntensity: 0.1
-  FPSCamSwingIntensitySwitchSpeed: 2
+  FPSCamSwingRunningIntensity: 0.05
+  FPSCamSwingIntensitySwitchSpeed: 4
   FPSCamSwingSpeed: 3
   WalkIncreasementIntensity: 1.1
   RunIncreasementIntensity: 0.5
@@ -14393,9 +14393,9 @@ MonoBehaviour:
   ZoomFov: 30
   ZoomEffectPoint: {fileID: 2100323558}
   NormalPosition: {x: 0, y: 0, z: 0}
-  RunningPosition: {x: 0.4, y: 0.05, z: 0}
+  RunningPosition: {x: 0.2, y: -0.05, z: -0.05}
   NormalRotationEuler: {x: 0, y: 0, z: 0}
-  RunningRotationEuler: {x: 7.1, y: -65, z: 0}
+  RunningRotationEuler: {x: 10, y: -25, z: 0}
   ControlledAnimator: {fileID: 1283670956}
   TakeOut: TakeOut
   Combat: Combat
@@ -14440,7 +14440,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e9d46506884c45046972f43cecca6534, type: 3}
   - {fileID: 8300000, guid: bbe4a78fe9a586846bc56090ff8051bf, type: 3}
   - {fileID: 8300000, guid: 2a7e0c89d1252f1489f344d3bcf8be5d, type: 3}
-  FireInterval: 0.1
+  FireInterval: 0.075
   Recoil: 2
   MaxRecoil: 2
   RecoilRecoverSpeed: 5
@@ -14448,7 +14448,9 @@ MonoBehaviour:
   FireType: 0
   NonAutoCap: 1
   FIRE0: 0
+  FIRE3: 0
   FIRE1: 0
+  FIRE2: 0
   RelativeEmissionPoint:
     R: 0
     "\u03B8": 0

@@ -35,6 +35,11 @@ namespace Site13Kernel.GameLogic
             Weapon.Fire();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Press()
+        {
+            Weapon.Press();
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unfire()
         {
             Weapon.Unfire();
