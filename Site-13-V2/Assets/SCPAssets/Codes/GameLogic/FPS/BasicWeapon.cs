@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.Data;
+using Site13Kernel.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace Site13Kernel.GameLogic.FPS
         public float SingleFireRecoil = 0.5f;
         public float MaxRecoil = 2;
         public float RecoilRecoverSpeed = 5;
+        public float MaxScatterAngle = 0;
         public BulletFireType BulletFireType;
         public WeaponFireType FireType = WeaponFireType.FullAuto;
         public float NonAutoCap = 1;//3 for BR55/75-Like weapon
@@ -140,15 +142,22 @@ namespace Site13Kernel.GameLogic.FPS
         public void SingleFire()
         {
             Recoil = Math.Min(Recoil + SingleFireRecoil, MaxRecoil);
+            Quaternion Rotation = this.transform.rotation;
+            Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * MaxScatterAngle, Camera.main.fieldOfView);
+            {
+                Vector3 V = Rotation.eulerAngles;
+                
+            }
             if (BulletPrefab != null)
-                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, this.transform.rotation);
+                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation);
             if (EffectPrefab != -1)
             {
-                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
+                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, Rotation, Vector3.one, CurrentEffectPoint);
             }
             if (BulletFireType == BulletFireType.HitScan)
             {
-                Physics.Raycast(FirePoint.position, FirePoint.forward, out var info, MaxHitScanDistance);
+                Vector3 _Rotation = FirePoint.forward;
+                Physics.Raycast(FirePoint.position,_Rotation , out var info, MaxHitScanDistance);
                 if (info.collider != null)
                 {
                     {

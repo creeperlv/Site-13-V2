@@ -234,6 +234,15 @@ namespace Site13Kernel.Utilities
         public static bool InRange(float V, float L, float H)
             => V > L && V < H;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 RandomDirectionAngleOnXYAndZ0(float Angle,float FOVAngle)
+        {
+            var T = Mathf.Tan(Mathf.Deg2Rad * Angle);
+            float X = UnityEngine.Random.Range(0, T);
+            float Y = Mathf.Sqrt(T * T - X * X);
+            Vector3 v = new Vector3(X * FOVAngle, Y * FOVAngle, 0);
+            return Vector3.zero;
+        }
     }
 
 }
