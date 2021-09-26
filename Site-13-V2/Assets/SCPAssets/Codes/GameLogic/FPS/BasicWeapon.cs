@@ -24,6 +24,12 @@ namespace Site13Kernel.GameLogic.FPS
         public float MaxRecoil = 2;
         public float RecoilRecoverSpeed = 5;
         public float MaxScatterAngle = 0;
+        public float MaxScatterAngleAimMode = 0;
+        /// <summary>
+        /// 0 - Normal
+        /// 1 - Aim
+        /// </summary>
+        public int AimingMode = 0;
         public BulletFireType BulletFireType;
         public WeaponFireType FireType = WeaponFireType.FullAuto;
         public float NonAutoCap = 1;//3 for BR55/75-Like weapon
@@ -143,10 +149,14 @@ namespace Site13Kernel.GameLogic.FPS
         {
             Recoil = Math.Min(Recoil + SingleFireRecoil, MaxRecoil);
             Quaternion Rotation = this.transform.rotation;
-            Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * MaxScatterAngle, Camera.main.fieldOfView);
+            Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode), Camera.main.fieldOfView);
+            Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
+            //Debug.Log(RecoilAngle);
+
             {
                 Vector3 V = Rotation.eulerAngles;
-                
+                V += RecoilAngle;
+                Rotation = Quaternion.Euler(V);
             }
             if (BulletPrefab != null)
                 GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation);
@@ -157,7 +167,13 @@ namespace Site13Kernel.GameLogic.FPS
             if (BulletFireType == BulletFireType.HitScan)
             {
                 Vector3 _Rotation = FirePoint.forward;
-                Physics.Raycast(FirePoint.position,_Rotation , out var info, MaxHitScanDistance);
+                {
+                    _Rotation += FirePoint.TransformDirection(RecoilAngle2);
+                    //Rotation = Quaternion.Euler(V);
+                    Debug.Log(_Rotation);
+                    Debug.DrawRay(FirePoint.position, _Rotation, Color.green, 5);
+                }
+                Physics.Raycast(FirePoint.position, _Rotation, out var info, MaxHitScanDistance);
                 if (info.collider != null)
                 {
                     {

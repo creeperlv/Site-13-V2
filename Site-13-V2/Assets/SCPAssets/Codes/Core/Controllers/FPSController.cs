@@ -205,12 +205,14 @@ namespace Site13Kernel.Core.Controllers
                     isRunning = false;
                     toZoom = true;
                     Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
+                    Weapon.Weapon.AimingMode = 1;
                     HideWeapon();
                 }
                 if (InputProcessor.CurrentInput.GetInputUp("Zoom"))
                 {
                     toZoom = false;
                     Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
+                    Weapon.Weapon.AimingMode = 0;
                     ShowWeapon();
                 }
             }

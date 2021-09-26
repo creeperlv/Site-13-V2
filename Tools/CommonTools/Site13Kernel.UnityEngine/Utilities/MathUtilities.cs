@@ -237,11 +237,26 @@ namespace Site13Kernel.Utilities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 RandomDirectionAngleOnXYAndZ0(float Angle,float FOVAngle)
         {
+            if (Angle == 0)
+                return Vector3.zero;
             var T = Mathf.Tan(Mathf.Deg2Rad * Angle);
-            float X = UnityEngine.Random.Range(0, T);
+            float X = UnityEngine.Random.Range(-T, T);
             float Y = Mathf.Sqrt(T * T - X * X);
+            Y = UnityEngine.Random.Range(-Y, Y);
             Vector3 v = new Vector3(X * FOVAngle, Y * FOVAngle, 0);
-            return Vector3.zero;
+            return v;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 RandomDirectionAngleOnXYAndZ1(float Angle)
+        {
+            if (Angle == 0)
+                return Vector3.zero;
+            var T = Mathf.Tan(Mathf.Deg2Rad * Angle);
+            float X = UnityEngine.Random.Range(-T, T);
+            float Y = Mathf.Sqrt(T * T - X * X);
+            Y = UnityEngine.Random.Range(-Y, Y);
+            Vector3 v = new Vector3(X, Y, 1);
+            return v;
         }
     }
 
