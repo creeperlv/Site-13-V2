@@ -16,6 +16,8 @@ namespace Site13Kernel.GameLogic.FPS
         public float MaxHitScanDistance;
         public List<AudioSource> GunSFXSources;
         public GameObject BulletPrefab;
+        public Animator ControlledAnimator;
+        public string FireAnime;
         public int EffectPrefab;
         public List<AudioClip> FireSounds = new List<AudioClip>();
         public float FireInterval = 0;
@@ -162,16 +164,13 @@ namespace Site13Kernel.GameLogic.FPS
                 GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation);
             if (EffectPrefab != -1)
             {
-                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, Rotation, Vector3.one, CurrentEffectPoint);
+                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, CurrentEffectPoint.rotation, Vector3.one, CurrentEffectPoint);
             }
             if (BulletFireType == BulletFireType.HitScan)
             {
                 Vector3 _Rotation = FirePoint.forward;
                 {
                     _Rotation += FirePoint.TransformDirection(RecoilAngle2);
-                    //Rotation = Quaternion.Euler(V);
-                    Debug.Log(_Rotation);
-                    Debug.DrawRay(FirePoint.position, _Rotation, Color.green, 5);
                 }
                 Physics.Raycast(FirePoint.position, _Rotation, out var info, MaxHitScanDistance);
                 if (info.collider != null)
@@ -179,13 +178,14 @@ namespace Site13Kernel.GameLogic.FPS
                     {
                         var Hittable = info.collider.GetComponent<IHittable>();
 
+                        Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
                         if (Hittable != null)
                         {
-                            GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, Quaternion.identity, Vector3.one);
+                            GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one);
                         }
                         else
                         {
-                            GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, Quaternion.identity, Vector3.one);
+                            GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one);
 
                         }
                         var Entity = info.collider.GetComponent<DamagableEntity>();
