@@ -5,6 +5,7 @@ using Site13Kernel.GameLogic.FPS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -14,7 +15,7 @@ namespace Site13Kernel.Core
     public class GameGlobals
     {
         public string AppData;
-        public bool isDebugFunctionEnabled=false;
+        public bool isDebugFunctionEnabled = false;
         public int NextCampaign;
         public int MainMenuSceneID;
 
@@ -23,7 +24,10 @@ namespace Site13Kernel.Core
         public AudioSource MainUIBGM;
         public GameDefinition CurrentGameDef;
         public SubtitleController SubtitleController;
-        public EffectController CurrentEffectController;
+        public EffectController CurrentEffectController {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => EffectController.CurrentEffectController;
+        }
         public Dictionary<int, GameObject> GeneralPrefabMap;
         public void Init()
         {

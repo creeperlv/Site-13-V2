@@ -1,6 +1,5 @@
-using Site13Kernel.Data;
+﻿using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Effects;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -12,13 +11,14 @@ namespace Site13Kernel.Core.Controllers
         public Dictionary<int, GameObject> EffectDefinitions = new Dictionary<int, GameObject>();
         public List<EffectDefinition> _EffectDefinitions = new List<EffectDefinition>();
         public List<BaseEffect> ControlledEffects = new List<BaseEffect>();
+        public static EffectController CurrentEffectController = null;
         public override void Init()
         {
             foreach (var item in _EffectDefinitions)
             {
                 EffectDefinitions.Add(item.HashCode, item.Effect);
             }
-            GameRuntime.CurrentGlobals.CurrentEffectController = this;
+            CurrentEffectController = this;
             Parent.RegisterRefresh(this);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -48,7 +48,9 @@ namespace Site13Kernel.Core.Controllers
         {
             var go = Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent);
             go.transform.localScale = Scale;
-            ControlledEffects.Add(go.GetComponent<BaseEffect>());
+            var BE = go.GetComponent<BaseEffect>();
+            BE.Init();
+            ControlledEffects.Add(BE);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -56,7 +58,9 @@ namespace Site13Kernel.Core.Controllers
         {
             var go = Instantiate(Prefab, Position, Rotation, Parent);
             go.transform.localScale = Scale;
-            ControlledEffects.Add(go.GetComponent<BaseEffect>());
+            var BE = go.GetComponent<BaseEffect>();
+            BE.Init();
+            ControlledEffects.Add(BE);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

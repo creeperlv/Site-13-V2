@@ -1,4 +1,5 @@
 using Site13Kernel.Core;
+using Site13Kernel.Core.Controllers;
 using Site13Kernel.GameLogic.FPS;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,11 +46,11 @@ namespace Site13Kernel.GameLogic.FPS
             
             if (Hittable != null)
             {
-                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity,Vector3.one);
+                EffectController.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity,Vector3.one);
             }
             else
             {
-                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
+                EffectController.CurrentEffectController.Spawn(1, collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
 
             }
             var Entity = collision.gameObject.GetComponent<DamagableEntity>();
