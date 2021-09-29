@@ -12,6 +12,11 @@ namespace Site13Kernel.Core.Controllers
         public List<EffectDefinition> _EffectDefinitions = new List<EffectDefinition>();
         public List<BaseEffect> ControlledEffects = new List<BaseEffect>();
         public static EffectController CurrentEffectController = null;
+        public static int MAX_SPAWNABLE_EFFECT_COUNT = int.MaxValue;
+        public static void SetMaxSpawnableEffectCount(int V)
+        {
+            MAX_SPAWNABLE_EFFECT_COUNT = V;
+        }
         public override void Init()
         {
             foreach (var item in _EffectDefinitions)
@@ -42,10 +47,12 @@ namespace Site13Kernel.Core.Controllers
         {
             Spawn(Prefab, Position, Rotation, Scale, transform);
         }
-
+        int CurrentEffects = 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent)
         {
+            if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return;
+            CurrentEffects++;
             var go = Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent);
             go.transform.localScale = Scale;
             var BE = go.GetComponent<BaseEffect>();
@@ -56,6 +63,8 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent)
         {
+            if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return;
+            CurrentEffects++;
             var go = Instantiate(Prefab, Position, Rotation, Parent);
             go.transform.localScale = Scale;
             var BE = go.GetComponent<BaseEffect>();
@@ -80,6 +89,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DestroyEffect(BaseEffect baseEffect)
         {
+            CurrentEffects--;
             ControlledEffects.Remove(baseEffect);
             Destroy(baseEffect.gameObject);
         }

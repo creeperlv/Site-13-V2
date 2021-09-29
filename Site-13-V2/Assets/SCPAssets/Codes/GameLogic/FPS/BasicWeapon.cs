@@ -146,70 +146,92 @@ namespace Site13Kernel.GameLogic.FPS
             FIRE1 = 0;
         }
         int SFXIndex = 0;
+        Action<float> OnCurrentMagChanged=null;
+        /// <summary>
+        /// Only Applies to non-laser weapons.
+        /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SingleFire()
         {
-            Recoil = Math.Min(Recoil + SingleFireRecoil, MaxRecoil);
-            Quaternion Rotation = this.transform.rotation;
-            Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode), Camera.main.fieldOfView);
-            Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
-            //Debug.Log(RecoilAngle);
-
+            if (Base.CurrentMagazine > 0)
             {
-                Vector3 V = Rotation.eulerAngles;
-                V += RecoilAngle;
-                Rotation = Quaternion.Euler(V);
-            }
-            if (BulletPrefab != null)
-                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation);
-            if (EffectPrefab != -1)
-            {
-                GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
-            }
-            if (BulletFireType == BulletFireType.HitScan)
-            {
-                Vector3 _Rotation = FirePoint.forward;
+                if(FireType == WeaponFireType.FullAuto&& FireType == WeaponFireType.FullAuto)
                 {
-                    _Rotation += FirePoint.TransformDirection(RecoilAngle2);
-                }
-                Physics.Raycast(FirePoint.position, _Rotation, out var info, MaxHitScanDistance);
-                if (info.collider != null)
-                {
+                    this.Base.CurrentMagazine--;
+                    if (OnCurrentMagChanged != null)
                     {
-                        var Hittable = info.collider.GetComponent<IHittable>();
-
-                        Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
-                        if (Hittable != null)
-                        {
-                            GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one);
-                        }
-                        else
-                        {
-                            GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one);
-
-                        }
-                        var Entity = info.collider.GetComponent<DamagableEntity>();
-                        var WeakPoint = info.collider.GetComponent<WeakPoint>();
-                        if (WeakPoint != null)
-                        {
-                            WeakPoint.AttachedBioEntity.Damage(BulletPrefab.GetComponent<BaseBullet>().WeakPointDamage);
-                        }
-                        else if (Entity != null)
-                        {
-                            Entity.Damage(BulletPrefab.GetComponent<BaseBullet>().BaseDamage);
-                        }
-
+                        OnCurrentMagChanged(Base.CurrentMagazine);
                     }
+                    Recoil = Math.Min(Recoil + SingleFireRecoil, MaxRecoil);
+                    Quaternion Rotation = this.transform.rotation;
+                    Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode), Camera.main.fieldOfView);
+                    Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
+                    //Debug.Log(RecoilAngle);
+
+                    {
+                        Vector3 V = Rotation.eulerAngles;
+                        V += RecoilAngle;
+                        Rotation = Quaternion.Euler(V);
+                    }
+                    if (BulletPrefab != null)
+                        GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation);
+                    if (EffectPrefab != -1)
+                    {
+                        GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
+                    }
+                    if (BulletFireType == BulletFireType.HitScan)
+                    {
+                        Vector3 _Rotation = FirePoint.forward;
+                        {
+                            _Rotation += FirePoint.TransformDirection(RecoilAngle2);
+                        }
+                        Physics.Raycast(FirePoint.position, _Rotation, out var info, MaxHitScanDistance);
+                        if (info.collider != null)
+                        {
+                            {
+                                var Hittable = info.collider.GetComponent<IHittable>();
+
+                                Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
+                                if (Hittable != null)
+                                {
+                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one);
+                                }
+                                else
+                                {
+                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one);
+
+                                }
+                                var Entity = info.collider.GetComponent<DamagableEntity>();
+                                var WeakPoint = info.collider.GetComponent<WeakPoint>();
+                                if (WeakPoint != null)
+                                {
+                                    WeakPoint.AttachedBioEntity.Damage(BulletPrefab.GetComponent<BaseBullet>().WeakPointDamage);
+                                }
+                                else if (Entity != null)
+                                {
+                                    Entity.Damage(BulletPrefab.GetComponent<BaseBullet>().BaseDamage);
+                                }
+
+                            }
+                        }
+                    }
+                    SFXIndex = UnityEngine.Random.Range(0, GunSFXSources.Count);
+                    GunSFXSources[SFXIndex].Stop();
+                    GunSFXSources[SFXIndex].clip = FireSounds[UnityEngine.Random.Range(0, FireSounds.Count)];
+                    GunSFXSources[SFXIndex].Play();
+                    //SFXIndex++;
+                    //if (SFXIndex == GunSFXSources.Count)
+                    //{
+                    //    SFXIndex = 0;
+                    //}
+
                 }
             }
-            GunSFXSources[SFXIndex].Stop();
-            GunSFXSources[SFXIndex].clip = FireSounds[UnityEngine.Random.Range(0, FireSounds.Count)];
-            GunSFXSources[SFXIndex].Play();
-            SFXIndex++;
-            if (SFXIndex == GunSFXSources.Count)
+            else
             {
-                SFXIndex = 0;
+
             }
+            
         }
     }
 }

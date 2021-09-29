@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Site13Kernel.GameLogic.FPS;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,10 +12,7 @@ namespace Site13Kernel.Data
         public float MaxCapacity;
         public float CurrentBackup;
         public float CurrentMagazine;
-        public WeaponMode WeaponMode;
-    }
-    public enum WeaponMode
-    {
-        SingleFire, Brust3Bullet, FullAuto, StB, BtF, AllMode
+        public WeaponFireType WeaponFireType0;
+        public WeaponFireType WeaponFireType1;// For 2-mode weapons.
     }
 }
