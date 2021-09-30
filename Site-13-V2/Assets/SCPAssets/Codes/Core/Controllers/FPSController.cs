@@ -181,6 +181,10 @@ namespace Site13Kernel.Core.Controllers
             }
             if (InputProcessor.CurrentInput.GetInputUp("Fire"))
                 Weapon.Unfire();
+            if (InputProcessor.CurrentInput.GetInputDown("Reload"))
+            {
+                Weapon.Reload();
+            }
         }
         bool toZoom = false;
         bool InternalZoom = false;

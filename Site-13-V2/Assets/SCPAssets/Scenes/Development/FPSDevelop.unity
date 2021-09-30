@@ -14575,7 +14575,9 @@ MonoBehaviour:
   ControlledAnimator: {fileID: 1283670956}
   TakeOut: TakeOut
   Combat: Combat
-  Reload: Reload
+  ReloadTrigger: Reload
+  ReloadP0: 0
+  ReloadP1: 0
   Idle: Idle
   Crosshairs:
   - {fileID: 675690595}
@@ -14601,9 +14603,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Base:
     WeaponID: 
-    MaxCapacity: 0
-    CurrentBackup: 0
-    CurrentMagazine: 0
+    MaxCapacity: 30
+    CurrentBackup: 30
+    CurrentMagazine: 30
     WeaponFireType0: 0
     WeaponFireType1: 0
   MaxHitScanDistance: 100

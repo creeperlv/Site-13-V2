@@ -47,6 +47,27 @@ namespace Site13Kernel.GameLogic.FPS
         public Transform CurrentEffectPoint;
         float CountDown = 0;
         float SemiCountDown = 0;
+        int Mode = 0;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetMode(int V)
+        {
+            Mode = V;
+            if (V == 0)
+            {
+
+                FireType = Base.WeaponFireType0;
+            }
+            else
+            {
+
+                FireType = Base.WeaponFireType1;
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Reload()
+        {
+
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
@@ -146,7 +167,7 @@ namespace Site13Kernel.GameLogic.FPS
             FIRE1 = 0;
         }
         int SFXIndex = 0;
-        Action<float> OnCurrentMagChanged=null;
+        Action<float> OnCurrentMagChanged = null;
         /// <summary>
         /// Only Applies to non-laser weapons.
         /// </summary>
@@ -155,7 +176,7 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (Base.CurrentMagazine > 0)
             {
-                if(FireType == WeaponFireType.FullAuto&& FireType == WeaponFireType.FullAuto)
+                if (FireType == WeaponFireType.FullAuto && FireType == WeaponFireType.FullAuto)
                 {
                     this.Base.CurrentMagazine--;
                     if (OnCurrentMagChanged != null)
@@ -231,7 +252,7 @@ namespace Site13Kernel.GameLogic.FPS
             {
 
             }
-            
+
         }
     }
 }

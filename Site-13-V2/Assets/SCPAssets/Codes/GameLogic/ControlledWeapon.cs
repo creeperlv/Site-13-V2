@@ -25,7 +25,9 @@ namespace Site13Kernel.GameLogic
         public Animator ControlledAnimator;
         public string TakeOut = "TakeOut";
         public string Combat = "Combat";
-        public string Reload = "Reload";
+        public string ReloadTrigger = "Reload";
+        public float ReloadP0;
+        public float ReloadP1;
         public string Idle = "Idle";
         public List<ControlledCrosshair> Crosshairs;
         public GameObject HUDCanvas;
@@ -38,6 +40,11 @@ namespace Site13Kernel.GameLogic
         public void Press()
         {
             Weapon.Press();
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Reload()
+        {
+
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unfire()
