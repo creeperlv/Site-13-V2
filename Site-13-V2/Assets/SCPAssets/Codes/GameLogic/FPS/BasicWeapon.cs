@@ -18,6 +18,12 @@ namespace Site13Kernel.GameLogic.FPS
         public GameObject BulletPrefab;
         public Animator ControlledAnimator;
         public string FireAnime;
+        public string TakeOut = "TakeOut";
+        public string Combat = "Combat";
+        public string ReloadTrigger = "Reload";
+        public float ReloadP0;
+        public float ReloadP1;
+        public string Idle = "Idle";
         public int EffectPrefab;
         public List<AudioClip> FireSounds = new List<AudioClip>();
         public float FireInterval = 0;
@@ -36,6 +42,12 @@ namespace Site13Kernel.GameLogic.FPS
         public WeaponFireType FireType = WeaponFireType.FullAuto;
         public float NonAutoCap = 1;//3 for BR55/75-Like weapon
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="Site13Kernel.GameLogic.FPS.WeaponConstants"/>
+        public int WeaponMode = 0;
+
         public bool FIRE0 = false;
         public bool FIRE3 = false;
         public byte FIRE1 = 0;
@@ -49,7 +61,7 @@ namespace Site13Kernel.GameLogic.FPS
         float SemiCountDown = 0;
         int Mode = 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetMode(int V)
+        public void SetFireMode(int V)
         {
             Mode = V;
             if (V == 0)

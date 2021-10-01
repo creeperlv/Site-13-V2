@@ -22,13 +22,6 @@ namespace Site13Kernel.GameLogic
         public Vector3 RunningPosition;
         public Vector3 NormalRotationEuler;
         public Vector3 RunningRotationEuler;
-        public Animator ControlledAnimator;
-        public string TakeOut = "TakeOut";
-        public string Combat = "Combat";
-        public string ReloadTrigger = "Reload";
-        public float ReloadP0;
-        public float ReloadP1;
-        public string Idle = "Idle";
         public List<ControlledCrosshair> Crosshairs;
         public GameObject HUDCanvas;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -58,23 +51,26 @@ namespace Site13Kernel.GameLogic
             {
                 item.Init();
             }
-            ControlledAnimator.SetTrigger(TakeOut);
+            Weapon.ControlledAnimator.SetTrigger(Weapon.TakeOut);
             isInited = true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ShowCoreWeaponAnimator()
         {
-            ControlledAnimator.gameObject.SetActive(true);
+
+            Weapon.ControlledAnimator.gameObject.SetActive(true);
             if (isInited)
             {
-                ControlledAnimator.SetTrigger(Idle);
+
+                Weapon.ControlledAnimator.SetTrigger(Weapon.Idle);
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void HideCoreWeaponAnimator()
         {
-            ControlledAnimator.gameObject.SetActive(false);
+
+            Weapon.ControlledAnimator.gameObject.SetActive(false);
         }
         //bool a=true;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
