@@ -14572,13 +14572,6 @@ MonoBehaviour:
   RunningPosition: {x: 0.175, y: -0.05, z: -0.075}
   NormalRotationEuler: {x: 0, y: 0, z: 0}
   RunningRotationEuler: {x: 5, y: -25, z: 25}
-  ControlledAnimator: {fileID: 1283670956}
-  TakeOut: TakeOut
-  Combat: Combat
-  ReloadTrigger: Reload
-  ReloadP0: 0
-  ReloadP1: 0
-  Idle: Idle
   Crosshairs:
   - {fileID: 675690595}
   - {fileID: 1202187993}
@@ -14614,8 +14607,14 @@ MonoBehaviour:
   - {fileID: 1626857595}
   - {fileID: 2129778055}
   BulletPrefab: {fileID: 268917492707514845, guid: b79720304f9ef534aaaadff2f5754bd0, type: 3}
-  ControlledAnimator: {fileID: 0}
+  ControlledAnimator: {fileID: 1283670956}
   FireAnime: 
+  TakeOut: TakeOut
+  Combat: Combat
+  ReloadTrigger: Reload
+  ReloadP0: 0
+  ReloadP1: 0
+  Idle: Idle
   EffectPrefab: 0
   FireSounds:
   - {fileID: 8300000, guid: e9d46506884c45046972f43cecca6534, type: 3}
@@ -14632,6 +14631,7 @@ MonoBehaviour:
   BulletFireType: 0
   FireType: 0
   NonAutoCap: 1
+  WeaponMode: 1
   FIRE0: 0
   FIRE3: 0
   FIRE1: 0

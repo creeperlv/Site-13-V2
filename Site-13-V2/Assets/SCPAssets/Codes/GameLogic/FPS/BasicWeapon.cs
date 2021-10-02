@@ -45,8 +45,8 @@ namespace Site13Kernel.GameLogic.FPS
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="Site13Kernel.GameLogic.FPS.WeaponConstants"/>
-        public int WeaponMode = 0;
+        /// <see cref="WeaponConstants"/>
+        public int WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
 
         public bool FIRE0 = false;
         public bool FIRE3 = false;
@@ -78,67 +78,74 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reload()
         {
+            if(WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
+            {
 
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
-            if (FIRE0)
+            if(WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
-                //Determine will be able to fire.
-                switch (FireType)
+                //Fire.
+                if (FIRE0)
                 {
-                    case WeaponFireType.FullAuto:
-                        {
-                            if (CountDown <= 0)
+                    //Determine will be able to fire.
+                    switch (FireType)
+                    {
+                        case WeaponFireType.FullAuto:
                             {
-                                FIRE1 = 1;
+                                if (CountDown <= 0)
+                                {
+                                    FIRE1 = 1;
+                                }
                             }
-                        }
-                        break;
-                    case WeaponFireType.SemiAuto:
-                        {
-                            if (FIRE3)
-                                if (FIRE1 == 0)
-                                    if (CountDown <= 0)
-                                    {
-                                        //CountDown = FireInterval;
-                                        SemiCountDown = NonAutoCap;
-                                        FIRE1 = 1;
-                                        FIRE2 = 1;
-                                    }
-                        }
-                        break;
-                    case WeaponFireType.Heat:
-                        break;
-                    default:
-                        break;
+                            break;
+                        case WeaponFireType.SemiAuto:
+                            {
+                                if (FIRE3)
+                                    if (FIRE1 == 0)
+                                        if (CountDown <= 0)
+                                        {
+                                            //CountDown = FireInterval;
+                                            SemiCountDown = NonAutoCap;
+                                            FIRE1 = 1;
+                                            FIRE2 = 1;
+                                        }
+                            }
+                            break;
+                        case WeaponFireType.Heat:
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            CountDown -= DeltaT;
-            {
-                switch (FireType)
+                CountDown -= DeltaT;
                 {
-                    case WeaponFireType.FullAuto:
-                        {
-                            if (FIRE1 == 1)
+                    switch (FireType)
+                    {
+                        case WeaponFireType.FullAuto:
                             {
-                                SingleFire();
-                                CountDown = FireInterval;
-                                FIRE1 = 0;
+                                if (FIRE1 == 1)
+                                {
+                                    SingleFire();
+                                    CountDown = FireInterval;
+                                    FIRE1 = 0;
+                                }
                             }
-                        }
-                        break;
-                    case WeaponFireType.SemiAuto:
-                        if (FIRE2 == 1)
-                        {
-                            SemiFireProgress(DeltaT, UnscaledDeltaT);
-                        }
-                        break;
-                    case WeaponFireType.Heat:
-                        break;
-                    default:
-                        break;
+                            break;
+                        case WeaponFireType.SemiAuto:
+                            if (FIRE2 == 1)
+                            {
+                                SemiFireProgress(DeltaT, UnscaledDeltaT);
+                            }
+                            break;
+                        case WeaponFireType.Heat:
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
