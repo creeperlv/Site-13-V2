@@ -1,6 +1,7 @@
 using CLUNL.Data.Serializables.CheckpointSystem;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.GameLogic;
+using Site13Kernel.UI;
 using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,8 +11,9 @@ using UnityEngine;
 
 namespace Site13Kernel.Core.Controllers
 {
-    public class FPSController : ControlledBehavior, ICheckpointData
+    public partial class FPSController : ControlledBehavior, ICheckpointData
     {
+        #region Movement and recoil by move
         public float MoveSpeed = 1f;
         public float WalkRecoil = .2f;
         public float RunningSpeed = 1f;
@@ -22,26 +24,20 @@ namespace Site13Kernel.Core.Controllers
         public Transform Head;
         public float MaxV;
         public float MinV;
-        public override void Init()
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            FPSCam_BaseT = FPSCam.localPosition;
-            Parent.RegisterRefresh(this);
-            WalkDistance = math.PI / 2;
-            FPSCamSwingIntensitySwitchDelta = FPSCamSwingRunningIntensity - FPSCamSwingIntensity;
-            if (Weapon0 != null)
-                Weapon0.Init();
-            if (Weapon1 != null)
-                Weapon1.Init();
-        }
         Vector3 FPSCam_BaseT;
         bool isRunning = false;
         public float JumpP00 = 1f;
         public float Gravity = 9.8f;
         public float MoveFriction = 9.8f;
+        public bool isMoveLocked = false;
+        public bool isRotateLocked = false;
+        #endregion
+        #region Bio info
+        public BioEntity CurrentEntity;
+        #endregion
         public ControlledWeapon Weapon0;
         public ControlledWeapon Weapon1;
+        #region FPS Viewport
         public Transform FPSCam;
         public Transform FPSRealCam;
         Vector3 _JUMP_V;
@@ -61,11 +57,39 @@ namespace Site13Kernel.Core.Controllers
         [HideInInspector]
         public float WRTween = 0;
         float FPSCamSwingIntensitySwitchDelta;
-        [Header("Zoom")]
+        #endregion
+        #region HUD - Zoom
+
+        [Header("HUD/Zoom")]
         public float NormalFOV = 9.8f;
         public float ZoomFOV;
         public float ZoomSpeed;
         public CanvasGroup ZoomHUD;
+
+        #endregion
+
+        #region HUD - Status
+
+        [Header("HUD/Status")]
+        public ProgressBar HP;
+        public ProgressBar Shield;
+
+        #endregion
+
+
+        public override void Init()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            FPSCam_BaseT = FPSCam.localPosition;
+            Parent.RegisterRefresh(this);
+            WalkDistance = math.PI / 2;
+            FPSCamSwingIntensitySwitchDelta = FPSCamSwingRunningIntensity - FPSCamSwingIntensity;
+            if (Weapon0 != null)
+                Weapon0.Init();
+            if (Weapon1 != null)
+                Weapon1.Init();
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SwapWeapon()
         {
@@ -102,67 +126,6 @@ namespace Site13Kernel.Core.Controllers
         }
         bool isWalking = true;
         ControlledWeapon Weapon;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
-        {
-            if (FrameDelay > 0)
-            {
-                FrameDelay--;
-                return;
-            }
-            Weapon = UsingWeapon == 0 ? Weapon0 : Weapon1;
-            if (InputProcessor.CurrentInput.GetInputDown("Run") && toZoom == false)
-            {
-                isRunning = true;
-            }
-            if (InputProcessor.CurrentInput.GetInputUp("Run"))
-            {
-                isRunning = false;
-            }
-            if (isRunning == true)
-            {
-                if (WRTween < 1)
-                {
-                    isWalking = false;
-                    WRTween += DeltaTime * FPSCamSwingIntensitySwitchSpeed;
-                    ApplyWR(DeltaTime);
-                }
-                else
-                {
-                    if (WRTween != 1)
-                    {
-                        WRTween = 1;
-                        ApplyWR(DeltaTime);
-                    }
-                }
-            }
-            else
-            {
-                if (WRTween > 0)
-                {
-                    WRTween -= DeltaTime * FPSCamSwingIntensitySwitchSpeed;
-                    ApplyWR(DeltaTime);
-                }
-                else
-                {
-                    if (WRTween != 0)
-                    {
-                        WRTween = 0;
-                        ApplyWR(DeltaTime);
-                        isWalking = true;
-                    }
-                }
-
-            }
-            Zoom(DeltaTime);
-            Move(DeltaTime);
-            Rotation(DeltaTime);
-            FireControl(DeltaTime);
-            {
-                //Weapons
-                Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
-            }
-        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FireControl(float DeltaTime)
         {
@@ -363,12 +326,12 @@ namespace Site13Kernel.Core.Controllers
                         _MOVE = cc.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + cc.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f));
                         if (isRunning)
                         {
-                            Weapon.Weapon.Recoil = (math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
+                            Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
                             _MOVE *= RunningSpeed;
                         }
                         else
                         {
-                            Weapon.Weapon.Recoil = (math.clamp(Weapon.Weapon.Recoil, WalkRecoil, 1f));
+                            Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, WalkRecoil, 1f));
                             _MOVE *= MoveSpeed;
                         }
                     }
@@ -376,7 +339,7 @@ namespace Site13Kernel.Core.Controllers
                 }
                 else
                 {
-                    Weapon.Weapon.Recoil = (math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
+                    Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
                 }
                 if (!cc.isGrounded)
                     cc.Move(_MOVE * DeltaTime);
@@ -444,6 +407,7 @@ namespace Site13Kernel.Core.Controllers
 
             }
         }
+
         public override void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
         }

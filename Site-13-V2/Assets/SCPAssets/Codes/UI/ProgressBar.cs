@@ -19,8 +19,9 @@ namespace Site13Kernel.UI
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
+                if (V != value)
+                    OnValueUpdate();
                 V = value;
-                OnValueUpdate();
             }
         }
         float MinV;
@@ -32,8 +33,9 @@ namespace Site13Kernel.UI
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
+                if (MinV != value)
+                    OnValueUpdate();
                 MinV = value;
-                OnValueUpdate();
             }
         }
         public float MaxValue
@@ -43,8 +45,9 @@ namespace Site13Kernel.UI
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
+                if (MaxV != value)
+                    OnValueUpdate();
                 MaxV = value;
-                OnValueUpdate();
             }
         }
         public Image FillImage;

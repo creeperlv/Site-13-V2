@@ -78,15 +78,20 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reload()
         {
-            if(WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
+            if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
 
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetRecoilMax(float V)
+        {
+            Recoil = Mathf.Max(Recoil, V);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
-            if(WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
+            if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
                 //Fire.
                 if (FIRE0)
