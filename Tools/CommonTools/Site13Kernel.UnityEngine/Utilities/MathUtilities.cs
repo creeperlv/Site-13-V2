@@ -164,6 +164,12 @@ namespace Site13Kernel.Utilities
         public static SpherePosition GetDSPFromRP(float3 position)
         => GetDSPFromRP(position.x, position.y, position.z);
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Color Lerp(Color L, Color R, float V)
+        {
+            return new Color(Mathf.Lerp(L.r, R.r, V), Mathf.Lerp(L.g, R.g, V), Mathf.Lerp(L.b, R.b, V), Mathf.Lerp(L.a, R.a, V));
+        }
         /// <summary>
         /// Get sphere position from rectangular position using Vector3.
         /// </summary>
@@ -235,7 +241,7 @@ namespace Site13Kernel.Utilities
             => V > L && V < H;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 RandomDirectionAngleOnXYAndZ0(float Angle,float FOVAngle)
+        public static Vector3 RandomDirectionAngleOnXYAndZ0(float Angle, float FOVAngle)
         {
             if (Angle == 0)
                 return Vector3.zero;
