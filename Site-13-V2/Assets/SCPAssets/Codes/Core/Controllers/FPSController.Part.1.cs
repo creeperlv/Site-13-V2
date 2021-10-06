@@ -21,6 +21,7 @@ namespace Site13Kernel.Core.Controllers
                 //Weapons
                 Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
+            UpdateHUD();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Run(float DeltaTime)

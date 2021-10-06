@@ -9,6 +9,7 @@ namespace Site13Kernel.Core.Controllers
         public override void Init()
         {
             base.Init();
+            Parent.RegisterRefresh(this);
             GameRuntime.CurrentLocals.CurrentDefaultController = this;
         }
     }

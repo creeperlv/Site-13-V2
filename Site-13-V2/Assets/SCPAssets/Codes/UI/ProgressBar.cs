@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,8 +23,10 @@ namespace Site13Kernel.UI
             set
             {
                 if (V != value)
+                {
+                    V = value;
                     OnValueUpdate();
-                V = value;
+                }
             }
         }
         [SerializeField]
@@ -40,9 +43,9 @@ namespace Site13Kernel.UI
             {
                 if (textDisplayPrecision != value)
                 {
+                    textDisplayPrecision = value;
                     OnValueUpdate();
                 }
-                textDisplayPrecision = value;
             }
         }
         public bool OverrideTextColor;
@@ -56,8 +59,11 @@ namespace Site13Kernel.UI
             set
             {
                 if (minValue != value)
+                {
+                    minValue = value;
                     OnValueUpdate();
-                minValue = value;
+
+                }
             }
         }
         public float MaxValue
@@ -68,8 +74,10 @@ namespace Site13Kernel.UI
             set
             {
                 if (maxValue != value)
+                {
+                    maxValue = value;
                     OnValueUpdate();
-                maxValue = value;
+                }
             }
         }
         public Image FillImage;
@@ -106,20 +114,40 @@ namespace Site13Kernel.UI
         public Color FindColor(float V, List<SegmentedColor> segmenteds)
         {
             Color? L = MainColor[0].TargetColor;
-            Color? N = null;
-            float LB = 0;
-            float UB = -1;
-            foreach (var item in MainColor)
+            Color? N = MainColor.Last().TargetColor;
+            float LB = MainColor[0].UpperBound;
+            float UB = MainColor[0].UpperBound;
             {
-                if (V < item.UpperBound)
+                SegmentedColor C = MainColor.Last();
+                foreach (var item in MainColor)
                 {
-                    if (N.HasValue)
-                        L = N;
-                    if (UB != -1)
-                        LB = UB;
-                    N = item.TargetColor;
-                    UB = item.UpperBound;
+                    if (item.UpperBound < C.UpperBound)
+                    {
+                        if (V < item.UpperBound)
+                        {
+                            C = item;
+                        }
+                    }
+
                 }
+                N = C.TargetColor;
+                UB = C.UpperBound;
+            }
+            {
+                SegmentedColor C = MainColor[0];
+                foreach (var item in MainColor)
+                {
+                    if (item.UpperBound > C.UpperBound)
+                    {
+                        if (V > item.UpperBound)
+                        {
+                            C = item;
+                        }
+                    }
+
+                }
+                L = C.TargetColor;
+                LB = C.UpperBound;
             }
             if (L.HasValue && N.HasValue)
             {
@@ -127,6 +155,14 @@ namespace Site13Kernel.UI
                 {
                     return MathUtilities.Lerp(L.Value, N.Value, Mathf.InverseLerp(LB, UB, V));
                 }
+            }
+            {
+                var __L = MainColor.Last();
+                if (V >= __L.UpperBound) return __L.TargetColor;
+            }
+            if (L.HasValue)
+            {
+                return L.Value;
             }
             return Color.white;
         }
