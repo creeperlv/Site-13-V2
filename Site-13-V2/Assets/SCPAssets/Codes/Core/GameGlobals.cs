@@ -19,12 +19,16 @@ namespace Site13Kernel.Core
         public int NextCampaign;
         public int MainMenuSceneID;
 
+        public int LayerExcludePlayerAndAirBlock;
+        public int LayerExcludeAirBlock;
+
         public UniversalRenderPipelineAsset UsingAsset;
         public BulletSystem CurrentBulletSystem;
         public AudioSource MainUIBGM;
         public GameDefinition CurrentGameDef;
         public SubtitleController SubtitleController;
-        public EffectController CurrentEffectController {
+        public EffectController CurrentEffectController
+        {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => EffectController.CurrentEffectController;
         }
@@ -33,6 +37,15 @@ namespace Site13Kernel.Core
         {
             AppData = Application.persistentDataPath;
             CurrentGameDef = new GameDefinition();
+            {
+                int _000 = 1 << 10;// Layer 10, Air Block Layer.
+                int _001 = 1 << 11;// Layer 11, Player Layer.
+                LayerExcludePlayerAndAirBlock = _000 | _001;
+                LayerExcludePlayerAndAirBlock = ~LayerExcludePlayerAndAirBlock;
+                LayerExcludeAirBlock = ~_000;
+                Debug.Log(Convert.ToString(LayerExcludeAirBlock,2));
+                Debug.Log(Convert.ToString(LayerExcludePlayerAndAirBlock,2));
+            }
 #if DEBUG
             isDebugFunctionEnabled = true;
 #endif

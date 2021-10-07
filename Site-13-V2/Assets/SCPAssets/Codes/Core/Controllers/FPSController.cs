@@ -76,6 +76,10 @@ namespace Site13Kernel.Core.Controllers
 
         #endregion
 
+        #region HUD - Hints
+        [Header("HUD/Hints")]
+        public GameObject InteractHint;
+        #endregion
 
         public override void Init()
         {

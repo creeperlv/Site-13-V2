@@ -57,6 +57,7 @@ namespace Site13Kernel.GameLogic.FPS
         public Transform FirePoint;
         public Transform EffectPoint;
         public Transform CurrentEffectPoint;
+        public bool isHoldByPlayer = false;
         float CountDown = 0;
         float SemiCountDown = 0;
         int Mode = 0;
@@ -230,7 +231,10 @@ namespace Site13Kernel.GameLogic.FPS
                         {
                             _Rotation += FirePoint.TransformDirection(RecoilAngle2);
                         }
-                        Physics.Raycast(FirePoint.position, _Rotation, out var info, MaxHitScanDistance);
+                        RaycastHit info;
+                        if (!isHoldByPlayer)
+                            Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludeAirBlock);
+                        else Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock);
                         if (info.collider != null)
                         {
                             {
