@@ -43,8 +43,6 @@ namespace Site13Kernel.Core
                 LayerExcludePlayerAndAirBlock = _000 | _001;
                 LayerExcludePlayerAndAirBlock = ~LayerExcludePlayerAndAirBlock;
                 LayerExcludeAirBlock = ~_000;
-                Debug.Log(Convert.ToString(LayerExcludeAirBlock,2));
-                Debug.Log(Convert.ToString(LayerExcludePlayerAndAirBlock,2));
             }
 #if DEBUG
             isDebugFunctionEnabled = true;

@@ -6,15 +6,27 @@ namespace Site13Kernel.Core.Controllers
     public partial class FPSController
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void CancelRun()
+        {
+            MovingState = MovingState == MoveState.Crouch ? MovingState : MoveState.Walk;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Movement(float DeltaTime, float UnscaledDeltaTime)
         {
             if (!isMoveLocked)
             {
+                Crouch(DeltaTime);
                 Run(DeltaTime);
                 Move(DeltaTime);
             }
             if (!isRotateLocked)
                 Rotation(DeltaTime);
+        }
+        
+        public void Crouch(float DeltaTime)
+        {
+
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void UpdateHUD()

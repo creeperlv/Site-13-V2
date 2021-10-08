@@ -28,13 +28,14 @@ namespace Site13Kernel.Core.Controllers
         {
             if (InputProcessor.CurrentInput.GetInputDown("Run") && toZoom == false)
             {
-                isRunning = true;
+                if (MovingState == MoveState.Walk) MovingState = MoveState.Run;
             }
             if (InputProcessor.CurrentInput.GetInputUp("Run"))
             {
-                isRunning = false;
+                if (MovingState == MoveState.Run) MovingState = MoveState.Walk;
+                //isRunning = false;
             }
-            if (isRunning == true)
+            if (MovingState == MoveState.Run)
             {
                 if (WRTween < 1)
                 {

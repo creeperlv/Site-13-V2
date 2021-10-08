@@ -17,6 +17,8 @@ namespace Site13Kernel.Core.Controllers
         public float MoveSpeed = 1f;
         public float WalkRecoil = .2f;
         public float RunningSpeed = 1f;
+        public float CrouchSpeed = 1f;
+
         public float RunRecoil = .5f;
         public float RunningJumpHeight = 1f;
         public float MouseHoriztonalIntensity = 1f;
@@ -25,7 +27,7 @@ namespace Site13Kernel.Core.Controllers
         public float MaxV;
         public float MinV;
         Vector3 FPSCam_BaseT;
-        bool isRunning = false;
+        MoveState MovingState = MoveState.Walk;
         public float JumpP00 = 1f;
         public float Gravity = 9.8f;
         public float MoveFriction = 9.8f;
@@ -46,9 +48,11 @@ namespace Site13Kernel.Core.Controllers
         float WalkDistance;
         public float FPSCamSwingIntensity = 0.1f;
         public float FPSCamSwingRunningIntensity = 0.1f;
+        public float FPSCamSwingCrouchIntensity = 0.1f;
         public float FPSCamSwingIntensitySwitchSpeed = 1f;
         public float FPSCamSwingSpeed = 1;
         public float WalkIncreasementIntensity = 1;
+        public float CrouchIncreasementIntensity = 1;
         public float RunIncreasementIntensity = 0.5f;
         public int FrameDelay = 1;
         public int UsingWeapon = 0;
@@ -173,7 +177,7 @@ namespace Site13Kernel.Core.Controllers
             {
                 if (InputProcessor.CurrentInput.GetInputDown("Zoom"))
                 {
-                    isRunning = false;
+                    CancelRun();
                     toZoom = true;
                     Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
                     Weapon.Weapon.AimingMode = 1;
@@ -299,7 +303,7 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (InputProcessor.CurrentInput.GetInputDown("Jump"))
                     {
-                        if (isRunning)
+                        if (MovingState == MoveState.Run)
                         {
                             _JUMP_V.y = Mathf.Sqrt(RunningJumpHeight * Gravity * 2);
                         }
@@ -328,10 +332,15 @@ namespace Site13Kernel.Core.Controllers
                     else
                     {
                         _MOVE = cc.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + cc.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f));
-                        if (isRunning)
+                        if (MovingState == MoveState.Run)
                         {
                             Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
                             _MOVE *= RunningSpeed;
+                        }
+                        else if (MovingState == MoveState.Crouch)
+                        {
+                            //Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
+                            _MOVE *= CrouchSpeed;
                         }
                         else
                         {
@@ -354,8 +363,21 @@ namespace Site13Kernel.Core.Controllers
                     var md = cc.velocity.magnitude * DeltaTime * FPSCamSwingSpeed;
                     if (cc.isGrounded)
                     {
+                        switch (MovingState)
+                        {
+                            case MoveState.Walk:
+                                WalkDistance += md * WalkIncreasementIntensity;
+                                break;
+                            case MoveState.Run:
+                                WalkDistance += md * RunIncreasementIntensity;
+                                break;
+                            case MoveState.Crouch:
+                                WalkDistance += md * CrouchIncreasementIntensity;
+                                break;
+                            default:
+                                break;
+                        }
 
-                        WalkDistance += md * (isRunning ? RunIncreasementIntensity : WalkIncreasementIntensity);
 
                         //if (WalkDistance > Pi2)
                         //{
@@ -364,7 +386,7 @@ namespace Site13Kernel.Core.Controllers
                         var LP = FPSCam.localPosition;
                         //if (md != 0)
                         {
-                            if (isRunning)
+                            if (MovingState == MoveState.Run)
                             {
                                 if (CurrentFPSCamSwingIntensity < FPSCamSwingRunningIntensity)
                                 {
@@ -373,6 +395,17 @@ namespace Site13Kernel.Core.Controllers
                                 else
                                 {
                                     CurrentFPSCamSwingIntensity = FPSCamSwingRunningIntensity;
+                                }
+                            }
+                            else if (MovingState == MoveState.Crouch)
+                            {
+                                if (CurrentFPSCamSwingIntensity < FPSCamSwingCrouchIntensity)
+                                {
+                                    CurrentFPSCamSwingIntensity += DeltaTime * FPSCamSwingIntensitySwitchDelta * FPSCamSwingIntensitySwitchSpeed;
+                                }
+                                else
+                                {
+                                    CurrentFPSCamSwingIntensity = FPSCamSwingCrouchIntensity;
                                 }
                             }
                             else
