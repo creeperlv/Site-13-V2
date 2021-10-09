@@ -24,9 +24,18 @@ namespace Site13Kernel.Core.Controllers
                 Rotation(DeltaTime);
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Crouch(float DeltaTime)
         {
-
+            if (InputProcessor.CurrentInput.GetInputDown("Crouch") && toZoom == false)
+            {
+                if (MovingState == MoveState.Walk) MovingState = MoveState.Crouch;
+            }
+            if (InputProcessor.CurrentInput.GetInputUp("Crouch"))
+            {
+                if (MovingState == MoveState.Crouch) MovingState = MoveState.Walk;
+                //isRunning = false;
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void UpdateHUD()

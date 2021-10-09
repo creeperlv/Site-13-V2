@@ -46,6 +46,8 @@ namespace Site13Kernel.Core.Controllers
         Vector3 _MOVE;
         public float Cycle;
         float WalkDistance;
+        public Vector3 NormalHeadPosition;
+        public Vector3 CrouchHeadPosition;
         public float FPSCamSwingIntensity = 0.1f;
         public float FPSCamSwingRunningIntensity = 0.1f;
         public float FPSCamSwingCrouchIntensity = 0.1f;
