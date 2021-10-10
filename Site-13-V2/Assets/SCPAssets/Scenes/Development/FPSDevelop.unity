@@ -14050,6 +14050,10 @@ MonoBehaviour:
   RunningJumpHeight: 1
   MouseHoriztonalIntensity: 5
   cc: {fileID: 1936720497}
+  CurrentCollider: {fileID: 1936720496}
+  CrouchHeight: 0.7
+  NormalHeight: 2
+  HeightExchangeSpeed: 4
   Head: {fileID: 362009632}
   MaxV: 75
   MinV: -75
@@ -14058,12 +14062,17 @@ MonoBehaviour:
   MoveFriction: 9.8
   isMoveLocked: 0
   isRotateLocked: 0
+  FootStepSoundSource: {fileID: 0}
+  Footsteps: []
   CurrentEntity: {fileID: 1936720499}
   Weapon0: {fileID: 2066300699}
   Weapon1: {fileID: 0}
   FPSCam: {fileID: 657310750}
-  FPSRealCam: {fileID: 0}
+  RealMainCam: {fileID: 793758245}
   Cycle: 0
+  NormalHeadPosition: {x: 0, y: 0.5, z: 0}
+  CrouchHeadPosition: {x: 0, y: 0.25, z: 0}
+  HeadExchangeSpeed: 2
   FPSCamSwingIntensity: 0.015
   FPSCamSwingRunningIntensity: 0.1
   FPSCamSwingCrouchIntensity: 0.05

@@ -14,6 +14,7 @@ namespace Site13Kernel.Core.Controllers
     public partial class FPSController : ControlledBehavior, ICheckpointData
     {
         #region Movement and recoil by move
+        [Header("Move")]
         public float MoveSpeed = 1f;
         public float WalkRecoil = .2f;
         public float RunningSpeed = 1f;
@@ -22,7 +23,12 @@ namespace Site13Kernel.Core.Controllers
         public float RunRecoil = .5f;
         public float RunningJumpHeight = 1f;
         public float MouseHoriztonalIntensity = 1f;
+        [Header("Move/CharacterController and Collider")]
         public CharacterController cc;
+        public CapsuleCollider CurrentCollider;
+        public float CrouchHeight;
+        public float NormalHeight;
+        public float HeightExchangeSpeed=1;
         public Transform Head;
         public float MaxV;
         public float MinV;
@@ -33,6 +39,8 @@ namespace Site13Kernel.Core.Controllers
         public float MoveFriction = 9.8f;
         public bool isMoveLocked = false;
         public bool isRotateLocked = false;
+        public AudioSource FootStepSoundSource;
+        public List<AudioClip> Footsteps;
         #endregion
         #region Bio info
         public BioEntity CurrentEntity;
@@ -41,13 +49,14 @@ namespace Site13Kernel.Core.Controllers
         public ControlledWeapon Weapon1;
         #region FPS Viewport
         public Transform FPSCam;
-        public Transform FPSRealCam;
+        public Transform RealMainCam;
         Vector3 _JUMP_V;
         Vector3 _MOVE;
         public float Cycle;
         float WalkDistance;
         public Vector3 NormalHeadPosition;
         public Vector3 CrouchHeadPosition;
+        public float HeadExchangeSpeed;
         public float FPSCamSwingIntensity = 0.1f;
         public float FPSCamSwingRunningIntensity = 0.1f;
         public float FPSCamSwingCrouchIntensity = 0.1f;
@@ -421,6 +430,10 @@ namespace Site13Kernel.Core.Controllers
                                     CurrentFPSCamSwingIntensity = FPSCamSwingIntensity;
                                 }
                             }
+                        }
+                        if (WalkDistance > MathUtilities.PI2)
+                        {
+                            WalkDistance = 0;
                         }
                         LP.x = math.cos(WalkDistance % MathUtilities.PI2) * CurrentFPSCamSwingIntensity;
                         LP.y = FPSCam_BaseT.y + math.abs(math.cos((WalkDistance) % MathUtilities.PI2) * CurrentFPSCamSwingIntensity * 0.5f);
