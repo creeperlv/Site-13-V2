@@ -24,15 +24,39 @@ namespace Site13Kernel.Core.Controllers
             UpdateHUD();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetState(MoveState State)
+        {
+            switch (State)
+            {
+                case MoveState.Walk:
+                    FootStepSoundSource.volume = NormalFootStepVolume;
+                    break;
+                case MoveState.Run:
+                    FootStepSoundSource.volume = RunningFootStepVolume;
+                    break;
+                case MoveState.Crouch:
+                    FootStepSoundSource.volume = CrouchFootStepVolume;
+                    break;
+                default:
+                    break;
+            }
+            MovingState = State;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Run(float DeltaTime)
         {
             if (InputProcessor.CurrentInput.GetInputDown("Run") && toZoom == false)
             {
-                if (MovingState == MoveState.Walk) MovingState = MoveState.Run;
+                if (MovingState == MoveState.Walk) {
+                    SetState(MoveState.Run);
+                }
             }
             if (InputProcessor.CurrentInput.GetInputUp("Run"))
             {
-                if (MovingState == MoveState.Run) MovingState = MoveState.Walk;
+                if (MovingState == MoveState.Run)
+                {
+                    SetState(MoveState.Walk);
+                }
                 //isRunning = false;
             }
             if (MovingState == MoveState.Run)

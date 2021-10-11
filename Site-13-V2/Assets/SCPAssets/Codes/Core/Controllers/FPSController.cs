@@ -28,7 +28,7 @@ namespace Site13Kernel.Core.Controllers
         public CapsuleCollider CurrentCollider;
         public float CrouchHeight;
         public float NormalHeight;
-        public float HeightExchangeSpeed=1;
+        public float HeightExchangeSpeed = 1;
         public Transform Head;
         public float MaxV;
         public float MinV;
@@ -39,6 +39,9 @@ namespace Site13Kernel.Core.Controllers
         public float MoveFriction = 9.8f;
         public bool isMoveLocked = false;
         public bool isRotateLocked = false;
+        public float NormalFootStepVolume = 0.5f;
+        public float RunningFootStepVolume = 0.75f;
+        public float CrouchFootStepVolume = 0.2f;
         public AudioSource FootStepSoundSource;
         public List<AudioClip> Footsteps;
         #endregion
@@ -54,6 +57,7 @@ namespace Site13Kernel.Core.Controllers
         Vector3 _MOVE;
         public float Cycle;
         float WalkDistance;
+        float WalkDistanceD;
         public Vector3 NormalHeadPosition;
         public Vector3 CrouchHeadPosition;
         public float HeadExchangeSpeed;
@@ -304,6 +308,7 @@ namespace Site13Kernel.Core.Controllers
             }
 
         }
+        bool PrevGrounded = true;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Move(float DeltaTime)
         {
@@ -312,8 +317,33 @@ namespace Site13Kernel.Core.Controllers
                 //Move
                 if (cc.isGrounded == true)
                 {
+                    if (!PrevGrounded)
+                    {
+
+                        if (cc.isGrounded)
+                        {
+                            if (FootStepSoundSource != null)
+                            {
+                                FootStepSoundSource.Stop();
+                                FootStepSoundSource.clip = Footsteps[UnityEngine.Random.Range(0, Footsteps.Count)];
+                                FootStepSoundSource.Play();
+                            }
+
+                        }
+                    }
+                    PrevGrounded = true;
                     if (InputProcessor.CurrentInput.GetInputDown("Jump"))
                     {
+                        if (cc.isGrounded)
+                        {
+                            if (FootStepSoundSource != null)
+                            {
+                                FootStepSoundSource.Stop();
+                                FootStepSoundSource.clip = Footsteps[UnityEngine.Random.Range(0, Footsteps.Count)];
+                                FootStepSoundSource.Play();
+                            }
+
+                        }
                         if (MovingState == MoveState.Run)
                         {
                             _JUMP_V.y = Mathf.Sqrt(RunningJumpHeight * Gravity * 2);
@@ -364,6 +394,7 @@ namespace Site13Kernel.Core.Controllers
                 else
                 {
                     Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
+                    PrevGrounded = false;
                 }
                 if (!cc.isGrounded)
                     cc.Move(_MOVE * DeltaTime);
@@ -378,12 +409,15 @@ namespace Site13Kernel.Core.Controllers
                         {
                             case MoveState.Walk:
                                 WalkDistance += md * WalkIncreasementIntensity;
+                                WalkDistanceD += md * WalkIncreasementIntensity;
                                 break;
                             case MoveState.Run:
                                 WalkDistance += md * RunIncreasementIntensity;
+                                WalkDistanceD += md * RunIncreasementIntensity;
                                 break;
                             case MoveState.Crouch:
                                 WalkDistance += md * CrouchIncreasementIntensity;
+                                WalkDistanceD += md * CrouchIncreasementIntensity;
                                 break;
                             default:
                                 break;
@@ -434,6 +468,17 @@ namespace Site13Kernel.Core.Controllers
                         if (WalkDistance > MathUtilities.PI2)
                         {
                             WalkDistance = 0;
+
+                        }
+                        if (WalkDistanceD > math.PI)
+                        {
+                            WalkDistanceD = 0;
+                            if (FootStepSoundSource != null)
+                            {
+                                FootStepSoundSource.Stop();
+                                FootStepSoundSource.clip = Footsteps[UnityEngine.Random.Range(0, Footsteps.Count)];
+                                FootStepSoundSource.Play();
+                            }
                         }
                         LP.x = math.cos(WalkDistance % MathUtilities.PI2) * CurrentFPSCamSwingIntensity;
                         LP.y = FPSCam_BaseT.y + math.abs(math.cos((WalkDistance) % MathUtilities.PI2) * CurrentFPSCamSwingIntensity * 0.5f);

@@ -30,11 +30,17 @@ namespace Site13Kernel.Core.Controllers
         {
             if (InputProcessor.CurrentInput.GetInputDown("Crouch") && toZoom == false)
             {
-                if (MovingState == MoveState.Walk) MovingState = MoveState.Crouch;
+                if (MovingState == MoveState.Walk)
+                {
+                    SetState(MoveState.Crouch);
+                }
             }
             if (InputProcessor.CurrentInput.GetInputUp("Crouch"))
             {
-                if (MovingState == MoveState.Crouch) MovingState = MoveState.Walk;
+                if (MovingState == MoveState.Crouch)
+                {
+                    SetState(MoveState.Walk);
+                }
                 //isRunning = false;
             }
             if (cc.isGrounded)
