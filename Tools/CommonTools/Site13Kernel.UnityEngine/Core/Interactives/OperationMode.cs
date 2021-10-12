@@ -2,6 +2,6 @@
 {
     public enum OperationMode
     {
-        SingleFrame, OnUpdate, OnFixedUpdate
+        SingleFrame, OnUpdate
     }
 }

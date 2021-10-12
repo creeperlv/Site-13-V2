@@ -25,6 +25,11 @@ namespace Site13Kernel.GameLogic
         public List<ControlledCrosshair> Crosshairs;
         public GameObject HUDCanvas;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Combat()
+        {
+
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fire()
         {
             Weapon.Fire();

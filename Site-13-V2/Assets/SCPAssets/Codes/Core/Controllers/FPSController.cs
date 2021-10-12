@@ -99,7 +99,11 @@ namespace Site13Kernel.Core.Controllers
         [Header("HUD/Hints")]
         public GameObject InteractHint;
         #endregion
-
+        [Header("Interact")]
+        #region Interact
+        public float Reach = 2;
+        public float InteractSensitivity = 0.2f;
+        #endregion
         public override void Init()
         {
             Cursor.lockState = CursorLockMode.Locked;
