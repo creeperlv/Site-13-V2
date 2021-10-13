@@ -97,7 +97,7 @@ namespace Site13Kernel.Core.Controllers
 
         #region HUD - Hints
         [Header("HUD/Hints")]
-        public GameObject InteractHint;
+        public PropertiedText InteractHint;
         #endregion
         [Header("Interact")]
         #region Interact

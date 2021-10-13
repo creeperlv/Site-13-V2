@@ -1,4 +1,5 @@
-﻿using Site13Kernel.Core.CustomizedInput;
+﻿using CLUNL.Localization;
+using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Core.Interactives;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -47,6 +48,21 @@ namespace Site13Kernel.Core.Controllers
                 }
             }
             Interactive = _Interactive;
+            if (Interactive != null)
+            {
+                if (InteractHint != null)
+                {
+                    InteractHint.Visibility = true;
+                    InteractHint.Content=Language.Find(Interactive.OperateHint,Interactive.OperateHintFallBack);
+                }
+            }
+            else
+            {
+                if (InteractHint != null)
+                {
+                    InteractHint.Visibility = false;
+                 }
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Interact(float DeltaTime, float UnscaledDeltaTime)
