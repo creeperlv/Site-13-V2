@@ -10,6 +10,7 @@ namespace Site13Kernel.Core.Interactives
         public InteractiveMode InteractiveMode;
         public OperationMode OperationMode;
         public InvokeMode InvokeMode;
+        public DistanceMode DistanceMode;
         public bool isOperating=false;
         public bool isCollision=false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -24,9 +25,5 @@ namespace Site13Kernel.Core.Interactives
         }
         public string OperateHint;
         public string OperateHintFallBack;
-    }
-    public enum InvokeMode
-    {
-        PASSIVE,ACTIVE
     }
 }

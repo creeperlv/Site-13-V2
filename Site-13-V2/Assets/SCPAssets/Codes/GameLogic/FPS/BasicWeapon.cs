@@ -61,6 +61,8 @@ namespace Site13Kernel.GameLogic.FPS
         float CountDown = 0;
         float SemiCountDown = 0;
         int Mode = 0;
+        [Header("Additional Weapon Settings")]
+        public string FireAnimation="";
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetFireMode(int V)
         {

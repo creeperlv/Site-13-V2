@@ -3,6 +3,7 @@ using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,15 +13,18 @@ namespace Site13Kernel.UI.Documents.PLN
     {
         static GameObject _TextTemplate;
         static GameObject _ImageTemplate;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Init(GameObject TextTemplate, GameObject ImageTemplate)
         {
             _TextTemplate = TextTemplate;
             _ImageTemplate = ImageTemplate;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ViewLanguage(Transform Container, IEnumerable<string> contents, Color DefaultColor, int BaseSize = 14)
         {
             View(Container, contents, DefaultColor, BaseSize);
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void View(Transform Container, IEnumerable<string> contents, Color DefaultColor, int BaseSize = 14)
         {
             

@@ -102,6 +102,7 @@ namespace Site13Kernel.Core.Controllers
         [Header("Interact")]
         #region Interact
         public float Reach = 2;
+        public float SightDistance = 15;
         public float InteractSensitivity = 0.2f;
         #endregion
         public override void Init()

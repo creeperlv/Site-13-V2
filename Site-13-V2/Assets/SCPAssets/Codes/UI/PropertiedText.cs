@@ -6,12 +6,12 @@ using System.Runtime.CompilerServices;
 
 namespace Site13Kernel.UI
 {
-    public class PropertiedText : PropertiedComponent
+    public class PropertiedText : PropertiedControlledBehavior
     {
         public Text UnityUI_Text;
         public TMPro.TMP_Text TMP_Text;
-        string _Content;
-        bool _Visibility;
+        string _Content=null;
+        public bool _Visibility=false;
         public bool Visibility
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]

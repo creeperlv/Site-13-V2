@@ -53,7 +53,7 @@ namespace Site13Kernel.Core.Controllers
                 if (InteractHint != null)
                 {
                     InteractHint.Visibility = true;
-                    InteractHint.Content=Language.Find(Interactive.OperateHint,Interactive.OperateHintFallBack);
+                    InteractHint.Content = Language.Find(Interactive.OperateHint, Interactive.OperateHintFallBack);
                 }
             }
             else
@@ -61,7 +61,7 @@ namespace Site13Kernel.Core.Controllers
                 if (InteractHint != null)
                 {
                     InteractHint.Visibility = false;
-                 }
+                }
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -75,6 +75,14 @@ namespace Site13Kernel.Core.Controllers
                 {
                     GameObject TARGET_OBJ = hit.transform.gameObject;
                     var _Interactive = TARGET_OBJ.GetComponent<InteractiveBase>();
+                    if (_Interactive != null)
+                    {
+                        if (_Interactive.InteractiveMode == InteractiveMode.OnAim || _Interactive.isCollision)
+                        {
+                            SwapInteractive(_Interactive);
+                        }
+                    }
+                    else
                     {
                         SwapInteractive(_Interactive);
                     }
@@ -85,10 +93,43 @@ namespace Site13Kernel.Core.Controllers
                             if (Interactive.InvokeMode == InvokeMode.ACTIVE)
                             {
                                 IInvoke(Interactive, DeltaTime, UnscaledDeltaTime);
-                               
+
                             }
 
                         }
+                }
+                else if (Physics.Raycast(ray, out hit, SightDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
+                {
+                    GameObject TARGET_OBJ = hit.transform.gameObject;
+                    var _Interactive = TARGET_OBJ.GetComponent<InteractiveBase>();
+                    if (_Interactive != null)
+                    {
+                        if (_Interactive.DistanceMode == DistanceMode.OnSight)
+                            if (_Interactive.InteractiveMode == InteractiveMode.OnAim || _Interactive.isCollision)
+                            {
+                                SwapInteractive(_Interactive);
+                            }
+                    }
+                    else
+                    {
+                        SwapInteractive(_Interactive);
+                    }
+                    if (_Interactive != null)
+                        if (Interactive != null)
+                        {
+
+                            if (Interactive.InvokeMode == InvokeMode.ACTIVE)
+                            {
+                                IInvoke(Interactive, DeltaTime, UnscaledDeltaTime);
+
+                            }
+
+                        }
+                }
+                else
+                {
+                    SwapInteractive(null);
+
                 }
                 if (Interactive != null)
                 {
@@ -228,8 +269,8 @@ namespace Site13Kernel.Core.Controllers
                 if (interactive.isCollision && interactive == Interactive)
                 {
                     Interactive.isCollision = false;
-                    UnInvoke(Interactive);
-                    Interactive = null;
+                    UnInvoke(Interactive); SwapInteractive(null);
+                    Debug.Log("0xFF00FF0001");
                 }
             }
         }
