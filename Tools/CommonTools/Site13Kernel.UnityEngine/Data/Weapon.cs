@@ -10,6 +10,7 @@ namespace Site13Kernel.Data
     {
         public string WeaponID;
         public float MaxCapacity;
+        public float MagazineCapacity;
         public float CurrentBackup;
         public float CurrentMagazine;
         public WeaponFireType WeaponFireType0;

@@ -4,6 +4,7 @@ using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Effects
@@ -19,11 +20,13 @@ namespace Site13Kernel.GameLogic.Effects
             return "";
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Load(List<object> data)
         {
             LifeTime = (FloatNumber)data[0];
             TimeD= (FloatNumber)data[1];
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
 
         public virtual List<object> Save()
         {
@@ -34,6 +37,7 @@ namespace Site13Kernel.GameLogic.Effects
     public class SideEffectEffect : BaseEffect
     {
         public int ID;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Init()
         {
             EffectController.CurrentEffectController.Spawn(ID, this.transform.position, this.transform.rotation, this.transform.localScale, this.transform.parent);

@@ -42,7 +42,7 @@ namespace Site13Kernel.GameLogic
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reload()
         {
-
+            Weapon.Reload();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unfire()

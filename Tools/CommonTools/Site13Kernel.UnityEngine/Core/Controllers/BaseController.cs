@@ -68,6 +68,7 @@ namespace Site13Kernel.Core.Controllers
             if (!_OnFixedRefresh.Contains(obj))
                 _OnFixedRefresh.Add(obj);
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SerializeAll()
         {
             foreach (var item in OnInit_Interface)

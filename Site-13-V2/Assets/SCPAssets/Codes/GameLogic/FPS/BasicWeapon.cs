@@ -23,6 +23,7 @@ namespace Site13Kernel.GameLogic.FPS
         public string ReloadTrigger = "Reload";
         public float ReloadP0;
         public float ReloadP1;
+        public float ReloadCountDown;
         public string Idle = "Idle";
         public int EffectPrefab;
         public List<AudioClip> FireSounds = new List<AudioClip>();
@@ -52,7 +53,6 @@ namespace Site13Kernel.GameLogic.FPS
         public bool FIRE3 = false;
         public byte FIRE1 = 0;
         public byte FIRE2 = 0; //Semi Auto Use
-
         public SpherePosition RelativeEmissionPoint;
         public Transform FirePoint;
         public Transform EffectPoint;
@@ -62,7 +62,7 @@ namespace Site13Kernel.GameLogic.FPS
         float SemiCountDown = 0;
         int Mode = 0;
         [Header("Additional Weapon Settings")]
-        public string FireAnimation="";
+        public string FireAnimation = "";
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetFireMode(int V)
         {
@@ -83,7 +83,11 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
-
+                if (Base.CurrentMagazine < Base.MagazineCapacity)
+                {
+                    ReloadCountDown = ReloadP0 + ReloadP1;
+                    WeaponMode = WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0;
+                }
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -91,6 +95,7 @@ namespace Site13Kernel.GameLogic.FPS
         {
             Recoil = Mathf.Max(Recoil, V);
         }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
@@ -154,6 +159,34 @@ namespace Site13Kernel.GameLogic.FPS
                         default:
                             break;
                     }
+                }
+            }
+            else if (WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
+            {
+                ReloadCountDown -= DeltaT;
+                if (ReloadCountDown < ReloadP1)
+                {
+                    var TOTAL = Base.CurrentBackup + Base.CurrentMagazine;
+                    if (TOTAL > Base.MagazineCapacity)
+                    {
+                        Base.CurrentMagazine = Base.MagazineCapacity;
+                        Base.CurrentBackup = TOTAL - Base.MagazineCapacity;
+                    }
+                    else
+                    {
+                        Base.CurrentMagazine = TOTAL;
+                        Base.CurrentBackup = 0;
+                    }
+                    WeaponMode = WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1;
+                }
+            }
+            else if (WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1)
+            {
+
+                ReloadCountDown -= DeltaT;
+                if (ReloadCountDown <= 0)
+                {
+                    WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
                 }
             }
         }

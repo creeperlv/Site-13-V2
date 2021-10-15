@@ -17,6 +17,7 @@ namespace Site13Kernel.Core.Controllers
         {
             MAX_SPAWNABLE_EFFECT_COUNT = V;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Init()
         {
             foreach (var item in _EffectDefinitions)

@@ -1,6 +1,7 @@
 using CLUNL.Data.Serializables.CheckpointSystem;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.GameLogic;
+using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.UI;
 using Site13Kernel.Utilities;
 using System.Collections;
@@ -175,6 +176,10 @@ namespace Site13Kernel.Core.Controllers
             if (InputProcessor.CurrentInput.GetInputDown("Reload"))
             {
                 Weapon.Reload();
+                if(Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1|| Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
+                {
+                    CancelRun();
+                }
             }
         }
         bool toZoom = false;
@@ -210,6 +215,10 @@ namespace Site13Kernel.Core.Controllers
                     Weapon.Weapon.AimingMode = 0;
                     ShowWeapon();
                 }
+            }
+            if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
+            {
+                toZoom = false;
             }
             if (Weapon.CanZoom)
             {

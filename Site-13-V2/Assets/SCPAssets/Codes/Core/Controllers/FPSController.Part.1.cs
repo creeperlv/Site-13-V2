@@ -1,6 +1,7 @@
 ﻿using CLUNL.Localization;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Core.Interactives;
+using Site13Kernel.GameLogic.FPS;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -205,7 +206,18 @@ namespace Site13Kernel.Core.Controllers
             {
                 if (MovingState == MoveState.Walk)
                 {
-                    SetState(MoveState.Run);
+                    if (Weapon != null)
+                    {
+
+                        if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1)
+                        {
+
+                        }
+                        else
+                            SetState(MoveState.Run);
+                    }
+                    else
+                        SetState(MoveState.Run);
                 }
             }
             if (InputProcessor.CurrentInput.GetInputUp("Run"))

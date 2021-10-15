@@ -3595,6 +3595,7 @@ MonoBehaviour:
   InteractiveMode: 1
   OperationMode: 0
   InvokeMode: 0
+  DistanceMode: 0
   isOperating: 0
   isCollision: 0
   OperateHint: Empty
@@ -4095,6 +4096,7 @@ MonoBehaviour:
   InteractiveMode: 0
   OperationMode: 1
   InvokeMode: 0
+  DistanceMode: 0
   isOperating: 0
   isCollision: 0
   OperateHint: 
@@ -5581,6 +5583,7 @@ MonoBehaviour:
   InteractiveMode: 0
   OperationMode: 0
   InvokeMode: 1
+  DistanceMode: 0
   isOperating: 0
   isCollision: 0
   OperateHint: 
@@ -14599,6 +14602,7 @@ MonoBehaviour:
   Shield: {fileID: 1149871917}
   InteractHint: {fileID: 1823059215}
   Reach: 2
+  SightDistance: 15
   InteractSensitivity: 0.2
 --- !u!114 &1936720501
 MonoBehaviour:
@@ -15553,7 +15557,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Base:
     WeaponID: 
-    MaxCapacity: 30
+    MaxCapacity: 150
+    MagazineCapacity: 30
     CurrentBackup: 30
     CurrentMagazine: 30
     WeaponFireType0: 0
@@ -15571,6 +15576,7 @@ MonoBehaviour:
   ReloadTrigger: Reload
   ReloadP0: 0
   ReloadP1: 0
+  ReloadCountDown: 0
   Idle: Idle
   EffectPrefab: 0
   FireSounds:
@@ -15601,6 +15607,7 @@ MonoBehaviour:
   EffectPoint: {fileID: 1324096789}
   CurrentEffectPoint: {fileID: 1324096789}
   isHoldByPlayer: 1
+  FireAnimation: 
 --- !u!1 &2086497711
 GameObject:
   m_ObjectHideFlags: 0
