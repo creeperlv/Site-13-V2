@@ -10597,6 +10597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1283670955}
   - component: {fileID: 1283670956}
+  - component: {fileID: 1283670957}
   m_Layer: 7
   m_Name: AnimatedP90
   m_TagString: Untagged
@@ -10640,6 +10641,45 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1283670957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283670954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 343499534, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Player-P90
+  Workflow: 0
+  ControlledAnimator: {fileID: 1283670956}
+  ControlledAnimation: {fileID: 0}
+  AnimationClips:
+  - HashCode: 1
+    AlternativeTrigger: TakeOut
+    AlternativeStateName: TakeOut
+    AnimationClip: {fileID: 0}
+  - HashCode: 2
+    AlternativeTrigger: Combat
+    AlternativeStateName: Combat
+    AnimationClip: {fileID: 0}
+  - HashCode: 3
+    AlternativeTrigger: Reload
+    AlternativeStateName: Reload
+    AnimationClip: {fileID: 0}
+  - HashCode: 4
+    AlternativeTrigger: Idle
+    AlternativeStateName: Idle
+    AnimationClip: {fileID: 0}
+  - HashCode: 5
+    AlternativeTrigger: Fire
+    AlternativeStateName: Fire
+    AnimationClip: {fileID: 0}
+  CurrentClip: 0
+  DefaultClip: 0
 --- !u!1 &1299635351
 GameObject:
   m_ObjectHideFlags: 0
@@ -15570,14 +15610,20 @@ MonoBehaviour:
   - {fileID: 2129778055}
   BulletPrefab: {fileID: 268917492707514845, guid: b79720304f9ef534aaaadff2f5754bd0, type: 3}
   ControlledAnimator: {fileID: 1283670956}
-  FireAnime: 
+  CCAnimator: {fileID: 0}
+  FireAnime: Fire
+  Fire_HashCode: 5
   TakeOut: TakeOut
+  TakeOut_HashCode: 1
   Combat: Combat
+  Combat_HashCode: 2
   ReloadTrigger: Reload
+  Reload_HashCode: 3
   ReloadP0: 0
   ReloadP1: 0
   ReloadCountDown: 0
   Idle: Idle
+  Idle_HashCode: 4
   EffectPrefab: 0
   FireSounds:
   - {fileID: 8300000, guid: e9d46506884c45046972f43cecca6534, type: 3}
@@ -15607,7 +15653,6 @@ MonoBehaviour:
   EffectPoint: {fileID: 1324096789}
   CurrentEffectPoint: {fileID: 1324096789}
   isHoldByPlayer: 1
-  FireAnimation: 
 --- !u!1 &2086497711
 GameObject:
   m_ObjectHideFlags: 0

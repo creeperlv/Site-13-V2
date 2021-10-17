@@ -1,3 +1,4 @@
+using Site13Kernel.Animations;
 using Site13Kernel.Core;
 using Site13Kernel.Data;
 using Site13Kernel.Utilities;
@@ -17,14 +18,22 @@ namespace Site13Kernel.GameLogic.FPS
         public List<AudioSource> GunSFXSources;
         public GameObject BulletPrefab;
         public Animator ControlledAnimator;
-        public string FireAnime;
+        public CompatibleAnimator CCAnimator;
+        public string FireAnime="Fire";
+        public int Fire_HashCode = 5;
         public string TakeOut = "TakeOut";
-        public string Combat = "Combat";
+        public int TakeOut_HashCode = 1;
+        public string Combat_Trigger = "Combat";
+        public int Combat_HashCode = 2;
         public string ReloadTrigger = "Reload";
+        public int Reload_HashCode = 3;
         public float ReloadP0;
         public float ReloadP1;
         public float ReloadCountDown;
+        public float CombatLength;
+        public float CombatT;
         public string Idle = "Idle";
+        public int Idle_HashCode = 4;
         public int EffectPrefab;
         public List<AudioClip> FireSounds = new List<AudioClip>();
         public float FireInterval = 0;
@@ -61,8 +70,6 @@ namespace Site13Kernel.GameLogic.FPS
         float CountDown = 0;
         float SemiCountDown = 0;
         int Mode = 0;
-        [Header("Additional Weapon Settings")]
-        public string FireAnimation = "";
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetFireMode(int V)
         {
@@ -77,6 +84,15 @@ namespace Site13Kernel.GameLogic.FPS
 
                 FireType = Base.WeaponFireType1;
             }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Combat()
+        {
+            if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
+            {
+                WeaponMode = WeaponConstants.WEAPON_MODE_MELEE;
+            }
+
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reload()

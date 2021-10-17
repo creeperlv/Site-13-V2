@@ -27,7 +27,7 @@ namespace Site13Kernel.GameLogic
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Combat()
         {
-
+            Weapon.Combat();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fire()
@@ -56,7 +56,8 @@ namespace Site13Kernel.GameLogic
             {
                 item.Init();
             }
-            Weapon.ControlledAnimator.SetTrigger(Weapon.TakeOut);
+            //Weapon.ControlledAnimator.SetTrigger(Weapon.TakeOut);
+            Weapon.CCAnimator.SetAnimation(Weapon.TakeOut_HashCode);
             isInited = true;
         }
 
@@ -64,18 +65,19 @@ namespace Site13Kernel.GameLogic
         public void ShowCoreWeaponAnimator()
         {
 
-            Weapon.ControlledAnimator.gameObject.SetActive(true);
+            //Weapon.ControlledAnimator.gameObject.SetActive(true);
+            Weapon.CCAnimator.gameObject.SetActive(true);
             if (isInited)
             {
-
-                Weapon.ControlledAnimator.SetTrigger(Weapon.Idle);
+                //Weapon.ControlledAnimator.SetTrigger(Weapon.Idle);
+                Weapon.CCAnimator.SetAnimation(Weapon.Idle_HashCode);
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void HideCoreWeaponAnimator()
         {
-
-            Weapon.ControlledAnimator.gameObject.SetActive(false);
+            Weapon.CCAnimator.gameObject.SetActive(false);
+            //Weapon.ControlledAnimator.gameObject.SetActive(false);
         }
         //bool a=true;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
