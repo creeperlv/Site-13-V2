@@ -70,6 +70,14 @@ namespace Site13Kernel.GameLogic.FPS
         float CountDown = 0;
         float SemiCountDown = 0;
         int Mode = 0;
+        public MeleeArea MeleeArea;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetProcessor(GameObject Processor)
+        {
+            MeleeArea.Holder = Processor;
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetFireMode(int V)
         {
@@ -90,9 +98,25 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
+                CombatT = 0;
                 WeaponMode = WeaponConstants.WEAPON_MODE_MELEE;
+                if (MeleeArea != null)
+                {
+                    MeleeArea.StartDetection();
+                }
             }
-
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void CancelCombat()
+        {
+            if (WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
+            {
+                WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
+                if (MeleeArea != null)
+                {
+                    MeleeArea.StopDetection();
+                }
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reload()
@@ -203,6 +227,15 @@ namespace Site13Kernel.GameLogic.FPS
                 if (ReloadCountDown <= 0)
                 {
                     WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
+                }
+            }
+            else if(WeaponMode== WeaponConstants.WEAPON_MODE_MELEE)
+            {
+                CombatT+=DeltaT;
+                if (CombatT > CombatLength)
+                {
+                    CombatT = 0;
+                    CancelCombat();
                 }
             }
         }

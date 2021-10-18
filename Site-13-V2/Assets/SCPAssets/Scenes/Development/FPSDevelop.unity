@@ -10659,22 +10659,27 @@ MonoBehaviour:
   ControlledAnimation: {fileID: 0}
   AnimationClips:
   - HashCode: 1
+    isIgnoredApplication: 0
     AlternativeTrigger: TakeOut
     AlternativeStateName: TakeOut
     AnimationClip: {fileID: 0}
   - HashCode: 2
+    isIgnoredApplication: 1
     AlternativeTrigger: Combat
     AlternativeStateName: Combat
     AnimationClip: {fileID: 0}
   - HashCode: 3
+    isIgnoredApplication: 1
     AlternativeTrigger: Reload
     AlternativeStateName: Reload
     AnimationClip: {fileID: 0}
   - HashCode: 4
+    isIgnoredApplication: 0
     AlternativeTrigger: Idle
     AlternativeStateName: Idle
     AnimationClip: {fileID: 0}
   - HashCode: 5
+    isIgnoredApplication: 1
     AlternativeTrigger: Fire
     AlternativeStateName: Fire
     AnimationClip: {fileID: 0}
@@ -13275,6 +13280,77 @@ Transform:
   m_Father: {fileID: 2048192607}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1687079800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1687079801}
+  - component: {fileID: 1687079804}
+  - component: {fileID: 1687079803}
+  - component: {fileID: 1687079802}
+  m_Layer: 7
+  m_Name: MeleeArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1687079801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687079800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.37, z: 0.06}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1684010836}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1687079802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687079800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b955e88191486438947e97ceedd593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseDamage: 0
+  AllowBackstabDetection: 1
+  Holder: {fileID: 0}
+  isDetecting: 1
+--- !u!65 &1687079803
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687079800}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1687079804
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687079800}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1692933570
 GameObject:
   m_ObjectHideFlags: 0
@@ -14011,6 +14087,7 @@ MonoBehaviour:
   InitHP: 1000
   CurrentHP: 100
   HitEffect: 2
+  CanBeBackstabed: 0
   Controller: {fileID: 0}
 --- !u!114 &1836104271
 MonoBehaviour:
@@ -14563,6 +14640,7 @@ MonoBehaviour:
   InitHP: 0
   CurrentHP: 100
   HitEffect: 0
+  CanBeBackstabed: 0
   Controller: {fileID: 0}
   MaxShield: 100
   CurrentShield: 100
@@ -15615,13 +15693,15 @@ MonoBehaviour:
   Fire_HashCode: 5
   TakeOut: TakeOut
   TakeOut_HashCode: 1
-  Combat: Combat
+  Combat_Trigger: Combat
   Combat_HashCode: 2
   ReloadTrigger: Reload
   Reload_HashCode: 3
   ReloadP0: 0
   ReloadP1: 0
   ReloadCountDown: 0
+  CombatLength: 1
+  CombatT: 0
   Idle: Idle
   Idle_HashCode: 4
   EffectPrefab: 0
@@ -15653,6 +15733,7 @@ MonoBehaviour:
   EffectPoint: {fileID: 1324096789}
   CurrentEffectPoint: {fileID: 1324096789}
   isHoldByPlayer: 1
+  MeleeArea: {fileID: 1687079802}
 --- !u!1 &2086497711
 GameObject:
   m_ObjectHideFlags: 0

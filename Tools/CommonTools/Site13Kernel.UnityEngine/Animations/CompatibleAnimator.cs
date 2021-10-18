@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Site13Kernel.Animations
 {
-    public class CompatibleAnimator:PropertiedControlledBehavior,ICheckpointData
+    public class CompatibleAnimator : PropertiedControlledBehavior, ICheckpointData
     {
         [InspectorName("For Save Use")]
         public string Name;
@@ -47,7 +47,7 @@ namespace Site13Kernel.Animations
             switch (Workflow)
             {
                 case CompatibleAnimatorWorkflow.Animator:
-                    ControlledAnimator.playbackTime=T;
+                    ControlledAnimator.playbackTime = T;
                     break;
                 case CompatibleAnimatorWorkflow.Animation:
 
@@ -57,37 +57,38 @@ namespace Site13Kernel.Animations
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetAnimation(int HashCode,bool Force=false)
+        public void SetAnimation(int HashCode, bool Force = false)
         {
             foreach (var item in AnimationClips)
             {
                 if (item.HashCode == HashCode)
                 {
-                    switch (Workflow)
-                    {
-                        case CompatibleAnimatorWorkflow.Animator:
-                            {
-                                if (Force)
+                    if (!item.isIgnoredApplication)
+                        switch (Workflow)
+                        {
+                            case CompatibleAnimatorWorkflow.Animator:
                                 {
-                                    ControlledAnimator.Play(item.AlternativeStateName);
-                                }
-                                else
-                                {
+                                    if (Force)
+                                    {
+                                        ControlledAnimator.Play(item.AlternativeStateName);
+                                    }
+                                    else
+                                    {
 
-                                    ControlledAnimator.SetTrigger(item.AlternativeTrigger);
+                                        ControlledAnimator.SetTrigger(item.AlternativeTrigger);
+                                    }
                                 }
-                            }
-                            break;
-                        case CompatibleAnimatorWorkflow.Animation:
-                            {
-                                ControlledAnimation.Stop();
-                                ControlledAnimation.clip = item.AnimationClip;
-                                ControlledAnimation.Play();
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+                                break;
+                            case CompatibleAnimatorWorkflow.Animation:
+                                {
+                                    ControlledAnimation.Stop();
+                                    ControlledAnimation.clip = item.AnimationClip;
+                                    ControlledAnimation.Play();
+                                }
+                                break;
+                            default:
+                                break;
+                        }
                 }
             }
             CurrentClip = HashCode;
@@ -132,13 +133,13 @@ namespace Site13Kernel.Animations
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<object> Save()
         {
-            return new List<object> { CurrentClip,GetTime() };
+            return new List<object> { CurrentClip, GetTime() };
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Load(List<object> data)
         {
-            CurrentClip=((IntNumber)data[0]).Data;
+            CurrentClip = ((IntNumber)data[0]).Data;
             SetTime(((FloatNumber)data[1]).Data);
             SetAnimation(CurrentClip, true);
         }

@@ -10,7 +10,7 @@ namespace Site13Kernel.GameLogic.FPS
 {
     public class BaseBullet : ControlledBehavior
     {
-        public float BaseDamage= 50;
+        public float BaseDamage = 50;
         public float WeakPointDamage = 50;
         public float LifeTime = 10;
         //public Collider c;
@@ -32,21 +32,19 @@ namespace Site13Kernel.GameLogic.FPS
         }
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("Hit_C");
         }
         private void OnTriggerEnter(Collider collision)
         {
-            Debug.Log("Hit_T");
             Hit(collision);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Hit(Collider collision)
         {
             var Hittable = collision.gameObject.GetComponent<IHittable>();
-            
+
             if (Hittable != null)
             {
-                EffectController.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity,Vector3.one);
+                EffectController.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
             }
             else
             {

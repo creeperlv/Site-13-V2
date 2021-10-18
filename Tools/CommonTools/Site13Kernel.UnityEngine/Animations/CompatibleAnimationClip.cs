@@ -7,6 +7,7 @@ namespace Site13Kernel.Animations
     public class CompatibleAnimationClip
     {
         public int HashCode;
+        public bool isIgnoredApplication;
         public string AlternativeTrigger;
         public string AlternativeStateName;
         public AnimationClip AnimationClip;

@@ -17,6 +17,7 @@ namespace Site13Kernel.Core
         public float InitHP;
         public float CurrentHP;
         public int HitEffect;
+        public bool CanBeBackstabed;
 
         public EntityController Controller;
 
