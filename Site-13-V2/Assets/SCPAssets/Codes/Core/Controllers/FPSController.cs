@@ -106,6 +106,14 @@ namespace Site13Kernel.Core.Controllers
         public float SightDistance = 15;
         public float InteractSensitivity = 0.2f;
         #endregion
+        [Header("Generic Animation")]
+        public bool AnimatedBodyEnabled;
+        public GameObject Body;
+        public Animator BodyAnimator;
+        public string MOVEMENT_TRIGGER;
+        public float Intensity;
+        public float MaxFinalIntensity;
+        public int FRAMEIGNORANCE = 2;
         public override void Init()
         {
             Cursor.lockState = CursorLockMode.Locked;

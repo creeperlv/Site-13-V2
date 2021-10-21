@@ -26,8 +26,39 @@ namespace Site13Kernel.Core.Controllers
                 //Weapons
                 Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
+            BodyAnimation(DeltaTime, UnscaledDeltaTime);
             UpdateHUD();
         }
+        int FRAME_IGNORACED = 0;
+        float ANIMATION_DELTA_T;
+        Vector3 POSITION_0 = Vector3.zero;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void BodyAnimation(float DeltaTime, float UnscaledDeltaTime)
+        {
+            if (AnimatedBodyEnabled&& BodyAnimator!=null)
+            {
+
+                if (FRAME_IGNORACED >= FRAMEIGNORANCE)
+                {
+                    FRAME_IGNORACED = 0;
+                    //... Apply Animation Here.
+                    if (POSITION_0 == Vector3.zero)
+                    {
+                        //Init.
+                        POSITION_0 = this.transform.position;
+                    }
+                    else
+                    {
+                        var __D = (this.transform.position - POSITION_0).magnitude;
+                        BodyAnimator.speed = Mathf.Min(__D / ANIMATION_DELTA_T * Intensity, MaxFinalIntensity);
+                    }
+                    ANIMATION_DELTA_T = 0;
+                }
+                ANIMATION_DELTA_T += DeltaTime;
+                FRAME_IGNORACED++;
+            }
+        }
+
         float InteractTime;
         InteractiveBase Interactive = null;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
