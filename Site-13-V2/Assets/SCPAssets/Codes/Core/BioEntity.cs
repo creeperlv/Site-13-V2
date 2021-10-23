@@ -20,6 +20,7 @@ namespace Site13Kernel.Core
         public float ShieldRecoverCountDown;
         public float HPRecoverCountDown;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             if (CurrentHP < MaxHP)
@@ -53,8 +54,8 @@ namespace Site13Kernel.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Damage(float V)
         {
-            var V2 = math.max(0,V-CurrentShield);
-            CurrentShield=math.max(0,CurrentShield-V);
+            var V2 = math.max(0, V - CurrentShield);
+            CurrentShield = math.max(0, CurrentShield - V);
             CurrentHP = math.max(0, CurrentHP - V2);
             if (CurrentHP <= 0)
                 Die();

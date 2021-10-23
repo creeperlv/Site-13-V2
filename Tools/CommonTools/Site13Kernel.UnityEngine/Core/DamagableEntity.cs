@@ -19,6 +19,8 @@ namespace Site13Kernel.Core
         public int HitEffect;
         public bool CanBeBackstabed;
 
+        public bool TakeCollisionDamage = true;
+
         public EntityController Controller;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -26,6 +28,22 @@ namespace Site13Kernel.Core
         {
 
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void OnCollisionEnter(UnityEngine.Collision collision)
+        {
+            if (TakeCollisionDamage)
+                if (collision.rigidbody != null)
+                {
+                    var V = collision.relativeVelocity;
+                    float v = V.magnitude;
+                    if (v > GameEnv.CollisionDamageSpeedThreshold)
+                    {
+                        var DELTA = v - GameEnv.CollisionDamageSpeedThreshold;
+                        Damage(DELTA * GameEnv.CollisionDamageIntensity);
+                    }
+                }
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Init()
         {
