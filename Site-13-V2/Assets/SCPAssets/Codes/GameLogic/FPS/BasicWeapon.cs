@@ -321,17 +321,23 @@ namespace Site13Kernel.GameLogic.FPS
                         else Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock);
                         if (info.collider != null)
                         {
+                            if (info.collider.attachedRigidbody != null)
+                            {
+                                info.collider.attachedRigidbody.AddForce(_Rotation.normalized * Base.PhysicsForce, ForceMode.Impulse);
+
+                            }
+
                             {
                                 var Hittable = info.collider.GetComponent<IHittable>();
 
                                 Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
                                 if (Hittable != null)
                                 {
-                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one);
+                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform);
                                 }
                                 else
                                 {
-                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one);
+                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one, info.collider.transform);
 
                                 }
                                 var Entity = info.collider.GetComponent<DamagableEntity>();

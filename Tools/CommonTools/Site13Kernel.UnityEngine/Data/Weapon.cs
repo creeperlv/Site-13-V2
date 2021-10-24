@@ -13,6 +13,7 @@ namespace Site13Kernel.Data
         public float MagazineCapacity;
         public float CurrentBackup;
         public float CurrentMagazine;
+        public float PhysicsForce;
         public WeaponFireType WeaponFireType0;
         public WeaponFireType WeaponFireType1;// For 2-mode weapons.
     }
