@@ -189,14 +189,14 @@ namespace Site13Kernel.Core.Controllers
             {
                 if (Interactive.isOperating != true)
                 {
-                    Interactive.Operate(DeltaTime, UnscaledDeltaTime);
+                    Interactive.Operate(DeltaTime, UnscaledDeltaTime, CurrentEntity);
                     Interactive.isOperating = true;
                 }
             }
             else
             {
 
-                Interactive.Operate(DeltaTime, UnscaledDeltaTime);
+                Interactive.Operate(DeltaTime, UnscaledDeltaTime,CurrentEntity);
                 if (Interactive.isOperating != true)
                 {
                     Interactive.isOperating = true;

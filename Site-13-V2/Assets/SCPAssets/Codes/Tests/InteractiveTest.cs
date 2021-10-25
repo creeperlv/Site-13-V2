@@ -1,3 +1,4 @@
+using Site13Kernel.Core;
 using Site13Kernel.Core.Interactives;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace Site13Kernel.Tests
 {
     public class InteractiveTest : InteractiveBase
     {
-        public override void Operate(float DeltaTime, float UnscaledDeltaTime)
+        public override void Operate(float DeltaTime, float UnscaledDeltaTime,DamagableEntity entity)
         {
             Debug.Log($"IntT>>OP: OP={OperationMode}, INT={InteractiveMode}, INV={InvokeMode}");
         }

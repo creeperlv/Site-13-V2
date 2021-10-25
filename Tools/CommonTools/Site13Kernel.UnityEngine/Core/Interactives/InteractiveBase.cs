@@ -14,7 +14,7 @@ namespace Site13Kernel.Core.Interactives
         public bool isOperating=false;
         public bool isCollision=false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual void Operate(float DeltaTime,float UnscaledDeltaTime)
+        public virtual void Operate(float DeltaTime,float UnscaledDeltaTime,DamagableEntity Operator)
         {
 
         }

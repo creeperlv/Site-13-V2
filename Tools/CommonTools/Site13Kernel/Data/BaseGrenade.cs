@@ -14,4 +14,10 @@ namespace Site13Kernel.Data
         public float DetonationDuration;
         public float ExistenceDuration;
     }
+    public class ProcessedGrenade
+    {
+        public int GrenadeHashCode;
+        public int RemainingCount;
+        public int MaxCount;
+    }
 }
