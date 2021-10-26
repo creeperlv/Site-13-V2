@@ -15,7 +15,14 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (this.Parent != null)
             {
-
+                var Holder=Operator.GetComponent<BagHolder>();
+                if(Holder != null)
+                {
+                    if (Holder.Weapon0 == null)
+                    {
+                        
+                    }
+                }
             }
         }
     }

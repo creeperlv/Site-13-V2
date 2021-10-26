@@ -1,0 +1,30 @@
+using Site13Kernel.Core;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Site13Kernel.Data
+{
+    public class WeaponPool : ControlledBehavior
+    {
+        public Dictionary<string, WeaponItem> WeaponItemMap = new Dictionary<string, WeaponItem>();
+        public List<WeaponItem> RawWeaponItems;
+        public override void Init()
+        {
+            foreach (var item in RawWeaponItems)
+            {
+                WeaponItemMap.Add(item.Name, item);
+            }
+        }
+    }
+    [Serializable]
+    public class WeaponItem
+    {
+        public string Name;
+        public GameObject FPSPrefab;
+        public GameObject NPCPrefab;
+        public GameObject PickablePrefab;
+
+    }
+}

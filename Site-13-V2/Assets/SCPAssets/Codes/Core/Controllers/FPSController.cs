@@ -91,7 +91,7 @@ namespace Site13Kernel.Core.Controllers
         #region HUD - Combat
 
         public Transform IndicatorHolder;
-        public GameObject Indicator
+        public GameObject Indicator;
 
         #endregion
 
@@ -121,6 +121,7 @@ namespace Site13Kernel.Core.Controllers
         public float Intensity;
         public float MaxFinalIntensity;
         public int FRAMEIGNORANCE = 2;
+        public BagHolder BagHolder;
         public override void Init()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -133,6 +134,14 @@ namespace Site13Kernel.Core.Controllers
                 Weapon0.Init();
             if (Weapon1 != null)
                 Weapon1.Init();
+            BagHolder.OnSwapWeapon = () => {
+                BagHolder.Weapon0.Weapon.OnHit = OnHit;
+                BagHolder.Weapon1 .Weapon.OnHit = OnHit;
+            };
+        }
+        public void OnHit()
+        {
+
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SwapWeapon()

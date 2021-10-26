@@ -9,8 +9,8 @@ namespace Site13Kernel.GameLogic.FPS
 {
     public class BagHolder : ControlledBehavior
     {
-        public ControlledBehavior Weapon0;
-        public ControlledBehavior Weapon1;
+        public ControlledWeapon Weapon0=null;
+        public ControlledWeapon Weapon1=null;
         public int CurrentWeapon;
         public ProcessedGrenade Grenade0;
         public ProcessedGrenade Grenade1;
