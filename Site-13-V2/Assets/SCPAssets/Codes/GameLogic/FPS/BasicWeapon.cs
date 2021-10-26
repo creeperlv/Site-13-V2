@@ -72,6 +72,9 @@ namespace Site13Kernel.GameLogic.FPS
         int Mode = 0;
         public MeleeArea MeleeArea;
 
+        public Action OnHit;
+
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetProcessor(GameObject Processor)
         {
@@ -333,10 +336,19 @@ namespace Site13Kernel.GameLogic.FPS
                                 Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
                                 if (Hittable != null)
                                 {
+                                    if (OnHit != null)
+                                    {
+                                        OnHit();
+                                    }
                                     GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform);
                                 }
                                 else
                                 {
+
+                                    if (OnHit != null)
+                                    {
+                                        OnHit();
+                                    }
                                     GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one, info.collider.transform);
 
                                 }

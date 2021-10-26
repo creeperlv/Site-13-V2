@@ -88,6 +88,13 @@ namespace Site13Kernel.Core.Controllers
 
         #endregion
 
+        #region HUD - Combat
+
+        public Transform IndicatorHolder;
+        public GameObject Indicator
+
+        #endregion
+
         #region HUD - Status
 
         [Header("HUD/Status")]
