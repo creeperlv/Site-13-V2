@@ -5117,6 +5117,7 @@ GameObject:
   - component: {fileID: 510235675}
   - component: {fileID: 510235679}
   - component: {fileID: 510235678}
+  - component: {fileID: 510235680}
   m_Layer: 0
   m_Name: Cube_004
   m_TagString: Untagged
@@ -5284,6 +5285,27 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &510235680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510235673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1330687725, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  ProtoTypeID: 
+  MaxHP: 100
+  InitHP: 100
+  CurrentHP: 100
+  HitEffect: 0
+  CanBeBackstabed: 0
+  TakeCollisionDamage: 1
+  Controller: {fileID: 0}
 --- !u!1 &512026927
 GameObject:
   m_ObjectHideFlags: 0
@@ -14450,9 +14472,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   ProtoTypeID: 
-  MaxHP: 1000
-  InitHP: 1000
-  CurrentHP: 100
+  MaxHP: 10000
+  InitHP: 10000
+  CurrentHP: 10000
   HitEffect: 2
   CanBeBackstabed: 0
   TakeCollisionDamage: 1
@@ -15062,8 +15084,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fbc90fb92d631e048bb182de2b595919, type: 3}
   - {fileID: 8300000, guid: 9bb89578896db234eb807a4734ec9542, type: 3}
   CurrentEntity: {fileID: 1936720499}
-  Weapon0: {fileID: 2066300699}
-  Weapon1: {fileID: 0}
   FPSCam: {fileID: 657310750}
   RealMainCam: {fileID: 793758245}
   Cycle: 0
@@ -15079,13 +15099,14 @@ MonoBehaviour:
   CrouchIncreasementIntensity: 1.1
   RunIncreasementIntensity: 0.5
   FrameDelay: 1
-  UsingWeapon: 0
   CurrentFPSCamSwingIntensity: 0.1
   WRTween: 0
   NormalFOV: 60
   ZoomFOV: 45
   ZoomSpeed: 4
   ZoomHUD: {fileID: 1245975897}
+  IndicatorHolder: {fileID: 1610295112}
+  Indicator: {fileID: 5378398859039681651, guid: f6fc08dcf7da9af4d91ab3f25692bc38, type: 3}
   HP: {fileID: 2115875006}
   Shield: {fileID: 1149871917}
   InteractHint: {fileID: 1823059215}
@@ -15099,6 +15120,7 @@ MonoBehaviour:
   Intensity: 0
   MaxFinalIntensity: 0
   FRAMEIGNORANCE: 2
+  BagHolder: {fileID: 1936720502}
 --- !u!114 &1936720501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15120,28 +15142,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1936720494}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1723009644, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c761849270fcd142b3e77c8639c5de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Parent>k__BackingField: {fileID: 0}
-  Weapon0:
-    WeaponID: 
-    MaxCapacity: 0
-    MagazineCapacity: 0
-    CurrentBackup: 0
-    CurrentMagazine: 0
-    PhysicsForce: 0
-    WeaponFireType0: 0
-    WeaponFireType1: 0
-  Weapon1:
-    WeaponID: 
-    MaxCapacity: 0
-    MagazineCapacity: 0
-    CurrentBackup: 0
-    CurrentMagazine: 0
-    PhysicsForce: 0
-    WeaponFireType0: 0
-    WeaponFireType1: 0
+  Weapon0: {fileID: 2066300699}
+  Weapon1: {fileID: 0}
   CurrentWeapon: 0
 --- !u!1 &1964406818
 GameObject:

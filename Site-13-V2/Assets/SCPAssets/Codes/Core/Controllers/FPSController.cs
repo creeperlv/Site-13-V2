@@ -49,8 +49,8 @@ namespace Site13Kernel.Core.Controllers
         #region Bio info
         public BioEntity CurrentEntity;
         #endregion
-        public ControlledWeapon Weapon0;
-        public ControlledWeapon Weapon1;
+        //public ControlledWeapon Weapon0;
+        //public ControlledWeapon Weapon1;
         #region FPS Viewport
         public Transform FPSCam;
         public Transform RealMainCam;
@@ -71,7 +71,7 @@ namespace Site13Kernel.Core.Controllers
         public float CrouchIncreasementIntensity = 1;
         public float RunIncreasementIntensity = 0.5f;
         public int FrameDelay = 1;
-        public int UsingWeapon = 0;
+        //public int UsingWeapon = 0;
         [HideInInspector]
         public float CurrentFPSCamSwingIntensity = 0f;
         [HideInInspector]
@@ -121,6 +121,7 @@ namespace Site13Kernel.Core.Controllers
         public float Intensity;
         public float MaxFinalIntensity;
         public int FRAMEIGNORANCE = 2;
+        [Header("Weapon")]
         public BagHolder BagHolder;
         public override void Init()
         {
@@ -130,28 +131,47 @@ namespace Site13Kernel.Core.Controllers
             Parent.RegisterRefresh(this);
             WalkDistance = math.PI / 2;
             FPSCamSwingIntensitySwitchDelta = FPSCamSwingRunningIntensity - FPSCamSwingIntensity;
-            if (Weapon0 != null)
-                Weapon0.Init();
-            if (Weapon1 != null)
-                Weapon1.Init();
-            BagHolder.OnSwapWeapon = () => {
+            if (BagHolder.Weapon0 != null)
+            {
+                BagHolder.Weapon0.Init();
+
                 BagHolder.Weapon0.Weapon.OnHit = OnHit;
-                BagHolder.Weapon1 .Weapon.OnHit = OnHit;
+            }
+            if (BagHolder.Weapon1 != null)
+            {
+
+                BagHolder.Weapon1.Init();
+                BagHolder.Weapon1.Weapon.OnHit = OnHit;
+            }
+            BagHolder.OnSwapWeapon = () =>
+            {
+                BagHolder.Weapon0.Weapon.OnHit = OnHit;
+                BagHolder.Weapon1.Weapon.OnHit = OnHit;
             };
         }
         public void OnHit()
         {
-
+            if (IndicatorHolder != null)
+            {
+                if (Indicator != null)
+                {
+                    var effect=EffectController.CurrentEffectController.Spawn(Indicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
+                    var RT=effect.transform as RectTransform;
+                    RT.anchoredPosition3D = Vector3.zero;
+                    
+                    
+                }
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SwapWeapon()
         {
-            UseWeapon(UsingWeapon == 0 ? 1 : 0);
+            UseWeapon(BagHolder.CurrentWeapon == 0 ? 1 : 0);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void UseWeapon(int i)
         {
-            UsingWeapon = i;
+            BagHolder.CurrentWeapon = i;
         }
         /// <summary>
         /// Switch Walk/Running.s
@@ -200,7 +220,7 @@ namespace Site13Kernel.Core.Controllers
             if (InputProcessor.CurrentInput.GetInputDown("Reload"))
             {
                 Weapon.Reload();
-                if(Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1|| Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
+                if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
                 {
                     CancelRun();
                 }
@@ -554,7 +574,7 @@ namespace Site13Kernel.Core.Controllers
 
         public List<object> Save()
         {
-            return new List<object> { transform.position, transform.rotation, Weapon0.Weapon, Weapon1.Weapon };
+            return new List<object> { transform.position, transform.rotation, BagHolder.Weapon0.Weapon, BagHolder.Weapon0.Weapon };
         }
 
         public void Load(List<object> data)

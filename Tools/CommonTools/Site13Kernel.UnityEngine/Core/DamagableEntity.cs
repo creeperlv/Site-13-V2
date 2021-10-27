@@ -71,7 +71,12 @@ namespace Site13Kernel.Core
             {
                 if (OnDie()) return;
             }
-            Controller.DestroyEntity(this);
+            if(Controller!=null)
+                Controller.DestroyEntity(this);
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string GetName()

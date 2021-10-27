@@ -28,49 +28,51 @@ namespace Site13Kernel.Core.Controllers
             Parent.RegisterRefresh(this);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Spawn(int HashCode, Vector3 Position, Quaternion Rotation)
+        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation)
         {
-            Spawn(EffectDefinitions[HashCode], Position, Rotation, Vector3.zero);
+            return Spawn(EffectDefinitions[HashCode], Position, Rotation, Vector3.zero);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation)
+        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation)
         {
-            Spawn(Prefab, Position, Rotation, Vector3.zero);
+            return Spawn(Prefab, Position, Rotation, Vector3.zero);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale)
+        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale)
         {
-            Spawn(EffectDefinitions[HashCode], Position, Rotation, Scale, transform);
+            return Spawn(EffectDefinitions[HashCode], Position, Rotation, Scale, transform);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale)
+        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale)
         {
-            Spawn(Prefab, Position, Rotation, Scale, transform);
+            return Spawn(Prefab, Position, Rotation, Scale, transform);
         }
         int CurrentEffects = 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent)
+        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent)
         {
-            if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return;
+            if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return null;
             CurrentEffects++;
             var go = Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent);
             go.transform.localScale = Scale;
             var BE = go.GetComponent<BaseEffect>();
             BE.Init();
             ControlledEffects.Add(BE);
+            return go;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent)
+        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent)
         {
-            if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return;
+            if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return null;
             CurrentEffects++;
             var go = Instantiate(Prefab, Position, Rotation, Parent);
             go.transform.localScale = Scale;
             var BE = go.GetComponent<BaseEffect>();
             BE.Init();
             ControlledEffects.Add(BE);
+            return go;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -79,6 +81,11 @@ namespace Site13Kernel.Core.Controllers
             for (int i = ControlledEffects.Count - 1; i >= 0; i--)
             {
                 var item = ControlledEffects[i];
+                if (item == null)
+                {
+                    ControlledEffects.RemoveAt(i);
+                    continue;
+                }
                 item.TimeD += DeltaTime;
                 item.Refresh(DeltaTime, UnscaledDeltaTime);
                 if (item.TimeD >= item.LifeTime)
@@ -91,7 +98,8 @@ namespace Site13Kernel.Core.Controllers
         public void DestroyEffect(BaseEffect baseEffect)
         {
             CurrentEffects--;
-            ControlledEffects.Remove(baseEffect);
+            if (ControlledEffects.Contains(baseEffect))
+                ControlledEffects.Remove(baseEffect);
             Destroy(baseEffect.gameObject);
         }
     }

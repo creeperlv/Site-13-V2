@@ -336,19 +336,10 @@ namespace Site13Kernel.GameLogic.FPS
                                 Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
                                 if (Hittable != null)
                                 {
-                                    if (OnHit != null)
-                                    {
-                                        OnHit();
-                                    }
                                     GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform);
                                 }
                                 else
                                 {
-
-                                    if (OnHit != null)
-                                    {
-                                        OnHit();
-                                    }
                                     GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one, info.collider.transform);
 
                                 }
@@ -356,10 +347,18 @@ namespace Site13Kernel.GameLogic.FPS
                                 var WeakPoint = info.collider.GetComponent<WeakPoint>();
                                 if (WeakPoint != null)
                                 {
+                                    if (OnHit != null)
+                                    {
+                                        OnHit();
+                                    }
                                     WeakPoint.AttachedBioEntity.Damage(BulletPrefab.GetComponent<BaseBullet>().WeakPointDamage);
                                 }
                                 else if (Entity != null)
                                 {
+                                    if (OnHit != null)
+                                    {
+                                        OnHit();
+                                    }
                                     Entity.Damage(BulletPrefab.GetComponent<BaseBullet>().BaseDamage);
                                 }
 

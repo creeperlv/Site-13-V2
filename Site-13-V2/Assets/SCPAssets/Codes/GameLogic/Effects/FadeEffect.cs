@@ -32,8 +32,8 @@ namespace Site13Kernel.GameLogic.Effects
         {
             foreach (var item in RS)
             {
-
-                var c = item.material.color;
+                if (item == null) continue;
+                 var c = item.material.color;
                 if (TimeD < FadeIn)
                 {
                     c.a = Mathf.Lerp(0, 1, TimeD / FadeIn);

@@ -21,6 +21,7 @@ namespace Site13Kernel.GameLogic.FPS
         public override void Hit(Collider collision)
         {
             ParentSystem.DestoryBullet(this);
+            return;
         }
     }
 }

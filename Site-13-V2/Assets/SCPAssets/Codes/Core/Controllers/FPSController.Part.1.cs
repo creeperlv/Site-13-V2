@@ -17,7 +17,7 @@ namespace Site13Kernel.Core.Controllers
                 FrameDelay--;
                 return;
             }
-            Weapon = UsingWeapon == 0 ? Weapon0 : Weapon1;
+            Weapon = BagHolder.CurrentWeapon == 0 ? BagHolder.Weapon0 : BagHolder.Weapon1;
             Zoom(DeltaTime);
             Movement(DeltaTime, UnscaledDeltaTime);
             FireControl(DeltaTime);
