@@ -336,11 +336,11 @@ namespace Site13Kernel.GameLogic.FPS
                                 Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
                                 if (Hittable != null)
                                 {
-                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform);
+                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform, true);
                                 }
                                 else
                                 {
-                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one, info.collider.transform);
+                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one, info.collider.transform, true);
 
                                 }
                                 var Entity = info.collider.GetComponent<DamagableEntity>();

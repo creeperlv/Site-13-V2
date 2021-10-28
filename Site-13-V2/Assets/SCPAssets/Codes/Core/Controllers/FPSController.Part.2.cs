@@ -28,7 +28,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Crouch(float DeltaTime)
         {
-            if (InputProcessor.CurrentInput.GetInputDown("Crouch") && toZoom == false)
+            if (InputProcessor.CurrentInput.GetInputDown("Crouch"))
             {
                 if (MovingState == MoveState.Walk)
                 {

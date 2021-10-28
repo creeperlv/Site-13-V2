@@ -40,7 +40,7 @@ namespace Site13Kernel.GameLogic.Effects
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Init()
         {
-            EffectController.CurrentEffectController.Spawn(ID, this.transform.position, this.transform.rotation, this.transform.localScale, this.transform.parent);
+            EffectController.CurrentEffectController.Spawn(ID, this.transform.position, this.transform.rotation, this.transform.localScale, this.transform.parent,true);
         }
     }
 }

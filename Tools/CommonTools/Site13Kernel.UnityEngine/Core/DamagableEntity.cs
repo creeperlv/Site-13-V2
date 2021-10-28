@@ -22,6 +22,15 @@ namespace Site13Kernel.Core
         public bool TakeCollisionDamage = true;
 
         public EntityController Controller;
+        /// <summary>
+        /// First parameter: Damage amount. <br/>
+        /// Second parameter: Damage on Shield. <br/>
+        /// Third parameter: Damage on Health. <br/>
+        /// Fourth parameter: Remaining Shield. <br/>
+        /// Fifth parameter: Remaining Health. <br/>
+        /// </summary>
+        public Action<float,float,float,float,float> OnTakingDamage=null;
+        public Action OnShieldDown=null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Load(List<object> data)
@@ -54,7 +63,11 @@ namespace Site13Kernel.Core
         {
             CurrentHP = math.max(0, CurrentHP - V);
             if (CurrentHP <= 0)
+            {
                 Die();
+                return;
+            }
+            OnTakingDamage(V, 0, V, 0, CurrentHP);
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Effects;
+using Site13Kernel.Utilities;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -28,34 +29,41 @@ namespace Site13Kernel.Core.Controllers
             Parent.RegisterRefresh(this);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation)
+        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, bool isRelatedScale = false)
         {
-            return Spawn(EffectDefinitions[HashCode], Position, Rotation, Vector3.zero);
+            return Spawn(EffectDefinitions[HashCode], Position, Rotation, Vector3.zero,isRelatedScale);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation)
+        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, bool isRelatedScale = false)
         {
-            return Spawn(Prefab, Position, Rotation, Vector3.zero);
+            return Spawn(Prefab, Position, Rotation, Vector3.zero, isRelatedScale);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale)
+        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale, bool isRelatedScale = false)
         {
-            return Spawn(EffectDefinitions[HashCode], Position, Rotation, Scale, transform);
+            return Spawn(EffectDefinitions[HashCode], Position, Rotation, Scale, transform, isRelatedScale);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale)
+        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, bool isRelatedScale = false)
         {
-            return Spawn(Prefab, Position, Rotation, Scale, transform);
+            return Spawn(Prefab, Position, Rotation, Scale, transform, isRelatedScale);
         }
         int CurrentEffects = 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent)
+        public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent, bool isRelatedScale=false)
         {
             if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return null;
             CurrentEffects++;
             var go = Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent);
-            go.transform.localScale = Scale;
+            if (isRelatedScale)
+            {
+                go.transform.localScale = Scale.DVI(Parent.lossyScale);
+            }
+            else
+            {
+                go.transform.localScale = Scale;
+            }
             var BE = go.GetComponent<BaseEffect>();
             BE.Init();
             ControlledEffects.Add(BE);
@@ -63,12 +71,19 @@ namespace Site13Kernel.Core.Controllers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent)
+        public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent, bool isRelatedScale = false)
         {
             if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return null;
             CurrentEffects++;
             var go = Instantiate(Prefab, Position, Rotation, Parent);
-            go.transform.localScale = Scale;
+            if (isRelatedScale)
+            {
+                go.transform.localScale = Scale.DVI(Parent.lossyScale);
+            }
+            else
+            {
+                go.transform.localScale = Scale;
+            }
             var BE = go.GetComponent<BaseEffect>();
             BE.Init();
             ControlledEffects.Add(BE);

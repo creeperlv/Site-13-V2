@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &951622978129886031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9068304866031668149}
+  - component: {fileID: 8307396843590909121}
+  m_Layer: 0
+  m_Name: WeaponStack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9068304866031668149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951622978129886031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7096025717290730703}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8307396843590909121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951622978129886031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f529a0493e3c38e4a8fe62b982ece349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RawWeaponItems:
+  - Name: P90
+    FPSPrefab: {fileID: 0}
+    NPCPrefab: {fileID: 0}
+    PickablePrefab: {fileID: 4773773276730049914, guid: eb53dc2f3fe71264f966bcc3a80734d9, type: 3}
 --- !u!1 &6467622267761940079
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +997,7 @@ MonoBehaviour:
   - {fileID: 6730252710298054927}
   - {fileID: 5170256164457019125}
   - {fileID: 8909353331100540048}
+  - {fileID: 8307396843590909121}
   OnRefresh: []
   OnFixedRefresh: []
   INTERRUPT_INIT: 0
@@ -1480,6 +1530,7 @@ Transform:
   m_Children:
   - {fileID: 5943734416369605444}
   - {fileID: 8565889358083159438}
+  - {fileID: 9068304866031668149}
   m_Father: {fileID: 6467622268903063982}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1553,6 +1604,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+--- !u!4 &3029035979979359515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
+  m_PrefabInstance: {fileID: 6467622268320363704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3029035979979359514 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8343147023056777634, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
@@ -1564,11 +1620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db8e3728a37ec441897f577592c0218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3029035979979359515 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
-  m_PrefabInstance: {fileID: 6467622268320363704}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6467622269167842202
 PrefabInstance:
   m_ObjectHideFlags: 0
