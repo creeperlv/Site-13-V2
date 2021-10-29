@@ -8,10 +8,12 @@ namespace Site13Kernel.Data
 {
     public class WeaponPool : ControlledBehavior
     {
+        public static WeaponPool CurrentPool;
         public Dictionary<string, WeaponItem> WeaponItemMap = new Dictionary<string, WeaponItem>();
         public List<WeaponItem> RawWeaponItems;
         public override void Init()
         {
+            CurrentPool = this;
             foreach (var item in RawWeaponItems)
             {
                 WeaponItemMap.Add(item.Name, item);

@@ -47,7 +47,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.31, z: 0.17}
+  m_Size: {x: 1.5, y: 0.75, z: 0.75}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2392142632884817026
 Rigidbody:
@@ -89,12 +89,13 @@ MonoBehaviour:
   Weapon:
     WeaponID: P90
     MaxCapacity: 600
-    MagazineCapacity: 0
+    MagazineCapacity: 30
     CurrentBackup: 30
     CurrentMagazine: 30
-    PhysicsForce: 0
+    PhysicsForce: 2
     WeaponFireType0: 0
     WeaponFireType1: 0
+  GrenadeID: 0
 --- !u!65 &2014569445408717724
 BoxCollider:
   m_ObjectHideFlags: 0

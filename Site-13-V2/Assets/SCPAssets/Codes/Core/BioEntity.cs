@@ -55,12 +55,23 @@ namespace Site13Kernel.Core
         public override void Damage(float V)
         {
             var V2 = math.max(0, V - CurrentShield);
-            CurrentShield = math.max(0, CurrentShield - V);
+            if (CurrentShield != 0)
+            {
+                CurrentShield = math.max(0, CurrentShield - V);
+                if (CurrentShield == 0)
+                    if (OnShieldDown != null)
+                        OnShieldDown();
+            }
             CurrentHP = math.max(0, CurrentHP - V2);
             if (CurrentHP <= 0)
+            {
                 Die();
+                return;
+            }
             ShieldRecoverCountDown = ShieldRecoverDelay;
             HPRecoverCountDown = HPRecoverDelay;
+            if (OnTakingDamage != null)
+                OnTakingDamage(V, V - V2, V2, CurrentShield, CurrentHP);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -1,9 +1,11 @@
 using CLUNL.Data.Serializables.CheckpointSystem;
 using Site13Kernel.Core.Controllers;
+using Site13Kernel.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace Site13Kernel.Core
 {
@@ -21,6 +23,9 @@ namespace Site13Kernel.Core
 
         public bool TakeCollisionDamage = true;
 
+        public int DeathBodyReplacementID = -1;
+        public GameObject DeathBodyReplacementPrefab = null;
+
         public EntityController Controller;
         /// <summary>
         /// First parameter: Damage amount. <br/>
@@ -29,8 +34,8 @@ namespace Site13Kernel.Core
         /// Fourth parameter: Remaining Shield. <br/>
         /// Fifth parameter: Remaining Health. <br/>
         /// </summary>
-        public Action<float,float,float,float,float> OnTakingDamage=null;
-        public Action OnShieldDown=null;
+        public Action<float, float, float, float, float> OnTakingDamage = null;
+        public Action OnShieldDown = null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Load(List<object> data)
@@ -67,7 +72,8 @@ namespace Site13Kernel.Core
                 Die();
                 return;
             }
-            OnTakingDamage(V, 0, V, 0, CurrentHP);
+            if (OnTakingDamage != null)
+                OnTakingDamage(V, 0, V, 0, CurrentHP);
         }
 
         /// <summary>
@@ -84,7 +90,20 @@ namespace Site13Kernel.Core
             {
                 if (OnDie()) return;
             }
-            if(Controller!=null)
+            try
+            {
+
+                if (DeathBodyReplacementID != -1)
+                    Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
+                else if (DeathBodyReplacementPrefab != null)
+                    Controller.Instantiate(DeathBodyReplacementPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
+
+            }
+            catch (Exception e)
+            {
+                Debugger.CurrentDebugger.Log(e);
+            }
+            if (Controller != null)
                 Controller.DestroyEntity(this);
             else
             {

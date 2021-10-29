@@ -123,6 +123,8 @@ namespace Site13Kernel.Core.Controllers
         public int FRAMEIGNORANCE = 2;
         [Header("Weapon")]
         public BagHolder BagHolder;
+        public Transform FirePoint;
+        public Transform ZoomEffectPoint;
         public override void Init()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -131,23 +133,37 @@ namespace Site13Kernel.Core.Controllers
             Parent.RegisterRefresh(this);
             WalkDistance = math.PI / 2;
             FPSCamSwingIntensitySwitchDelta = FPSCamSwingRunningIntensity - FPSCamSwingIntensity;
-            if (BagHolder.Weapon0 != null)
-            {
-                BagHolder.Weapon0.Init();
+            //if (BagHolder.Weapon0 != null)
+            //{
+            //    BagHolder.Weapon0.Init();
 
-                BagHolder.Weapon0.Weapon.OnHit = OnHit;
-            }
-            if (BagHolder.Weapon1 != null)
-            {
+            //    BagHolder.Weapon0.Weapon.OnHit = OnHit;
+            //}
+            //if (BagHolder.Weapon1 != null)
+            //{
 
-                BagHolder.Weapon1.Init();
-                BagHolder.Weapon1.Weapon.OnHit = OnHit;
-            }
+            //    BagHolder.Weapon1.Init();
+            //    BagHolder.Weapon1.Weapon.OnHit = OnHit;
+            //}
             BagHolder.OnSwapWeapon = () =>
             {
-                BagHolder.Weapon0.Weapon.OnHit = OnHit;
-                BagHolder.Weapon1.Weapon.OnHit = OnHit;
+                if (BagHolder.Weapon0 != null)
+                {
+
+                    BagHolder.Weapon0.Init();
+                    BagHolder.Weapon0.ZoomEffectPoint = ZoomEffectPoint;
+                    BagHolder.Weapon0.Weapon.FirePoint = FirePoint;
+                    BagHolder.Weapon0.Weapon.OnHit = OnHit;
+                }
+                if (BagHolder.Weapon1 != null)
+                {
+                    BagHolder.Weapon1.Init();
+                    BagHolder.Weapon1.ZoomEffectPoint = ZoomEffectPoint;
+                    BagHolder.Weapon1.Weapon.FirePoint = FirePoint;
+                    BagHolder.Weapon1.Weapon.OnHit = OnHit;
+                }
             };
+            BagHolder.OnSwapWeapon();
         }
         public void OnHit()
         {
@@ -155,11 +171,11 @@ namespace Site13Kernel.Core.Controllers
             {
                 if (Indicator != null)
                 {
-                    var effect=EffectController.CurrentEffectController.Spawn(Indicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
-                    var RT=effect.transform as RectTransform;
+                    var effect = EffectController.CurrentEffectController.Spawn(Indicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
+                    var RT = effect.transform as RectTransform;
                     RT.anchoredPosition3D = Vector3.zero;
-                    
-                    
+
+
                 }
             }
         }
@@ -180,22 +196,18 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ApplyWR(float DeltaTime)
         {
-            //Debug.Log(WRTween);
-            Weapon.transform.localPosition = math.lerp(Weapon.NormalPosition, Weapon.RunningPosition, WRTween);
-            //Weapon.transform.localRotation = DataConversion.Vector4ToQuaternion(
-            //    math.lerp(
-            //        DataConversion.QuaternionToVector4(Weapon.NormalRotation),
-            //        DataConversion.QuaternionToVector4(Weapon.RunningRotation),
-            //        WRTween
-            //        )
-            //    ); 
-            Weapon.transform.localRotation = Quaternion.Euler(
-                math.lerp(
-                    Weapon.NormalRotationEuler,
-                    Weapon.RunningRotationEuler,
-                    WRTween
-                    )
-                );
+            if (Weapon != null)
+            {
+
+                Weapon.transform.localPosition = math.lerp(Weapon.NormalPosition, Weapon.RunningPosition, WRTween);
+                Weapon.transform.localRotation = Quaternion.Euler(
+                    math.lerp(
+                        Weapon.NormalRotationEuler,
+                        Weapon.RunningRotationEuler,
+                        WRTween
+                        )
+                    );
+            }
         }
         bool isWalking = true;
         ControlledWeapon Weapon;
@@ -248,34 +260,41 @@ namespace Site13Kernel.Core.Controllers
                 {
                     CancelRun();
                     toZoom = true;
-                    Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
-                    Weapon.Weapon.AimingMode = 1;
-                    HideWeapon();
+                    if (Weapon != null)
+                    {
+                        Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
+                        Weapon.Weapon.AimingMode = 1;
+                        HideWeapon();
+
+                    }
                 }
                 if (InputProcessor.CurrentInput.GetInputUp("Zoom"))
                 {
                     toZoom = false;
-                    Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
-                    Weapon.Weapon.AimingMode = 0;
-                    ShowWeapon();
+                    if (Weapon != null)
+                    {
+                        Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
+                        Weapon.Weapon.AimingMode = 0;
+                        ShowWeapon();
+                    }
                 }
-            }
-            if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
-            {
-                toZoom = false;
-            }
-            if (Weapon.CanZoom)
-            {
-                //ZoomHUD
-                InternalZoom = false;
-                WeaponZooom = toZoom;
-            }
-            else
-            {
-                InternalZoom = toZoom;
             }
             if (Weapon != null)
             {
+                if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
+                {
+                    toZoom = false;
+                }
+                if (Weapon.CanZoom)
+                {
+                    //ZoomHUD
+                    InternalZoom = false;
+                    WeaponZooom = toZoom;
+                }
+                else
+                {
+                    InternalZoom = toZoom;
+                }
                 if (Weapon.CanZoom)
                 {
                     if (WeaponZooom)
@@ -297,6 +316,7 @@ namespace Site13Kernel.Core.Controllers
             else
             {
                 {
+                    InternalZoom = toZoom;
                     if (InternalZoom)
                     {
                         if (Weapon != null)
@@ -433,7 +453,8 @@ namespace Site13Kernel.Core.Controllers
                         _MOVE = cc.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + cc.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f));
                         if (MovingState == MoveState.Run)
                         {
-                            Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
+                            if (Weapon != null)
+                                Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
                             _MOVE *= RunningSpeed;
                         }
                         else if (MovingState == MoveState.Crouch)
@@ -443,7 +464,8 @@ namespace Site13Kernel.Core.Controllers
                         }
                         else
                         {
-                            Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, WalkRecoil, 1f));
+                            if (Weapon != null)
+                                Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, WalkRecoil, 1f));
                             _MOVE *= MoveSpeed;
                         }
                     }
@@ -451,7 +473,8 @@ namespace Site13Kernel.Core.Controllers
                 }
                 else
                 {
-                    Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
+                    if (Weapon != null)
+                        Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
                     PrevGrounded = false;
                 }
                 if (!cc.isGrounded)

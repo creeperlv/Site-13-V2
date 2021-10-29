@@ -1,6 +1,7 @@
 ﻿using CLUNL.Localization;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Core.Interactives;
+using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic.FPS;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -20,11 +21,16 @@ namespace Site13Kernel.Core.Controllers
             Weapon = BagHolder.CurrentWeapon == 0 ? BagHolder.Weapon0 : BagHolder.Weapon1;
             Zoom(DeltaTime);
             Movement(DeltaTime, UnscaledDeltaTime);
-            FireControl(DeltaTime);
+            if (Weapon != null)
+            {
+                FireControl(DeltaTime);
+            }
             Interact(DeltaTime, UnscaledDeltaTime);
             {
                 //Weapons
-                Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
+
+                if (Weapon != null)
+                    Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
             BodyAnimation(DeltaTime, UnscaledDeltaTime);
             UpdateHUD();
@@ -35,7 +41,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void BodyAnimation(float DeltaTime, float UnscaledDeltaTime)
         {
-            if (AnimatedBodyEnabled&& BodyAnimator!=null)
+            if (AnimatedBodyEnabled && BodyAnimator != null)
             {
 
                 if (FRAME_IGNORACED >= FRAMEIGNORANCE)
@@ -196,7 +202,7 @@ namespace Site13Kernel.Core.Controllers
             else
             {
 
-                Interactive.Operate(DeltaTime, UnscaledDeltaTime,CurrentEntity);
+                Interactive.Operate(DeltaTime, UnscaledDeltaTime, CurrentEntity);
                 if (Interactive.isOperating != true)
                 {
                     Interactive.isOperating = true;
@@ -302,6 +308,10 @@ namespace Site13Kernel.Core.Controllers
             {
                 interactive.isCollision = true;
                 SwapInteractive(interactive);
+                if(interactive is Pickupable p)
+                {
+                    p.ObtainRemaining(BagHolder);
+                }
             }
         }
         private void OnTriggerExit(Collider other)
@@ -312,8 +322,9 @@ namespace Site13Kernel.Core.Controllers
                 if (interactive.isCollision && interactive == Interactive)
                 {
                     Interactive.isCollision = false;
-                    UnInvoke(Interactive); SwapInteractive(null);
-                    Debug.Log("0xFF00FF0001");
+                    UnInvoke(Interactive);
+                    SwapInteractive(null);
+                    Debugger.CurrentDebugger.Log("0xFF00FF0001");
                 }
             }
         }

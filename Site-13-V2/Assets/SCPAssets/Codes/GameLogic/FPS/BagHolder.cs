@@ -15,5 +15,6 @@ namespace Site13Kernel.GameLogic.FPS
         public ProcessedGrenade Grenade0;
         public ProcessedGrenade Grenade1;
         public Action OnSwapWeapon;
+        public Transform WeaponTransform;
     }
 }
