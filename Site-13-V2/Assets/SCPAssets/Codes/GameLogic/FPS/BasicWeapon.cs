@@ -19,7 +19,7 @@ namespace Site13Kernel.GameLogic.FPS
         public GameObject BulletPrefab;
         public Animator ControlledAnimator;
         public CompatibleAnimator CCAnimator;
-        public string FireAnime="Fire";
+        public string FireAnime = "Fire";
         public int Fire_HashCode = 5;
         public string TakeOut = "TakeOut";
         public int TakeOut_HashCode = 1;
@@ -155,6 +155,9 @@ namespace Site13Kernel.GameLogic.FPS
                                 if (CountDown <= 0)
                                 {
                                     FIRE1 = 1;
+                                    if (Fire_HashCode != -1)
+                                    {
+                                    }
                                 }
                             }
                             break;
@@ -232,9 +235,9 @@ namespace Site13Kernel.GameLogic.FPS
                     WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
                 }
             }
-            else if(WeaponMode== WeaponConstants.WEAPON_MODE_MELEE)
+            else if (WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
             {
-                CombatT+=DeltaT;
+                CombatT += DeltaT;
                 if (CombatT > CombatLength)
                 {
                     CombatT = 0;
@@ -301,6 +304,8 @@ namespace Site13Kernel.GameLogic.FPS
                     Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
                     //Debug.Log(RecoilAngle);
 
+                    if (CCAnimator != null)
+                        CCAnimator.SetAnimation(Fire_HashCode);
                     {
                         Vector3 V = Rotation.eulerAngles;
                         V += RecoilAngle;
