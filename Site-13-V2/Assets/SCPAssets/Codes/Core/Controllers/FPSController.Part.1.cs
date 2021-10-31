@@ -241,6 +241,13 @@ namespace Site13Kernel.Core.Controllers
         {
             if (InputProcessor.CurrentInput.GetInputDown("Run") && toZoom == false)
             {
+                if (Weapon != null)
+                {
+                    if(Weapon.Weapon.WeaponMode!= WeaponConstants.WEAPON_MODE_NORMAL)
+                    {
+                        return;
+                    }
+                }
                 if (MovingState == MoveState.Walk)
                 {
                     if (Weapon != null)

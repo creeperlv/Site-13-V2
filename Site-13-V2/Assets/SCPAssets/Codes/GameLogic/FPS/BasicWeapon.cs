@@ -1,6 +1,7 @@
 using Site13Kernel.Animations;
 using Site13Kernel.Core;
 using Site13Kernel.Data;
+using Site13Kernel.Diagnostics;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections;
@@ -70,6 +71,7 @@ namespace Site13Kernel.GameLogic.FPS
         float CountDown = 0;
         float SemiCountDown = 0;
         int Mode = 0;
+        public float MeleePoint;
         public MeleeArea MeleeArea;
 
         public Action OnHit;
@@ -96,13 +98,22 @@ namespace Site13Kernel.GameLogic.FPS
                 FireType = Base.WeaponFireType1;
             }
         }
+        /// <summary>
+        /// Melee, in other words.
+        /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Combat()
         {
+            Debugger.CurrentDebugger.Log("Meleeeeee?");
             if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
+                Debugger.CurrentDebugger.Log("Meleeeeee!");
                 CombatT = 0;
                 WeaponMode = WeaponConstants.WEAPON_MODE_MELEE;
+                if (CCAnimator != null)
+                {
+                    CCAnimator.SetAnimation(Combat_HashCode);
+                }
                 if (MeleeArea != null)
                 {
                     MeleeArea.StartDetection();
@@ -130,6 +141,10 @@ namespace Site13Kernel.GameLogic.FPS
                 {
                     ReloadCountDown = ReloadP0 + ReloadP1;
                     WeaponMode = WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0;
+                    if (CCAnimator != null)
+                    {
+                        CCAnimator.SetAnimation(Reload_HashCode);
+                    }
                 }
             }
         }
@@ -238,6 +253,10 @@ namespace Site13Kernel.GameLogic.FPS
             else if (WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
             {
                 CombatT += DeltaT;
+                if (CombatT > MeleePoint)
+                {
+                    MeleeArea.StopDetection();
+                }
                 if (CombatT > CombatLength)
                 {
                     CombatT = 0;

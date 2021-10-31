@@ -1,5 +1,6 @@
 
 using Site13Kernel.Core;
+using Site13Kernel.Core.Controllers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -21,11 +22,13 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void StartDetection()
         {
+            this.gameObject.SetActive(true);
             isDetecting = true;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void StopDetection()
         {
+            this.gameObject.SetActive(false);
             isDetecting = false;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -36,6 +39,17 @@ namespace Site13Kernel.GameLogic.FPS
                 var DE = collision.gameObject.GetComponent<DamagableEntity>();
                 if (DE != null)
                 {
+                    if (Holder != null)
+                    {
+                        if (DE.gameObject == Holder) return;
+
+                        var fps = Holder.GetComponent<FPSController>();
+                        if (fps != null)
+                        {
+                            fps.OnHit();
+                        }
+                    }
+
                     if (AllowBackstabDetection && DE.CanBeBackstabed)
                     {
                         Vector3 forward = DE.transform.forward;

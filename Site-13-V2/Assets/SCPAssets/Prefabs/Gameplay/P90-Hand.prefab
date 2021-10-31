@@ -243,14 +243,14 @@ MonoBehaviour:
   Fire_HashCode: 5
   TakeOut: TakeOut
   TakeOut_HashCode: 1
-  Combat_Trigger: Combat
+  Combat_Trigger: Melee
   Combat_HashCode: 2
   ReloadTrigger: Reload
   Reload_HashCode: 3
   ReloadP0: 0.5
   ReloadP1: 0.5
   ReloadCountDown: 0
-  CombatLength: 1
+  CombatLength: 0.5
   CombatT: 0
   Idle: Idle
   Idle_HashCode: 4
@@ -283,6 +283,7 @@ MonoBehaviour:
   EffectPoint: {fileID: 6490600704565353131}
   CurrentEffectPoint: {fileID: 6490600704565353131}
   isHoldByPlayer: 1
+  MeleePoint: 0.1
   MeleeArea: {fileID: 6490600703867112644}
 --- !u!1 &6490600703761404475
 GameObject:
@@ -692,7 +693,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6490600703867112647
 Transform:
   m_ObjectHideFlags: 0
@@ -741,10 +742,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b955e88191486438947e97ceedd593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseDamage: 0
+  BaseDamage: 75
   AllowBackstabDetection: 1
   Holder: {fileID: 0}
-  isDetecting: 1
+  isDetecting: 0
 --- !u!1 &6490600703992947069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,9 +1412,9 @@ MonoBehaviour:
     AlternativeStateName: TakeOut
     AnimationClip: {fileID: 0}
   - HashCode: 2
-    isIgnoredApplication: 1
-    AlternativeTrigger: Combat
-    AlternativeStateName: Combat
+    isIgnoredApplication: 0
+    AlternativeTrigger: Melee
+    AlternativeStateName: Melee
     AnimationClip: {fileID: 0}
   - HashCode: 3
     isIgnoredApplication: 1
@@ -2888,6 +2889,18 @@ PrefabInstance:
     - target: {fileID: -5744574613914033623, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -5651751901618623305, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5651751901618623305, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5651751901618623305, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5628240927526414499, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
       propertyPath: m_Layer
@@ -4384,6 +4397,14 @@ PrefabInstance:
     - target: {fileID: 8663200945689834066, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9101804077288097245, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
       propertyPath: m_Layer

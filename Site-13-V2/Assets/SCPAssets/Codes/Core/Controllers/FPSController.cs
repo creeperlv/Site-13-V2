@@ -152,6 +152,7 @@ namespace Site13Kernel.Core.Controllers
 
                     BagHolder.Weapon0.Init();
                     BagHolder.Weapon0.ZoomEffectPoint = ZoomEffectPoint;
+                    BagHolder.Weapon0.Weapon.MeleeArea.Holder = this.gameObject;
                     BagHolder.Weapon0.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon0.Weapon.OnHit = OnHit;
                 }
@@ -159,12 +160,14 @@ namespace Site13Kernel.Core.Controllers
                 {
                     BagHolder.Weapon1.Init();
                     BagHolder.Weapon1.ZoomEffectPoint = ZoomEffectPoint;
+                    BagHolder.Weapon1.Weapon.MeleeArea.Holder = this.gameObject;
                     BagHolder.Weapon1.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon1.Weapon.OnHit = OnHit;
                 }
             };
             BagHolder.OnSwapWeapon();
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnHit()
         {
             if (IndicatorHolder != null)
@@ -226,6 +229,14 @@ namespace Site13Kernel.Core.Controllers
                     Weapon.Press();
                 else Weapon.Unfire();
 
+            }
+            if (InputProcessor.CurrentInput.GetInputDown("Combat"))
+            {
+                Weapon.Combat();
+                if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
+                {
+                    CancelRun();
+                }
             }
             if (InputProcessor.CurrentInput.GetInputUp("Fire"))
                 Weapon.Unfire();
