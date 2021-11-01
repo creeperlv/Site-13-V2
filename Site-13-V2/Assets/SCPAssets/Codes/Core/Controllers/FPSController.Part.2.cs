@@ -13,6 +13,63 @@ namespace Site13Kernel.Core.Controllers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void WeaponControl(float DeltaTime, float UnscaledDeltaTime)
+        {
+
+            if (InputProcessor.CurrentInput.GetInputDown("SwitchWeapon"))
+            {
+
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void TrySwitchWeapon()
+        {
+            BagHolder.CurrentWeapon = (BagHolder.CurrentWeapon == 1 ? 0 : 1);
+            BagHolder.VerifyWeaponSlot();
+            ApplySwitchWeapon();
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ApplySwitchWeapon()
+        {
+            if (BagHolder.CurrentWeapon == 0)
+            {
+
+                if (BagHolder.Weapon0 != null)
+                {
+                    if (!BagHolder.Weapon0.gameObject.activeSelf)
+                    {
+                        BagHolder.Weapon0.gameObject.SetActive(true);
+                    }
+                }
+                if (BagHolder.Weapon1 != null)
+                {
+                    if (BagHolder.Weapon1.gameObject.activeSelf)
+                    {
+                        BagHolder.Weapon1.gameObject.SetActive(false);
+                    }
+                }
+
+            }
+            else if (BagHolder.CurrentWeapon == 1)
+            {
+
+                if (BagHolder.Weapon1 != null)
+                {
+                    if (!BagHolder.Weapon1.gameObject.activeSelf)
+                    {
+                        BagHolder.Weapon1.gameObject.SetActive(true);
+                    }
+                }
+                if (BagHolder.Weapon0 != null)
+                {
+                    if (BagHolder.Weapon0.gameObject.activeSelf)
+                    {
+                        BagHolder.Weapon0.gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Movement(float DeltaTime, float UnscaledDeltaTime)
         {
             if (!isMoveLocked)

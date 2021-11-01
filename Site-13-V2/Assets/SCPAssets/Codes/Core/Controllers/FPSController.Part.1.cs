@@ -18,6 +18,11 @@ namespace Site13Kernel.Core.Controllers
                 FrameDelay--;
                 return;
             }
+            if (BagHolder.VerifyWeaponSlot())
+            {
+                ApplySwitchWeapon();
+            }
+            WeaponControl(DeltaTime, UnscaledDeltaTime);
             Weapon = BagHolder.CurrentWeapon == 0 ? BagHolder.Weapon0 : BagHolder.Weapon1;
             Zoom(DeltaTime);
             Movement(DeltaTime, UnscaledDeltaTime);

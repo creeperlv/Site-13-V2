@@ -17,6 +17,10 @@ namespace Site13Kernel.GameLogic.FPS
         public Weapon Base;
         public float MaxHitScanDistance;
         public List<AudioSource> GunSFXSources;
+        public AudioSource MeleeSFXSource;
+        public AudioClip MeleeSFX;
+        public AudioSource ReloadSFXSource;
+        public AudioClip ReloadSFX;
         public GameObject BulletPrefab;
         public Animator ControlledAnimator;
         public CompatibleAnimator CCAnimator;
@@ -110,6 +114,11 @@ namespace Site13Kernel.GameLogic.FPS
                 Debugger.CurrentDebugger.Log("Meleeeeee!");
                 CombatT = 0;
                 WeaponMode = WeaponConstants.WEAPON_MODE_MELEE;
+                if (MeleeSFXSource != null)
+                {
+                    MeleeSFXSource.clip = MeleeSFX;
+                    MeleeSFXSource.Play();
+                }
                 if (CCAnimator != null)
                 {
                     CCAnimator.SetAnimation(Combat_HashCode);
@@ -334,7 +343,8 @@ namespace Site13Kernel.GameLogic.FPS
                         GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation);
                     if (EffectPrefab != -1)
                     {
-                        GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
+                        var GO=GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
+                        GO.layer = this.gameObject.layer;
                     }
                     if (BulletFireType == BulletFireType.HitScan)
                     {

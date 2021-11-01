@@ -3,6 +3,7 @@ using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.UI;
+using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -100,6 +101,16 @@ namespace Site13Kernel.Core.Controllers
         [Header("HUD/Status")]
         public ProgressBar HP;
         public ProgressBar Shield;
+
+        public WeaponHUD W_HUD0;
+        public WeaponHUD W_HUD1;
+
+
+        public Vector3 W_HUD_PrimaryPosition;
+        public Vector3 W_HUD_PrimaryScale;
+        public Vector3 W_HUD_SecondaryPosition;
+        public Vector3 W_HUD_SecondaryScale;
+
 
         #endregion
 

@@ -915,8 +915,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 131210490}
+  - component: {fileID: 131210491}
   m_Layer: 5
-  m_Name: GameObject_001
+  m_Name: HUD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -931,7 +932,7 @@ RectTransform:
   m_GameObject: {fileID: 131210489}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 191022898}
@@ -943,6 +944,25 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: 175}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 1, y: 0}
+--- !u!114 &131210491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131210489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0194d25f51845be4a82eaa87b3779284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconImg: {fileID: 0}
+  DisplayText: {fileID: 0}
+  ProgressBar: {fileID: 0}
+  isPercentage: 0
+  isPrimary: 0
+  ListeningWeapon: {fileID: 0}
+  Holder: {fileID: 0}
 --- !u!1 &133115266
 GameObject:
   m_ObjectHideFlags: 0
@@ -5086,7 +5106,7 @@ GameObject:
   - component: {fileID: 846640290}
   - component: {fileID: 846640291}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: HUD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5126,11 +5146,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0194d25f51845be4a82eaa87b3779284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IconImg: {fileID: 0}
   DisplayText: {fileID: 1468342644}
   ProgressBar: {fileID: 0}
   isPercentage: 0
   isPrimary: 0
   ListeningWeapon: {fileID: 0}
+  Holder: {fileID: 0}
 --- !u!4 &859024983 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8343147023056777635, guid: dc5e29c37f62b9843afcefbf362cd8c2, type: 3}
@@ -11352,6 +11374,12 @@ MonoBehaviour:
   Indicator: {fileID: 5378398859039681651, guid: f6fc08dcf7da9af4d91ab3f25692bc38, type: 3}
   HP: {fileID: 2115875006}
   Shield: {fileID: 1149871917}
+  W_HUD0: {fileID: 0}
+  W_HUD1: {fileID: 0}
+  W_HUD_PrimaryPosition: {x: 0, y: 0, z: 0}
+  W_HUD_PrimaryScale: {x: 0, y: 0, z: 0}
+  W_HUD_SecondaryPosition: {x: 0, y: 0, z: 0}
+  W_HUD_SecondaryScale: {x: 0, y: 0, z: 0}
   InteractHint: {fileID: 1823059215}
   Reach: 2.5
   SightDistance: 15
