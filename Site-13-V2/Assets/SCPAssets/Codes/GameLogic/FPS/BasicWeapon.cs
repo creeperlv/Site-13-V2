@@ -80,6 +80,7 @@ namespace Site13Kernel.GameLogic.FPS
 
         public Action OnHit;
 
+        public GameObject ActualHolder=null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetProcessor(GameObject Processor)
@@ -340,7 +341,7 @@ namespace Site13Kernel.GameLogic.FPS
                         Rotation = Quaternion.Euler(V);
                     }
                     if (BulletPrefab != null)
-                        GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation);
+                        GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
                     if (EffectPrefab != -1)
                     {
                         var GO=GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);

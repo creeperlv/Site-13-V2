@@ -14,10 +14,11 @@ namespace Site13Kernel.GameLogic.FPS
             GameRuntime.CurrentGlobals.CurrentBulletSystem = this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddBullet(GameObject Perfab, Vector3 Position, Quaternion rotation)
+        public void AddBullet(GameObject Perfab, Vector3 Position, Quaternion rotation,GameObject Emitter=null)
         {
             var B=Instantiate(Perfab, Position, rotation, GameRuntime.BulletHolder).GetComponent<BaseBullet>();
             B.ParentSystem = this;
+            B.Emitter = Emitter;
             ManagedBullets.Add(B);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

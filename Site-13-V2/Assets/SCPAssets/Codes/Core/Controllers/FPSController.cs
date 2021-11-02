@@ -166,6 +166,7 @@ namespace Site13Kernel.Core.Controllers
                     BagHolder.Weapon0.Weapon.MeleeArea.Holder = this.gameObject;
                     BagHolder.Weapon0.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon0.Weapon.OnHit = OnHit;
+                    BagHolder.Weapon0.Weapon.ActualHolder=this.gameObject;
                 }
                 if (BagHolder.Weapon1 != null)
                 {
@@ -174,6 +175,7 @@ namespace Site13Kernel.Core.Controllers
                     BagHolder.Weapon1.Weapon.MeleeArea.Holder = this.gameObject;
                     BagHolder.Weapon1.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon1.Weapon.OnHit = OnHit;
+                    BagHolder.Weapon1.Weapon.ActualHolder = this.gameObject;
                 }
             };
             BagHolder.OnSwapWeapon();

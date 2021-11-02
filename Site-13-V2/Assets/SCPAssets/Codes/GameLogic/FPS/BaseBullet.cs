@@ -13,6 +13,7 @@ namespace Site13Kernel.GameLogic.FPS
         public float BaseDamage = 50;
         public float WeakPointDamage = 50;
         public float LifeTime = 10;
+        public GameObject Emitter;
         //public Collider c;
         [HideInInspector]
         public BulletSystem ParentSystem { get; set; }
@@ -55,14 +56,28 @@ namespace Site13Kernel.GameLogic.FPS
             var WeakPoint = collision.gameObject.GetComponent<WeakPoint>();
             if (WeakPoint != null)
             {
+                TrySpawnHitEffect();
                 WeakPoint.AttachedBioEntity.Damage(WeakPointDamage);
             }
             else if (Entity != null)
             {
+                TrySpawnHitEffect();
                 Entity.Damage(BaseDamage);
             }
 
             ParentSystem.DestoryBullet(this);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void TrySpawnHitEffect()
+        {
+            if (Emitter != null)
+            {
+                var FPS = Emitter.GetComponent<FPSController>();
+                if (FPS != null)
+                {
+                    FPS.OnHit();
+                }
+            }
         }
     }
 }
