@@ -43,8 +43,13 @@ namespace Site13Kernel.GameLogic.FPS
         {
             var Hittable = collision.gameObject.GetComponent<IHittable>();
 
+
             if (Hittable != null)
             {
+                if (((MonoBehaviour)Hittable).gameObject == Emitter)
+                {
+                    return;
+                }
                 EffectController.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
             }
             else

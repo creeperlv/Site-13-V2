@@ -166,7 +166,7 @@ namespace Site13Kernel.Core.Controllers
                     BagHolder.Weapon0.Weapon.MeleeArea.Holder = this.gameObject;
                     BagHolder.Weapon0.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon0.Weapon.OnHit = OnHit;
-                    BagHolder.Weapon0.Weapon.ActualHolder=this.gameObject;
+                    BagHolder.Weapon0.Weapon.ActualHolder = this.gameObject;
                 }
                 if (BagHolder.Weapon1 != null)
                 {
@@ -177,8 +177,10 @@ namespace Site13Kernel.Core.Controllers
                     BagHolder.Weapon1.Weapon.OnHit = OnHit;
                     BagHolder.Weapon1.Weapon.ActualHolder = this.gameObject;
                 }
+                UseWeapon(BagHolder.CurrentWeapon);
             };
             BagHolder.OnSwapWeapon();
+
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnHit()
@@ -204,6 +206,7 @@ namespace Site13Kernel.Core.Controllers
         public void UseWeapon(int i)
         {
             BagHolder.CurrentWeapon = i;
+            ApplySwitchWeapon();
         }
         /// <summary>
         /// Switch Walk/Running.s
@@ -233,13 +236,27 @@ namespace Site13Kernel.Core.Controllers
             if (InputProcessor.CurrentInput.GetInput("Fire"))
             {
                 if (isWalking)
-                    Weapon.Fire();
+                {
+                    if (Weapon.CanZoom == false && InternalZoom == true)
+                    {
+
+                    }
+                    else
+                        Weapon.Fire();
+                }
                 else Weapon.Unfire();
             }
             if (InputProcessor.CurrentInput.GetInputDown("Fire"))
             {
                 if (isWalking)
-                    Weapon.Press();
+                {
+                    if (Weapon.CanZoom == false && InternalZoom == true)
+                    {
+
+                    }
+                    else
+                        Weapon.Press();
+                }
                 else Weapon.Unfire();
 
             }

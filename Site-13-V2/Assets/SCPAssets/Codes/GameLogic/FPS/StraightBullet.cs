@@ -12,6 +12,7 @@ namespace Site13Kernel.GameLogic.FPS
     {
 
         public float Velocity;
+        public bool CauseDamage;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Move(float DT, float UDT)
         {
@@ -20,8 +21,14 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Hit(Collider collision)
         {
-            ParentSystem.DestoryBullet(this);
-            return;
+            if (CauseDamage)
+                base.Hit(collision);
+            else
+            {
+
+                ParentSystem.DestoryBullet(this);
+                return;
+            }
         }
     }
 }

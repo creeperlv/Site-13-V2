@@ -28,6 +28,8 @@ namespace Site13Kernel.GameLogic.FPS
         public int Fire_HashCode = 5;
         public string TakeOut = "TakeOut";
         public int TakeOut_HashCode = 1;
+        public float TakeOut_Length = 1;
+        public float TakeOut_Length_D = 0;
         public string Combat_Trigger = "Combat";
         public int Combat_HashCode = 2;
         public string ReloadTrigger = "Reload";
@@ -80,7 +82,7 @@ namespace Site13Kernel.GameLogic.FPS
 
         public Action OnHit;
 
-        public GameObject ActualHolder=null;
+        public GameObject ActualHolder = null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetProcessor(GameObject Processor)
@@ -273,6 +275,20 @@ namespace Site13Kernel.GameLogic.FPS
                     CancelCombat();
                 }
             }
+            else if(WeaponMode== WeaponConstants.WEAPON_MODE_TAKEOUT)
+            {
+                TakeOut_Length_D += DeltaT;
+                if (TakeOut_Length_D >= TakeOut_Length)
+                {
+                    WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
+                }
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ResetTakeOut()
+        {
+            TakeOut_Length_D = 0;
+            WeaponMode = WeaponConstants.WEAPON_MODE_TAKEOUT;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SemiFireProgress(float DeltaTime, float UnscaledDeltaTime)
@@ -344,7 +360,7 @@ namespace Site13Kernel.GameLogic.FPS
                         GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
                     if (EffectPrefab != -1)
                     {
-                        var GO=GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
+                        var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
                         GO.layer = this.gameObject.layer;
                     }
                     if (BulletFireType == BulletFireType.HitScan)
@@ -355,8 +371,8 @@ namespace Site13Kernel.GameLogic.FPS
                         }
                         RaycastHit info;
                         if (!isHoldByPlayer)
-                            Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludeAirBlock);
-                        else Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock);
+                            Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludeAirBlock, QueryTriggerInteraction.Ignore);
+                        else Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Ignore);
                         if (info.collider != null)
                         {
                             if (info.collider.attachedRigidbody != null)

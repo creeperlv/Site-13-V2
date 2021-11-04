@@ -15,11 +15,11 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WeaponControl(float DeltaTime, float UnscaledDeltaTime)
         {
-
-            if (InputProcessor.CurrentInput.GetInputDown("SwitchWeapon"))
-            {
-
-            }
+            if (MovingState == MoveState.Crouch || MovingState == MoveState.Walk)
+                if (InputProcessor.CurrentInput.GetInputDown("SwitchWeapon"))
+                {
+                    TrySwitchWeapon();
+                }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void TrySwitchWeapon()
@@ -38,6 +38,8 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (!BagHolder.Weapon0.gameObject.activeSelf)
                     {
+                        BagHolder.Weapon0.Unfire();
+                        BagHolder.Weapon0.Weapon.ResetTakeOut();
                         BagHolder.Weapon0.gameObject.SetActive(true);
                     }
                 }
@@ -45,6 +47,8 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (BagHolder.Weapon1.gameObject.activeSelf)
                     {
+                        BagHolder.Weapon1.Unfire();
+                        BagHolder.Weapon1.Weapon.ResetTakeOut();
                         BagHolder.Weapon1.gameObject.SetActive(false);
                     }
                 }
@@ -57,6 +61,8 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (!BagHolder.Weapon1.gameObject.activeSelf)
                     {
+                        BagHolder.Weapon1.Unfire();
+                        BagHolder.Weapon1.Weapon.ResetTakeOut();
                         BagHolder.Weapon1.gameObject.SetActive(true);
                     }
                 }
@@ -64,6 +70,8 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (BagHolder.Weapon0.gameObject.activeSelf)
                     {
+                        BagHolder.Weapon0.Unfire();
+                        BagHolder.Weapon0.Weapon.ResetTakeOut();
                         BagHolder.Weapon0.gameObject.SetActive(false);
                     }
                 }

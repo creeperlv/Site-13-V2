@@ -25,6 +25,7 @@ namespace Site13Kernel.GameLogic.FPS
                     if (Holder.Weapon0 == null)
                     {
                         GeneratedWeapon = Holder.Weapon0 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                        Holder.CurrentWeapon = 0;
                         if (Holder.OnSwapWeapon != null)
                             Holder.OnSwapWeapon();
                     }
@@ -33,6 +34,7 @@ namespace Site13Kernel.GameLogic.FPS
                     {
 
                         GeneratedWeapon = Holder.Weapon1 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                        Holder.CurrentWeapon = 1;
                         if (Holder.OnSwapWeapon != null)
                             Holder.OnSwapWeapon();
                     }
@@ -40,6 +42,11 @@ namespace Site13Kernel.GameLogic.FPS
                     {
                         if (Holder.CurrentWeapon == 0)
                         {
+                            {
+
+                                var G = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                                G.Weapon.Base = Holder.Weapon0.Weapon.Base;
+                            }
                             GameObject.Destroy(Holder.Weapon0.gameObject);
 
                             GeneratedWeapon = Holder.Weapon0 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
@@ -48,6 +55,11 @@ namespace Site13Kernel.GameLogic.FPS
                         }
                         else
                         {
+                            {
+
+                                var G = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                                G.Weapon.Base = Holder.Weapon1.Weapon.Base;
+                            }
 
                             GameObject.Destroy(Holder.Weapon1.gameObject);
 
