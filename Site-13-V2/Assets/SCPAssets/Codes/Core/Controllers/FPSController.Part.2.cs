@@ -1,4 +1,5 @@
 ﻿using Site13Kernel.Core.CustomizedInput;
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -198,5 +199,11 @@ namespace Site13Kernel.Core.Controllers
                 }
             }
         }
+    }
+    [Serializable]
+    public class HoldGrenade
+    {
+        public int HashCode;
+        public GameObject GrenadeMode;
     }
 }

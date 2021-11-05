@@ -136,6 +136,9 @@ namespace Site13Kernel.Core.Controllers
         public BagHolder BagHolder;
         public Transform FirePoint;
         public Transform ZoomEffectPoint;
+        [Header("Grenades")]
+        public Animator GrenadeThrower;
+        public List<GameObject> Grenades;
         public override void Init()
         {
             Cursor.lockState = CursorLockMode.Locked;
