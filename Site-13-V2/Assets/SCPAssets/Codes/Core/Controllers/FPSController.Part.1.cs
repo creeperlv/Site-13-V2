@@ -1,6 +1,7 @@
 ﻿using CLUNL.Localization;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Core.Interactives;
+using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic.FPS;
 using System.Runtime.CompilerServices;
@@ -37,8 +38,77 @@ namespace Site13Kernel.Core.Controllers
                 if (Weapon != null)
                     Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
+
+            Grenade(DeltaTime, UnscaledDeltaTime);
             BodyAnimation(DeltaTime, UnscaledDeltaTime);
             UpdateHUD();
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Grenade(float DeltaTime, float UnscaledDeltaTime)
+        {
+            if (InputProcessor.CurrentInput.GetInputDown("ThrowGrenade"))
+            {
+                if (Grenade_Throwing == false)
+                {
+
+                    ProcessedGrenade PG = null;
+                    PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
+                    if (PG.GrenadeHashCode != -1)
+                    {
+                        if (PG.RemainingCount > 0)
+                        {
+                            if (Weapon != null)
+                            {
+                                Weapon.gameObject.SetActive(false);
+                                Weapon.Weapon.ResetTakeOut();
+                            }
+                            CancelRun();
+                            toZoom = false;
+                            GrenadeThrowD = 0;
+                            Grenade_Throwing = true;
+                            Grenade_Throwed = false;
+                            GrenadeThrower.gameObject.SetActive(true);
+                        }
+                    }
+                    //GrenadeThrower.playbackTime=0;
+                }
+            }
+            if (Grenade_Throwing)
+            {
+
+                GrenadeThrowD += DeltaTime;
+                if (GrenadeThrowD > GrenadeThrowTime)
+                {
+                    if (Grenade_Throwed == false)
+                    {
+                        ProcessedGrenade PG = null;
+                        PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
+                        if (PG.GrenadeHashCode != -1)
+                        {
+                            if (PG.RemainingCount > 0)
+                            {
+
+                                GrenadeController.CurrentController.Instantiate(
+                                    GrenadePool.CurrentPool.GrenadeItemMap[BagHolder.Grenade0.GrenadeHashCode].GamePlayPrefab,
+                                    Grenade_ThrowOutPoint.position,
+                                    Grenade_ThrowOutPoint.rotation,
+                                    Grenade_ThrowOutPoint.forward * GrenadeThrowForce, ForceMode.Impulse);
+                                Grenade_Throwed = true;
+
+                                BagHolder.Grenade0.RemainingCount--;
+                            }
+                        }
+                    }
+                }
+                if (GrenadeThrowD > GrenadeThrowAnimationTime)
+                {
+                    Grenade_Throwing = false;
+                    GrenadeThrower.gameObject.SetActive(false);
+                    if (Weapon != null)
+                        Weapon.gameObject.SetActive(true);
+                }
+            }
+
         }
         int FRAME_IGNORACED = 0;
         float ANIMATION_DELTA_T;
@@ -248,7 +318,7 @@ namespace Site13Kernel.Core.Controllers
             {
                 if (Weapon != null)
                 {
-                    if(Weapon.Weapon.WeaponMode!= WeaponConstants.WEAPON_MODE_NORMAL)
+                    if (Weapon.Weapon.WeaponMode != WeaponConstants.WEAPON_MODE_NORMAL)
                     {
                         return;
                     }
@@ -283,14 +353,14 @@ namespace Site13Kernel.Core.Controllers
                 {
                     isWalking = false;
                     WRTween += DeltaTime * FPSCamSwingIntensitySwitchSpeed;
-                    ApplyWR(DeltaTime);
+                    //ApplyWR(DeltaTime);
                 }
                 else
                 {
                     if (WRTween != 1)
                     {
                         WRTween = 1;
-                        ApplyWR(DeltaTime);
+                        //ApplyWR(DeltaTime);
                     }
                 }
             }
@@ -299,19 +369,19 @@ namespace Site13Kernel.Core.Controllers
                 if (WRTween > 0)
                 {
                     WRTween -= DeltaTime * FPSCamSwingIntensitySwitchSpeed;
-                    ApplyWR(DeltaTime);
+                    //ApplyWR(DeltaTime);
                 }
                 else
                 {
                     if (WRTween != 0)
                     {
                         WRTween = 0;
-                        ApplyWR(DeltaTime);
                         isWalking = true;
                     }
                 }
 
             }
+            ApplyWR(DeltaTime);
         }
         private void OnTriggerEnter(Collider other)
         {
@@ -320,7 +390,7 @@ namespace Site13Kernel.Core.Controllers
             {
                 interactive.isCollision = true;
                 SwapInteractive(interactive);
-                if(interactive is Pickupable p)
+                if (interactive is Pickupable p)
                 {
                     p.ObtainRemaining(BagHolder);
                 }

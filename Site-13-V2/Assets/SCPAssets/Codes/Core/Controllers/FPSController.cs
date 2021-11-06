@@ -2,6 +2,7 @@ using CLUNL.Data.Serializables.CheckpointSystem;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.GameLogic.Grenades;
 using Site13Kernel.UI;
 using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
@@ -138,7 +139,15 @@ namespace Site13Kernel.Core.Controllers
         public Transform ZoomEffectPoint;
         [Header("Grenades")]
         public Animator GrenadeThrower;
-        public List<GameObject> Grenades;
+        public List<HoldGrenade> Grenades;
+        public Transform Grenade_ThrowOutPoint;
+        public float GrenadeThrowForce;
+        public float GrenadeThrowTime;
+        public float GrenadeThrowAnimationTime;
+        public float GrenadeThrowD;
+        public bool Grenade_Throwed = false;
+        public bool Grenade_Throwing = false;
+        bool isThrowingGrenade;
         public override void Init()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -299,6 +308,18 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Zoom(float DeltaTime)
         {
+
+
+            if (Weapon != null)
+            {
+                if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1)
+                {
+                    return;
+                }
+
+
+            }
+
             {
                 if (InputProcessor.CurrentInput.GetInputDown("Zoom"))
                 {

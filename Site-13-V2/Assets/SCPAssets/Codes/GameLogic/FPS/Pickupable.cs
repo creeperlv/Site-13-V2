@@ -90,22 +90,77 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (ItemType == PickupItem.Weapon)
             {
-                if(holder.Weapon0 != null)
+                if (holder.Weapon0 != null)
                 {
                     if (holder.Weapon0.Weapon.Base.WeaponID == Weapon.WeaponID)
                     {
                         __ObtainRemaining(holder.Weapon0.Weapon.Base);
-                        
+
                     }
                 }
-                if(holder.Weapon1 != null)
+                if (holder.Weapon1 != null)
                 {
-                    if(holder.Weapon1.Weapon.Base.WeaponID== Weapon.WeaponID)
+                    if (holder.Weapon1.Weapon.Base.WeaponID == Weapon.WeaponID)
                     {
                         __ObtainRemaining(holder.Weapon1.Weapon.Base);
                     }
                 }
             }
+            else if (ItemType == PickupItem.Grenade)
+            {
+                Debugger.CurrentDebugger.Log("Giving Grenade...");
+                bool isMatched = false;
+                if (holder.Grenade0.GrenadeHashCode != -1)
+                {
+                    Debugger.CurrentDebugger.Log("Giving Grenade...Position 0");
+                    isMatched = __ObtainRemaining(holder.Grenade0);
+                }
+                else if (holder.Grenade1.GrenadeHashCode != -1)
+                {
+                    Debugger.CurrentDebugger.Log("Giving Grenade...Position 1");
+                    isMatched = __ObtainRemaining(holder.Grenade1);
+                }
+                if (isMatched == false)
+                {
+                    if (holder.Grenade0.GrenadeHashCode == -1)
+                    {
+                        holder.Grenade0 = new ProcessedGrenade
+                        {
+                            GrenadeHashCode = GrenadeID,
+                            MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
+                            RemainingCount = 1
+                        };
+                        Destroy(this.gameObject);
+                    }
+                    else
+                    if (holder.Grenade1.GrenadeHashCode == -1)
+                    {
+                        holder.Grenade1 = new ProcessedGrenade
+                        {
+                            GrenadeHashCode = GrenadeID,
+                            MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
+                            RemainingCount = 1
+                        };
+                        Destroy(this.gameObject);
+                    }
+                }
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal bool __ObtainRemaining(ProcessedGrenade PG)
+        {
+
+            if (PG.GrenadeHashCode == this.GrenadeID)
+            {
+                if (PG.MaxCount > PG.RemainingCount)
+                {
+                    PG.RemainingCount++;
+                    Destroy(this.gameObject);
+                    return true;
+                }
+                return true;
+            }
+            return false;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void __ObtainRemaining(Weapon PW)
@@ -113,12 +168,12 @@ namespace Site13Kernel.GameLogic.FPS
             var DELTA = PW.MaxCapacity - PW.CurrentBackup;
             if (DELTA > 0)
             {
-                var ADDUP0= Mathf.Min(DELTA, Weapon.CurrentBackup);
-                
+                var ADDUP0 = Mathf.Min(DELTA, Weapon.CurrentBackup);
+
                 Weapon.CurrentBackup -= ADDUP0;
-                
+
                 var ADDUP1 = Mathf.Min(DELTA - ADDUP0, Weapon.CurrentMagazine);
-                
+
                 Weapon.CurrentMagazine -= ADDUP1;
                 PW.CurrentBackup += ADDUP0 + ADDUP1;
 

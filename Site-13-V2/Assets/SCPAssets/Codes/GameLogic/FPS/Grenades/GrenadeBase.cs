@@ -13,5 +13,6 @@ namespace Site13Kernel.GameLogic.Grenades
         /// Base definition of grenade.
         /// </summary>
         public BaseGrenade Base;
+
     }
 }

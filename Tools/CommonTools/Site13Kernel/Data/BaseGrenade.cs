@@ -8,16 +8,8 @@ namespace Site13Kernel.Data
     public class BaseGrenade
     {
         public int GrenadeHashCode;
-        public float Radius;
-        public float Power;
-        public float CentralDamage;
+        public int EffectHashCode;
+        public ExplosionDefinition Explosion;
         public float DetonationDuration;
-        public float ExistenceDuration;
-    }
-    public class ProcessedGrenade
-    {
-        public int GrenadeHashCode;
-        public int RemainingCount;
-        public int MaxCount;
     }
 }

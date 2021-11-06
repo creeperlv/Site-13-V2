@@ -74,6 +74,8 @@ namespace Site13Kernel.Core.Controllers
                         Debugger.CurrentDebugger.LogError(e);
                     }
                 }
+                FR_DT = 0;
+                FR_UDT = 0;
             }
         }
 
@@ -103,6 +105,8 @@ namespace Site13Kernel.Core.Controllers
                         Debugger.CurrentDebugger.LogError(e);
                     }
                 }
+                R_DT = 0;
+                R_UDT = 0;
             }
         }
     }
