@@ -145,7 +145,7 @@ namespace Site13Kernel.GameLogic.FPS
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Reload()
+        public bool Reload()
         {
             if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
@@ -157,8 +157,10 @@ namespace Site13Kernel.GameLogic.FPS
                     {
                         CCAnimator.SetAnimation(Reload_HashCode);
                     }
+                    return true;
                 }
             }
+            return false;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetRecoilMax(float V)
@@ -336,7 +338,7 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (Base.CurrentMagazine > 0)
             {
-                if (FireType == WeaponFireType.FullAuto && FireType == WeaponFireType.FullAuto)
+                if (FireType == WeaponFireType.FullAuto || FireType == WeaponFireType.SemiAuto)
                 {
                     this.Base.CurrentMagazine--;
                     if (OnCurrentMagChanged != null)

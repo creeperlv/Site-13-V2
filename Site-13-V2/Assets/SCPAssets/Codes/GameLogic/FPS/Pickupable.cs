@@ -14,6 +14,7 @@ namespace Site13Kernel.GameLogic.FPS
         public PickupItem ItemType;
         public Weapon Weapon;
         public int GrenadeID;
+        public GameObject ControlledEntity;
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
             {
@@ -44,8 +45,10 @@ namespace Site13Kernel.GameLogic.FPS
                         {
                             {
 
-                                var G = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
-                                G.Weapon.Base = Holder.Weapon0.Weapon.Base;
+                                var G = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                var P = G.GetComponentInChildren<Pickupable>();
+                                G.transform.position = Holder.transform.position;
+                                P.Weapon = Holder.Weapon0.Weapon.Base;
                             }
                             GameObject.Destroy(Holder.Weapon0.gameObject);
 
@@ -57,13 +60,15 @@ namespace Site13Kernel.GameLogic.FPS
                         {
                             {
 
-                                var G = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
-                                G.Weapon.Base = Holder.Weapon1.Weapon.Base;
+                                var G = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                var P = G.GetComponentInChildren<Pickupable>();
+                                G.transform.position = Holder.transform.position;
+                                P.Weapon = Holder.Weapon1.Weapon.Base;
                             }
 
                             GameObject.Destroy(Holder.Weapon1.gameObject);
 
-                            GeneratedWeapon = Holder.Weapon1 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                            GeneratedWeapon = Holder.Weapon1 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponentInChildren<ControlledWeapon>();
                             if (Holder.OnSwapWeapon != null)
                                 Holder.OnSwapWeapon();
                         }
@@ -76,7 +81,7 @@ namespace Site13Kernel.GameLogic.FPS
                         this.Parent.UnregisterRefresh(this);
 
                     }
-                    Destroy(this.gameObject);
+                    Destroy(ControlledEntity);
                 }
                 else
                 {
@@ -130,7 +135,7 @@ namespace Site13Kernel.GameLogic.FPS
                             MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
                             RemainingCount = 1
                         };
-                        Destroy(this.gameObject);
+                        Destroy(ControlledEntity);
                     }
                     else
                     if (holder.Grenade1.GrenadeHashCode == -1)
@@ -141,7 +146,7 @@ namespace Site13Kernel.GameLogic.FPS
                             MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
                             RemainingCount = 1
                         };
-                        Destroy(this.gameObject);
+                        Destroy(ControlledEntity);
                     }
                 }
             }
@@ -155,7 +160,7 @@ namespace Site13Kernel.GameLogic.FPS
                 if (PG.MaxCount > PG.RemainingCount)
                 {
                     PG.RemainingCount++;
-                    Destroy(this.gameObject);
+                    Destroy(ControlledEntity);
                     return true;
                 }
                 return true;
@@ -186,7 +191,7 @@ namespace Site13Kernel.GameLogic.FPS
                         this.Parent.UnregisterRefresh(this);
 
                     }
-                    Destroy(this.gameObject);
+                    Destroy(ControlledEntity);
                 }
             }
         }

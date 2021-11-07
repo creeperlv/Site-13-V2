@@ -2,6 +2,7 @@
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Effects;
+using Site13Kernel.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -49,12 +50,22 @@ namespace Site13Kernel.GameLogic.FPS
             {
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
 
+                var Distance = (explosionPos - hit.transform.position).magnitude;
                 if (rb != null)
                     rb.AddExplosionForce(explosionDefinition.Power, explosionPos, explosionDefinition.Radius, 0, ForceMode.Impulse);
-                var hittable = hit.GetComponent<IHittable>();
+                else
+                {
+                    var CC = hit.GetComponent<SimulatedRigidBodyOverCharacterController>();
+                    if (CC != null)
+                    {
+                        CC.AddForce((CC.transform.position - explosionPos).normalized * explosionDefinition.Power * GameEnv.ExplosionIntensityOnSimulatedRigidBody *
+                            (MathUtilities.InverseNegativeLerp(0, explosionDefinition.Radius, Distance)));
+                    }
+                }
+                var hittable = hit.GetComponent<DamagableEntity>();
                 if (hittable != null)
                 {
-
+                    hittable.Damage(explosionDefinition.CentralDamage * (MathUtilities.InverseNegativeLerp(0, explosionDefinition.Radius, Distance)));
                 }
             }
         }

@@ -10,5 +10,6 @@ namespace Site13Kernel.Core
         public static string DataPath;
         public const string EmptyString = "";
         public static char PathSep = Path.DirectorySeparatorChar;
+        public static float ExplosionIntensityOnSimulatedRigidBody=.5f;
     }
 }

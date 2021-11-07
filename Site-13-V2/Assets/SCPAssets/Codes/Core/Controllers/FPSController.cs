@@ -1,8 +1,9 @@
 using CLUNL.Data.Serializables.CheckpointSystem;
+using CLUNL.Localization;
 using Site13Kernel.Core.CustomizedInput;
+using Site13Kernel.Data;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.FPS;
-using Site13Kernel.GameLogic.Grenades;
 using Site13Kernel.UI;
 using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
@@ -22,7 +23,7 @@ namespace Site13Kernel.Core.Controllers
         public float WalkRecoil = .2f;
         public float RunningSpeed = 1f;
         public float CrouchSpeed = 1f;
-
+        public SimulatedRigidBodyOverCharacterController SRBoCC;
         public float RunRecoil = .5f;
         public float RunningJumpHeight = 1f;
         public float MouseHoriztonalIntensity = 1f;
@@ -179,6 +180,9 @@ namespace Site13Kernel.Core.Controllers
                     BagHolder.Weapon0.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon0.Weapon.OnHit = OnHit;
                     BagHolder.Weapon0.Weapon.ActualHolder = this.gameObject;
+                    W_HUD0.ListeningWeapon = BagHolder.Weapon0;
+                    W_HUD0.DisplayTextTitle.text = Language.Find(BagHolder.Weapon0.Weapon.Base.WeaponID+".DispName",WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].NameFallback);
+                    W_HUD0.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].WeaponIcon;
                 }
                 if (BagHolder.Weapon1 != null)
                 {
@@ -188,6 +192,9 @@ namespace Site13Kernel.Core.Controllers
                     BagHolder.Weapon1.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon1.Weapon.OnHit = OnHit;
                     BagHolder.Weapon1.Weapon.ActualHolder = this.gameObject;
+                    W_HUD1.ListeningWeapon = BagHolder.Weapon1;
+                    W_HUD1.DisplayTextTitle.text = Language.Find(BagHolder.Weapon1.Weapon.Base.WeaponID+".DispName",WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].NameFallback);
+                    W_HUD1.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].WeaponIcon;
                 }
                 UseWeapon(BagHolder.CurrentWeapon);
             };
@@ -284,7 +291,10 @@ namespace Site13Kernel.Core.Controllers
                 Weapon.Unfire();
             if (InputProcessor.CurrentInput.GetInputDown("Reload"))
             {
-                Weapon.Reload();
+                if (Weapon.Reload())
+                {
+                    CancelZoom();
+                }
                 if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
                 {
                     CancelRun();
@@ -306,27 +316,39 @@ namespace Site13Kernel.Core.Controllers
             Weapon.HideCoreWeaponAnimator();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void CancelZoom()
+        {
+            toZoom = false;
+            if (Weapon != null)
+            {
+                Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
+                Weapon.Weapon.AimingMode = 0;
+                ShowWeapon();
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Zoom(float DeltaTime)
         {
 
 
-            if (Weapon != null)
-            {
-                if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1)
-                {
-                    return;
-                }
-
-
-            }
-
             {
                 if (InputProcessor.CurrentInput.GetInputDown("Zoom"))
                 {
+                    if (Weapon != null)
+                    {
+                        if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1)
+                        {
+                            return;
+                        }
+                    }
                     CancelRun();
                     toZoom = true;
                     if (Weapon != null)
                     {
+                        if (!Weapon.CanZoom)
+                        {
+                            Weapon.Unfire();
+                        }
                         Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
                         Weapon.Weapon.AimingMode = 1;
                         HideWeapon();
@@ -335,13 +357,7 @@ namespace Site13Kernel.Core.Controllers
                 }
                 if (InputProcessor.CurrentInput.GetInputUp("Zoom"))
                 {
-                    toZoom = false;
-                    if (Weapon != null)
-                    {
-                        Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
-                        Weapon.Weapon.AimingMode = 0;
-                        ShowWeapon();
-                    }
+                    CancelZoom();
                 }
             }
             if (Weapon != null)
@@ -375,6 +391,20 @@ namespace Site13Kernel.Core.Controllers
                             Weapon.ZoomHUD.alpha -= DeltaTime * ZoomSpeed;
                         if (Camera.main.fieldOfView < NormalFOV)
                             Camera.main.fieldOfView += math.abs(NormalFOV - Weapon.ZoomFov) * DeltaTime * ZoomSpeed;
+                    }
+                }
+                else
+                {
+                    if (InternalZoom)
+                    {
+                        if (Camera.main.fieldOfView > ZoomFOV)
+                            Camera.main.fieldOfView -= math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
+                    }
+                    else
+                    {
+
+                        if (Camera.main.fieldOfView < NormalFOV)
+                            Camera.main.fieldOfView += math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
                     }
                 }
             }

@@ -34,7 +34,8 @@ namespace Site13Kernel.Core.Controllers
         {
             if (BagHolder.CurrentWeapon == 0)
             {
-
+                W_HUD0.isPrimary = true;
+                W_HUD1.isPrimary = false;
                 if (BagHolder.Weapon0 != null)
                 {
                     if (!BagHolder.Weapon0.gameObject.activeSelf)
@@ -58,6 +59,9 @@ namespace Site13Kernel.Core.Controllers
             else if (BagHolder.CurrentWeapon == 1)
             {
 
+                W_HUD0.isPrimary = false;
+                W_HUD1.isPrimary = true;
+
                 if (BagHolder.Weapon1 != null)
                 {
                     if (!BagHolder.Weapon1.gameObject.activeSelf)
@@ -77,6 +81,7 @@ namespace Site13Kernel.Core.Controllers
                     }
                 }
             }
+
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Movement(float DeltaTime, float UnscaledDeltaTime)
@@ -182,7 +187,7 @@ namespace Site13Kernel.Core.Controllers
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void UpdateHUD()
+        public void UpdateHUD(float DT,float UDT)
         {
             if (CurrentEntity != null)
             {
@@ -198,6 +203,8 @@ namespace Site13Kernel.Core.Controllers
                     Shield.MaxValue = CurrentEntity.MaxShield;
                 }
             }
+            W_HUD0.Refresh(DT, UDT);
+            W_HUD1.Refresh(DT, UDT);
         }
     }
     [Serializable]

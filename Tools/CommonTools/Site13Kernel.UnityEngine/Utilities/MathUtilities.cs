@@ -262,7 +262,14 @@ namespace Site13Kernel.Utilities
             float Y = Mathf.Sqrt(T * T - X * X);
             Y = UnityEngine.Random.Range(-Y, Y);
             Vector3 v = new Vector3(X, Y, 1);
+            
             return v;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float InverseNegativeLerp(float L, float R,float V)
+        {
+            return 1-Mathf.InverseLerp(L,R, V);
         }
     }
     public static class MathExtensions

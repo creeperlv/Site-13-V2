@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 83874453191059286}
   - component: {fileID: 3119807434495356452}
   m_Layer: 13
-  m_Name: Type-25-Plasma-Rifle-Pickupable
+  m_Name: Type-25-Brute-Plasma-Rifle-Pickupable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2550707871102685622}
-  - {fileID: 1587578242451290818}
+  - {fileID: 4292539398978428943}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -64,7 +64,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &1862370868912643075
+--- !u!1 &7142577698191785361
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,23 +72,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1587578242451290818}
-  - component: {fileID: 7285523469278372052}
-  - component: {fileID: 1191670326029453070}
+  - component: {fileID: 4292539398978428943}
+  - component: {fileID: 4372130910604067794}
+  - component: {fileID: 6137122927052356050}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: DetectionArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1587578242451290818
+--- !u!4 &4292539398978428943
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862370868912643075}
+  m_GameObject: {fileID: 7142577698191785361}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -97,26 +97,26 @@ Transform:
   m_Father: {fileID: 6352379642304281382}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7285523469278372052
+--- !u!65 &4372130910604067794
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862370868912643075}
+  m_GameObject: {fileID: 7142577698191785361}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1191670326029453070
+--- !u!114 &6137122927052356050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862370868912643075}
+  m_GameObject: {fileID: 7142577698191785361}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e74f4286b0f486143b124585f0740d7b, type: 3}
@@ -132,7 +132,7 @@ MonoBehaviour:
   OperateHintFallBack: Press E to pickup Plasma Riffle
   ItemType: 0
   Weapon:
-    WeaponID: Type25
+    WeaponID: Type-25-Brute
     MaxCapacity: 100
     MagazineCapacity: 100
     CurrentBackup: 0
@@ -193,6 +193,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5036496717403321933, guid: a29d47eac2106bb40b8fecfb9d6e52b5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a78ddb165ab470841a53c3391bbf8264, type: 2}
     - target: {fileID: 919132149155446097, guid: a29d47eac2106bb40b8fecfb9d6e52b5, type: 3}
       propertyPath: m_Name
       value: Type-25-Plasma-Riffle

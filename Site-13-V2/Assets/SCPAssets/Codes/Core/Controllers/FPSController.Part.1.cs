@@ -41,7 +41,8 @@ namespace Site13Kernel.Core.Controllers
 
             Grenade(DeltaTime, UnscaledDeltaTime);
             BodyAnimation(DeltaTime, UnscaledDeltaTime);
-            UpdateHUD();
+            UpdateHUD(DeltaTime,UnscaledDeltaTime);
+            SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Grenade(float DeltaTime, float UnscaledDeltaTime)
@@ -254,6 +255,7 @@ namespace Site13Kernel.Core.Controllers
                             if (InteractTime > InteractSensitivity)
                             {
                                 IInvoke(Interactive, DeltaTime, UnscaledDeltaTime);
+                                InteractTime = 0;
                             }
                         }
                     if (InputProcessor.CurrentInput.GetInputUp("Interact"))
@@ -406,7 +408,6 @@ namespace Site13Kernel.Core.Controllers
                     Interactive.isCollision = false;
                     UnInvoke(Interactive);
                     SwapInteractive(null);
-                    Debugger.CurrentDebugger.Log("0xFF00FF0001");
                 }
             }
         }

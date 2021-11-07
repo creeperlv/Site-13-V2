@@ -24,9 +24,10 @@ namespace Site13Kernel.Data
     public class WeaponItem
     {
         public string Name;
+        public string NameFallback;
         public GameObject FPSPrefab;
         public GameObject NPCPrefab;
         public GameObject PickablePrefab;
-
+        public Sprite WeaponIcon;
     }
 }
