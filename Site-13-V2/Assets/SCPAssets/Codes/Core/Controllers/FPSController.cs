@@ -108,9 +108,9 @@ namespace Site13Kernel.Core.Controllers
         public WeaponHUD W_HUD1;
 
 
-        public Vector3 W_HUD_PrimaryPosition;
+        public Vector2 W_HUD_PrimaryPosition;
         public Vector3 W_HUD_PrimaryScale;
-        public Vector3 W_HUD_SecondaryPosition;
+        public Vector2 W_HUD_SecondaryPosition;
         public Vector3 W_HUD_SecondaryScale;
 
 

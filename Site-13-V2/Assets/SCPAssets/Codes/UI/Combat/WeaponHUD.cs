@@ -34,21 +34,21 @@ namespace Site13Kernel.UI.Combat
                 if (this.gameObject.activeSelf)
                     this.gameObject.SetActive(false);
             }
-            //var t = (transform as RectTransform);
+            var t = (transform as RectTransform);
             if (isPrimary)
             {
-                Move(transform, Holder.W_HUD_PrimaryPosition, Holder.W_HUD_PrimaryScale, DeltaTime);
+                Move(t, Holder.W_HUD_PrimaryPosition, Holder.W_HUD_PrimaryScale, DeltaTime);
             }
             else
             {
-                Move(transform, Holder.W_HUD_SecondaryPosition, Holder.W_HUD_SecondaryScale, DeltaTime);
+                Move(t, Holder.W_HUD_SecondaryPosition, Holder.W_HUD_SecondaryScale, DeltaTime);
             }
         }
-        public void Move(Transform t, Vector3 TargetPosition, Vector3 TargetScale, float DT)
+        public void Move(RectTransform t, Vector2 TargetPosition, Vector3 TargetScale, float DT)
         {
             {
-                var D = TargetPosition - t.localPosition;
-                t.localPosition += D * DT* HUDMoveSpeed;
+                var D = TargetPosition - t.anchoredPosition;
+                t.anchoredPosition += D * DT* HUDMoveSpeed;
 
             }
             {
