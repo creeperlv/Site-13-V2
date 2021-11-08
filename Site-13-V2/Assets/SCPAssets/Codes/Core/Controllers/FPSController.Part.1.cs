@@ -41,7 +41,7 @@ namespace Site13Kernel.Core.Controllers
 
             Grenade(DeltaTime, UnscaledDeltaTime);
             BodyAnimation(DeltaTime, UnscaledDeltaTime);
-            UpdateHUD(DeltaTime,UnscaledDeltaTime);
+            UpdateHUD(DeltaTime, UnscaledDeltaTime);
             SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -51,6 +51,14 @@ namespace Site13Kernel.Core.Controllers
             {
                 if (Grenade_Throwing == false)
                 {
+
+                    if(Weapon != null)
+                    {
+                        if(Weapon.Weapon.WeaponMode!= WeaponConstants.WEAPON_MODE_NORMAL)
+                        {
+                            return;
+                        }
+                    }
 
                     ProcessedGrenade PG = null;
                     PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
@@ -74,6 +82,10 @@ namespace Site13Kernel.Core.Controllers
                     //GrenadeThrower.playbackTime=0;
                 }
             }
+            if (InputProcessor.CurrentInput.GetInputDown("SwitchGrenade"))
+            {
+                BagHolder.CurrentGrenade = (BagHolder.CurrentGrenade == 0 ? 1 : 0);
+            }
             if (Grenade_Throwing)
             {
 
@@ -90,13 +102,13 @@ namespace Site13Kernel.Core.Controllers
                             {
 
                                 GrenadeController.CurrentController.Instantiate(
-                                    GrenadePool.CurrentPool.GrenadeItemMap[BagHolder.Grenade0.GrenadeHashCode].GamePlayPrefab,
+                                    GrenadePool.CurrentPool.GrenadeItemMap[PG.GrenadeHashCode].GamePlayPrefab,
                                     Grenade_ThrowOutPoint.position,
                                     Grenade_ThrowOutPoint.rotation,
                                     Grenade_ThrowOutPoint.forward * GrenadeThrowForce, ForceMode.Impulse);
                                 Grenade_Throwed = true;
 
-                                BagHolder.Grenade0.RemainingCount--;
+                                PG.RemainingCount--;
                             }
                         }
                     }

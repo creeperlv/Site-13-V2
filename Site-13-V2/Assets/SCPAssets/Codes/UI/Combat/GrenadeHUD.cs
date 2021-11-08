@@ -24,61 +24,46 @@ namespace Site13Kernel.UI.Combat
             {
                 if (MonitoringPosition == 0)
                 {
-                    var GEN =
-                    holder.Grenade0;
-                    if (GEN.GrenadeHashCode != -1)
-                    {
-                        if (GEN.GrenadeHashCode != LastGrenadeID)
-                        {
-                            LastGrenadeID = GEN.GrenadeHashCode;
-                            this.gameObject.SetActive(true);
-                            if (GrenadePool.CurrentPool.GrenadeItemMap.ContainsKey(LastGrenadeID))
-                            {
-                                IconImg.sprite = GrenadePool.CurrentPool.GrenadeItemMap[LastGrenadeID].Icon;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if(LastGrenadeID != -1)
-                        {
-                            LastGrenadeID = -1;
-                            this.gameObject.SetActive(false);
-                        }
-                    }
-                    NumberDisp.text = GEN.RemainingCount.ToString();
+                    ApplyGrenade(holder.Grenade0);
                 }
                 else
                 if (MonitoringPosition == 1)
                 {
-                    var GEN =
-                    holder.Grenade1;
-                    if (GEN.GrenadeHashCode != -1)
-                    {
-                        if (GEN.GrenadeHashCode != LastGrenadeID)
-                        {
-                            LastGrenadeID = GEN.GrenadeHashCode;
-                            if (GrenadePool.CurrentPool.GrenadeItemMap.ContainsKey(LastGrenadeID))
-                            {
-                                IconImg.sprite = GrenadePool.CurrentPool.GrenadeItemMap[LastGrenadeID].Icon;
-                            }
-                        }
-                    }
-                    NumberDisp.text = GEN.RemainingCount.ToString();
+                    ApplyGrenade(holder.Grenade1);
                 }
 
-                if (holder.CurrentGrenade == MonitoringPosition)
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ApplyGrenade(ProcessedGrenade GEN)
+        {
+
+            if (GEN.GrenadeHashCode != -1)
+            {
+                if (GEN.GrenadeHashCode != LastGrenadeID)
                 {
-                    if (!SelectionBorder.activeSelf)
-                        SelectionBorder.SetActive(true);
-                }
-                else
-                {
-                    if (SelectionBorder.activeSelf)
-                        SelectionBorder.SetActive(false);
+                    LastGrenadeID = GEN.GrenadeHashCode;
+                    this.gameObject.SetActive(true);
+                    if (GrenadePool.CurrentPool.GrenadeItemMap.ContainsKey(LastGrenadeID))
+                    {
+                        IconImg.sprite = GrenadePool.CurrentPool.GrenadeItemMap[LastGrenadeID].Icon;
+                    }
                 }
             }
-
+            else
+            {
+                if (LastGrenadeID != -1)
+                {
+                    LastGrenadeID = -1;
+                    this.gameObject.SetActive(false);
+                }
+            }
+            if (holder.CurrentGrenade == MonitoringPosition)
+            {
+                if (!SelectionBorder.activeSelf) SelectionBorder.SetActive(true);
+            }else
+                if (SelectionBorder.activeSelf) SelectionBorder.SetActive(false);
+            NumberDisp.text = GEN.RemainingCount.ToString();
         }
     }
 }

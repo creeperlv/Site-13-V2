@@ -120,7 +120,8 @@ namespace Site13Kernel.GameLogic.FPS
                     Debugger.CurrentDebugger.Log("Giving Grenade...Position 0");
                     isMatched = __ObtainRemaining(holder.Grenade0);
                 }
-                else if (holder.Grenade1.GrenadeHashCode != -1)
+
+                if (isMatched == false && holder.Grenade1.GrenadeHashCode != -1)
                 {
                     Debugger.CurrentDebugger.Log("Giving Grenade...Position 1");
                     isMatched = __ObtainRemaining(holder.Grenade1);
