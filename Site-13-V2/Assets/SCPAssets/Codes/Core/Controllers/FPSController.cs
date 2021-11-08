@@ -107,6 +107,8 @@ namespace Site13Kernel.Core.Controllers
         public WeaponHUD W_HUD0;
         public WeaponHUD W_HUD1;
 
+        public GrenadeHUD G_HUD0;
+        public GrenadeHUD G_HUD1;
 
         public Vector2 W_HUD_PrimaryPosition;
         public Vector3 W_HUD_PrimaryScale;
@@ -169,6 +171,10 @@ namespace Site13Kernel.Core.Controllers
             //    BagHolder.Weapon1.Init();
             //    BagHolder.Weapon1.Weapon.OnHit = OnHit;
             //}
+
+            G_HUD0.holder = BagHolder;
+            G_HUD1.holder = BagHolder;
+
             BagHolder.OnSwapWeapon = () =>
             {
                 if (BagHolder.Weapon0 != null)

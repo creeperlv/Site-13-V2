@@ -205,6 +205,8 @@ namespace Site13Kernel.Core.Controllers
             }
             W_HUD0.Refresh(DT, UDT);
             W_HUD1.Refresh(DT, UDT);
+            G_HUD0.Refresh(DT, UDT);
+            G_HUD1.Refresh(DT, UDT);
         }
     }
     [Serializable]

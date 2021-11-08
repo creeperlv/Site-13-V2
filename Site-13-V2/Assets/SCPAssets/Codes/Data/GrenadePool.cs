@@ -28,6 +28,6 @@ namespace Site13Kernel.Data
         public ProcessedGrenade Reference;
         public GameObject GamePlayPrefab;
         public GameObject PickupablePrefab;
-
+        public Sprite Icon;
     }
 }
