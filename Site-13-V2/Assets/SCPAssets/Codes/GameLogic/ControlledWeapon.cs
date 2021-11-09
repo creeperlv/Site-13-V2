@@ -24,6 +24,8 @@ namespace Site13Kernel.GameLogic
         public Vector3 RunningRotationEuler;
         public List<ControlledCrosshair> Crosshairs;
         public GameObject HUDCanvas;
+        [Header("HUD Related")]
+        public bool isPercentage;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Combat()
         {

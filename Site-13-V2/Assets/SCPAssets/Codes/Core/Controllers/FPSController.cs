@@ -187,6 +187,7 @@ namespace Site13Kernel.Core.Controllers
                     BagHolder.Weapon0.Weapon.OnHit = OnHit;
                     BagHolder.Weapon0.Weapon.ActualHolder = this.gameObject;
                     W_HUD0.ListeningWeapon = BagHolder.Weapon0;
+                    W_HUD0.isPercentage=BagHolder.Weapon0.isPercentage;
                     W_HUD0.DisplayTextTitle.text = Language.Find(BagHolder.Weapon0.Weapon.Base.WeaponID+".DispName",WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].NameFallback);
                     W_HUD0.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].WeaponIcon;
                 }
@@ -199,6 +200,7 @@ namespace Site13Kernel.Core.Controllers
                     BagHolder.Weapon1.Weapon.OnHit = OnHit;
                     BagHolder.Weapon1.Weapon.ActualHolder = this.gameObject;
                     W_HUD1.ListeningWeapon = BagHolder.Weapon1;
+                    W_HUD1.isPercentage = BagHolder.Weapon1.isPercentage;
                     W_HUD1.DisplayTextTitle.text = Language.Find(BagHolder.Weapon1.Weapon.Base.WeaponID+".DispName",WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].NameFallback);
                     W_HUD1.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].WeaponIcon;
                 }

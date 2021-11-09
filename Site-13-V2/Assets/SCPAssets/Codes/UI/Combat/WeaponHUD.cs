@@ -27,7 +27,30 @@ namespace Site13Kernel.UI.Combat
 
                 if (!this.gameObject.activeSelf)
                     this.gameObject.SetActive(true);
-                DisplayText.text = $"{ListeningWeapon.Weapon.Base.CurrentMagazine}/{ListeningWeapon.Weapon.Base.MagazineCapacity}";
+                if (!isPercentage)
+                {
+                    DisplayText.text = $"{ListeningWeapon.Weapon.Base.CurrentMagazine}/{ListeningWeapon.Weapon.Base.MagazineCapacity}";
+                    if (!DisplayText.gameObject.activeSelf)
+                    {
+                        DisplayText.gameObject.SetActive(true);
+                    }
+                    if (ProgressBar.gameObject.activeSelf)
+                    {
+                        ProgressBar.gameObject.SetActive(false); 
+                    }
+                }
+                else
+                {
+                    ProgressBar.Value= ListeningWeapon.Weapon.Base.CurrentMagazine/ ListeningWeapon.Weapon.Base.MagazineCapacity; 
+                    if (DisplayText.gameObject.activeSelf)
+                    {
+                        DisplayText.gameObject.SetActive(false);
+                    }
+                    if (!ProgressBar.gameObject.activeSelf)
+                    {
+                        ProgressBar.gameObject.SetActive(true);
+                    }
+                }
             }
             else
             {
@@ -48,7 +71,7 @@ namespace Site13Kernel.UI.Combat
         {
             {
                 var D = TargetPosition - t.anchoredPosition;
-                t.anchoredPosition += D * DT* HUDMoveSpeed;
+                t.anchoredPosition += D * DT * HUDMoveSpeed;
 
             }
             {
