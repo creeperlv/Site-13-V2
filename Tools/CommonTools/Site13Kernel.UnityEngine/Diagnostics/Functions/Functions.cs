@@ -2,6 +2,7 @@
 using CLUNL.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Site13Kernel.Diagnostics.Functions
@@ -23,6 +24,8 @@ namespace Site13Kernel.Diagnostics.Functions
     {
         public static Dictionary<string, IDiagnosticsFunction> _func=new Dictionary<string, IDiagnosticsFunction>();
         public static Dictionary<string,List<string>> Aliases=new Dictionary<string, List<string>>();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void GatherFunctions()
         {
             {
