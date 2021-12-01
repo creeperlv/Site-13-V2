@@ -24,7 +24,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
-            for (int i = ControlledEntities.Count - 1; i > 0; i--)
+            for (int i = ControlledEntities.Count - 1; i >= 0; i--)
             {
                 ControlledEntities[i].Refresh(DeltaTime, UnscaledDeltaTime);
             }
@@ -33,7 +33,7 @@ namespace Site13Kernel.Core.Controllers
         public void DestoryAll()
         {
 
-            for (int i = ControlledEntities.Count - 1; i > 0; i--)
+            for (int i = ControlledEntities.Count - 1; i >= 0; i--)
             {
                 var entity = ControlledEntities[i];
                 ControlledEntities.Remove(entity);
