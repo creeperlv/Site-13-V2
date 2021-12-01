@@ -72,9 +72,9 @@ namespace Site13Kernel.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Damage(float V)
         {
-            if (isInvincible) return;
             if (HitSound != null)
                 HitSound.Play();
+            if (isInvincible) return;
             CurrentHP = math.max(0, CurrentHP - V);
             if (CurrentHP <= 0)
             {
