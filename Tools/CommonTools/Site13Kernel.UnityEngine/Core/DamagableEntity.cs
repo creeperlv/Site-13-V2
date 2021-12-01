@@ -28,6 +28,7 @@ namespace Site13Kernel.Core
         public GameObject DeathBodyReplacementPrefab = null;
         public GameObject ControlledObject = null;
 
+        public AudioSource HitSound;
         public EntityController Controller;
         /// <summary>
         /// First parameter: Damage amount. <br/>
@@ -39,13 +40,16 @@ namespace Site13Kernel.Core
         public Action<float, float, float, float, float> OnTakingDamage = null;
         public Action OnShieldDown = null;
 
+        public float TimeToSelfDestruction = -1f;
+        public float LowestKillPlane = -500f;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Load(List<object> data)
         {
 
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void OnCollisionEnter(UnityEngine.Collision collision)
+        public void OnCollisionEnter(Collision collision)
         {
             if (TakeCollisionDamage)
                 if (collision.rigidbody != null)
@@ -69,6 +73,8 @@ namespace Site13Kernel.Core
         public virtual void Damage(float V)
         {
             if (isInvincible) return;
+            if (HitSound != null)
+                HitSound.Play();
             CurrentHP = math.max(0, CurrentHP - V);
             if (CurrentHP <= 0)
             {
@@ -117,6 +123,22 @@ namespace Site13Kernel.Core
         public string GetName()
         {
             return name;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public new virtual void Refresh(float DeltaTime, float UnscaledDeltaTime)
+        {
+            if (TimeToSelfDestruction != -1f)
+            {
+                TimeToSelfDestruction -= DeltaTime;
+                if (TimeToSelfDestruction <= 0)
+                {
+                    Die();
+                }
+            }
+            if (transform.position.y < LowestKillPlane)
+            {
+                Die();
+            }
         }
         public List<object> Save()
         {

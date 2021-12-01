@@ -7,6 +7,10 @@
 		<UnityProjectPath>..\..\..\Site-13-V2</UnityProjectPath>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DefineConstants>TRACE;LOOSE_ERROR</DefineConstants>
+	</PropertyGroup>
+
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="copy &quot;$(OutDir)$(TargetFileName)&quot; &quot;$(SolutionDir)..\..\Site-13-V2\Assets\Plug-in\$(TargetFileName)&quot;" />
 	</Target>
@@ -19,6 +23,7 @@
 		<Reference Include="$(UnityInstallRoot)\$(UnityVersion)\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll" Private="false" />
 		<Reference Include="$(UnityInstallRoot)\$(UnityVersion)\Editor\Data\Managed\UnityEngine\UnityEngine.AnimationModule.dll" Private="false" />
 		<Reference Include="$(UnityInstallRoot)\$(UnityVersion)\Editor\Data\Managed\UnityEngine\UnityEngine.PhysicsModule.dll" Private="false" />
+		<Reference Include="$(UnityInstallRoot)\$(UnityVersion)\Editor\Data\Managed\UnityEngine\UnityEngine.AudioModule.dll" Private="false" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Unity3D" Version="1.7.0" />
