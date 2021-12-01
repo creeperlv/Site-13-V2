@@ -20,11 +20,13 @@ namespace Site13Kernel.Core
         public float CurrentHP;
         public int HitEffect;
         public bool CanBeBackstabed;
+        public bool isInvincible;
 
         public bool TakeCollisionDamage = true;
 
         public int DeathBodyReplacementID = -1;
         public GameObject DeathBodyReplacementPrefab = null;
+        public GameObject ControlledObject = null;
 
         public EntityController Controller;
         /// <summary>
@@ -66,6 +68,7 @@ namespace Site13Kernel.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Damage(float V)
         {
+            if (isInvincible) return;
             CurrentHP = math.max(0, CurrentHP - V);
             if (CurrentHP <= 0)
             {

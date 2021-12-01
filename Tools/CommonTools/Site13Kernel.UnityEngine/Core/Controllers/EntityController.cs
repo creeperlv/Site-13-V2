@@ -62,8 +62,9 @@ namespace Site13Kernel.Core.Controllers
         public (GameObject, DamagableEntity) Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation);
-            var Entity = _Object.GetComponent<DamagableEntity>();
-            Register(Entity);
+            var Entity = _Object.GetComponentInChildren<DamagableEntity>();
+            if (Entity != null)
+                Register(Entity);
             return (_Object, Entity);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -75,15 +76,21 @@ namespace Site13Kernel.Core.Controllers
         public (GameObject, DamagableEntity) Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform transform)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation, transform);
-            var Entity = _Object.GetComponent<DamagableEntity>();
-            Register(Entity);
+            var Entity = _Object.GetComponentInChildren<DamagableEntity>();
+            if (Entity != null)
+                Register(Entity);
             return (_Object, Entity);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DestroyEntity(DamagableEntity entity)
         {
             ControlledEntities.Remove(entity);
-            Destroy(entity.gameObject);
+            if (entity.ControlledObject == null)
+                Destroy(entity.gameObject);
+            else
+            {
+                Destroy(entity.ControlledObject);
+            }
         }
     }
 }
