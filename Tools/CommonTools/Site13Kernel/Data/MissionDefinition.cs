@@ -21,6 +21,7 @@ namespace Site13Kernel.Data
         public string TargetScript;
         public string NameID;
         public string DispFallback;
+        public string DescFallback;
         public string ImageName;
     }
 }
