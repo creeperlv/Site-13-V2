@@ -37,7 +37,9 @@ namespace Site13Kernel.Core.Controllers
             {
                 var entity = ControlledEntities[i];
                 ControlledEntities.Remove(entity);
-                Destroy(entity.gameObject);
+                if (entity.ControlledObject == null)
+                    Destroy(entity.gameObject);
+                else Destroy(entity.ControlledObject);
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

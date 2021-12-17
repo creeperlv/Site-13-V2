@@ -24,5 +24,19 @@ namespace Site13Kernel.Utilities
             return random.Next(0, Upper);
         }
         public static int NextInt(int Lower, int Upper) => random.Next(Lower, Upper);
+        public static bool NextInt(int Lower, int Upper, out int result)
+        {
+            if (Lower < Upper)
+            {
+                result = random.Next(Lower, Upper);
+                return true;
+
+            }
+            else
+            {
+                result = -1;
+                return false;
+            }
+        }
     }
 }
