@@ -34,8 +34,16 @@ namespace Site13Kernel.GameLogic.FPS
                         }
                         GeneratedWeapon = Holder.Weapon0 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
                         Holder.CurrentWeapon = 0;
-                        if (Holder.OnSwapWeapon != null)
-                            Holder.OnSwapWeapon();
+                        try
+                        {
+
+                            if (Holder.OnSwapWeapon != null)
+                                Holder.OnSwapWeapon();
+                        }
+                        catch (System.Exception e)
+                        {
+                            Debug.LogException(e);
+                        }
                     }
                     else
                     if (Holder.Weapon1 == null)
@@ -107,6 +115,7 @@ namespace Site13Kernel.GameLogic.FPS
                         this.Parent.UnregisterRefresh(this);
 
                     }
+                    Debugger.CurrentDebugger.Log($"Giving {Weapon.WeaponID} to {Holder.name}... Completed.");
                     Destroy(ControlledEntity);
                 }
                 else

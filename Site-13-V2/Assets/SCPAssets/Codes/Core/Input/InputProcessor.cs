@@ -80,66 +80,67 @@ namespace Site13Kernel.Core.CustomizedInput
 
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
-            if (simulation.isEnabled == true)
-            {
-                simulation.PassedTime += DeltaTime;
-                foreach (var item in simulation.inputs)
+            if (simulation != null)
+                if (simulation.isEnabled == true)
                 {
-                    if (simulation.PassedTime > item.StartTime)
+                    simulation.PassedTime += DeltaTime;
+                    foreach (var item in simulation.inputs)
                     {
-                        if (item.isAxis)
+                        if (simulation.PassedTime > item.StartTime)
                         {
-                            Axis[item.InputName] = item.Intensity;
-                        }
-                        else
-                            switch (item.action)
+                            if (item.isAxis)
                             {
-                                case InputAction.Key:
-                                    {
-                                        if (!item.isDone)
-                                        {
-                                            Key[item.InputName] = true;
-                                            KeyUp[item.InputName] = false;
-                                            item.isDone = true;
-
-                                        }
-                                    }
-                                    break;
-                                case InputAction.Down:
-                                    {
-                                        if (!item.isDone)
-                                        {
-                                            KeyDown[item.InputName] = true;
-                                            KeyUp[item.InputName] = false;
-                                            item.isDone = true;
-
-                                        }
-                                        else
-                                            KeyDown[item.InputName] = false;
-                                    }
-                                    break;
-                                case InputAction.Up:
-                                    {
-                                        if (!item.isDone)
-                                        {
-                                            KeyUp[item.InputName] = true;
-                                            KeyDown[item.InputName] = false;
-                                            Key[item.InputName] = false;
-                                            item.isDone = true;
-
-                                        }
-
-                                    }
-                                    break;
-                                case InputAction.Wait:
-                                    break;
-                                default:
-                                    break;
+                                Axis[item.InputName] = item.Intensity;
                             }
+                            else
+                                switch (item.action)
+                                {
+                                    case InputAction.Key:
+                                        {
+                                            if (!item.isDone)
+                                            {
+                                                Key[item.InputName] = true;
+                                                KeyUp[item.InputName] = false;
+                                                item.isDone = true;
+
+                                            }
+                                        }
+                                        break;
+                                    case InputAction.Down:
+                                        {
+                                            if (!item.isDone)
+                                            {
+                                                KeyDown[item.InputName] = true;
+                                                KeyUp[item.InputName] = false;
+                                                item.isDone = true;
+
+                                            }
+                                            else
+                                                KeyDown[item.InputName] = false;
+                                        }
+                                        break;
+                                    case InputAction.Up:
+                                        {
+                                            if (!item.isDone)
+                                            {
+                                                KeyUp[item.InputName] = true;
+                                                KeyDown[item.InputName] = false;
+                                                Key[item.InputName] = false;
+                                                item.isDone = true;
+
+                                            }
+
+                                        }
+                                        break;
+                                    case InputAction.Wait:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                        }
                     }
+                    return;
                 }
-                return;
-            }
             //Debug.Log("Running");
             {
 

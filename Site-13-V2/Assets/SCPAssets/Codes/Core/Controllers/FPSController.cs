@@ -2,6 +2,7 @@ using CLUNL.Data.Serializables.CheckpointSystem;
 using CLUNL.Localization;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Data;
+using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.UI;
@@ -177,36 +178,45 @@ namespace Site13Kernel.Core.Controllers
 
             BagHolder.OnSwapWeapon = () =>
             {
+                ControlledWeapon TargetWeapon = null;
+                WeaponHUD TargetHUD = null;
+
                 if (BagHolder.Weapon0 != null)
                 {
-
-                    BagHolder.Weapon0.Init();
-                    if(BagHolder.Weapon0.ZoomEffectPoint==null)
-                        BagHolder.Weapon0.ZoomEffectPoint = ZoomEffectPoint;
-                    BagHolder.Weapon0.Weapon.MeleeArea.Holder = this.gameObject;
-                    BagHolder.Weapon0.Weapon.FirePoint = FirePoint;
-                    BagHolder.Weapon0.Weapon.OnHit = OnHit;
-                    BagHolder.Weapon0.Weapon.ActualHolder = this.gameObject;
-                    W_HUD0.ListeningWeapon = BagHolder.Weapon0;
-                    W_HUD0.isPercentage=BagHolder.Weapon0.isPercentage;
-                    W_HUD0.DisplayTextTitle.text = Language.Find(BagHolder.Weapon0.Weapon.Base.WeaponID+".DispName",WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].NameFallback);
-                    W_HUD0.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].WeaponIcon;
-                    W_HUD0.IconImg.material = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].WeaponMaterial;
+                    TargetWeapon = BagHolder.Weapon0;
+                    TargetHUD = W_HUD0;
+                    BagHolder.CurrentWeapon = 0;
                 }
                 if (BagHolder.Weapon1 != null)
                 {
-                    BagHolder.Weapon1.Init();
-                    if (BagHolder.Weapon1.ZoomEffectPoint == null)
-                        BagHolder.Weapon1.ZoomEffectPoint = ZoomEffectPoint;
-                    BagHolder.Weapon1.Weapon.MeleeArea.Holder = this.gameObject;
-                    BagHolder.Weapon1.Weapon.FirePoint = FirePoint;
-                    BagHolder.Weapon1.Weapon.OnHit = OnHit;
-                    BagHolder.Weapon1.Weapon.ActualHolder = this.gameObject;
-                    W_HUD1.ListeningWeapon = BagHolder.Weapon1;
-                    W_HUD1.isPercentage = BagHolder.Weapon1.isPercentage;
-                    W_HUD1.DisplayTextTitle.text = Language.Find(BagHolder.Weapon1.Weapon.Base.WeaponID+".DispName",WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].NameFallback);
-                    W_HUD1.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].WeaponIcon;
-                    W_HUD1.IconImg.material = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].WeaponMaterial;
+                    TargetWeapon = BagHolder.Weapon1;
+                    TargetHUD = W_HUD1;
+                    BagHolder.CurrentWeapon = 1;
+                }
+                if (TargetWeapon != null)
+                {
+
+                    TargetWeapon.Init();
+                    if (TargetWeapon.ZoomEffectPoint == null)
+                        TargetWeapon.ZoomEffectPoint = ZoomEffectPoint;
+                    TargetWeapon.Weapon.MeleeArea.Holder = this.gameObject;
+                    TargetWeapon.Weapon.FirePoint = FirePoint;
+                    TargetWeapon.Weapon.OnHit = OnHit;
+                    TargetWeapon.Weapon.ActualHolder = this.gameObject;
+                    TargetHUD.ListeningWeapon = TargetWeapon;
+                    TargetHUD.isPercentage = TargetWeapon.isPercentage;
+                    if (WeaponPool.CurrentPool.WeaponItemMap.ContainsKey(TargetWeapon.Weapon.Base.WeaponID))
+                    {
+                        TargetHUD.DisplayTextTitle.text = Language.Find(TargetWeapon.Weapon.Base.WeaponID + ".DispName", WeaponPool.CurrentPool.WeaponItemMap[TargetWeapon.Weapon.Base.WeaponID].NameFallback);
+                        TargetHUD.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[TargetWeapon.Weapon.Base.WeaponID].WeaponIcon;
+                        if (WeaponPool.CurrentPool.WeaponItemMap[TargetWeapon.Weapon.Base.WeaponID].WeaponMaterial != null)
+                            TargetHUD.IconImg.material = WeaponPool.CurrentPool.WeaponItemMap[TargetWeapon.Weapon.Base.WeaponID].WeaponMaterial;
+
+                    }
+                    else
+                    {
+                        Debugger.CurrentDebugger.LogError($"{TargetWeapon.Weapon.Base.WeaponID} does not exists in the weapon map!");
+                    }
                 }
                 UseWeapon(BagHolder.CurrentWeapon);
             };
@@ -223,7 +233,7 @@ namespace Site13Kernel.Core.Controllers
                     var effect = EffectController.CurrentEffectController.Spawn(Indicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
                     var RT = effect.transform as RectTransform;
                     RT.anchoredPosition3D = Vector3.zero;
-                    RT.localRotation= Quaternion.identity;
+                    RT.localRotation = Quaternion.identity;
 
                 }
             }

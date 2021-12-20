@@ -13,7 +13,7 @@ namespace Site13Kernel.Data
     {
         static string _File;
         public static Settings CurrentSettings;
-        public float RenderScale = 1;
+        public float RenderScale = 100;
         public bool FullScreen = true;
         public float MouseSensibly = 1;
         public float SFX = 1;
