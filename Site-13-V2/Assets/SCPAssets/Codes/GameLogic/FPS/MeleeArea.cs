@@ -12,6 +12,7 @@ namespace Site13Kernel.GameLogic.FPS
     public class MeleeArea : MonoBehaviour
     {
         public float BaseDamage;
+        public float Force=1;
         public bool AllowBackstabDetection;
         public GameObject Holder;
         public bool isDetecting = false;
@@ -37,6 +38,14 @@ namespace Site13Kernel.GameLogic.FPS
             if (isDetecting)
             {
                 var DE = collision.gameObject.GetComponent<DamagableEntity>();
+                var RIG=collision.gameObject.GetComponent<Rigidbody>();
+                if (RIG != null)
+                {
+                    var ForceDirection=(Holder.transform.position-collision.transform.position).normalized;
+                    var _Force = -ForceDirection * Force;
+                    Debug.Log("MELEE:"+_Force);
+                    RIG.AddForce(_Force, ForceMode.Impulse);
+                }
                 if (DE != null)
                 {
                     if (Holder != null)

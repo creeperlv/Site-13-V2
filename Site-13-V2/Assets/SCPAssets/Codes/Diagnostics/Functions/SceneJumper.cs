@@ -1,7 +1,7 @@
 using CLUNL.Utilities;
+using Site13Kernel.GameLogic;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Site13Kernel.Diagnostics.Functions
@@ -27,20 +27,29 @@ namespace Site13Kernel.Diagnostics.Functions
             }
             else
             {
-                bool isAdditive=false;
+                bool isAdditive = false;
+                bool isShow = true;
+                bool isStick = false;
                 if (arguments.Count > 1)
                 {
                     isAdditive = bool.Parse(arguments[1]);
                 }
+                if (arguments.Count > 2)
+                {
+                    isShow = bool.Parse(arguments[2]);
+                }
+                if (arguments.Count > 3)
+                {
+                    isStick = bool.Parse(arguments[3]);
+                }
                 if (int.TryParse(arguments[0].EntireArgument, out var i))
                 {
-                    SceneManager.LoadScene(i, isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
+                    SceneLoader.Instance.LoadScene(i, isShow, isAdditive, isStick);
 
                 }
                 else
                 {
-                    SceneManager.LoadScene(arguments[0].EntireArgument, isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
-
+                    Debugger.CurrentDebugger.LogError("Invalid Argument.");
                 }
 
             }
@@ -53,7 +62,7 @@ namespace Site13Kernel.Diagnostics.Functions
 
         public void Help()
         {
-            Debugger.CurrentDebugger.Log("SceneJumper <SceneName:string>|<SceneID:int> [IsAdditive:bool]");
+            Debugger.CurrentDebugger.Log("SceneJumper <SceneID:int> [IsAdditive:bool(false)] [IsShow:bool(true)] [IsStick:bool(false)]");
         }
     }
     //public interface IDiagnosticsFunction

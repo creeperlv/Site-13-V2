@@ -44,6 +44,7 @@ namespace Site13Kernel.Core.Controllers
                         BagHolder.Weapon0.Weapon.ResetTakeOut();
                         BagHolder.Weapon0.gameObject.SetActive(true);
                     }
+                    CurrentEntity.Shields[1] = BagHolder.Weapon0.FPSRenderer;
                 }
                 if (BagHolder.Weapon1 != null)
                 {
@@ -70,6 +71,7 @@ namespace Site13Kernel.Core.Controllers
                         BagHolder.Weapon1.Weapon.ResetTakeOut();
                         BagHolder.Weapon1.gameObject.SetActive(true);
                     }
+                    CurrentEntity.Shields[1] = BagHolder.Weapon1.FPSRenderer;
                 }
                 if (BagHolder.Weapon0 != null)
                 {
@@ -187,7 +189,7 @@ namespace Site13Kernel.Core.Controllers
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void UpdateHUD(float DT,float UDT)
+        public void UpdateHUD(float DT, float UDT)
         {
             if (CurrentEntity != null)
             {

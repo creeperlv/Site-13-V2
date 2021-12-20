@@ -218,10 +218,10 @@ namespace Site13Kernel.UI
 
             GameObject templateGo = m_Template.gameObject;
             templateGo.SetActive(true);
-            Toggle itemToggle = m_Template.GetComponentInChildren<Toggle>();
+            UnityEngine.UI.Toggle itemToggle = m_Template.GetComponentInChildren<UnityEngine.UI.Toggle>();
 
             validTemplate = true;
-            if (!itemToggle || itemToggle.transform == template)
+            if (itemToggle == null || itemToggle.transform == template)
             {
                 validTemplate = false;
                 Debugger.CurrentDebugger.LogError("The dropdown template is not valid. The template must have a child GameObject with a Toggle component serving as the item.", template);
@@ -386,7 +386,7 @@ namespace Site13Kernel.UI
 
             m_Items.Clear();
 
-            Toggle prev = null;
+            UnityEngine.UI.Toggle prev = null;
             var optionsCount = options.Count;
             for (int i = 0; i < optionsCount; ++i)
             {
@@ -697,7 +697,7 @@ namespace Site13Kernel.UI
             m_Dropdown = null;
         }
 
-        private void OnSelectItem(Toggle toggle)
+        private void OnSelectItem(UnityEngine.UI.Toggle toggle)
         {
             if (!toggle.isOn)
                 toggle.isOn = true;

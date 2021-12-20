@@ -21,19 +21,34 @@ namespace Site13Kernel.UI
         public GameObject HintImage;
         public Image BackgroundImage;
         public Text MissionName;
-        public Action OnClick=null;
+        public Action OnClick = null;
         [HideInInspector]
         public CampaignButtonGroup CampaignParent;
         protected CampaignButton()
         {
         }
-        MissionDefinition definition;
-        public void Init(CampaignButtonGroup parent,MissionDefinition definition)
+        [Serializable]
+        public class ButtonClickedEvent : UnityEvent
+        {
+        }
+        // Event delegates triggered on click.
+        [FormerlySerializedAs("onClick")]
+        [SerializeField]
+        private ButtonClickedEvent m_OnClick = new ButtonClickedEvent();
+        internal MissionDefinition definition;
+        public void Init(CampaignButtonGroup parent, MissionDefinition definition)
         {
             CampaignParent = parent;
             parent.Children.Add(this);
-            this.definition= definition;
-            BackgroundImage.sprite = GameRuntime.CurrentGlobals.CurrentGameDef.Sprites[this.definition.ImageName].LoadedSprite;
+            this.definition = definition;
+            try
+            {
+                BackgroundImage.sprite = GameRuntime.CurrentGlobals.CurrentGameDef.Sprites[this.definition.ImageName].LoadedSprite;
+
+            }
+            catch (Exception)
+            {
+            }
             MissionName.text = Language.Find(this.definition.NameID, this.definition.DispFallback);
         }
         public void Hint()
@@ -49,8 +64,12 @@ namespace Site13Kernel.UI
             if (IsActive() && IsInteractable())
             {
                 if (CampaignParent != null)
+                {
                     CampaignParent.UnHintAll();
+                    CampaignParent.Selected = this;
+                }
                 this.Hint();
+                m_OnClick.Invoke();
                 if (OnClick != null)
                     OnClick();
             }
@@ -120,7 +139,8 @@ namespace Site13Kernel.UI
     [Serializable]
     public class CampaignButtonGroup
     {
-        public List<CampaignButton> Children=new List<CampaignButton>();
+        public List<CampaignButton> Children = new List<CampaignButton>();
+        public CampaignButton Selected;
         public void UnHintAll()
         {
             foreach (var item in Children)

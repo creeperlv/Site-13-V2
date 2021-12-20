@@ -7,16 +7,16 @@ namespace Site13Kernel.GameLogic.FPS
 {
     public class BulletSystem : ControlledBehavior
     {
-        List<BaseBullet> ManagedBullets=new List<BaseBullet>();
+        List<BaseBullet> ManagedBullets = new List<BaseBullet>();
         public override void Init()
         {
             Parent.RegisterRefresh(this);
             GameRuntime.CurrentGlobals.CurrentBulletSystem = this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddBullet(GameObject Perfab, Vector3 Position, Quaternion rotation,GameObject Emitter=null)
+        public void AddBullet(GameObject Perfab, Vector3 Position, Quaternion rotation, GameObject Emitter = null)
         {
-            var B=Instantiate(Perfab, Position, rotation, GameRuntime.BulletHolder).GetComponent<BaseBullet>();
+            var B = Instantiate(Perfab, Position, rotation, GameRuntime.BulletHolder).GetComponent<BaseBullet>();
             B.ParentSystem = this;
             B.Emitter = Emitter;
             ManagedBullets.Add(B);
@@ -24,10 +24,15 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
-            for(int i=0; i<ManagedBullets.Count; i++)
+            for (int i = 0; i < ManagedBullets.Count; i++)
             {
-                var item=ManagedBullets[i];
-                item.Refresh(DeltaTime, UnscaledDeltaTime);
+                var item = ManagedBullets[i];
+                if (item != null)
+                {
+                    item.Refresh(DeltaTime, UnscaledDeltaTime);
+
+                }
+                else ManagedBullets.RemoveAt(i);
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -49,7 +54,7 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DestoryAll()
         {
-            for(int i=ManagedBullets.Count-1; i>=0; i--)
+            for (int i = ManagedBullets.Count - 1; i >= 0; i--)
             {
                 DestoryBullet(i);
             }

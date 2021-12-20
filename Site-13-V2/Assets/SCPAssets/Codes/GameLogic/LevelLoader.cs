@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.Diagnostics.Errors;
 using Site13Kernel.Diagnostics.Warns;
+using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,15 +17,18 @@ namespace Site13Kernel.GameLogic
         public Text CampaignDescription;
         void Start()
         {
-            var Target = GameRuntime.CurrentGlobals.NextCampaign;
-            if (GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections.Count > GameRuntime.CurrentGlobals.NextCampaign)
+            var Target = GameRuntime.CurrentGlobals.CurrentMission;
+            if (Target == null)
             {
-                var M = GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections[0].MissionDefinitions[Target];
+                Debugger.CurrentDebugger.LogError("Mission is null");
+                Debugger.CurrentDebugger.LogWarning(new FallBackToMainMenuWarn());
             }
             else
             {
-                Debugger.CurrentDebugger.Log(new UndefinedCampaignID(Target));
-                Debugger.CurrentDebugger.Log(new FallBackToMainMenuWarn());
+                CampaignCover.sprite=GameRuntime.CurrentGlobals.CurrentGameDef.Sprites[Target.ImageName].LoadedSprite;
+                CampaignTitle.text = Target.DispFallback;
+                CampaignDescription.text = Target.DescFallback;
+                SceneLoader.Instance.LoadScene(SceneUtility.LookUp("LevelBase"), true, true, true);
             }
         }
 

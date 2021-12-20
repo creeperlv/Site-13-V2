@@ -7,8 +7,11 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Props
 {
-    public class BaseDoor : InteractiveBase
+    public class BaseDoor : ControlledBehavior
     {
+        public bool isDiscoverable;
+        public bool isLocked;
+        public float DoorRange=5f;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Open()
         {
@@ -19,16 +22,57 @@ namespace Site13Kernel.GameLogic.Props
         {
 
         }
+        bool State;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual void OnFrame(float DeltaTime,float UnscaledDeltaTime)
+        {
+            
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
+        {
+            if (isLocked) return;
+            if (GameRuntime.CurrentGlobals.isPaused) return;
+            {
+                Vector3 position = base.transform.position;
+                Collider[] array = Physics.OverlapSphere(position, DoorRange);
+                bool isHit = false ;
+                foreach (Collider collider in array)
+                {
+                    if(collider.GetComponent<BioEntity>() != null)
+                    {
+                        isHit = true;
+                        break;
+                    }
+                }
+                if (State == isHit)
+                {
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
-        {
-            Open();
+                }
+                else
+                {
+                    State = isHit;
+                    if (State)
+                    {
+                        Open();
+                    }else
+                    {
+                        Close();
+                    }
+                }
+            }
+            OnFrame(DeltaTime, UnscaledDeltaTime);
         }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override void UnOperate()
-        {
-            Close();
-        }
+
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
+        //{
+        //    Open();
+        //}
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public override void UnOperate()
+        //{
+        //    Close();
+        //}
     }
 }

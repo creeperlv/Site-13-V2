@@ -181,7 +181,8 @@ namespace Site13Kernel.Core.Controllers
                 {
 
                     BagHolder.Weapon0.Init();
-                    BagHolder.Weapon0.ZoomEffectPoint = ZoomEffectPoint;
+                    if(BagHolder.Weapon0.ZoomEffectPoint==null)
+                        BagHolder.Weapon0.ZoomEffectPoint = ZoomEffectPoint;
                     BagHolder.Weapon0.Weapon.MeleeArea.Holder = this.gameObject;
                     BagHolder.Weapon0.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon0.Weapon.OnHit = OnHit;
@@ -190,11 +191,13 @@ namespace Site13Kernel.Core.Controllers
                     W_HUD0.isPercentage=BagHolder.Weapon0.isPercentage;
                     W_HUD0.DisplayTextTitle.text = Language.Find(BagHolder.Weapon0.Weapon.Base.WeaponID+".DispName",WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].NameFallback);
                     W_HUD0.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].WeaponIcon;
+                    W_HUD0.IconImg.material = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon0.Weapon.Base.WeaponID].WeaponMaterial;
                 }
                 if (BagHolder.Weapon1 != null)
                 {
                     BagHolder.Weapon1.Init();
-                    BagHolder.Weapon1.ZoomEffectPoint = ZoomEffectPoint;
+                    if (BagHolder.Weapon1.ZoomEffectPoint == null)
+                        BagHolder.Weapon1.ZoomEffectPoint = ZoomEffectPoint;
                     BagHolder.Weapon1.Weapon.MeleeArea.Holder = this.gameObject;
                     BagHolder.Weapon1.Weapon.FirePoint = FirePoint;
                     BagHolder.Weapon1.Weapon.OnHit = OnHit;
@@ -203,6 +206,7 @@ namespace Site13Kernel.Core.Controllers
                     W_HUD1.isPercentage = BagHolder.Weapon1.isPercentage;
                     W_HUD1.DisplayTextTitle.text = Language.Find(BagHolder.Weapon1.Weapon.Base.WeaponID+".DispName",WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].NameFallback);
                     W_HUD1.IconImg.sprite = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].WeaponIcon;
+                    W_HUD1.IconImg.material = WeaponPool.CurrentPool.WeaponItemMap[BagHolder.Weapon1.Weapon.Base.WeaponID].WeaponMaterial;
                 }
                 UseWeapon(BagHolder.CurrentWeapon);
             };
@@ -219,7 +223,7 @@ namespace Site13Kernel.Core.Controllers
                     var effect = EffectController.CurrentEffectController.Spawn(Indicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
                     var RT = effect.transform as RectTransform;
                     RT.anchoredPosition3D = Vector3.zero;
-
+                    RT.localRotation= Quaternion.identity;
 
                 }
             }
@@ -299,10 +303,11 @@ namespace Site13Kernel.Core.Controllers
                 Weapon.Unfire();
             if (InputProcessor.CurrentInput.GetInputDown("Reload"))
             {
-                if (Weapon.Reload())
+                if (Weapon.Weapon.CanReload())
                 {
                     CancelZoom();
                 }
+                Weapon.Reload();
                 if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0)
                 {
                     CancelRun();

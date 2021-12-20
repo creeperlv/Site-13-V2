@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Site13Kernel.UEFI
         public List<UEFIBase> EFIs=new List<UEFIBase>();
         public float SplashScreenLength=10f;
         public int TargetSceneID;
+        public int UEFISceneID;
         bool isCompleted;
         void Start()
         {
@@ -36,6 +38,7 @@ namespace Site13Kernel.UEFI
                 }
                 isCompleted = true;
             });
+
         }
         float TimeD=0;
         void Update()
@@ -45,7 +48,9 @@ namespace Site13Kernel.UEFI
             {
                 if (isCompleted)
                 {
-                    SceneManager.LoadScene(TargetSceneID);
+                    SceneLoader.Instance.AddSceneLog(UEFISceneID, false, false);
+                    SceneLoader.Instance.LoadScene(TargetSceneID,true,false,false);
+                    isCompleted = false;
                 }
             }
         }

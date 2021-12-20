@@ -14,6 +14,10 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
+            if (GameRuntime.CurrentGlobals.isPaused)
+            {
+                return;
+            }
             if (FrameDelay > 0)
             {
                 FrameDelay--;

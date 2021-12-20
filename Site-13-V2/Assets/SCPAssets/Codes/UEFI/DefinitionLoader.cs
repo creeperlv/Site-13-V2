@@ -7,6 +7,7 @@ using Site13Kernel.Core;
 using System.IO;
 using UnityEngine.Networking;
 using UnityEngine.Rendering;
+using System;
 
 namespace Site13Kernel.UEFI
 {
@@ -15,9 +16,14 @@ namespace Site13Kernel.UEFI
         public List<MissionCollection> missionCollections = new List<MissionCollection>();
         public List<RefSprite> sprites = new List<RefSprite>();
         public List<RefTexture2D> textures = new List<RefTexture2D>();
+        public List<ScriptDef> Scripts=new List<ScriptDef>();
         public int MainMenuSceneID;// Preserve for future need of using another main menu.
         public override void Init()
         {
+            foreach (var item in Scripts)
+            {
+                GameRuntime.CurrentGlobals.Scripts.Add(item.Name, item.Asset);
+            }
             StartCoroutine(LoadResources());
         }
         IEnumerator LoadResources()
@@ -128,5 +134,11 @@ namespace Site13Kernel.UEFI
                 GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections = missionCollections;
             });
         }
+    }
+    [Serializable]
+    public class ScriptDef
+    {
+        public string Name;
+        public TextAsset Asset;
     }
 }

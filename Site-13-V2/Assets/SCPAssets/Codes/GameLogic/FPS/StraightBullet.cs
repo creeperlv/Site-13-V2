@@ -1,3 +1,5 @@
+using Site13Kernel.Core;
+using Site13Kernel.Core.Controllers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -13,16 +15,53 @@ namespace Site13Kernel.GameLogic.FPS
 
         public float Velocity;
         public bool CauseDamage;
+        public int HitEffect = -1;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Move(float DT, float UDT)
         {
             this.transform.Translate(Vector3.forward * Velocity * DT, Space.Self);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AlteredHit(Collider collision)
+        {
+            var Hittable = collision.gameObject.GetComponent<IHittable>();
+
+
+            if (Hittable != null)
+            {
+                if (((MonoBehaviour)Hittable).gameObject == Emitter)
+                {
+                    return;
+                }
+                EffectController.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
+            }
+            else
+            {
+                EffectController.CurrentEffectController.Spawn(1, collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
+
+            }
+            if (HitEffect != -1)
+                EffectController.CurrentEffectController.Spawn(HitEffect, collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
+            var Entity = collision.gameObject.GetComponent<DamagableEntity>();
+            var WeakPoint = collision.gameObject.GetComponent<WeakPoint>();
+            if (WeakPoint != null)
+            {
+                TrySpawnHitEffect();
+                WeakPoint.AttachedBioEntity.Damage(WeakPointDamage);
+            }
+            else if (Entity != null)
+            {
+                TrySpawnHitEffect();
+                Entity.Damage(BaseDamage);
+            }
+
+            ParentSystem.DestoryBullet(this);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Hit(Collider collision)
         {
             if (CauseDamage)
-                base.Hit(collision);
+                AlteredHit(collision);
             else
             {
 

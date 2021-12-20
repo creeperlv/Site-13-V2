@@ -20,7 +20,7 @@ namespace Site13Kernel.UI
                 item.OnToggle = (b) =>
                 {
                     //item.IsOn = true;
-                    if (b == true)
+                    if (b)
                     {
                         Selected = i;
                         UnselectOthers(item);
@@ -33,7 +33,8 @@ namespace Site13Kernel.UI
                     {
                         if (Selected == i)
                         {
-                            item.IsOn = true;
+                            Debug.Log("Reverse.");
+                            item.SetValue(true);
                         }
                     }
                 };

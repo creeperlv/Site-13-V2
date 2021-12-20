@@ -145,12 +145,27 @@ namespace Site13Kernel.GameLogic.FPS
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CanReload()
+        {
+
+            if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
+            {
+                if (Base.CurrentMagazine < Base.MagazineCapacity && Base.CurrentBackup > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Reload()
         {
             if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
-                if (Base.CurrentMagazine < Base.MagazineCapacity)
+                if (Base.CurrentMagazine < Base.MagazineCapacity && Base.CurrentBackup > 0)
                 {
+                    ReloadSFXSource.clip = ReloadSFX;
+                    ReloadSFXSource.Play();
                     ReloadCountDown = ReloadP0 + ReloadP1;
                     WeaponMode = WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0;
                     if (CCAnimator != null)
@@ -277,7 +292,7 @@ namespace Site13Kernel.GameLogic.FPS
                     CancelCombat();
                 }
             }
-            else if(WeaponMode== WeaponConstants.WEAPON_MODE_TAKEOUT)
+            else if (WeaponMode == WeaponConstants.WEAPON_MODE_TAKEOUT)
             {
                 TakeOut_Length_D += DeltaT;
                 if (TakeOut_Length_D >= TakeOut_Length)
@@ -336,11 +351,12 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SingleFire()
         {
-            if (Base.CurrentMagazine > 0)
+            if (Base.CurrentMagazine > 0 || isHoldByPlayer == false)
             {
                 if (FireType == WeaponFireType.FullAuto || FireType == WeaponFireType.SemiAuto)
                 {
-                    this.Base.CurrentMagazine--;
+                    if (isHoldByPlayer)
+                        this.Base.CurrentMagazine--;
                     if (OnCurrentMagChanged != null)
                     {
                         OnCurrentMagChanged(Base.CurrentMagazine);
@@ -432,7 +448,7 @@ namespace Site13Kernel.GameLogic.FPS
             }
             else
             {
-
+                Debug.Log("Will not fire.");
             }
 
         }

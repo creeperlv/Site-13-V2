@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace Site13Kernel.Core
 {
     public class BioEntity : DamagableEntity
     {
         //public new BaseController Parent;
+
+        public int CombatRelationGroup;
 
         public float MaxShield;
         public float CurrentShield;
@@ -20,9 +23,18 @@ namespace Site13Kernel.Core
         public float ShieldRecoverCountDown;
         public float HPRecoverCountDown;
 
+        public bool useShieldMat;
+        public Color ShieldColor;
+        public List<Renderer> Shields;
+        public float Intensity;
+
+        public bool useShieldDownObject;
+        public List<GameObject> ShieldObjects;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
+            base.Refresh(DeltaTime, UnscaledDeltaTime);
             if (CurrentHP < MaxHP)
             {
                 if (HPRecoverCountDown > 0)
@@ -48,7 +60,45 @@ namespace Site13Kernel.Core
                     CurrentShield = math.min(CurrentShield, MaxShield);
                 }
             }
-
+            if (useShieldMat)
+            {
+                if (Shields.Count > 0)
+                {
+                    //var C = ShieldColor * (CurrentShield == 0 ? 0 : ((MaxShield - CurrentShield) / MaxShield)) * Intensity;
+                    var F = (CurrentShield == 0 ? 0 : ((MaxShield - CurrentShield) / MaxShield)) * Intensity;
+                    foreach (var Shield in Shields)
+                    {
+                        if (Shield == null) continue;
+                        foreach (var item in Shield.materials)
+                        {
+                            item.SetFloat("_EmissionStrength", F);
+                        }
+                    }
+                }
+            }
+            if (useShieldDownObject)
+            {
+                if (CurrentShield <= 0)
+                {
+                    foreach (var item in ShieldObjects)
+                    {
+                        if (!item.activeSelf)
+                        {
+                            item.SetActive(true);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in ShieldObjects)
+                    {
+                        if (item.activeSelf)
+                        {
+                            item.SetActive(false);
+                        }
+                    }
+                }
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -83,9 +133,5 @@ namespace Site13Kernel.Core
                 ShieldRecoverSpeed,
                 HPRecoverSpeed };
         }
-    }
-    public class WeakPoint : ControlledBehavior
-    {
-        public BioEntity AttachedBioEntity;
     }
 }

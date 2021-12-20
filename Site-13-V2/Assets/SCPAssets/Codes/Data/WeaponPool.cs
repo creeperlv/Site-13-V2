@@ -1,7 +1,9 @@
 using Site13Kernel.Core;
+using Site13Kernel.GameLogic.FPS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Site13Kernel.Data
@@ -19,6 +21,21 @@ namespace Site13Kernel.Data
                 WeaponItemMap.Add(item.Name, item);
             }
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, Pickupable) Instantiate(string ID, Vector3 Position, Quaternion Rotation, Transform transform)
+        {
+            return Instantiate(WeaponItemMap[ID].PickablePrefab, Position, Rotation, transform);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, Pickupable) Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform transform)
+        {
+            GameObject gameObject2 = UnityEngine.Object.Instantiate(gameObject, Position, Rotation, transform);
+            Pickupable component = gameObject2.GetComponent<Pickupable>();
+
+            return (gameObject2, component);
+        }
+
     }
     [Serializable]
     public class WeaponItem
@@ -29,5 +46,6 @@ namespace Site13Kernel.Data
         public GameObject NPCPrefab;
         public GameObject PickablePrefab;
         public Sprite WeaponIcon;
+        public Material WeaponMaterial;
     }
 }

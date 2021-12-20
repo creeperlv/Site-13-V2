@@ -1,4 +1,5 @@
 using Site13Kernel.Core;
+using Site13Kernel.GameLogic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Site13Kernel.UI
         Color c2;
         public AudioSource MainUIBGM;
         public AudioSource Wooon;
+        public List<int> BGSceneIDs;
         public override void Init()
         {
             c1 = Cover.color;
@@ -28,6 +30,10 @@ namespace Site13Kernel.UI
             else
                 MainUIBGM.Stop();
             Parent.RegisterRefresh(this);
+            foreach (var item in BGSceneIDs)
+            {
+                SceneLoader.Instance.ShowScene(item);
+            }
         }
         int State0 = 0;
         bool State1 = false;
@@ -85,7 +91,8 @@ namespace Site13Kernel.UI
                     break;
                 case 3:
                     {
-                        SceneManager.LoadScene(GameRuntime.CurrentGlobals.MainMenuSceneID);
+                        SceneLoader.Instance.LoadScene(GameRuntime.CurrentGlobals.MainMenuSceneID, true, false, false);
+                        Parent.UnregisterRefresh(this);
                     }
                     break;
                 default:

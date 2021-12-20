@@ -17,6 +17,7 @@ namespace Site13Kernel.Core.CustomizedInput
         public Dictionary<string, bool> Key = new Dictionary<string, bool>();
         public Dictionary<string, bool> KeyUp = new Dictionary<string, bool>();
         public List<InputDefinition> InputDefinitions;
+        public SimulationDefinition simulation;
         public List<string> Names;
         public override void Init()
         {
@@ -76,8 +77,69 @@ namespace Site13Kernel.Core.CustomizedInput
             return Axis[Name];
 
         }
+
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
+            if (simulation.isEnabled == true)
+            {
+                simulation.PassedTime += DeltaTime;
+                foreach (var item in simulation.inputs)
+                {
+                    if (simulation.PassedTime > item.StartTime)
+                    {
+                        if (item.isAxis)
+                        {
+                            Axis[item.InputName] = item.Intensity;
+                        }
+                        else
+                            switch (item.action)
+                            {
+                                case InputAction.Key:
+                                    {
+                                        if (!item.isDone)
+                                        {
+                                            Key[item.InputName] = true;
+                                            KeyUp[item.InputName] = false;
+                                            item.isDone = true;
+
+                                        }
+                                    }
+                                    break;
+                                case InputAction.Down:
+                                    {
+                                        if (!item.isDone)
+                                        {
+                                            KeyDown[item.InputName] = true;
+                                            KeyUp[item.InputName] = false;
+                                            item.isDone = true;
+
+                                        }
+                                        else
+                                            KeyDown[item.InputName] = false;
+                                    }
+                                    break;
+                                case InputAction.Up:
+                                    {
+                                        if (!item.isDone)
+                                        {
+                                            KeyUp[item.InputName] = true;
+                                            KeyDown[item.InputName] = false;
+                                            Key[item.InputName] = false;
+                                            item.isDone = true;
+
+                                        }
+
+                                    }
+                                    break;
+                                case InputAction.Wait:
+                                    break;
+                                default:
+                                    break;
+                            }
+                    }
+                }
+                return;
+            }
             //Debug.Log("Running");
             {
 
@@ -164,6 +226,28 @@ namespace Site13Kernel.Core.CustomizedInput
                 }
             }
         }
+    }
+    [Serializable]
+    public class SimulationDefinition
+    {
+        public bool isEnabled;
+        public float PassedTime;
+        public List<SimulatedInput> inputs;
+    }
+    [Serializable]
+    public class SimulatedInput
+    {
+        public InputAction action;
+        public bool isAxis;
+        public float Intensity;
+        public string InputName;
+        public float EndTime;
+        public float StartTime;
+        public bool isDone;
+    }
+    public enum InputAction
+    {
+        Key, Down, Up, Wait
     }
     /// <summary>
     /// A - Button 0, B - Button 1, X - Button 2, Y - Button 3

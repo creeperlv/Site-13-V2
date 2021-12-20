@@ -1,12 +1,13 @@
-using CLUNL.Utilities;
 using Site13Kernel.Core;
 using Site13Kernel.Diagnostics.Functions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 namespace Site13Kernel.Diagnostics
 {
@@ -21,7 +22,7 @@ namespace Site13Kernel.Diagnostics
 
             if (Output != null)
             {
-                Output.text += "SITE-13 CONSOLE";
+                Output.text += "<b>SITE-13 CONSOLE</b>";
                 Debugger.CurrentDebugger.Register((string content, LogLevel level) =>
                 {
                     Output.text += "\n";
@@ -45,9 +46,12 @@ namespace Site13Kernel.Diagnostics
                     }
                 });
             }
-#if DEBUG
+            FunctionCollection.GatherFunctions();
+            //#if DEBUG
             Debugger.CurrentDebugger.Register((a, b) =>
             {
+                StackTrace st=new StackTrace();
+                var CALLER = st.GetFrame(4).GetMethod().DeclaringType;
                 switch (b)
                 {
                     case LogLevel.Normal:
@@ -57,64 +61,33 @@ namespace Site13Kernel.Diagnostics
                         Debug.LogWarning(a);
                         break;
                     case LogLevel.Error:
-                        Debug.LogError(a);
+                        Debug.LogError($"{CALLER}:{a}");
                         break;
                     default:
                         break;
                 }
             });
-#endif
+            //#endif
             if (_Input != null)
             {
-                FunctionCollection.GatherFunctions();
 
                 _Input.onSubmit.AddListener((string cmd) =>
                 {
                     if (GameRuntime.CurrentGlobals.isDebugFunctionEnabled)
                         if (cmd != "")
                         {
-                            var result=CommandLineTool.Analyze(cmd);
-                            var a=result.RealParameter;
-                            Debugger.CurrentDebugger.Log($">{cmd}", LogLevel.Normal);
-                            var CMD=a[0].EntireArgument;
-                            if (FunctionCollection._func.ContainsKey(CMD))
-                            {
-                                var func=FunctionCollection._func[CMD];
-                                a.RemoveAt(0);
-                                func.Execute(a);
-                            }
-                            else
-                            {
-                                foreach (var item in FunctionCollection.Aliases)
-                                {
-                                    if (item.Value.Contains(CMD))
-                                    {
-                                        var func=FunctionCollection._func[item.Key];
-                                        a.RemoveAt(0);
-                                        func.Execute(a);
-                                        return;
-                                    }
-                                }
-                                Debugger.CurrentDebugger.Log($"\"{a[0].EntireArgument}\" not found!", LogLevel.Warning);
-                                Debugger.CurrentDebugger.Log($"Available functinos:", LogLevel.Normal);
-                                foreach (var item in FunctionCollection._func.Keys)
-                                {
-                                    Debugger.CurrentDebugger.Log($"{item}", LogLevel.Normal);
-                                    Debugger.CurrentDebugger.Log($"Alias:", LogLevel.Normal);
-                                    foreach (var alia in FunctionCollection.Aliases[item])
-                                    {
-                                        Debugger.CurrentDebugger.Log($"\t{alia}", LogLevel.Normal);
-                                    }
-                                }
-                            }
+                            ScriptEngine.Execute(cmd);
                         }
                         else
                         {
+                            Debug.Log("You entered en empty string, is it by design?");
                         }
                     _Input.text = "";
                 });
             }
         }
+        CursorLockMode LastLock;
+        bool LastVisible;
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             if (Input.GetKeyDown(KeyCode.F1))
@@ -122,12 +95,18 @@ namespace Site13Kernel.Diagnostics
                 if (this.gameObject.activeSelf)
                 {
                     this.gameObject.SetActive(false);
-
+                    Cursor.lockState = LastLock;
+                    Cursor.visible = LastVisible;
+                    GameRuntime.CurrentGlobals.isPaused = false;
                 }
                 else
                 {
                     this.gameObject.SetActive(true);
-
+                    GameRuntime.CurrentGlobals.isPaused = true;
+                    LastLock = Cursor.lockState;
+                    Cursor.lockState = CursorLockMode.None;
+                    LastVisible = Cursor.visible;
+                    Cursor.visible = true;
                 }
             }
         }
