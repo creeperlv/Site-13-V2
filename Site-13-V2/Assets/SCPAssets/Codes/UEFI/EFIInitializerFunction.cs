@@ -25,6 +25,8 @@ namespace Site13Kernel.UEFI
         public int SceneID_LevelBase;
         public int SceneID_LevelLoader;
         public int SceneID_WinScene;
+        public List<SceneMapping> SceneMappings;
+
         public override void Init()
         {
             GameEnv.DataPath = Application.persistentDataPath;
@@ -51,9 +53,21 @@ namespace Site13Kernel.UEFI
             GameRuntime.CurrentGlobals.Scene_LevelBase = SceneID_LevelBase;
             GameRuntime.CurrentGlobals.Scene_LevelLoader= SceneID_LevelLoader;
             GameRuntime.CurrentGlobals.Scene_WinScene = SceneID_WinScene;
-
+            foreach (var item in SceneMappings)
+            {
+                foreach (var name in item.Names)
+                {
+                    Utilities.SceneUtility.Mapping.Add(name, item.ID);
+                }
+            }
             Instantiate(BackgroundObject);
         }
+    }
+    [Serializable]
+    public class SceneMapping
+    {
+        public List<string> Names=new List<string>();
+        public int ID;
     }
     [Serializable]
     public class Configuration
