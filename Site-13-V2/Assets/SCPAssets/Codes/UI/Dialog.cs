@@ -18,6 +18,7 @@ namespace Site13Kernel.UI
         public Action CancelAction;
         public float CloseAnimeLength;
         public Animator Animator;
+        public bool UseTrigger;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Initialize(string Title, string Content, string Option1, Action Option1Act, string Option2, Action Option2Act, Sprite Icon = null)
         {
@@ -60,8 +61,21 @@ namespace Site13Kernel.UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         IEnumerator RealClose()
         {
-            Animator.SetTrigger("Close");
-            yield return new WaitForSeconds(CloseAnimeLength);
+            if (Animator != null)
+            {
+
+                if (UseTrigger)
+                {
+
+                    Animator.SetTrigger("Close");
+                }
+                else
+                {
+                    Animator.Play("Close");
+                }
+                yield return new WaitForSeconds(CloseAnimeLength);
+
+            }
             GameObject.Destroy(this.gameObject);
         }
     }

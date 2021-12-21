@@ -121,6 +121,56 @@ MonoBehaviour:
   CrossScene: 0
   subControllers:
   - {fileID: 722605962783872253}
+--- !u!1 &3857927652114009187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4571707055287667299}
+  - component: {fileID: 2456962496648931563}
+  m_Layer: 0
+  m_Name: SceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4571707055287667299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3857927652114009187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7096025717290730703}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2456962496648931563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3857927652114009187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13630f545b9321249bb81df518135e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Preloads:
+  - SceneID: 8
+    isAddictive: 1
+    isStick: 1
+    isShow: 1
+    isRef: 0
 --- !u!1 &4085547417214013090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,6 +1212,7 @@ MonoBehaviour:
   OnInit_Interface: []
   OnInit:
   - {fileID: 7915070253215208821}
+  - {fileID: 2456962496648931563}
   - {fileID: 6467622267793754568}
   - {fileID: 3029035979979359514}
   - {fileID: 6730252710298054927}
@@ -1676,6 +1727,53 @@ MonoBehaviour:
     GamePlayPrefab: {fileID: 9032708845984018005, guid: 5d387a266e9d72c44a8de6fc7b806540, type: 3}
     PickupablePrefab: {fileID: 1978580431676505306, guid: 23351ced7f960bc43b67d444ab5ddf70, type: 3}
     Icon: {fileID: 0}
+--- !u!1 &7769429337177317897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7264565192869208782}
+  - component: {fileID: 5186272162425607761}
+  m_Layer: 0
+  m_Name: DialogManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7264565192869208782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769429337177317897}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7096025717290730703}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5186272162425607761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769429337177317897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d127bc7bf84697749989b7b221bad821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogTemplate_OK: {fileID: 8514833186025801390, guid: a8ee07b8caed7fd408ad97a0aac2cf38, type: 3}
+  DialogTemplate_OK_Cancel: {fileID: 8514833186025801390, guid: 544a8d0407dd7234489ca7aab6ed8a79, type: 3}
+  ManagedDialogs: []
 --- !u!1 &7792797661947106206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,7 +1950,7 @@ GameObject:
   - component: {fileID: 7096025717290730703}
   - component: {fileID: 7915070253215208821}
   m_Layer: 0
-  m_Name: Initializer
+  m_Name: Spaces and Subcontrollers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1876,6 +1974,8 @@ Transform:
   - {fileID: 3694887316066418689}
   - {fileID: 7629115863686440898}
   - {fileID: 5651541264253117755}
+  - {fileID: 7264565192869208782}
+  - {fileID: 4571707055287667299}
   m_Father: {fileID: 6467622268903063982}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
