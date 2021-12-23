@@ -46,6 +46,7 @@ namespace LanguageTool
             this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
             this.ExtendClientAreaToDecorationsHint = true;
             this.TransparencyLevelHint = WindowTransparencyLevel.Blur;
+            this.TransparencyBackgroundFallback=new SolidColorBrush(Color.FromArgb(255,0,0,0));
             Trace.WriteLine(this.ActualTransparencyLevel);
             this.Background = new SolidColorBrush(Colors.Transparent);
             CentralEditor=this.FindControl<StackPanel>("CentralEditor");

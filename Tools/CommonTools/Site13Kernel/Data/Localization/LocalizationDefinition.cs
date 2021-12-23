@@ -8,6 +8,7 @@ namespace Site13Kernel.Data.Localization
     public class LocalizationDefinition
     {
         public string LanguageCode;
+        public string LanguageName;
         public string LanguageStringFile;
         public List<RefLocalizedImage> Textures=new List<RefLocalizedImage>();
         public List<RefLocalizedImage> Sprites=new List<RefLocalizedImage>();
