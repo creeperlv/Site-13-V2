@@ -73,10 +73,4 @@ namespace Site13Kernel.Diagnostics.Functions
             Debugger.CurrentDebugger.Log("\tShow or hide a scene.");
         }
     }
-    //public interface IDiagnosticsFunction
-    //{
-    //    string GetCommandName();
-    //    void Help();
-    //    void Execute(List<Argument> arguments);
-    //}
 }

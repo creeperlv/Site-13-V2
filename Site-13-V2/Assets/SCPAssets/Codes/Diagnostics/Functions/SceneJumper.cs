@@ -54,6 +54,13 @@ namespace Site13Kernel.Diagnostics.Functions
 
             }
         }
+        public List<string> GetAlias()
+        {
+            return new List<string>
+            {
+                GetCommandName(),"load"
+            };
+        }
 
         public string GetCommandName()
         {

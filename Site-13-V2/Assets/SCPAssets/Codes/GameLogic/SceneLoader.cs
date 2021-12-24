@@ -40,7 +40,7 @@ namespace Site13Kernel.GameLogic
             GlobalBioController.CurrentGlobalBioController.DestoryAll();
 
             GameRuntime.CurrentGlobals.isInLevel = false;
-            SceneLoader.Instance.ShowScene(3);
+            //SceneLoader.Instance.ShowScene(3);
             SceneLoader.Instance.LoadScene(GameRuntime.CurrentGlobals.MainMenuSceneID, true, false, false);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -188,6 +188,7 @@ namespace Site13Kernel.GameLogic
 
             }
         }
+        public int LoadingOperationCount = 0;
         private class LoadOperation
         {
             int BGSceneID;
@@ -203,6 +204,7 @@ namespace Site13Kernel.GameLogic
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal void StartLoadAsync()
             {
+                Instance.LoadingOperationCount++;
                 if (add)
                     SceneManager.LoadSceneAsync(BGSceneID, LoadSceneMode.Additive).completed += OP_completed;
                 else
@@ -214,6 +216,7 @@ namespace Site13Kernel.GameLogic
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void OP_completed(AsyncOperation obj)
             {
+                Instance.LoadingOperationCount--;
                 var GO = SceneManager.GetSceneByBuildIndex(BGSceneID).GetRootGameObjects();
                 List<GameObject> list = new List<GameObject>(GO);
                 SceneLoader.Instance.Scenes.TryAdd(BGSceneID, list);

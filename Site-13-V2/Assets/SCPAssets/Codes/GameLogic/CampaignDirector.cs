@@ -78,6 +78,10 @@ namespace Site13Kernel.GameLogic
                     {
                         yield return null;
                     }
+                    else if (line.ToUpper() == "WAIT_FOR_LOAD")
+                    {
+                        yield return WaitForLoadComplete();
+                    }
                     else if (line.StartsWith("WAIT "))
                     {
                         var T = line.Substring(4).Trim();
@@ -90,6 +94,18 @@ namespace Site13Kernel.GameLogic
                     {
                         ScriptEngine.Execute(line);
                     }
+                }
+            }
+        }
+        public IEnumerator WaitForLoadComplete()
+        {
+            while (true)
+            {
+                yield return null;
+                if (SceneLoader.Instance.LoadingOperationCount <= 0)
+                {
+                    SceneLoader.Instance.LoadingOperationCount = 0;
+                    break;
                 }
             }
         }
