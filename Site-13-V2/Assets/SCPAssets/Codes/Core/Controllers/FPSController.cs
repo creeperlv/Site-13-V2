@@ -185,14 +185,17 @@ namespace Site13Kernel.Core.Controllers
                 {
                     TargetWeapon = BagHolder.Weapon0;
                     TargetHUD = W_HUD0;
-                    BagHolder.CurrentWeapon = 0;
+                    TargetHUD.ListeningWeapon = TargetWeapon;
+                    if (BagHolder.CurrentWeapon == 0) goto APPLY;
                 }
                 if (BagHolder.Weapon1 != null)
                 {
                     TargetWeapon = BagHolder.Weapon1;
                     TargetHUD = W_HUD1;
-                    BagHolder.CurrentWeapon = 1;
+                    TargetHUD.ListeningWeapon = TargetWeapon;
+                    if (BagHolder.CurrentWeapon == 1) goto APPLY;
                 }
+            APPLY:
                 if (TargetWeapon != null)
                 {
 
@@ -203,7 +206,6 @@ namespace Site13Kernel.Core.Controllers
                     TargetWeapon.Weapon.FirePoint = FirePoint;
                     TargetWeapon.Weapon.OnHit = OnHit;
                     TargetWeapon.Weapon.ActualHolder = this.gameObject;
-                    TargetHUD.ListeningWeapon = TargetWeapon;
                     TargetHUD.isPercentage = TargetWeapon.isPercentage;
                     if (WeaponPool.CurrentPool.WeaponItemMap.ContainsKey(TargetWeapon.Weapon.Base.WeaponID))
                     {
@@ -331,12 +333,19 @@ namespace Site13Kernel.Core.Controllers
         public void ShowWeapon()
         {
             Weapon.ShowCoreWeaponAnimator();
-
+            if (Weapon.CrosshairCanvasGroup != null)
+            {
+                Weapon.CrosshairCanvasGroup.SetActive(true);
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void HideWeapon()
         {
             Weapon.HideCoreWeaponAnimator();
+            if (Weapon.CrosshairCanvasGroup != null)
+            {
+                Weapon.CrosshairCanvasGroup.SetActive(false);
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CancelZoom()

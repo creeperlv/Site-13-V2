@@ -26,6 +26,7 @@ namespace Site13Kernel.GameLogic
         public GameObject HUDCanvas;
         [Header("HUD Related")]
         public bool isPercentage;
+        public GameObject CrosshairCanvasGroup;
         public Renderer FPSRenderer;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Combat()
