@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &207379553737560177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 207379553737560179}
+  - component: {fileID: 207379553737560176}
+  m_Layer: 0
+  m_Name: Initializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &207379553737560179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207379553737560177}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &207379553737560176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207379553737560177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc9b783ecb68b54ca11b8a7629763e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundObject: {fileID: 6467622268903063983, guid: 42b9081a900daff458bf56f8ee93f1a3, type: 3}
+  TargetAsset: {fileID: 11400000, guid: 19ba41d7c0026c3459d37c2fe90c55a0, type: 2}
+  InitConfiguration:
+    CollisionDamageSpeedThreshold: 7
+    CollisionDamageIntensity: 2
+  UI: {fileID: 24300002, guid: c74684279dd8a40488c54f9fe508cf44, type: 2}
+  UI_BGM: {fileID: 24300002, guid: f1ad428b866500844813c04f03c39015, type: 2}
+  SFX: {fileID: 24300002, guid: a1316350b310ee34ea9af0d6a62de863, type: 2}
+  BGM: {fileID: 24300002, guid: 96c722a21c9aab442aa7a304948714b2, type: 2}
+  SceneID_LevelBase: 9
+  SceneID_LevelLoader: 5
+  SceneID_WinScene: 0
+  SceneMappings: []

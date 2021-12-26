@@ -24,6 +24,14 @@ namespace Site13Kernel.Utilities
                     {
                         return Mapping[Name.ToUpper()];
                     }
+                    else
+                    {
+                        var SCENE = UnityEngine.SceneManagement.SceneManager.GetSceneByName(Name);
+                        if (SCENE != null)
+                        {
+                            return SCENE.buildIndex;
+                        }
+                    }
                     break;
             }
             return -1;
