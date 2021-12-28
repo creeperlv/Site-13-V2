@@ -1,5 +1,6 @@
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -106,10 +107,43 @@ namespace Site13Kernel.GameLogic.CampaignScripts
                         break;
                     case EventType.GivePlayerWeapon:
                         {
-                            if(FPSC != null)
+                            if (FPSC != null)
                             {
                                 var BAG = FPSC.BagHolder;
                                 //TODO
+                            }
+                        }
+                        break;
+                    case EventType.SceneVisibility:
+                        {
+                            var ID = SceneUtility.LookUp(e.VisibilitySceneName);
+                            if (ID != -1)
+                            {
+                                if (e.Visibility)
+                                {
+                                    SceneLoader.Instance.ShowScene(ID);
+                                }
+                                else
+                                {
+                                    SceneLoader.Instance.HideScene(ID);
+                                }
+                            }
+                            else
+                            {
+                                Debugger.CurrentDebugger.LogError($"FixedDirector: VisibilitySceneName({e.VisibilitySceneName}) lookup failed.");
+                            }
+                        }
+                        break;
+                    case EventType.SceneActive:
+                        {
+                            var ID = SceneUtility.LookUp(e.ActiveSceneName);
+                            if (ID != -1)
+                            {
+                                SceneLoader.Instance.SetActive(ID);
+                            }
+                            else
+                            {
+                                Debugger.CurrentDebugger.LogError($"FixedDirector: ActiveSceneName({e.ActiveSceneName}) lookup failed.");
                             }
                         }
                         break;
@@ -174,6 +208,6 @@ namespace Site13Kernel.GameLogic.CampaignScripts
 
     public enum EventType
     {
-        Speak, Spawn, Win, Script, SpawnPlayer, TriggerGameObject, DisablePlayer, EnablePlayer,GivePlayerWeapon
+        Speak, Spawn, Win, Script, SpawnPlayer, TriggerGameObject, DisablePlayer, EnablePlayer, GivePlayerWeapon, SceneVisibility, CheckPoint, SceneActive
     }
 }

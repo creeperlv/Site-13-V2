@@ -36,6 +36,10 @@ namespace Site13Kernel.GameLogic.CampaignScripts
         public Transform Location;
         [Header("Script")]
         public string ExecutingScript;
+        [Header("Scene Related")]
+        public string VisibilitySceneName;
+        public bool Visibility;
+        public string ActiveSceneName;
         #region ExecutorFields
         [HideInInspector]
         public float TimeD;

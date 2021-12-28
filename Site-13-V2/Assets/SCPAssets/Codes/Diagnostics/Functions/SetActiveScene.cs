@@ -1,5 +1,6 @@
 ﻿using CLUNL.Utilities;
 using Site13Kernel.GameLogic;
+using Site13Kernel.Utilities;
 using System.Collections.Generic;
 
 namespace Site13Kernel.Diagnostics.Functions
@@ -28,11 +29,19 @@ namespace Site13Kernel.Diagnostics.Functions
                 if (int.TryParse(arguments[0].EntireArgument, out var i))
                 {
                     SceneLoader.Instance.SetActive(i);
-                    Debugger.CurrentDebugger.Log("Done.");
+                    Debugger.CurrentDebugger.Log($"Scene (ID:{i}) is now active.");
 
                 }
                 else
                 {
+                    var ID=SceneUtility.LookUp(arguments[0].EntireArgument);
+                    if (ID != -1)
+                    {
+                        SceneLoader.Instance.SetActive(i);
+                        Debugger.CurrentDebugger.Log($"Scene (Name:{arguments[0].EntireArgument}=>ID={ID}) is now active");
+
+                    }
+                    else
                     Debugger.CurrentDebugger.LogError("Invalid Argument.");
                 }
 
@@ -53,7 +62,7 @@ namespace Site13Kernel.Diagnostics.Functions
 
         public void Help()
         {
-            Debugger.CurrentDebugger.Log("SetActiveScene <SceneID:int>");
+            Debugger.CurrentDebugger.Log("SetActiveScene <SceneID:int>|<SceneName:string>");
             Debugger.CurrentDebugger.Log("\tSet a scene to active.");
         }
     }
