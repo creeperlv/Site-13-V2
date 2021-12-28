@@ -3,6 +3,7 @@ using Site13Kernel.Diagnostics.Warns;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Site13Kernel.Diagnostics
@@ -34,10 +35,12 @@ namespace Site13Kernel.Diagnostics
             Actions = new List<Action<string, LogLevel>>();
 
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetConfiguration(DebuggerConfiguration configuration)
         {
             CurrentConfiguration = configuration;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void LSync()
         {
             lock (Logs)
@@ -46,6 +49,7 @@ namespace Site13Kernel.Diagnostics
                 Logs.Clear();
             }
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Execute()
         {
             while (!Logs.IsEmpty)
@@ -89,34 +93,42 @@ namespace Site13Kernel.Diagnostics
                 
             }
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Log(object obj, LogLevel logLevel = LogLevel.Normal)
         {
             Logs.Enqueue((obj, logLevel));
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Log(ISite13Error obj)
         {
             Logs.Enqueue((obj.ToString(), LogLevel.Error));
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void LogError(object message, object Context)
         {
             Logs.Enqueue(($"Error on {{{Context}}}\r\n{message}", LogLevel.Error));
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void LogError(object message)
         {
             Logs.Enqueue(($"Error: {message}", LogLevel.Error));
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void LogWarning(object message, object Context)
         {
             Logs.Enqueue(($"Warning on {{{Context}}}\r\n{message}", LogLevel.Warning));
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void LogWarning(object message)
         {
             Logs.Enqueue(($"Warning: {message}", LogLevel.Warning));
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Log(ISite13Warn obj)
         {
             Logs.Enqueue((obj.ToString(), LogLevel.Warning));
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CheckAndSaveLog()
         {
             if (Content.Count >= CurrentConfiguration.LogThreshold)
@@ -124,10 +136,12 @@ namespace Site13Kernel.Diagnostics
                 SaveLog();
             }
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SaveLog()
         {
 
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Register(Action<string, LogLevel> action)
         {
             Actions.Add(action);
