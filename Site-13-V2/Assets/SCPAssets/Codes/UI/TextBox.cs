@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Site13Kernel.Core;
+using System.Runtime.CompilerServices;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -2611,6 +2612,15 @@ namespace Site13Kernel.UI
 
         public virtual void CalculateLayoutInputVertical() { }
 
+        public void Collapse()
+        {
+            _visibility = Visibility.Collapsed;
+        }
+
+        public void Size()
+        {
+        }
+
         public virtual float minWidth { get { return 0; } }
 
         public virtual float preferredWidth
@@ -2641,6 +2651,33 @@ namespace Site13Kernel.UI
         public virtual float flexibleHeight { get { return -1; } }
 
         public virtual int layoutPriority { get { return 1; } }
+
+        public Visibility Visibility
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => _visibility;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+
+                _visibility = value;
+                switch (_visibility)
+                {
+                    case UI.Visibility.Visible:
+                        Show();
+                        break;
+                    case UI.Visibility.Hidden:
+                        Hide();
+                        break;
+                    case UI.Visibility.Collapsed:
+                        Collapse();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        private Visibility _visibility;
     }
 }
 

@@ -448,7 +448,6 @@ namespace Site13Kernel.GameLogic.FPS
             }
             else
             {
-                Debug.Log("Will not fire.");
             }
 
         }

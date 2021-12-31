@@ -13,6 +13,7 @@ using Site13Kernel.GameLogic;
 using Site13Kernel.Data;
 using CLUNL.Localization;
 using Site13Kernel.Core;
+using System.Runtime.CompilerServices;
 
 namespace Site13Kernel.UI
 {
@@ -24,6 +25,31 @@ namespace Site13Kernel.UI
         public Action OnClick = null;
         [HideInInspector]
         public CampaignButtonGroup CampaignParent;
+
+        public Visibility Visibility { 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get=> _visibility;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set {
+
+                _visibility = value;
+                switch (_visibility)
+                {
+                    case UI.Visibility.Visible:
+                        Show();
+                        break;
+                    case UI.Visibility.Hidden:
+                        Hide();
+                        break;
+                    case UI.Visibility.Collapsed:
+                        Collapse();
+                        break;
+                    default:
+                        break;
+                }
+            } }
+        private Visibility _visibility;
+
         protected CampaignButton()
         {
         }
@@ -36,6 +62,8 @@ namespace Site13Kernel.UI
         [SerializeField]
         private ButtonClickedEvent m_OnClick = new ButtonClickedEvent();
         internal MissionDefinition definition;
+
+
         public void Init(CampaignButtonGroup parent, MissionDefinition definition)
         {
             CampaignParent = parent;
@@ -126,14 +154,29 @@ namespace Site13Kernel.UI
             throw new NotImplementedException();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Show()
         {
+            _visibility = Visibility.Visible;
             this.gameObject.SetActive(true);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Hide()
         {
+            _visibility = Visibility.Hidden;
             this.gameObject.SetActive(false);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Collapse()
+        {
+            _visibility -= Visibility.Collapsed;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Size()
+        {
         }
     }
     [Serializable]

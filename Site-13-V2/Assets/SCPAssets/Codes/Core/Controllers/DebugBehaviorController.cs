@@ -2,6 +2,7 @@ using Site13Kernel.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.Core.Controllers
 {

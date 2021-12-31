@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -24,7 +25,7 @@ namespace Site13Kernel.UI
             set => PrimaryContentText.text = value;
         }
 
-        public Action OnClick=null;
+        public Action OnClick = null;
 
         [Serializable]
         public class ButtonClickedEvent : UnityEvent
@@ -98,19 +99,43 @@ namespace Site13Kernel.UI
 
             DoStateTransition(currentSelectionState, false);
         }
-        public bool Visibility
+        public Visibility Visibility
         {
-            get => this.gameObject.activeSelf;
-            set => this.gameObject.SetActive(value);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => _visibility;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+
+                _visibility = value;
+                switch (_visibility)
+                {
+                    case UI.Visibility.Visible:
+                        Show();
+                        break;
+                    case UI.Visibility.Hidden:
+                        Hide();
+                        break;
+                    case UI.Visibility.Collapsed:
+                        Collapse();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
+        private Visibility _visibility;
+
         public void Show()
         {
-            Visibility = true;
+            this.gameObject.SetActive(true);
+            _visibility = Visibility.Visible;
         }
 
         public void Hide()
         {
-            Visibility = false;
+            this.gameObject.SetActive(false);
+            _visibility = Visibility.Hidden;
         }
 
         public void SetProperty(string name, object value)
@@ -118,10 +143,13 @@ namespace Site13Kernel.UI
             switch (name)
             {
                 case "Visibility":
-                    Visibility = (bool) value;
+                    {
+                        //Visibility = Enum.Parse(typeof(UI.Visibility), value);
+                        Visibility = (Visibility)value;
+                    }
                     break;
                 case "Content":
-                    Content = (string) value;
+                    Content = (string)value;
                     break;
                 default:
                     break;
@@ -135,7 +163,7 @@ namespace Site13Kernel.UI
 
         public Property GetProperty(string name)
         {
-            Property property=new Property();
+            Property property = new Property();
             property.Key = name;
             property.Value = GetPropertyValue(name);
             if (property.Value == null)
@@ -156,6 +184,15 @@ namespace Site13Kernel.UI
                     break;
             }
             return null;
+        }
+
+        public void Collapse()
+        {
+            _visibility = Visibility.Collapsed;
+        }
+
+        public void Size()
+        {
         }
     }
 }

@@ -327,6 +327,7 @@ namespace Site13Kernel.UI
             if (!IsActive() || !IsInteractable() || m_Dropdown != null)
                 return;
 
+            _visibility = Visibility.Visible;
             // Get root Canvas.
             var list = ListPool<Canvas>.Get();
             gameObject.GetComponentsInParent(false, list);
@@ -663,6 +664,7 @@ namespace Site13Kernel.UI
 
         public void Hide()
         {
+            _visibility = Visibility.Hidden;
             if (m_Dropdown != null)
             {
                 AlphaFadeList(m_AlphaFadeSpeed, 0f);

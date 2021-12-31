@@ -138,7 +138,6 @@ namespace Site13Kernel.Core.Controllers
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError(e);
                     Debugger.CurrentDebugger.Log(e, LogLevel.Error);
                 }
 #endif

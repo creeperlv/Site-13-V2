@@ -18,7 +18,7 @@ namespace Site13Kernel.UI
         {
             text = obj.ToString();
         }
-        Action<object> callback=null;
+        Action<object> callback = null;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetCallback(Action<object> callback)
         {
@@ -27,8 +27,8 @@ namespace Site13Kernel.UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Callback()
         {
-            if(callback!=null)
-            callback(text);
+            if (callback != null)
+                callback(text);
         }
         public void SetValue(object obj)
         {
@@ -37,10 +37,12 @@ namespace Site13Kernel.UI
         }
         public void Show()
         {
+            _visibility = Visibility.Visible;
             this.gameObject.SetActive(true);
         }
         public void Hide()
         {
+            _visibility = Visibility.Hidden;
             this.gameObject.SetActive(false);
         }
         public void InitProperty(Property p)

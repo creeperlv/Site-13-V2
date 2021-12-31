@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.UI
 {
@@ -38,7 +39,6 @@ namespace Site13Kernel.UI
             {
                 if (AboutDoc != null)
                 {
-                    Debug.Log("Start...");
                     try
                     {
                         PLNEngineCore.Init(TextTemplate, ImageTemplate);
@@ -46,8 +46,7 @@ namespace Site13Kernel.UI
                     }
                     catch (Exception e)
                     {
-
-                        Debug.LogError("Fail:"+e);
+                        Debug.LogError(e);
                     }
                 }
             }
@@ -76,7 +75,6 @@ namespace Site13Kernel.UI
                     DialogManager.Show("Are you sure to exit?","", "Yes", () => { Application.Quit(); }, "No", null);
                 };
             }
-            Debug.Log("Success");
             //if(false)
             {
                 SettingsPageTabs.Init();

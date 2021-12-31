@@ -44,6 +44,32 @@ namespace Site13Kernel.UI
             value = (int)obj;
             Callback();
         }
+        public Visibility Visibility
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => _visibility;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+
+                _visibility = value;
+                switch (_visibility)
+                {
+                    case UI.Visibility.Visible:
+                        Show();
+                        break;
+                    case UI.Visibility.Hidden:
+                        Hide();
+                        break;
+                    case UI.Visibility.Collapsed:
+                        Collapse();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        private Visibility _visibility;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetProperty(string name, object value)
         {
@@ -60,16 +86,9 @@ namespace Site13Kernel.UI
                     }
                     break;
                 case "Visibility":
-                    if (value is bool b)
+                    if (value is Visibility v)
                     {
-                        if (b)
-                        {
-                            Show();
-                        }
-                        else
-                        {
-                            Hide();
-                        }
+                        Visibility = v;
                     }
                     break;
                 default:
@@ -100,12 +119,21 @@ namespace Site13Kernel.UI
                     return value;
                 case "Visibility":
                     {
-                        return this.gameObject.activeSelf;
+                        return Visibility;
                     }
                 default:
                     break;
             }
             return null;
+        }
+
+        public void Collapse()
+        {
+            _visibility= Visibility.Collapsed;
+        }
+
+        public void Size()
+        {
         }
     }
 }

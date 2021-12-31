@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.GameLogic.FPS
 {
@@ -42,7 +43,7 @@ namespace Site13Kernel.GameLogic.FPS
                         }
                         catch (System.Exception e)
                         {
-                            Debug.LogException(e);
+                            Debug.LogError(e);
                         }
                     }
                     else
