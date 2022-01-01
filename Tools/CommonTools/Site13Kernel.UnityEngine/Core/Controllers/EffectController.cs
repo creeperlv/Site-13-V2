@@ -55,7 +55,7 @@ namespace Site13Kernel.Core.Controllers
         {
             if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return null;
             CurrentEffects++;
-            var go = Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent);
+            var go = ObjectGenerator.Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent,HashCode);
             if (isRelatedScale)
             {
                 go.transform.localScale = Scale.DVI(Parent.lossyScale);

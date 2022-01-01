@@ -11,7 +11,7 @@ namespace Site13Kernel.GameLogic.CampaignScripts
 {
     public class FixedDirector : MonoBehaviour
     {
-        float TimeCount = 0;
+        //float TimeCount = 0;
         public List<CampaignEvent> EventList = new List<CampaignEvent>();
         //public GameObject PlayerPrefab;
         public BaseController LevelController;
