@@ -11,12 +11,12 @@ namespace Site13Kernel.Diagnostics
     [Serializable]
     public class DebuggerConfiguration
     {
-        public bool PreserveLog=false;
-        public int LogThreshold=500;
+        public bool PreserveLog = false;
+        public int LogThreshold = 500;
     }
     public class Debugger
     {
-        public static Debugger CurrentDebugger=new Debugger();
+        public static Debugger CurrentDebugger = new Debugger();
 
         private const string Normal_Prefix = "[Normal]";
         private const string Warning_Prefix = "[Warning]";
@@ -25,10 +25,11 @@ namespace Site13Kernel.Diagnostics
         DebuggerConfiguration CurrentConfiguration;
 
 
-        List<Action<string,LogLevel>> Actions;
-        
-        List<string> Content=new List<string>();
-        ConcurrentQueue<(object,LogLevel)> Logs=new ConcurrentQueue<(object,LogLevel)>();
+        List<Action<string, LogLevel>> Actions;
+        List<Action> ClearBuffers;
+
+        List<string> Content = new List<string>();
+        ConcurrentQueue<(object, LogLevel)> Logs = new ConcurrentQueue<(object, LogLevel)>();
         Debugger()
         {
             CurrentConfiguration = new DebuggerConfiguration();
@@ -56,9 +57,9 @@ namespace Site13Kernel.Diagnostics
             {
                 if (Logs.TryDequeue(out var log))
                 {
-                    var obj=log.Item1;
-                    var logLevel=log.Item2;
-                    string str=obj.ToString();
+                    var obj = log.Item1;
+                    var logLevel = log.Item2;
+                    string str = obj.ToString();
                     foreach (var item in Actions)
                     {
                         try
@@ -71,7 +72,7 @@ namespace Site13Kernel.Diagnostics
                     }
                     if (CurrentConfiguration.PreserveLog)
                     {
-                        StringBuilder stringBuilder=new StringBuilder();
+                        StringBuilder stringBuilder = new StringBuilder();
                         switch (logLevel)
                         {
                             case LogLevel.Normal:
@@ -90,7 +91,7 @@ namespace Site13Kernel.Diagnostics
                         Content.Add(stringBuilder.ToString());
                     }
                 }
-                
+
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -142,9 +143,22 @@ namespace Site13Kernel.Diagnostics
 
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Clear()
+        {
+            foreach (var item in ClearBuffers)
+            {
+                item();
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Register(Action<string, LogLevel> action)
         {
             Actions.Add(action);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Register(Action ClearBufferAction)
+        {
+            ClearBuffers.Add(ClearBufferAction);
         }
     }
     public enum LogLevel

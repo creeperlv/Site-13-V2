@@ -34,10 +34,18 @@ namespace Site13Kernel.UI.Elements
 
         public void Collapse()
         {
+            foreach (var item in Children)
+            {
+                item.Collapse();
+            }
         }
 
         public void Hide()
         {
+            foreach (var item in Children)
+            {
+                item.Hide();
+            }
         }
 
         public void RemoveChild(IVisualElement element)
@@ -47,10 +55,15 @@ namespace Site13Kernel.UI.Elements
 
         public void SetChildren(List<IVisualElement> ChildrenList)
         {
+            Children = ChildrenList;
         }
 
         public void Show()
         {
+            foreach (var item in Children)
+            {
+                item.Show();
+            }
         }
 
         public void Size()

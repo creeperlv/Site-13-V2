@@ -64,7 +64,7 @@ namespace Site13Kernel.Diagnostics.Functions
 
         public void Execute(List<Argument> arguments)
         {
-            StringBuilder builder=new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             for (int i = 0; i < arguments.Count; i++)
             {
                 builder.Append(arguments[i].EntireArgument);

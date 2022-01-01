@@ -46,5 +46,10 @@ namespace Site13Kernel.Diagnostics
         {
             Debugger.CurrentDebugger.Log(obj);
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ClearBuffers()
+        {
+            Debugger.CurrentDebugger.Clear();
+        }
     }
 }

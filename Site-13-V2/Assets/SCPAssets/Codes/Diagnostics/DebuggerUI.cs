@@ -45,6 +45,9 @@ namespace Site13Kernel.Diagnostics
                             break;
                     }
                 });
+                Debugger.CurrentDebugger.Register(() => {
+                    Output.text = "<b>SITE-13 CONSOLE</b>";
+                });
             }
             FunctionCollection.GatherFunctions();
             //#if DEBUG
