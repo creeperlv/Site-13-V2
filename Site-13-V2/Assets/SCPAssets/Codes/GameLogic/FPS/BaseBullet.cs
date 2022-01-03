@@ -1,14 +1,16 @@
 using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
+using Site13Kernel.Data.IO;
 using Site13Kernel.GameLogic.FPS;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace Site13Kernel.GameLogic.FPS
 {
-    public class BaseBullet : ControlledBehavior
+    public class BaseBullet : ControlledBehavior,IData
     {
         public float BaseDamage = 50;
         public float WeakPointDamage = 50;
@@ -83,6 +85,25 @@ namespace Site13Kernel.GameLogic.FPS
                     FPS.OnHit();
                 }
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Save()
+        {
+
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Load()
+        {
+
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual void SideGetObjectData(SerializationInfo info, StreamingContext context) { }
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("LifeTime",LifeTime,typeof(float));
+            SideGetObjectData(info, context); 
         }
     }
 }

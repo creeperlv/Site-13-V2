@@ -31,7 +31,8 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, bool isRelatedScale = false)
         {
-            return Spawn(EffectDefinitions[HashCode], Position, Rotation, Vector3.zero,isRelatedScale);
+            //return Spawn(EffectDefinitions[HashCode], Position, Rotation, Vector3.zero,isRelatedScale);
+            return Spawn(HashCode, Position, Rotation, Vector3.zero,isRelatedScale);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -42,7 +43,8 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale, bool isRelatedScale = false)
         {
-            return Spawn(EffectDefinitions[HashCode], Position, Rotation, Scale, transform, isRelatedScale);
+            //return Spawn(EffectDefinitions[HashCode], Position, Rotation, Scale, transform, isRelatedScale);
+            return Spawn(HashCode, Position, Rotation, Scale, transform, isRelatedScale);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, bool isRelatedScale = false)
@@ -55,7 +57,8 @@ namespace Site13Kernel.Core.Controllers
         {
             if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return null;
             CurrentEffects++;
-            var go = ObjectGenerator.Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent,HashCode);
+            //var go = ObjectGenerator.Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent,HashCode);
+            var go = ObjectGenerator.Instantiate(HashCode, Position, Rotation, Parent);
             if (isRelatedScale)
             {
                 go.transform.localScale = Scale.DVI(Parent.lossyScale);

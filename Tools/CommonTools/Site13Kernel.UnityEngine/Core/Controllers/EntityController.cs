@@ -46,7 +46,8 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (GameObject, DamagableEntity) Instantiate(int HashCode)
         {
-            var _Object = ObjectGenerator.Instantiate(EntityPrefabMap[HashCode], HashCode);
+            var _Object = ObjectGenerator.Instantiate(HashCode);
+            //var _Object = ObjectGenerator.Instantiate(EntityPrefabMap[HashCode], HashCode);
             var Entity = _Object.GetComponent<DamagableEntity>();
             Register(Entity);
             return (_Object, Entity);
@@ -63,7 +64,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (GameObject, DamagableEntity) Instantiate(int HashCode, Vector3 Position, Quaternion Rotation)
         {
-            var _Object = ObjectGenerator.Instantiate(gameObject, Position, Rotation, HashCode);
+            var _Object = ObjectGenerator.Instantiate(HashCode, Position, Rotation);
             var Entity = _Object.GetComponentInChildren<DamagableEntity>();
             if (Entity != null)
                 Register(Entity);
@@ -81,7 +82,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (GameObject, DamagableEntity) Instantiate(int HashCode, Vector3 Position, Quaternion Rotation, Transform transform)
         {
-            var _Object = ObjectGenerator.Instantiate(gameObject, Position, Rotation, transform, HashCode);
+            var _Object = ObjectGenerator.Instantiate(HashCode, Position, Rotation, transform);
             var Entity = _Object.GetComponentInChildren<DamagableEntity>();
             if (Entity != null)
                 Register(Entity);
