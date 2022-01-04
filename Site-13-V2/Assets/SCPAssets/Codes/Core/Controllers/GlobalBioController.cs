@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Site13Kernel.Core.Controllers
             CurrentGlobalBioController = this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool isFoe(int TargetGroup,int RelatedToGroup)
+        public bool isFoe(int TargetGroup, int RelatedToGroup)
         {
             if (FoeRelations.ContainsKey(RelatedToGroup))
             {
@@ -56,7 +57,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public GameObject Spawn(string ID, Vector3 position, Vector3 Rotation)
         {
-            var GO = GameObject.Instantiate(BioDefinitions[ID.ToUpper()], position, Quaternion.Euler(Rotation), this.transform);
+            var GO = ObjectGenerator.Instantiate(ID, position, Quaternion.Euler(Rotation), this.transform);
             var BIO = GO.GetComponentInChildren<BioEntity>();
             //BIO.Parent = this;
             if (BIO == null)

@@ -21,7 +21,7 @@ namespace Site13Kernel.GameLogic.FPS
         public AudioClip MeleeSFX;
         public AudioSource ReloadSFXSource;
         public AudioClip ReloadSFX;
-        public GameObject BulletPrefab;
+        public PrefabReference BulletPrefab;
         public Animator ControlledAnimator;
         public CompatibleAnimator CCAnimator;
         public string FireAnime = "Fire";
@@ -420,7 +420,7 @@ namespace Site13Kernel.GameLogic.FPS
                                     {
                                         OnHit();
                                     }
-                                    WeakPoint.AttachedBioEntity.Damage(BulletPrefab.GetComponent<BaseBullet>().WeakPointDamage);
+                                    WeakPoint.AttachedBioEntity.Damage(BulletPrefab.GetPrefab().GetComponent<BaseBullet>().WeakPointDamage);
                                 }
                                 else if (Entity != null)
                                 {
@@ -428,7 +428,7 @@ namespace Site13Kernel.GameLogic.FPS
                                     {
                                         OnHit();
                                     }
-                                    Entity.Damage(BulletPrefab.GetComponent<BaseBullet>().BaseDamage);
+                                    Entity.Damage(BulletPrefab.GetPrefab() .GetComponent<BaseBullet>().BaseDamage);
                                 }
 
                             }

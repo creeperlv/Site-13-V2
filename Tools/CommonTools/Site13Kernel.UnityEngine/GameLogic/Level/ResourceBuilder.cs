@@ -17,13 +17,27 @@ namespace Site13Kernel.GameLogic.Level
         public bool isSub = false;
         public PrefabList<string> StringMaps;
         public PrefabList<int> IntMaps;
+        public StringIDMappingList IDMappingList;
         public Dictionary<string, GameObject> StringGameObjectMaps;
         public Dictionary<int, GameObject> IntGameObjectMaps;
-        public List<ResourceBuilder> SubResources; [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Dictionary<string, int> StringIntMap;
+        public List<ResourceBuilder> SubResources;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject ObtainGameObject(string ID)
         {
-            return Instance.StringGameObjectMaps[ID];
+            ID = ID.ToUpper();
+            if (Instance.StringGameObjectMaps.ContainsKey(ID))
+            {
+                return Instance.StringGameObjectMaps[ID];
+            }
+            else if (Instance.StringIntMap.ContainsKey(ID))
+            {
+                return Instance.IntGameObjectMaps[Instance.StringIntMap[ID]];
+            }
+            else return null;
+
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject ObtainGameObject(int ID)
         {
             return Instance.IntGameObjectMaps[ID];
@@ -62,19 +76,26 @@ namespace Site13Kernel.GameLogic.Level
         {
 
             Instance = this;
-            StringGameObjectMaps = StringMaps.ObtainMap();
+            StringGameObjectMaps = StringMaps.ObtainMap(__upper_process);
             IntGameObjectMaps = IntMaps.ObtainMap();
+            StringIntMap = IDMappingList.ObtainMap(__upper_process);
             foreach (var item in SubResources)
             {
                 item.__init__merge();
             }
+        }
+        [method:MethodImpl(MethodImplOptions.AggressiveInlining)] 
+        string __upper_process(string input)
+        {
+            return input.ToUpper();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 
         public void __init__merge()
         {
 
-            DictionaryOperations.Merge(ref StringGameObjectMaps, StringMaps.ObtainMap());
+            DictionaryOperations.Merge(ref StringIntMap, IDMappingList.ObtainMap(__upper_process));
+            DictionaryOperations.Merge(ref StringGameObjectMaps, StringMaps.ObtainMap(__upper_process));
             DictionaryOperations.Merge(ref Instance.IntGameObjectMaps, IntMaps.ObtainMap());
         }
     }

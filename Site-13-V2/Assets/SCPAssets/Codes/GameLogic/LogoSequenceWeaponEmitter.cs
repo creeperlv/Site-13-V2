@@ -1,4 +1,5 @@
 using Site13Kernel.Core;
+using Site13Kernel.Data;
 using Site13Kernel.GameLogic.FPS;
 using System;
 using System.Collections;
@@ -10,8 +11,8 @@ namespace Site13Kernel.GameLogic
 {
     public class LogoSequenceWeaponEmitter : MonoBehaviour
     {
-        public GameObject PlasmaBullet;
-        public GameObject HitBullet;
+        public PrefabReference PlasmaBullet;
+        public PrefabReference HitBullet;
         public List<EmitPoint> LeftEmitters;
         public List<EmitPoint> RightEmitters;
         [Serializable]

@@ -1,4 +1,5 @@
-﻿using Site13Kernel.Data.IO;
+﻿using Site13Kernel.Data;
+using Site13Kernel.Data.IO;
 using Site13Kernel.GameLogic.Level;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,45 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(string ID, Vector3 Position, Quaternion Rotation, Transform parent)
         {
             return Instantiate(ResourceBuilder.ObtainGameObject(ID), Position, Rotation, parent, ID);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GameObject Instantiate(PrefabReference Ref)
+        {
+            if (Ref.useString)
+            {
+                return Instantiate(Ref.Key);
+
+            }
+            else
+            {
+                return Instantiate(Ref.ID);
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GameObject Instantiate(PrefabReference Ref, Vector3 Position, Quaternion Rotation)
+        {
+            if (Ref.useString)
+            {
+                return Instantiate(Ref.Key, Position, Rotation);
+
+            }
+            else
+            {
+                return Instantiate(Ref.ID, Position, Rotation);
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GameObject Instantiate(PrefabReference Ref, Vector3 Position, Quaternion Rotation, Transform parent)
+        {
+            if (Ref.useString)
+            {
+                return Instantiate(Ref.Key, Position, Rotation, parent);
+
+            }
+            else
+            {
+                return Instantiate(Ref.ID, Position, Rotation, parent);
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(int ID, Vector3 Position, Quaternion Rotation, Transform parent)
