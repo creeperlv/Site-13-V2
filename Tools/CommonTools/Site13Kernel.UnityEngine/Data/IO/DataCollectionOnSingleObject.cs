@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Site13Kernel.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -12,6 +13,21 @@ namespace Site13Kernel.Data.IO
         static Type GATOBJDATA = typeof(GeneratedObjectData);
         public GeneratedObjectData GeneratedObjectData;
         public List<IData> CollectedComponents = new List<IData>();
+        public GameObject Spawn()
+        {
+            var __game_object=ObjectGenerator.Instantiate(GeneratedObjectData.PrefabReference);
+            foreach (var item in CollectedComponents)
+            {
+                if (__game_object.TryGetComponent(item.GetType(), out var __component))
+                {
+                    if(__component is IData data)
+                    {
+                        data.Load(item);
+                    }
+                }
+            }
+            return __game_object;
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DataCollectionOnSingleObject GatherFromObject(GameObject gameObject)
         {

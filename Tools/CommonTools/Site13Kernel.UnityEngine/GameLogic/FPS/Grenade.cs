@@ -83,9 +83,9 @@ namespace Site13Kernel.GameLogic.FPS
             Parent.RegisterRefresh(this);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Vector3 ForceDirection, ForceMode forceMode)
+        public void Instantiate(PrefabReference gameObject, Vector3 Position, Quaternion Rotation, Vector3 ForceDirection, ForceMode forceMode)
         {
-            var GO = GameObject.Instantiate(gameObject);
+            var GO = ObjectGenerator.Instantiate(gameObject);
             GO.transform.position = Position;
             GO.transform.rotation = Rotation;
             GO.GetComponent<Rigidbody>().AddForce(ForceDirection, forceMode);

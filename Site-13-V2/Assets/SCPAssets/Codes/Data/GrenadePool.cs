@@ -26,8 +26,8 @@ namespace Site13Kernel.Data
     {
         public int HashCode;
         public ProcessedGrenade Reference;
-        public GameObject GamePlayPrefab;
-        public GameObject PickupablePrefab;
+        public PrefabReference GamePlayPrefab;
+        public PrefabReference PickupablePrefab;
         public Sprite Icon;
     }
 }

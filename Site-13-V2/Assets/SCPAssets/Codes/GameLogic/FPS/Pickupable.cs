@@ -1,16 +1,21 @@
 using Site13Kernel.Core;
 using Site13Kernel.Core.Interactives;
 using Site13Kernel.Data;
+using Site13Kernel.Data.IO;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using UnityEngine;
 using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.GameLogic.FPS
 {
-    public class Pickupable : InteractiveBase
+    [Serializable]
+    public class Pickupable : InteractiveBase, IData
     {
         public PickupItem ItemType;
         public Weapon Weapon;
@@ -26,14 +31,14 @@ namespace Site13Kernel.GameLogic.FPS
                     Debugger.CurrentDebugger.Log($"Giving {Weapon.WeaponID} to {Holder.name}");
                     if (Holder.Weapon0 == null)
                     {
-                        if(Holder.Weapon1 != null)
+                        if (Holder.Weapon1 != null)
                         {
                             if (Weapon.WeaponID == Holder.Weapon1.Weapon.Base.WeaponID)
                             {
                                 return;
                             }
                         }
-                        GeneratedWeapon = Holder.Weapon0 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                        GeneratedWeapon = Holder.Weapon0 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
                         Holder.CurrentWeapon = 0;
                         try
                         {
@@ -53,7 +58,7 @@ namespace Site13Kernel.GameLogic.FPS
                         {
                             return;
                         }
-                        GeneratedWeapon = Holder.Weapon1 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                        GeneratedWeapon = Holder.Weapon1 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
                         Holder.CurrentWeapon = 1;
                         if (Holder.OnSwapWeapon != null)
                             Holder.OnSwapWeapon();
@@ -72,14 +77,14 @@ namespace Site13Kernel.GameLogic.FPS
                                 {
                                     return;
                                 }
-                                var G = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
                                 var P = G.GetComponentInChildren<Pickupable>();
                                 G.transform.position = Holder.transform.position;
                                 P.Weapon = Holder.Weapon0.Weapon.Base;
                             }
                             GameObject.Destroy(Holder.Weapon0.gameObject);
 
-                            GeneratedWeapon = Holder.Weapon0 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                            GeneratedWeapon = Holder.Weapon0 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
                             if (Holder.OnSwapWeapon != null)
                                 Holder.OnSwapWeapon();
                         }
@@ -95,7 +100,7 @@ namespace Site13Kernel.GameLogic.FPS
                                 {
                                     return;
                                 }
-                                var G = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
                                 var P = G.GetComponentInChildren<Pickupable>();
                                 G.transform.position = Holder.transform.position;
                                 P.Weapon = Holder.Weapon1.Weapon.Base;
@@ -103,7 +108,7 @@ namespace Site13Kernel.GameLogic.FPS
 
                             GameObject.Destroy(Holder.Weapon1.gameObject);
 
-                            GeneratedWeapon = Holder.Weapon1 = GameObject.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponentInChildren<ControlledWeapon>();
+                            GeneratedWeapon = Holder.Weapon1 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponentInChildren<ControlledWeapon>();
                             if (Holder.OnSwapWeapon != null)
                                 Holder.OnSwapWeapon();
                         }
@@ -231,6 +236,21 @@ namespace Site13Kernel.GameLogic.FPS
                     Destroy(ControlledEntity);
                 }
             }
+        }
+
+        public void Save()
+        {
+        }
+
+        public void Load(IData data)
+        {
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("ITEMTYPE", ItemType, typeof(PickupItem));
+            info.AddValue("WEAPONDATA", Weapon, typeof(Weapon));
+            info.AddValue("GRENADE", GrenadeID, typeof(int));
         }
     }
     public enum PickupItem

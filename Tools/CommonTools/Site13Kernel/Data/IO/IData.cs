@@ -8,6 +8,6 @@ namespace Site13Kernel.Data.IO
     public interface IData:ISerializable
     {
         void Save();
-        void Load();
+        void Load(IData SavedData);
     }
 }

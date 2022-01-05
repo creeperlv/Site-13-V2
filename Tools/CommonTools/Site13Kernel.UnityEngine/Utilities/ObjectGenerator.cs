@@ -22,6 +22,16 @@ namespace Site13Kernel.Utilities
             return Instantiate(ResourceBuilder.ObtainGameObject(ID), ID);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GameObject Instantiate(string ID, Transform Parent)
+        {
+            return Instantiate(ResourceBuilder.ObtainGameObject(ID), Parent, ID);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GameObject Instantiate(int ID, Transform Parent)
+        {
+            return Instantiate(ResourceBuilder.ObtainGameObject(ID), Parent, ID);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(string ID, Vector3 Position, Quaternion Rotation)
         {
             return Instantiate(ResourceBuilder.ObtainGameObject(ID), Position, Rotation, ID);
@@ -47,6 +57,19 @@ namespace Site13Kernel.Utilities
             else
             {
                 return Instantiate(Ref.ID);
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GameObject Instantiate(PrefabReference Ref, Transform Parent)
+        {
+            if (Ref.useString)
+            {
+                return Instantiate(Ref.Key, Parent);
+
+            }
+            else
+            {
+                return Instantiate(Ref.ID, Parent);
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -84,60 +107,43 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, string ID)
         {
             var _Object = GameObject.Instantiate(gameObject);
-            var Entity = _Object.GetComponentInChildren<GeneratedObjectData>();
-            if (Entity != null)
-            {
-                Entity.PrefabID_STR = ID;
-            }
-            else
-            {
-                _Object.AddComponent<GeneratedObjectData>().PrefabID_STR = ID;
-            }
+            AttachID(ID, _Object);
             return _Object;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(GameObject gameObject, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject);
+            AttachID(ID, _Object);
+            return _Object;
+        }
+
+        private static void AttachID(int ID, GameObject _Object)
+        {
             var Entity = _Object.GetComponentInChildren<GeneratedObjectData>();
             if (Entity != null)
             {
-                Entity.PrefabID_INT = ID;
+                Entity.PrefabReference = new PrefabReference { useString = false, ID = ID };
             }
             else
             {
-                _Object.AddComponent<GeneratedObjectData>().PrefabID_INT = ID;
+                _Object.AddComponent<GeneratedObjectData>().PrefabReference = new PrefabReference { useString = false, ID = ID };
+
             }
-            return _Object;
         }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, string ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation);
-            var Entity = _Object.GetComponentInChildren<GeneratedObjectData>();
-            if (Entity != null)
-            {
-                Entity.PrefabID_STR = ID;
-            }
-            else
-            {
-                _Object.AddComponent<GeneratedObjectData>().PrefabID_STR = ID;
-            }
+            AttachID(ID, _Object);
             return _Object;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation);
-            var Entity = _Object.GetComponentInChildren<GeneratedObjectData>();
-            if (Entity != null)
-            {
-                Entity.PrefabID_INT = ID;
-            }
-            else
-            {
-                _Object.AddComponent<GeneratedObjectData>().PrefabID_INT = ID;
-            }
+            AttachID(ID, _Object);
             return _Object;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -145,29 +151,43 @@ namespace Site13Kernel.Utilities
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation, parent);
             var Entity = _Object.GetComponentInChildren<GeneratedObjectData>();
+            AttachID(ID, _Object);
+            return _Object;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
+        private static void AttachID(string ID, GameObject _Object)
+        {
+            var Entity = _Object.GetComponentInChildren<GeneratedObjectData>();
             if (Entity != null)
             {
-                Entity.PrefabID_STR = ID;
+                Entity.PrefabReference = new PrefabReference { useString = true, Key = ID };
             }
             else
             {
-                _Object.AddComponent<GeneratedObjectData>().PrefabID_STR = ID;
+                _Object.AddComponent<GeneratedObjectData>().PrefabReference = new PrefabReference { useString = true, Key = ID };
             }
-            return _Object;
         }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform parent, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation, parent);
-            var Entity = _Object.GetComponentInChildren<GeneratedObjectData>();
-            if (Entity != null)
-            {
-                Entity.PrefabID_INT = ID;
-            }
-            else
-            {
-                _Object.AddComponent<GeneratedObjectData>().PrefabID_INT = ID;
-            }
+            AttachID(ID, _Object);
+            return _Object;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GameObject Instantiate(GameObject gameObject, Transform parent, string ID)
+        {
+            var _Object = GameObject.Instantiate(gameObject, parent);
+            AttachID(ID, _Object);
+            return _Object;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GameObject Instantiate(GameObject gameObject, Transform parent, int ID)
+        {
+            var _Object = GameObject.Instantiate(gameObject, parent);
+            AttachID(ID, _Object);
             return _Object;
         }
     }

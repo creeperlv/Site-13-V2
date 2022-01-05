@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,9 +29,9 @@ namespace Site13Kernel.Data
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (GameObject, Pickupable) Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform transform)
+        public (GameObject, Pickupable) Instantiate(PrefabReference gameObject, Vector3 Position, Quaternion Rotation, Transform transform)
         {
-            GameObject gameObject2 = UnityEngine.Object.Instantiate(gameObject, Position, Rotation, transform);
+            GameObject gameObject2 = ObjectGenerator.Instantiate(gameObject, Position, Rotation, transform);
             Pickupable component = gameObject2.GetComponent<Pickupable>();
 
             return (gameObject2, component);
@@ -42,9 +43,9 @@ namespace Site13Kernel.Data
     {
         public string Name;
         public string NameFallback;
-        public GameObject FPSPrefab;
+        public PrefabReference FPSPrefab;
         public GameObject NPCPrefab;
-        public GameObject PickablePrefab;
+        public PrefabReference PickablePrefab;
         public Sprite WeaponIcon;
         public Material WeaponMaterial;
     }

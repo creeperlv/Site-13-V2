@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.FPS
 {
-    public class BaseBullet : ControlledBehavior,IData
+    public class BaseBullet : ControlledBehavior, IData
     {
         public float BaseDamage = 50;
         public float WeakPointDamage = 50;
@@ -94,16 +94,26 @@ namespace Site13Kernel.GameLogic.FPS
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Load()
+        public void Load(IData data)
+        {
+            if (data is BaseBullet __bullet)
+            {
+                LifeTime = __bullet.LifeTime;
+                SideLoad(data);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual void SideGetObjectData(SerializationInfo info, StreamingContext context) { }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual void SideLoad(IData data)
         {
 
         }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual void SideGetObjectData(SerializationInfo info, StreamingContext context) { }
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("LifeTime",LifeTime,typeof(float));
-            SideGetObjectData(info, context); 
+            info.AddValue("LifeTime", LifeTime, typeof(float));
+            SideGetObjectData(info, context);
         }
     }
 }

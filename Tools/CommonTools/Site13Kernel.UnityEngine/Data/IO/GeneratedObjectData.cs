@@ -9,17 +9,15 @@ namespace Site13Kernel.Data.IO
 {
     public class GeneratedObjectData : ControlledBehavior,IData
     {
-        public string PrefabID_STR="";
-        public int PrefabID_INT=-1;
+        public PrefabReference PrefabReference;
         [MethodImpl(MethodImplOptions.AggressiveInlining)] 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("PID.Str", PrefabID_STR, typeof(string));
-            info.AddValue("PID.Int", PrefabID_INT, typeof(int));
+            info.AddValue("PREFAB_REF", PrefabReference, typeof(string));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Load()
+        public void Load(IData Data)
         {
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
