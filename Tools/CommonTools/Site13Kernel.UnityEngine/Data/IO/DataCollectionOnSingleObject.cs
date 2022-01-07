@@ -49,5 +49,9 @@ namespace Site13Kernel.Data.IO
             }
             return null;
         }
+        public static implicit operator DataCollectionOnSingleObject(GameObject data)
+        {
+            return GatherFromObject(data);
+        }
     }
 }

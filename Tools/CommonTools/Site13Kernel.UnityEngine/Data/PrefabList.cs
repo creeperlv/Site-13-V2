@@ -1,6 +1,7 @@
 ﻿using Site13Kernel.GameLogic.Level;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Site13Kernel.Data
@@ -22,6 +23,16 @@ namespace Site13Kernel.Data
                 return ResourceBuilder.ObtainGameObject(Key);
             }
             else return ResourceBuilder.ObtainGameObject(ID);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator PrefabReference(string key)
+        {
+            return new PrefabReference { useString = true, Key = key };
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator PrefabReference(int ID)
+        {
+            return new PrefabReference { useString = false, ID = ID };
         }
     }
     [Serializable]
