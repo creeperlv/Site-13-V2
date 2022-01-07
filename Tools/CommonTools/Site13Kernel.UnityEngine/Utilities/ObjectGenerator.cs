@@ -1,4 +1,5 @@
-﻿using Site13Kernel.Data;
+﻿using Site13Kernel.Core;
+using Site13Kernel.Data;
 using Site13Kernel.Data.IO;
 using Site13Kernel.GameLogic.Level;
 using System;
@@ -107,6 +108,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, string ID)
         {
             var _Object = GameObject.Instantiate(gameObject);
+            ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
@@ -114,6 +116,8 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject);
+            ComponentHolder.TryAddHolder(_Object);
+            ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
@@ -136,6 +140,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, string ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation);
+            ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
@@ -143,6 +148,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation);
+            ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
@@ -150,7 +156,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform parent, string ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation, parent);
-            var Entity = _Object.GetComponentInChildren<GeneratedObjectData>();
+            ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
@@ -173,6 +179,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform parent, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation, parent);
+            ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
@@ -180,6 +187,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Transform parent, string ID)
         {
             var _Object = GameObject.Instantiate(gameObject, parent);
+            ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
@@ -187,6 +195,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Transform parent, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject, parent);
+            ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
