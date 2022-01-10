@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://creeperlv.github.io/Styles/cldesignv2/cldesignv2.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" sizes="310x310" href="../Logo.png">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Site-13 Wiki</title>
+    <script>
+        function ToggleMenu() {
+            var ifm = document.getElementById("menu");
+            if (ifm.style.visibility == 'collapse') {
+                ifm.style.visibility = 'visible';
+            } else {
+                ifm.style.visibility = 'collapse';
+            }
+        }</script>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        a {
+            width: 100%;
+        }
+
+        .MenuList {
+            font-size: 14px;
+        }
+
+        .menudiv:hover {
+            box-shadow: #111 0px 15px 20px 5px;
+        }
+
+        @media (max-width: 700px) {
+            .MainContent {
+                transition-duration: 0.4s;
+                /* position: absolute; */
+                border: none;
+                margin: 0px 10px;
+                margin-left: 5%;
+                margin-right: 5%;
+                padding: 0;
+                z-index: -1;
+                /* left: 1px;
+                right: 1px; */
+                width: 90%;
+            }
+
+            .menudiv {
+
+                transition-duration: 0.4s;
+                position: absolute;
+                top: 150px;
+                bottom: 10px;
+                width: 90%;
+                margin-left: 5%;
+                margin-right: 5%;
+                background: #333;
+                border-radius: 5px;
+                padding: 5px;
+                box-shadow: #111 0px 10px 15px 1px;
+            }
+        }
+
+        @media (min-width: 701px) {
+            .MainContent {
+                transition-duration: 0.4s;
+                margin-left: 17%;
+                padding: 1px 16px;
+                border: none;
+                width: 78%;
+            }
+
+            .menudiv {
+                visibility: visible;
+                transition-duration: 0.4s;
+                position: absolute;
+                top: 120px;
+                left: 1%;
+                bottom: 20px;
+                width: 15%;
+                background: #333;
+                border-radius: 5px;
+                padding: 5px;
+                box-shadow: #111 0px 10px 15px 1px;
+            }
+
+            .menudiv:hover {
+                top: 115px;
+                bottom: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="titleDiv" style="display:flex;">
+        <p class="pageTitle" style="word-wrap: break-word">What Happened to Site-13 - Wiki</p>
+        <div style="text-align: right; vertical-align:middle; float: right; width: fit-content; margin-left: 25px;">
+            <a class="AccentButton" href="../index.html">Home Page</a>
+            <a class="AccentButton" href="https://github.com/creeperlv/Site-13-V2" target="_blankwindow">Source Code</a>
+            <a class="AccentButton" href="./WikiHost.html">Wiki</a>
+            <a class="AccentButton" href="../Downloads.html">Downloads</a>
+        </div>
+    </div>
+    <div style="margin-top:110px;" id="MainBody">
+        <div class="ShowOnMobile" style="width:100%">
+            <button class="cldButton" onclick="ToggleMenu()"
+                style="width:90%;margin-left: 5%;margin-right: 5%;text-align: left;">&#8801;　　Menu</button>
+        </div>
+        <div class="menudiv HideOnMobile" id="menu" style="overflow: auto;">
+            <ul style="margin: 0px;padding:0px;">
+                <li class="MenuList">
+                    <a href="./home.html" target="MainContent">Home</a>
+                </li>
+                <p class="AccentText t4">Usages</p>
+                <li class="MenuList">
+                    <a href="./Usage/get-started.html" target="MainContent">Get Started</a>
+                </li>
+                <li class="MenuList">
+                    <a href="./Usage/external-tools.html" target="MainContent">External Tools</a>
+                </li>
+                <p>
+                    <a class="NormalA t4" href="./Codes/index.html" target="MainContent">Codes</a>
+                </p>
+                <a class="NormalA" href="./Codes/Site13Kernel/index.html" target="MainContent">Site13Kernel</a>
+                <li class="MenuList">
+                    <a href="./Codes/Site13Kernel/Site13Kernel.Core.html" target="MainContent">Site13Kernel.Core</a>
+                </li>
+                <a class="NormalA   " href="./Codes/Site13Kernel.UnityEngine/index.html"
+                    target="MainContent">Site13Kernel.UnityEngine</a>
+                <li class="MenuList">
+                    <a href="./Codes/Site13Kernel.UnityEngine/Site13Kernel.Core.html"
+                        target="MainContent">Site13Kernel.Core</a>
+                </li>
+                <li class="MenuList">
+                    <a href="./Codes/Site13Kernel.UnityEngine/Site13Kernel.Core.Controllers.html"
+                        target="MainContent">Site13Kernel.Core.Controllers</a>
+                </li>
+                <p class="AccentText">Codes in Assets/SCPAssets</p>
+                <li class="MenuList">
+                    <a href="./Codes/Codes/Site13Kernel.Core.html" target="MainContent">Site13Kernel.Core</a>
+                </li>
+            </ul>
+        </div>
+        <iframe name="MainContent" id="MainFrame" onload="changeFrameHeight()" class="MainContent" height="100%"
+            scrolling="auto" src="./home.html"></iframe>
+    </div>
+    <script type="text/javascript" language="javascript">
+        function changeFrameHeight() {
+            var ifm = document.getElementById("MainFrame");
+            ifm.height = document.documentElement.clientHeight - 150;
+        }
+        window.onresize = function () { changeFrameHeight(); }
+    </script>
+</body>
+
+</html>
