@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Site13Kernel.GameLogic
 {
@@ -20,12 +21,14 @@ namespace Site13Kernel.GameLogic
         public override void Init()
         {
             Parent.RegisterRefresh(this);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
-            var H = InputProcessor.CurrentInput.GetAxis("MouseH");
-            var V = InputProcessor.CurrentInput.GetAxis("MouseV");
+            var H = Inputs.GetAxis("MouseH");
+            var V = Inputs.GetAxis("MouseV");
             var EA = TargetCam.localRotation.eulerAngles;
             var __H = Mathf.Clamp((EA.y > 180 ? EA.y - 360 : EA.y) + H * IntensityH, MinH, MaxH);
             if (__H < 0)

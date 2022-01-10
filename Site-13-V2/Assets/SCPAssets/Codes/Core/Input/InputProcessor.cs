@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Site13Kernel.Core.CustomizedInput
@@ -9,7 +10,7 @@ namespace Site13Kernel.Core.CustomizedInput
     /// <summary>
     /// Run in the `Do not destory on load`
     /// </summary>
-    public class InputProcessor : ControlledBehavior
+    public class InputProcessor : ControlledBehavior,ICustomizedInput
     {
         public static InputProcessor CurrentInput;
         public Dictionary<string, float> Axis = new Dictionary<string, float>();
@@ -28,6 +29,10 @@ namespace Site13Kernel.Core.CustomizedInput
                 //Parent.OnInit.Remove(this);
                 Destroy(this.gameObject);
                 return;
+            }
+            if (Inputs.CurrentInput == null)
+            {
+                Inputs.CurrentInput = this;
             }
             CurrentInput = this;
             Parent.RegisterRefresh(this);
@@ -50,7 +55,8 @@ namespace Site13Kernel.Core.CustomizedInput
         /// </summary>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public bool GetInputDown(string Name)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool __GetInputDown(string Name)
         {
             return KeyDown[Name];
         }
@@ -59,7 +65,8 @@ namespace Site13Kernel.Core.CustomizedInput
         /// </summary>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public bool GetInputUp(string Name)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool __GetInputUp(string Name)
         {
             return KeyUp[Name];
         }
@@ -68,13 +75,51 @@ namespace Site13Kernel.Core.CustomizedInput
         /// </summary>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public bool GetInput(string Name)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool __GetInput(string Name)
         {
             return Key[Name];
         }
-        public float GetAxis(string Name)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public float __GetAxis(string Name)
         {
             return Axis[Name];
+
+        }
+        /// <summary>
+        /// True on frame.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GetInputDown(string Name)
+        {
+            return CurrentInput.__GetInputDown(Name);
+        }
+        /// <summary>
+        /// True on frame.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GetInputUp(string Name)
+        {
+            return CurrentInput.__GetInputUp(Name);
+        }
+        /// <summary>
+        /// Trus during the press time.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GetInput(string Name)
+        {
+            return CurrentInput.__GetInput(Name);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float GetAxis(string Name)
+        {
+            return CurrentInput.__GetAxis(Name);
 
         }
 
@@ -141,7 +186,6 @@ namespace Site13Kernel.Core.CustomizedInput
                     }
                     return;
                 }
-            //Debug.Log("Running");
             {
 
                 for (int i = 0; i < Names.Count; i++)

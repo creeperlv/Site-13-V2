@@ -14,10 +14,21 @@ namespace Site13Kernel.Core.Controllers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void FlashLight()
+        {
+            if (InputProcessor.GetInputDown("FlashLight"))
+            {
+                if (FlashLightObject != null)
+                {
+                    FlashLightObject.SetActive(!FlashLightObject.activeSelf);
+                }
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WeaponControl(float DeltaTime, float UnscaledDeltaTime)
         {
             if (MovingState == MoveState.Crouch || MovingState == MoveState.Walk)
-                if (InputProcessor.CurrentInput.GetInputDown("SwitchWeapon"))
+                if (InputProcessor.GetInputDown("SwitchWeapon"))
                 {
                     TrySwitchWeapon();
                 }
@@ -103,14 +114,14 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Crouch(float DeltaTime)
         {
-            if (InputProcessor.CurrentInput.GetInputDown("Crouch"))
+            if (InputProcessor.GetInputDown("Crouch"))
             {
                 if (MovingState == MoveState.Walk)
                 {
                     SetState(MoveState.Crouch);
                 }
             }
-            if (InputProcessor.CurrentInput.GetInputUp("Crouch"))
+            if (InputProcessor.GetInputUp("Crouch"))
             {
                 if (MovingState == MoveState.Crouch)
                 {

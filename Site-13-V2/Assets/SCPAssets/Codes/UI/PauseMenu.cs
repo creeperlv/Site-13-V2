@@ -37,7 +37,7 @@ namespace Site13Kernel.UI
         {
             if (GameRuntime.CurrentGlobals.isInLevel)
             {
-                if (InputProcessor.CurrentInput.GetInputDown("Esc"))
+                if (InputProcessor.GetInputDown("Esc"))
                 {
                     this.gameObject.SetActive(!this.gameObject.activeSelf);
                     Toggle(this.gameObject.activeSelf);

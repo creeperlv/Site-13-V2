@@ -42,7 +42,8 @@ namespace Site13Kernel.Core.Controllers
                 if (Weapon != null)
                     Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
-
+            if (FlashLightEnabled)
+                FlashLight();
             Grenade(DeltaTime, UnscaledDeltaTime);
             BodyAnimation(DeltaTime, UnscaledDeltaTime);
             UpdateHUD(DeltaTime, UnscaledDeltaTime);
@@ -51,14 +52,14 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Grenade(float DeltaTime, float UnscaledDeltaTime)
         {
-            if (InputProcessor.CurrentInput.GetInputDown("ThrowGrenade"))
+            if (InputProcessor.GetInputDown("ThrowGrenade"))
             {
                 if (Grenade_Throwing == false)
                 {
 
-                    if(Weapon != null)
+                    if (Weapon != null)
                     {
-                        if(Weapon.Weapon.WeaponMode!= WeaponConstants.WEAPON_MODE_NORMAL)
+                        if (Weapon.Weapon.WeaponMode != WeaponConstants.WEAPON_MODE_NORMAL)
                         {
                             return;
                         }
@@ -86,7 +87,7 @@ namespace Site13Kernel.Core.Controllers
                     //GrenadeThrower.playbackTime=0;
                 }
             }
-            if (InputProcessor.CurrentInput.GetInputDown("SwitchGrenade"))
+            if (InputProcessor.GetInputDown("SwitchGrenade"))
             {
                 BagHolder.CurrentGrenade = (BagHolder.CurrentGrenade == 0 ? 1 : 0);
             }
@@ -264,7 +265,7 @@ namespace Site13Kernel.Core.Controllers
                 if (Interactive != null)
                 {
                     if (Interactive.InvokeMode == InvokeMode.PASSIVE)
-                        if (InputProcessor.CurrentInput.GetInput("Interact"))
+                        if (InputProcessor.GetInput("Interact"))
                         {
                             if (InteractTime < InteractSensitivity)
                                 InteractTime += UnscaledDeltaTime;
@@ -274,7 +275,7 @@ namespace Site13Kernel.Core.Controllers
                                 InteractTime = 0;
                             }
                         }
-                    if (InputProcessor.CurrentInput.GetInputUp("Interact"))
+                    if (InputProcessor.GetInputUp("Interact"))
                     {
                         UnInvoke(Interactive);
                     }
@@ -332,7 +333,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Run(float DeltaTime)
         {
-            if (InputProcessor.CurrentInput.GetInputDown("Run") && toZoom == false)
+            if (InputProcessor.GetInputDown("Run") && toZoom == false)
             {
                 if (Weapon != null)
                 {
@@ -357,7 +358,7 @@ namespace Site13Kernel.Core.Controllers
                         SetState(MoveState.Run);
                 }
             }
-            if (InputProcessor.CurrentInput.GetInputUp("Run"))
+            if (InputProcessor.GetInputUp("Run"))
             {
                 if (MovingState == MoveState.Run)
                 {

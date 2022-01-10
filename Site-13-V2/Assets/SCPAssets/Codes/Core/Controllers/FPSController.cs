@@ -151,6 +151,11 @@ namespace Site13Kernel.Core.Controllers
         public float GrenadeThrowD;
         public bool Grenade_Throwed = false;
         public bool Grenade_Throwing = false;
+
+        [Header("Flash Light")]
+        public bool FlashLightEnabled;
+        public GameObject FlashLightObject;
+
         bool isThrowingGrenade;
         public override void Init()
         {
@@ -276,7 +281,7 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FireControl(float DeltaTime)
         {
-            if (InputProcessor.CurrentInput.GetInput("Fire"))
+            if (InputProcessor.GetInput("Fire"))
             {
                 if (isWalking)
                 {
@@ -289,7 +294,7 @@ namespace Site13Kernel.Core.Controllers
                 }
                 else Weapon.Unfire();
             }
-            if (InputProcessor.CurrentInput.GetInputDown("Fire"))
+            if (InputProcessor.GetInputDown("Fire"))
             {
                 if (isWalking)
                 {
@@ -303,7 +308,7 @@ namespace Site13Kernel.Core.Controllers
                 else Weapon.Unfire();
 
             }
-            if (InputProcessor.CurrentInput.GetInputDown("Combat"))
+            if (InputProcessor.GetInputDown("Combat"))
             {
                 Weapon.Combat();
                 if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
@@ -311,9 +316,9 @@ namespace Site13Kernel.Core.Controllers
                     CancelRun();
                 }
             }
-            if (InputProcessor.CurrentInput.GetInputUp("Fire"))
+            if (InputProcessor.GetInputUp("Fire"))
                 Weapon.Unfire();
-            if (InputProcessor.CurrentInput.GetInputDown("Reload"))
+            if (InputProcessor.GetInputDown("Reload"))
             {
                 if (Weapon.Weapon.CanReload())
                 {
@@ -364,7 +369,7 @@ namespace Site13Kernel.Core.Controllers
 
 
             {
-                if (InputProcessor.CurrentInput.GetInputDown("Zoom"))
+                if (InputProcessor.GetInputDown("Zoom"))
                 {
                     if (Weapon != null)
                     {
@@ -387,7 +392,7 @@ namespace Site13Kernel.Core.Controllers
 
                     }
                 }
-                if (InputProcessor.CurrentInput.GetInputUp("Zoom"))
+                if (InputProcessor.GetInputUp("Zoom"))
                 {
                     CancelZoom();
                 }
@@ -496,8 +501,8 @@ namespace Site13Kernel.Core.Controllers
         {
             {
                 //View rotation
-                cc.transform.Rotate(0, InputProcessor.CurrentInput.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime, 0);
-                var Head_V = InputProcessor.CurrentInput.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime;
+                cc.transform.Rotate(0, InputProcessor.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime, 0);
+                var Head_V = InputProcessor.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime;
                 var ea = Head.localEulerAngles;
                 ea.x += Head_V;
                 if (ea.x < 180)
@@ -537,7 +542,7 @@ namespace Site13Kernel.Core.Controllers
                         }
                     }
                     PrevGrounded = true;
-                    if (InputProcessor.CurrentInput.GetInputDown("Jump"))
+                    if (InputProcessor.GetInputDown("Jump"))
                     {
                         if (cc.isGrounded)
                         {
@@ -564,8 +569,8 @@ namespace Site13Kernel.Core.Controllers
                     {
                         _JUMP_V.y = -2;
                     }
-                    var MV = InputProcessor.CurrentInput.GetAxis("MoveVertical");
-                    var MH = InputProcessor.CurrentInput.GetAxis("MoveHorizontal");
+                    var MV = InputProcessor.GetAxis("MoveVertical");
+                    var MH = InputProcessor.GetAxis("MoveHorizontal");
                     var V = new Vector3(MH, 0, MV);
                     if (MV == 0 && MH == 0)
                     {
