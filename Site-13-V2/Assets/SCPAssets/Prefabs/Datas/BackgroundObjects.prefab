@@ -47,23 +47,41 @@ MonoBehaviour:
   RawWeaponItems:
   - Name: P90
     NameFallback: Projecto-90th
-    FPSPrefab: {fileID: 6490600703705331879, guid: fb57496032ce7f54a81b0e40b4f90f8c, type: 3}
+    FPSPrefab:
+      useString: 1
+      Key: P90-FPS
+      ID: 0
     NPCPrefab: {fileID: 0}
-    PickablePrefab: {fileID: 4773773276730049914, guid: eb53dc2f3fe71264f966bcc3a80734d9, type: 3}
+    PickablePrefab:
+      useString: 1
+      Key: P90-PICKUPABLE
+      ID: 0
     WeaponIcon: {fileID: 21300000, guid: a21e6520ca75fd94b9c4088bba9f0f60, type: 3}
     WeaponMaterial: {fileID: 0}
   - Name: Type25
     NameFallback: Plasma Rifle
-    FPSPrefab: {fileID: 4370866356586563982, guid: ad616377b4077f44c8a04ba2d513a86d, type: 3}
+    FPSPrefab:
+      useString: 0
+      Key: 
+      ID: 0
     NPCPrefab: {fileID: 0}
-    PickablePrefab: {fileID: 468378697119336373, guid: 52ec6e352bbfa564e8556a8b6b3bc102, type: 3}
+    PickablePrefab:
+      useString: 0
+      Key: 
+      ID: 0
     WeaponIcon: {fileID: 21300000, guid: a21e6520ca75fd94b9c4088bba9f0f60, type: 3}
     WeaponMaterial: {fileID: 0}
   - Name: Type-25-Brute
     NameFallback: '"Angry" Plasma Rifle'
-    FPSPrefab: {fileID: 4370866356586563982, guid: 9ce1e7008a4833f429b19dab5a5f7975, type: 3}
+    FPSPrefab:
+      useString: 0
+      Key: 
+      ID: 0
     NPCPrefab: {fileID: 0}
-    PickablePrefab: {fileID: 468378697119336373, guid: 27daaeea9062cf2489e5f9435d667fed, type: 3}
+    PickablePrefab:
+      useString: 0
+      Key: 
+      ID: 0
     WeaponIcon: {fileID: 21300000, guid: a21e6520ca75fd94b9c4088bba9f0f60, type: 3}
     WeaponMaterial: {fileID: 0}
 --- !u!1 &1588268644238325756
@@ -171,6 +189,7 @@ MonoBehaviour:
     isStick: 1
     isShow: 1
     isRef: 0
+  LoadingOperationCount: 0
 --- !u!1 &4085547417214013090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,16 +1735,28 @@ MonoBehaviour:
       GrenadeHashCode: 0
       RemainingCount: 0
       MaxCount: 4
-    GamePlayPrefab: {fileID: 9032708845984018005, guid: adb76960b80128644a8f77ca04ae8ceb, type: 3}
-    PickupablePrefab: {fileID: 1978580431676505306, guid: f96d97c2263b1204294c132814dad5ce, type: 3}
+    GamePlayPrefab:
+      useString: 0
+      Key: 
+      ID: 0
+    PickupablePrefab:
+      useString: 0
+      Key: 
+      ID: 0
     Icon: {fileID: 0}
   - HashCode: 1
     Reference:
       GrenadeHashCode: 1
       RemainingCount: 0
       MaxCount: 4
-    GamePlayPrefab: {fileID: 9032708845984018005, guid: 5d387a266e9d72c44a8de6fc7b806540, type: 3}
-    PickupablePrefab: {fileID: 1978580431676505306, guid: 23351ced7f960bc43b67d444ab5ddf70, type: 3}
+    GamePlayPrefab:
+      useString: 0
+      Key: 
+      ID: 0
+    PickupablePrefab:
+      useString: 0
+      Key: 
+      ID: 0
     Icon: {fileID: 0}
 --- !u!1 &7769429337177317897
 GameObject:
@@ -1785,7 +1816,7 @@ GameObject:
   - component: {fileID: 5651541264253117755}
   - component: {fileID: 8142661853364367501}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: BioController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1819,9 +1850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlledEntities: []
-  Definitions:
-  - BioEntityID: PLAYER
-    ProtoType: {fileID: 2608671619807714542, guid: 7b2f41a24d960df4bb6df8f9205b9e70, type: 3}
+  Definitions: []
   entityItems: []
   FoeRelationDefinitions: []
 --- !u!1 &7843676606553161849

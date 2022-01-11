@@ -398,7 +398,6 @@ namespace Site13Kernel.GameLogic.FPS
                                 info.collider.attachedRigidbody.AddForce(_Rotation.normalized * Base.PhysicsForce, ForceMode.Impulse);
 
                             }
-
                             {
                                 var Hittable = info.collider.GetComponent<IHittable>();
 
@@ -428,7 +427,7 @@ namespace Site13Kernel.GameLogic.FPS
                                     {
                                         OnHit();
                                     }
-                                    Entity.Damage(BulletPrefab.GetPrefab() .GetComponent<BaseBullet>().BaseDamage);
+                                    Entity.Damage(BulletPrefab.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
                                 }
 
                             }

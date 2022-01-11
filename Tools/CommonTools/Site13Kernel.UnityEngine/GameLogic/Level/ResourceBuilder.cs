@@ -18,9 +18,9 @@ namespace Site13Kernel.GameLogic.Level
         public PrefabList<string> StringMaps;
         public PrefabList<int> IntMaps;
         public StringIDMappingList IDMappingList;
-        public Dictionary<string, GameObject> StringGameObjectMaps;
-        public Dictionary<int, GameObject> IntGameObjectMaps;
-        public Dictionary<string, int> StringIntMap;
+        public Dictionary<string, GameObject> StringGameObjectMaps = new Dictionary<string, GameObject>();
+        public Dictionary<int, GameObject> IntGameObjectMaps = new Dictionary<int, GameObject>();
+        public Dictionary<string, int> StringIntMap = new Dictionary<string, int>();
         public List<ResourceBuilder> SubResources;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject ObtainGameObject(string ID)
@@ -84,7 +84,7 @@ namespace Site13Kernel.GameLogic.Level
                 item.__init__merge();
             }
         }
-        [method:MethodImpl(MethodImplOptions.AggressiveInlining)] 
+        [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
         string __upper_process(string input)
         {
             return input.ToUpper();
@@ -94,8 +94,8 @@ namespace Site13Kernel.GameLogic.Level
         public void __init__merge()
         {
 
-            DictionaryOperations.Merge(ref StringIntMap, IDMappingList.ObtainMap(__upper_process));
-            DictionaryOperations.Merge(ref StringGameObjectMaps, StringMaps.ObtainMap(__upper_process));
+            DictionaryOperations.Merge(ref Instance.StringIntMap, IDMappingList.ObtainMap(__upper_process));
+            DictionaryOperations.Merge(ref Instance.StringGameObjectMaps, StringMaps.ObtainMap(__upper_process));
             DictionaryOperations.Merge(ref Instance.IntGameObjectMaps, IntMaps.ObtainMap());
         }
     }
