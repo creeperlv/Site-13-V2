@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://creeperlv.github.io/Styles/cldesignv2/cldesignv2.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wiki</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="AccentCardDiv">
+        <p class="t2">Site13Kernel.Core</p>
+        <p class="t4">In Site13Kernel.UnityEngine</p>
+    </div>
+    <div class="cardDiv">
+        <p class="t3">What's this?</p>
+        <p>This namespace contains ths most core codes of Site13Kernel.</p>
+    </div>
+    <div class="AccentCardDiv">
+        <p class="t2">Understanding Codes</p>
+    </div>
+    <div class="cardDiv">
+        <p class="t3">ControlledBehavior</p>
+        <p>As you know, Update() and FixedUpdate() consumes too much time when you have too much scripts on objects,
+            therefore, I designed the "ControlledBehavior - Controller" system to solve the problem.</p>
+        <p>The basic logic is to reduce direct use of Update() and FixedUpdate() by using controllers to control the
+            <span class="KeyWords">ControlledBehavior</span>.</p>
+        <p>Knowing that, this class is a 'base class' to all scripts that will be used on game logics like doors.</p>
+        <p>To use this class, you need to implement:</p>
+        <ul>
+            <li>Init() - will be called on initialization phase.</li>
+            <li>Refresh(float DeltaTime, float UnscaledDeltaTime) - will be called on Update() phase.</li>
+            <li>FixedRefresh(float DeltaTime, float UnscaledDeltaTime) - will be called on FixedUpdate() phase.</li>
+        </ul>
+    </div>
+    <div class="cardDiv">
+        <p class="t3">DamagableEntity</p>
+        <p>This is an implementation of ControlledBehavior which is used in the scene that will be able to be damaged by bullets.</p>
+    </div>
+    <div class="cardDiv">
+        <p class="t3">IHittable</p>
+        <p>An interface that describes which hit effect to use when a bullet hits it..</p>
+    </div>
+</body>
+
+</html>

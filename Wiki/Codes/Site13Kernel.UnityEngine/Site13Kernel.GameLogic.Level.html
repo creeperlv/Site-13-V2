@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://creeperlv.github.io/Styles/cldesignv2/cldesignv2.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wiki</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="AccentCardDiv">
+        <p class="t2">Site13Kernel.GameLogic.Level</p>
+        <p class="t4">In Site13Kernel.UnityEngine</p>
+    </div>
+    <div class="cardDiv">
+        <p class="t3">What's this?</p>
+        <p>This namespace contains ths most codes about game logic in levels of Site13Kernel.</p>
+    </div>
+    <div class="AccentCardDiv">
+        <p class="t2">Understanding Codes</p>
+    </div>
+    <div class="cardDiv">
+        <p class="t3">ResourceBuilder</p>
+        <p>This class is designed to prepare resources (Prefabs, mostly) that current level will use.</p>
+        <p>The basic logic is to serialize String-GameObject, Int-GameObject and String-Int lists to dictionaries.</p>
+        <p class="t4">Remarks</p>
+        <ul>
+            <li>isMain - this builder is the main resource, will erase previous converted resource dictionaries.</li>
+            <li>isSub - this builder is a sub-builder, will merge its converted resource dictionaries into main dictionaries.</li>
+            <li>isControlled - use Init() instead of Start().</li>
+        </ul>
+    </div>
+</body>
+
+</html>
