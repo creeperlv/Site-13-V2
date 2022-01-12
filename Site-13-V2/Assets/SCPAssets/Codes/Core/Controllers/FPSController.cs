@@ -5,6 +5,7 @@ using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.GameLogic.Level;
 using Site13Kernel.UI;
 using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
@@ -95,7 +96,7 @@ namespace Site13Kernel.Core.Controllers
         #region HUD - Combat
 
         public Transform IndicatorHolder;
-        public GameObject Indicator;
+        public PrefabReference Indicator;
 
         #endregion
 
@@ -235,13 +236,19 @@ namespace Site13Kernel.Core.Controllers
         {
             if (IndicatorHolder != null)
             {
-                if (Indicator != null)
                 {
-                    var effect = EffectController.CurrentEffectController.Spawn(Indicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
-                    var RT = effect.transform as RectTransform;
-                    RT.anchoredPosition3D = Vector3.zero;
-                    RT.localRotation = Quaternion.identity;
+                    var PREFAB = ResourceBuilder.ObtainGameObject(Indicator.ID);
+                    if (PREFAB != null)
+                    {
+                        var effect = EffectController.CurrentEffectController.Spawn(Indicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
+                        var RT = effect.transform as RectTransform;
+                        RT.anchoredPosition3D = Vector3.zero;
+                        RT.localRotation = Quaternion.identity;
 
+                    }
+                    else
+                    {
+                    }
                 }
             }
         }

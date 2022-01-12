@@ -41,6 +41,11 @@ namespace Site13Kernel.Core.Controllers
             return Spawn(Prefab, Position, Rotation, Vector3.zero, isRelatedScale);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public GameObject Spawn(PrefabReference Prefab, Vector3 Position, Quaternion Rotation, bool isRelatedScale = false)
+        {
+            return Spawn(Prefab, Position, Rotation, Vector3.zero, isRelatedScale);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public GameObject Spawn(int HashCode, Vector3 Position, Quaternion Rotation, Vector3 Scale, bool isRelatedScale = false)
         {
             //return Spawn(EffectDefinitions[HashCode], Position, Rotation, Scale, transform, isRelatedScale);
@@ -48,6 +53,11 @@ namespace Site13Kernel.Core.Controllers
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public GameObject Spawn(GameObject Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, bool isRelatedScale = false)
+        {
+            return Spawn(Prefab, Position, Rotation, Scale, transform, isRelatedScale);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public GameObject Spawn(PrefabReference Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, bool isRelatedScale = false)
         {
             return Spawn(Prefab, Position, Rotation, Scale, transform, isRelatedScale);
         }
@@ -59,6 +69,26 @@ namespace Site13Kernel.Core.Controllers
             CurrentEffects++;
             //var go = ObjectGenerator.Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent,HashCode);
             var go = ObjectGenerator.Instantiate(HashCode, Position, Rotation, Parent);
+            if (isRelatedScale)
+            {
+                go.transform.localScale = Scale.DVI(Parent.lossyScale);
+            }
+            else
+            {
+                go.transform.localScale = Scale;
+            }
+            var BE = go.GetComponent<BaseEffect>();
+            BE.Init();
+            ControlledEffects.Add(BE);
+            return go;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public GameObject Spawn(PrefabReference Prefab, Vector3 Position, Quaternion Rotation, Vector3 Scale, Transform Parent, bool isRelatedScale=false)
+        {
+            if (CurrentEffects >= MAX_SPAWNABLE_EFFECT_COUNT) return null;
+            CurrentEffects++;
+            //var go = ObjectGenerator.Instantiate(EffectDefinitions[HashCode], Position, Rotation, Parent,HashCode);
+            var go = ObjectGenerator.Instantiate(Prefab, Position, Rotation, Parent);
             if (isRelatedScale)
             {
                 go.transform.localScale = Scale.DVI(Parent.lossyScale);
