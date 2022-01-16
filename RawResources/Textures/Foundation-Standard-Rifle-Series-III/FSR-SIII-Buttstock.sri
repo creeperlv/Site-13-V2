@@ -1,0 +1,35 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="Design.Bool" Value="false" />
+	<Define Name="MainColor.Bool" Value="true" />
+	<Define Name="Emission.Bool" Value="false" />
+	<Define Name="Normal.Bool" Value="false" />
+	<Define Name="Metallic.Bool" Value="false" />
+	<Define Name="Arrow.Color" Value="#A0D00000" />
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="#00000000" Foreground="White">
+		<Group Visible="false">
+			<!--Primitives-->
+		</Group>
+		<Group Visible="Normal.Bool">
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" />
+			<Triangle Point1="0.27,0.07" Point2="0.39,0.16" Point3="0.27,0.25" Size="0" Fill="True" Color="#000000"/>
+			<Triangle Point1="0.29,0.25" Point2="0.4,0.17" Point3="0.51,0.25" Size="0" Fill="True" Color="#000000"/>
+			<Triangle Point1="0.29,0.07" Point2="0.4,0.15" Point3="0.4,0.07" Size="0" Fill="True" Color="#000000"/>
+			<Rectangle X="0.4" Y="0.07" Width="0.555" Height="0.0805" Size="0" Fill="True" Color="#000000"/>
+			<Triangle Point1="0.53,0.25" Point2="0.41,0.165" Point3="0.95,0.165" Size="0" Fill="True" Color="#000000"/>
+			<Triangle Point1="0.53,0.25" Point2="0.745,0.23" Point3="0.95,0.165" Size="0" Fill="True" Color="#000000"/>
+			<Rectangle X="0.83" Y="0.35" Width="0.09" Height="0.28" Size="0" Fill="True" Color="#000000"/>
+		</Group>
+		<Group Visible="Metallic.Bool">
+		</Group>
+		<Group Visible="MainColor.Bool">
+			<Triangle Point1="0.9625,0.125" Point2="0.97,0.13" Point3="0.9625,0.135" Size="0" Fill="True" Color="Arrow.Color"/>
+			<Triangle Point1="0.9625,0.105" Point2="0.97,0.11" Point3="0.9625,0.115" Size="0" Fill="True" Color="Arrow.Color"/>
+			<Triangle Point1="0.9625,0.095" Point2="0.97,0.09" Point3="0.9625,0.085" Size="0" Fill="True" Color="Arrow.Color"/>
+		</Group>
+		<Group Visible="Emission.Bool">
+		</Group>
+		<Group Visible="Design.Bool">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="FSR-SIII-Buttstock.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>

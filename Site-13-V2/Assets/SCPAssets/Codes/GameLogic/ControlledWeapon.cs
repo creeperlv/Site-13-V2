@@ -56,6 +56,7 @@ namespace Site13Kernel.GameLogic
         bool isInited = false;
         public override void Init()
         {
+            if (isInited) return;
             foreach (var item in Crosshairs)
             {
                 item.Init();

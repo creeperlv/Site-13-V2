@@ -208,9 +208,11 @@ namespace Site13Kernel.Core.Controllers
                     TargetWeapon.Init();
                     if (TargetWeapon.ZoomEffectPoint == null)
                         TargetWeapon.ZoomEffectPoint = ZoomEffectPoint;
+                    if (TargetWeapon.Weapon.MeleeArea!=null)
                     TargetWeapon.Weapon.MeleeArea.Holder = this.gameObject;
                     TargetWeapon.Weapon.FirePoint = FirePoint;
                     TargetWeapon.Weapon.OnHit = OnHit;
+                    TargetWeapon.Weapon.isHoldByPlayer = true;
                     TargetWeapon.Weapon.ActualHolder = this.gameObject;
                     TargetHUD.isPercentage = TargetWeapon.isPercentage;
                     if (WeaponPool.CurrentPool.WeaponItemMap.ContainsKey(TargetWeapon.Weapon.Base.WeaponID))
