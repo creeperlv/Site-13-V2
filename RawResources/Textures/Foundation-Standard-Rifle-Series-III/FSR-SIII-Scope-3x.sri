@@ -1,0 +1,34 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="Design.Bool" Value="false" />
+	<Define Name="MainColor.Bool" Value="true" />
+	<Define Name="Emission.Bool" Value="false" />
+	<Define Name="Normal.Bool" Value="false" />
+	<Define Name="Metallic.Bool" Value="false" />
+	<Define Name="Arrow.Color" Value="#A0D00000" />
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="#00000000" Foreground="White">
+		<Group Visible="false">
+			<!--Primitives-->
+		</Group>
+		<Group Visible="Normal.Bool">
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#888888"/>
+			<Rectangle X="0.1" Y="0.02" Width="00.02" Height="0.2" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Rectangle X="0.5" Y="0.02" Width="00.02" Height="0.2" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Dot X="0.075" Y="0.1" Size="0.015" Color="#000000"/>
+			<Dot X="0.075" Y="0.15" Size="0.015" Color="#000000"/>
+			<Dot X="0.575" Y="0.1" Size="0.015" Color="#000000"/>
+			<Dot X="0.575" Y="0.15" Size="0.015" Color="#000000"/>
+			<Rectangle X="0.1" Y="0.275" Width="0.5" Height="0.0225" Size="0" Fill="True" Color="#FFFFFF"/>
+		</Group>
+		<Group Visible="Metallic.Bool">
+		</Group>
+		<Group Visible="MainColor.Bool">
+			<Triangle Point1="0.3,0.045" Point2="0.295,0.05" Point3="0.305,0.05" Size="0" Fill="True" Color="Arrow.Color"/>
+			<Text Content="TUNER" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.007" X="0.1" Y="0.05" Width="0.4" Height="0.08" Align="Center" Color="White"/>
+		</Group>
+		<Group Visible="Emission.Bool">
+		</Group>
+		<Group Visible="Design.Bool">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="FSR-SIII-Scope-3x.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>

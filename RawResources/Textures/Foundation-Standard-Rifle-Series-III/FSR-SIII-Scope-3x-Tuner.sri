@@ -1,0 +1,31 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="Design.Bool" Value="false" />
+	<Define Name="MainColor.Bool" Value="false" />
+	<Define Name="Emission.Bool" Value="false" />
+	<Define Name="Normal.Bool" Value="true" />
+	<Define Name="Metallic.Bool" Value="false" />
+	<Define Name="Arrow.Color" Value="#A0D00000" />
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="#00000000" Foreground="White">
+		<Group Visible="false">
+			<!--Primitives-->
+		</Group>
+		<Group Visible="Normal.Bool">
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#888888"/>
+			<Rectangle X="0.4525" Y="0.8" Width="0.01" Height="0.15" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Rectangle X="0.4725" Y="0.8" Width="0.01" Height="0.15" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Rectangle X="0.4925" Y="0.8" Width="0.01" Height="0.15" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Rectangle X="0.5125" Y="0.8" Width="0.01" Height="0.15" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Rectangle X="0.5325" Y="0.8" Width="0.01" Height="0.15" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Dot X="0.5" Y="0.5" Size="0.45" Color="#000000"/>
+		</Group>
+		<Group Visible="Metallic.Bool">
+		</Group>
+		<Group Visible="MainColor.Bool">
+		</Group>
+		<Group Visible="Emission.Bool">
+		</Group>
+		<Group Visible="Design.Bool">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="FSR-SIII-Scope-3x-Tuner.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>
