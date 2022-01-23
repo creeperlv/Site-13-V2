@@ -58,13 +58,13 @@ namespace Site13Kernel.Diagnostics
                 switch (b)
                 {
                     case LogLevel.Normal:
-                        Debug.Log(a);
+                        UnityEngine.Debug.Log(a);
                         break;
                     case LogLevel.Warning:
-                        Debug.LogWarning(a);
+                        UnityEngine.Debug.LogWarning(a);
                         break;
                     case LogLevel.Error:
-                        Debug.LogError($"{CALLER}:{a}");
+                        UnityEngine.Debug.LogError($"{CALLER}:{a}");
                         break;
                     default:
                         break;

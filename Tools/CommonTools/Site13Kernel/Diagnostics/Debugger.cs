@@ -34,7 +34,7 @@ namespace Site13Kernel.Diagnostics
         {
             CurrentConfiguration = new DebuggerConfiguration();
             Actions = new List<Action<string, LogLevel>>();
-
+            ClearBuffers = new List<Action>();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetConfiguration(DebuggerConfiguration configuration)
@@ -145,10 +145,11 @@ namespace Site13Kernel.Diagnostics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Clear()
         {
-            foreach (var item in ClearBuffers)
-            {
-                item();
-            }
+            if (ClearBuffers != null)
+                foreach (var item in ClearBuffers)
+                {
+                    item();
+                }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Register(Action<string, LogLevel> action)
@@ -158,7 +159,8 @@ namespace Site13Kernel.Diagnostics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Register(Action ClearBufferAction)
         {
-            ClearBuffers.Add(ClearBufferAction);
+            if (ClearBuffers != null)
+                ClearBuffers.Add(ClearBufferAction);
         }
     }
     public enum LogLevel
