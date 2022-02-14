@@ -7,6 +7,9 @@ namespace Site13Kernel.UI.Settings
     public static class Constants
     {
         public const string RenderScale = "Graphics.RenderScale";
+        public const string TextureQuality = "Graphics.TextureQuality";
+        public const string QualityLevel = "Graphics.QualityLevel";
+        public const string RenderShadow = "Graphics.RenderShadow";
         public const string Resolution = "Graphics.Resolution";
         public const string FullScreen = "Graphics.FullScreen";
         public const string Language = "Localization.Language";
