@@ -7,9 +7,9 @@ namespace Site13Kernel.Data
 {
     public class ImageStorage
     {
-        public static Sprite Default;
-        public static Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>();
-        public static Sprite FindSprite(string Name)
+        public static RefSprite Default;
+        public static Dictionary<string, RefSprite> Sprites = new Dictionary<string, RefSprite>();
+        public static RefSprite FindSprite(string Name)
         {
             if (Sprites.ContainsKey(Name)) return Sprites[Name];
             else return Default;

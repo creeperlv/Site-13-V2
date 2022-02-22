@@ -22,6 +22,7 @@ namespace Site13Kernel.Data
         public float UI_BGM = 1;
         public int WINDOW_W=-1;
         public int WINDOW_H=-1;
+        public int TextureQuality=0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Init()
         {

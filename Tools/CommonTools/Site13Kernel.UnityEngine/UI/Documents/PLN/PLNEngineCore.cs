@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = Site13Kernel.Diagnostics.Debug;
+
 namespace Site13Kernel.UI.Documents.PLN
 {
     public class PLNEngineCore
@@ -27,7 +29,7 @@ namespace Site13Kernel.UI.Documents.PLN
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void View(Transform Container, IEnumerable<string> contents, Color DefaultColor, int BaseSize = 14)
         {
-            
+
             foreach (var item in contents)
             {
                 Process(item);
@@ -38,11 +40,52 @@ namespace Site13Kernel.UI.Documents.PLN
                 if (item.StartsWith("[Img]"))
                 {
                     var URL = item.Substring(5).Trim();
-                    if (URL.StartsWith("Site-13://"))
+                    Uri uri = new Uri(URL);
+
                     {
-                        var Name = URL.Substring("Site-13://".Length);
-                        var t = GameObject.Instantiate(_ImageTemplate, Container).GetComponent<Image>();
-                        t.sprite = ImageStorage.FindSprite(Name);
+                        var HOST = uri.GetComponents(UriComponents.Host, UriFormat.UriEscaped);
+                        var Name = uri.GetComponents(UriComponents.Path, UriFormat.UriEscaped);
+                        
+                        var o = GameObject.Instantiate(_ImageTemplate, Container);
+                        var t = o.GetComponent<Image>();
+                        var rt = o.transform as RectTransform;
+                        if (HOST.ToUpper() == "LOCAL.CREEPERLV.GITHUB.IO")
+                        {
+
+                            t.sprite = ImageStorage.FindSprite(Name).LoadedSprite;
+                        }
+                        var para = uri.GetComponents(UriComponents.Query, UriFormat.UriEscaped);
+                        if (para != null)
+                        {
+                            var paras = para.Split('&');
+                            foreach (var p in paras)
+                            {
+                                var kv = p.Split('=');
+                                switch ((kv[0]).ToUpper())
+                                {
+                                    case "W":
+                                    case "WIDTH":
+                                        {
+                                            float w = float.Parse(kv[1]);
+                                            var v = rt.sizeDelta;
+                                            v.x = w;
+                                            rt.sizeDelta = v;
+                                        }
+                                        break;
+                                    case "H":
+                                    case "HEIGHT":
+                                        {
+                                            float h = float.Parse(kv[1]);
+                                            var v = rt.sizeDelta;
+                                            v.y = h;
+                                            rt.sizeDelta = v;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
                     }
                 }
                 else
