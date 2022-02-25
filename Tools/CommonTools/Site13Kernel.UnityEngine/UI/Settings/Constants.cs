@@ -18,5 +18,6 @@ namespace Site13Kernel.UI.Settings
         public const string Sound_UI = "Sound.UI";
         public const string Sound_UI_BGM = "Sound.UIBGM";
         public const string Control_MouseSensitivity = "Control.MouseSensitivity";
+        public const string Control_SwitchRun = "Control.SwitchRun";
     }
 }
