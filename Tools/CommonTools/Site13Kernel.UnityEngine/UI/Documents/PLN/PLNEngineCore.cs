@@ -4,10 +4,8 @@ using Site13Kernel.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
-using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.UI.Documents.PLN
 {
@@ -15,6 +13,12 @@ namespace Site13Kernel.UI.Documents.PLN
     {
         static GameObject _TextTemplate;
         static GameObject _ImageTemplate;
+        static StylingConfiguration _Styles;
+        public static void SetStyle(StylingConfiguration style)
+        {
+            _Styles = style;
+
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Init(GameObject TextTemplate, GameObject ImageTemplate)
         {
@@ -77,61 +81,61 @@ namespace Site13Kernel.UI.Documents.PLN
             else if (Line.StartsWith("[H1]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize + 2;
+                t.fontSize = BaseSize + _Styles.H1;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[H2]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize + 4;
+                t.fontSize = BaseSize + _Styles.H2;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[H3]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize + 6;
+                t.fontSize = BaseSize + _Styles.H3;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[H4]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize + 8;
+                t.fontSize = BaseSize + _Styles.H4;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[H5]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize + 10;
-                SequentialProcessLine(item, t, BaseSize);
-            }
-            else if (Line.StartsWith("[H4]"))
-            {
-                var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize + 8;
+                t.fontSize = BaseSize + _Styles.H5;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[N1]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize - 2;
+                t.fontSize = BaseSize - _Styles.N1;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[N2]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize - 4;
+                t.fontSize = BaseSize - _Styles.N2;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[N3]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize - 6;
+                t.fontSize = BaseSize - _Styles.N3;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[N4]"))
             {
                 var item = Line.Substring(4).Trim();
-                t.fontSize = BaseSize - 8;
+                t.fontSize = BaseSize - _Styles.N4;
+                SequentialProcessLine(item, t, BaseSize);
+            }
+            else if (Line.StartsWith("[N5]"))
+            {
+                var item = Line.Substring(4).Trim();
+                t.fontSize = BaseSize - _Styles.N5;
                 SequentialProcessLine(item, t, BaseSize);
             }
             else if (Line.StartsWith("[C/B]"))
@@ -187,7 +191,6 @@ namespace Site13Kernel.UI.Documents.PLN
             {
                 var URL = item.Substring(5).Trim();
                 Uri uri = new Uri(URL);
-
                 {
                     var HOST = uri.GetComponents(UriComponents.Host, UriFormat.UriEscaped);
                     var Name = uri.GetComponents(UriComponents.Path, UriFormat.UriEscaped);
@@ -236,7 +239,6 @@ namespace Site13Kernel.UI.Documents.PLN
             }
             else
             {
-
                 var t = GameObject.Instantiate(_TextTemplate, Container).GetComponent<Text>();
                 if (t == null)
                 {
