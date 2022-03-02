@@ -30,7 +30,6 @@ namespace Site13Kernel.GameLogic.Effects
 
         public virtual List<object> Save()
         {
-
             return new List<object>{LifeTime, TimeD};
         }
     }

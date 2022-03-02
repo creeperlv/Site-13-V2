@@ -74,7 +74,6 @@ namespace Site13Kernel.GameLogic.Level
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void __init()
         {
-
             Instance = this;
             StringGameObjectMaps = StringMaps.ObtainMap(__upper_process);
             IntGameObjectMaps = IntMaps.ObtainMap();
@@ -93,7 +92,6 @@ namespace Site13Kernel.GameLogic.Level
 
         public void __init__merge()
         {
-
             DictionaryOperations.Merge(ref Instance.StringIntMap, IDMappingList.ObtainMap(__upper_process));
             DictionaryOperations.Merge(ref Instance.StringGameObjectMaps, StringMaps.ObtainMap(__upper_process));
             DictionaryOperations.Merge(ref Instance.IntGameObjectMaps, IntMaps.ObtainMap());

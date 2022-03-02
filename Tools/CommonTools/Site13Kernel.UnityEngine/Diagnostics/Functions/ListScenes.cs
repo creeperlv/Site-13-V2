@@ -19,7 +19,6 @@ namespace Site13Kernel.Diagnostics.Functions
                 Debugger.CurrentDebugger.Log($"{i} > {Name.Substring(0,Name.Length-6)}");
             }
         }
-
         public string GetCommandName()
         {
             return "List-All-Scenes";

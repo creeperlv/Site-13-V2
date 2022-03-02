@@ -32,7 +32,6 @@ namespace Site13Kernel.Core.Controllers
                 try
                 {
                     item.Init();
-
                 }
                 catch (System.Exception e)
                 {
@@ -64,7 +63,6 @@ namespace Site13Kernel.Core.Controllers
         }
         private void FixedUpdate()
         {
-
             float DeltaTime = Time.fixedDeltaTime;
             float UDeltaTime = Time.fixedUnscaledDeltaTime;
             for (int i = _OnFixedRefresh.Count - 1; i >= 0; i--)

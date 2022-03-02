@@ -6,7 +6,6 @@ namespace Site13Kernel.Data
     [Serializable]
     public class KVList<T, V>
     {
-
         public List<KVPair<T, V>> PrefabDefinitions = new List<KVPair<T, V>>();
         public Dictionary<T, V> ObtainMap()
         {

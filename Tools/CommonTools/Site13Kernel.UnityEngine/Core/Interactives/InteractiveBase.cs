@@ -16,12 +16,10 @@ namespace Site13Kernel.Core.Interactives
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Operate(float DeltaTime,float UnscaledDeltaTime,DamagableEntity Operator)
         {
-
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void UnOperate()
         {
-
         }
         public string OperateHint;
         public string OperateHintFallBack;

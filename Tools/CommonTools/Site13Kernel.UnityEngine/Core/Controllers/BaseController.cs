@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Site13Kernel.Core.Controllers
 {
-
     public class BaseController : MonoBehaviour
     {
         //[InspectorName("Objects That contains classes that only implements <color=#2288EE>IControllable</color>")]

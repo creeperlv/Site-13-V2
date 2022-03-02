@@ -17,7 +17,6 @@ namespace Site13Kernel.UI.Documents.PLN
         public static void SetStyle(StylingConfiguration style)
         {
             _Styles = style;
-
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Init(GameObject TextTemplate, GameObject ImageTemplate)
