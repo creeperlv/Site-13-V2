@@ -89,12 +89,15 @@ namespace Site13Kernel.Core
         /// If it returns true, it will breaks original Die function, means Destory and EntityController.Remove(this); will not be executed.
         /// </summary>
         public Func<bool> OnDie = null;
+        bool Died = false;
         /// <summary>
         /// Kills the entity no matter how much the current health is.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Die()
         {
+            if(Died) return;
+            Died = true;
             if (OnDie != null)
             {
                 if (OnDie()) return;
