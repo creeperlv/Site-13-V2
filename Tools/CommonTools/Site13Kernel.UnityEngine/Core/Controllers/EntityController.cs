@@ -33,7 +33,6 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DestoryAll()
         {
-
             for (int i = ControlledEntities.Count - 1; i >= 0; i--)
             {
                 var entity = ControlledEntities[i];

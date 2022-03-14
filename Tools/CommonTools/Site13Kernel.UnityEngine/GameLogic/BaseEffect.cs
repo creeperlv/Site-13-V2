@@ -11,7 +11,6 @@ namespace Site13Kernel.GameLogic.Effects
 {
     public class BaseEffect : ControlledBehavior, ICheckpointData
     {
-
         public float LifeTime;
         public float TimeD;
 
@@ -19,7 +18,6 @@ namespace Site13Kernel.GameLogic.Effects
         {
             return "";
         }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Load(List<object> data)
         {

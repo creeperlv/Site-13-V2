@@ -22,7 +22,6 @@ namespace Site13Kernel.UI.UIXML
             for (int i = 0; i < _Definitions.Count; i++)
             {
                 var item = _Definitions[i];
-
                 if (item.StyleName.ToUpper() == Name.ToUpper())
                 {
                     UseStyle(i);

@@ -32,7 +32,6 @@ namespace Site13Kernel.Data.IO
             info.AddValue("Tran.Scl.W", SCL_X, typeof(float));
             info.AddValue("Tran.Scl.Y", SCL_Y, typeof(float));
             info.AddValue("Tran.Scl.Z", SCL_Z, typeof(float));
-
         }
 
         public void Load(IData data)

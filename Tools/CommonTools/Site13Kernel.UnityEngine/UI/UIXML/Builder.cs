@@ -17,7 +17,6 @@ namespace Site13Kernel.UI.UIXML
         {
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(UIContent);
-
         }
     }
 }

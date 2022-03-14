@@ -89,7 +89,6 @@ namespace Site13Kernel.GameLogic.Level
             return input.ToUpper();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-
         public void __init__merge()
         {
             DictionaryOperations.Merge(ref Instance.StringIntMap, IDMappingList.ObtainMap(__upper_process));

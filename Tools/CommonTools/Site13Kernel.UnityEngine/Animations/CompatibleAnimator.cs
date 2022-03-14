@@ -42,6 +42,21 @@ namespace Site13Kernel.Animations
             return 0;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetBool(string Name, bool value)
+        {
+            switch (Workflow)
+            {
+                case CompatibleAnimatorWorkflow.Animator:
+                    ControlledAnimator.SetBool(Name, value);
+                    break;
+                case CompatibleAnimatorWorkflow.Animation:
+                    //Ignore for animation do not support it.
+                    break;
+                default:
+                    break;
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetTime(float T)
         {
             switch (Workflow)
