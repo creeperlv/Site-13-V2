@@ -1,4 +1,5 @@
 using Site13Kernel.Core;
+using Site13Kernel.Data;
 using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -82,6 +83,24 @@ namespace Site13Kernel.Core.Controllers
         public (GameObject, DamagableEntity) Instantiate(int HashCode, Vector3 Position, Quaternion Rotation, Transform transform)
         {
             var _Object = ObjectGenerator.Instantiate(HashCode, Position, Rotation, transform);
+            var Entity = _Object.GetComponentInChildren<DamagableEntity>();
+            if (Entity != null)
+                Register(Entity);
+            return (_Object, Entity);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, DamagableEntity) Instantiate(PrefabReference Prefab, Vector3 Position, Quaternion Rotation, Transform transform)
+        {
+            var _Object = ObjectGenerator.Instantiate(Prefab, Position, Rotation, transform);
+            var Entity = _Object.GetComponentInChildren<DamagableEntity>();
+            if (Entity != null)
+                Register(Entity);
+            return (_Object, Entity);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (GameObject, DamagableEntity) Instantiate(PrefabReference Prefab, Vector3 Position, Quaternion Rotation)
+        {
+            var _Object = ObjectGenerator.Instantiate(Prefab, Position, Rotation);
             var Entity = _Object.GetComponentInChildren<DamagableEntity>();
             if (Entity != null)
                 Register(Entity);
