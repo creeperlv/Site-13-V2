@@ -2,6 +2,7 @@ using CLUNL.Data.Serializables.CheckpointSystem;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Site13Kernel.Core
 
         public bool TakeCollisionDamage = true;
         public DeathBodyType deathBodyType = DeathBodyType.Entity;
-        public List<DeathReplacement> DeathReplacements=new List<DeathReplacement>();
+        public List<DeathReplacement> DeathReplacements = new List<DeathReplacement>();
         public int DeathBodyReplacementID = -1;
         public GameObject DeathBodyReplacementPrefab = null;
         public GameObject ControlledObject = null;
@@ -98,7 +99,7 @@ namespace Site13Kernel.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Die()
         {
-            if(Died) return;
+            if (Died) return;
             Died = true;
             if (OnDie != null)
             {
@@ -106,7 +107,7 @@ namespace Site13Kernel.Core
             }
             try
             {
-                if(DeathReplacements.Count > 0)
+                if (DeathReplacements.Count > 0)
                 {
                     foreach (var item in DeathReplacements)
                     {
@@ -115,36 +116,7 @@ namespace Site13Kernel.Core
                 }
                 else
                 {
-                    switch (deathBodyType)
-                    {
-                        case DeathBodyType.Entity:
-                            {
-                                if (Controller != null)
-                                {
-                                    if (DeathBodyReplacementID != -1)
-                                        Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
-                                    else if (DeathBodyReplacementPrefab != null)
-                                        Controller.Instantiate(DeathBodyReplacementPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
-                                }
-                                else
-                                {
-                                    ObjectGenerator.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
-                                }
-                            }
-                            break;
-                        case DeathBodyType.Effect:
-                            {
-                                EffectController.CurrentEffectController.Spawn(DeathBodyReplacementID, this.transform.position, this.transform.rotation);
-                            }
-                            break;
-                        case DeathBodyType.Regular:
-                            {
-                                ObjectGenerator.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+                    DeathBodyGen(new DeathReplacement { TargetPrefab = new PrefabReference { ID = DeathBodyReplacementID }, BodyType = deathBodyType });
                 }
             }
             catch (Exception e)
@@ -167,10 +139,9 @@ namespace Site13Kernel.Core
             {
                 case DeathBodyType.Entity:
                     {
-                        if (Controller != null)
+                        if (Controller != null && DeathBodyReplacementID != -1)
                         {
-                            if (DeathBodyReplacementID != -1)
-                                Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
+                            Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
                         }
                         else
                         {
@@ -186,6 +157,12 @@ namespace Site13Kernel.Core
                 case DeathBodyType.Regular:
                     {
                         ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
+                    }
+                    break;
+                case DeathBodyType.Explosion:
+                    {
+                        var effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
+                        effect.GetComponent<ExplosionEffect>().Explode();
                     }
                     break;
                 default:

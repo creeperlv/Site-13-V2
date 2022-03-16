@@ -14,7 +14,6 @@ namespace Site13Kernel.Utilities
     [Serializable]
     public struct MathUtilities
     {
-
         public const float PI2 = math.PI * 2;
         public const float PID2 = math.PI / 2;
 
@@ -28,7 +27,7 @@ namespace Site13Kernel.Utilities
         public static float Length(float3 v1, float3 v2)
         {
             var v = v1 - v2;
-            return math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+            return math.sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Length(Vector3 v1, Vector3 v2)
@@ -40,25 +39,25 @@ namespace Site13Kernel.Utilities
         public static float Length(float2 v1, float2 v2)
         {
             var v = v1 - v2;
-            return math.sqrt(v.x * v.x + v.y * v.y);
+            return math.sqrt((v.x * v.x) + (v.y * v.y));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Length2D(float3 v1, float3 v2)
         {
             var v = v1 - v2;
-            return math.sqrt(v.x * v.x + v.z * v.z);
+            return math.sqrt((v.x * v.x) + (v.z * v.z));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3 Bezier2X(float3 P0, float3 P1, float3 Destination, float T)
         {
             var t0 = (1 - T);
-            return t0 * t0 * P0 + 2 * T * t0 * P1 + T * T * Destination;
+            return (t0 * t0 * P0) + 2 * (T * t0 * P1) + (T * T * Destination);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3 Bezier2X(Vector3 P0, Vector3 P1, Vector3 Destination, float T)
         {
             var t0 = (1 - T);
-            return t0 * t0 * P0 + 2 * T * t0 * P1 + T * T * Destination;
+            return (t0 * t0 * P0) + 2 * (T * t0 * P1) + (T * T * Destination);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float2 GetRectangularPositionFromPolarPosition(float2 v)
@@ -68,7 +67,7 @@ namespace Site13Kernel.Utilities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float2 GetPolarPositionFromRectangularPosition(float2 v)
         {
-            return new float2(math.sqrt(v.x * v.x + v.y * v.y), math.atan2(v.y, v.x));
+            return new float2(math.sqrt((v.x * v.x) + (v.y * v.y)), math.atan2(v.y, v.x));
         }
         /// <summary>
         /// Get rectangular position from sphere position.
@@ -144,8 +143,6 @@ namespace Site13Kernel.Utilities
             float z = spherePosition.R * Mathf.Sin(spherePosition.φ) * Mathf.Sin(spherePosition.θ);
             return new Vector3(x, y, z);
         }
-
-
         /// <summary>
         /// Get sphere position from rectangular position.
         /// </summary>
@@ -195,7 +192,7 @@ namespace Site13Kernel.Utilities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3 GetSPFromRP(float x, float y, float z)
         {
-            var R = math.sqrt(x * x + y * y + z * z);
+            var R = math.sqrt((x * x) + (y * y) + (z * z));
             var Phi = math.acos(y / R);
             var Theta = math.atan2(z, x);
             return new float3(R, Theta, Phi);
@@ -208,7 +205,7 @@ namespace Site13Kernel.Utilities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 GetSPFromRPV3(float x, float y, float z)
         {
-            var R = math.sqrt(x * x + y * y + z * z);
+            var R = math.sqrt((x * x) + (y * y) + (z * z));
             var Phi = math.acos(y / R);
             var Theta = math.atan2(z, x);
             return new Vector3(R, Theta, Phi);
@@ -221,7 +218,7 @@ namespace Site13Kernel.Utilities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static SpherePosition GetDSPFromRP(float x, float y, float z)
         {
-            var R = math.sqrt(x * x + y * y + z * z);
+            var R = math.sqrt((x * x) + (y * y) + (z * z));
             var Phi = math.acos(y / R);
             var Theta = math.atan2(z, x);
             return new SpherePosition { R = R, θ = Theta, φ = Phi };
@@ -230,7 +227,7 @@ namespace Site13Kernel.Utilities
         public static float Length2DSquare(float3 v1, float3 v2)
         {
             var v = v1 - v2;
-            return (v.x * v.x + v.z * v.z);
+            return ((v.x * v.x) + (v.z * v.z));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsInRange(float DetectValue, float DetectionOrigin, float Radius)
@@ -262,28 +259,14 @@ namespace Site13Kernel.Utilities
             float Y = Mathf.Sqrt(T * T - X * X);
             Y = UnityEngine.Random.Range(-Y, Y);
             Vector3 v = new Vector3(X, Y, 1);
-            
+
             return v;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float InverseNegativeLerp(float L, float R,float V)
+        public static float InverseNegativeLerp(float L, float R, float V)
         {
-            return 1-Mathf.InverseLerp(L,R, V);
-        }
-    }
-    public static class MathExtensions
-    {
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 MUL(this Vector3 L, Vector3 R)
-        {
-            return new Vector3(L.x * R.x, L.y * R.y, L.z * R.z);
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 DVI(this Vector3 L, Vector3 R)
-        {
-            return new Vector3(L.x / R.x, L.y / R.y, L.z / R.z);
+            return 1 - Mathf.InverseLerp(L, R, V);
         }
     }
 }

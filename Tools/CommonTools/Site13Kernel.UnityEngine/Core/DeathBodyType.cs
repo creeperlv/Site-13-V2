@@ -2,6 +2,6 @@
 {
     public enum DeathBodyType
     {
-        Entity,Effect,Regular
+        Entity,Effect,Regular,Explosion
     }
 }
