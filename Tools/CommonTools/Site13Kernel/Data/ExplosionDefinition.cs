@@ -7,6 +7,7 @@ namespace Site13Kernel.Data
     {
         public float Radius;
         public float Power;
+        public float ShakePower;
         public float CentralDamage;
     }
 }

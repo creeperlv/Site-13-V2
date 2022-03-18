@@ -27,6 +27,12 @@ namespace Site13Kernel.GameLogic.FPS
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
 
                 var Distance = (explosionPos - hit.transform.position).magnitude;
+                var shake = hit.GetComponentInChildren<CameraShakeEffect>();
+                if (shake != null)
+                {
+                    float _shake =  explosionDefinition.ShakePower * MathUtilities.InverseNegativeLerp(0, explosionDefinition.Radius, Distance);
+                    shake.SetShake(_shake, true, _shake);
+                }
                 if (rb != null)
                     rb.AddExplosionForce(explosionDefinition.Power, explosionPos, explosionDefinition.Radius, 0, ForceMode.Impulse);
                 else
