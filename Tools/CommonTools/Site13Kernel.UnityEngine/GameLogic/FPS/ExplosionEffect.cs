@@ -30,8 +30,8 @@ namespace Site13Kernel.GameLogic.FPS
                 var shake = hit.GetComponentInChildren<CameraShakeEffect>();
                 if (shake != null)
                 {
-                    float _shake =  explosionDefinition.ShakePower * MathUtilities.InverseNegativeLerp(-explosionDefinition.Radius, explosionDefinition.Radius, Distance);
-                    shake.SetShake(_shake, true, _shake,true,70);
+                    float _shake = explosionDefinition.ShakePower * MathUtilities.InverseNegativeLerp(-explosionDefinition.Radius, explosionDefinition.Radius, Distance);
+                    shake.SetShake(_shake, true, _shake, true, 70, 1, 0.05f);
                 }
                 if (rb != null)
                     rb.AddExplosionForce(explosionDefinition.Power, explosionPos, explosionDefinition.Radius, 0, ForceMode.Impulse);
