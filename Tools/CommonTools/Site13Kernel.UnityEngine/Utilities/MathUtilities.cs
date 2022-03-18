@@ -262,7 +262,16 @@ namespace Site13Kernel.Utilities
 
             return v;
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 SmoothClose(Vector3 Original, Vector3 Target, float DeltaTime)
+        {
+            return Original + (Target - Original) * DeltaTime;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool WithInRange(Vector3 L,Vector3 R, float MaxDistance)
+        {
+            return (L-R).magnitude < MaxDistance;
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float InverseNegativeLerp(float L, float R, float V)
         {
