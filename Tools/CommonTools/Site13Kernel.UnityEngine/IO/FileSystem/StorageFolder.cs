@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Site13Kernel.IO.FileSystem
@@ -10,9 +11,20 @@ namespace Site13Kernel.IO.FileSystem
         string _Path;
         bool _NetworkResource;
         bool _VirtualResource;
+        bool DirectoryInfoWorkflow = false;
         DirectoryInfo DI;
         IStorageItem _Parent;
-        internal StorageFolder(string AbsolutePath, bool isNetworkResource,bool isVirtualResource, IStorageItem Parent)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal StorageFolder(DirectoryInfo directory, IStorageItem Parent)
+        {
+            DirectoryInfoWorkflow = true;
+            DI = directory;
+            _NetworkResource = false;
+            _VirtualResource = false;
+            _Parent = Parent;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal StorageFolder(string AbsolutePath, bool isNetworkResource, bool isVirtualResource, IStorageItem Parent)
         {
             _Path = AbsolutePath;
             _NetworkResource = isNetworkResource;
@@ -34,7 +46,10 @@ namespace Site13Kernel.IO.FileSystem
 
         public string Name
         {
-            get  {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                if (DirectoryInfoWorkflow) return DI.Name;
                 if (!_NetworkResource && !_VirtualResource)
                 {
                     return Path.GetFileName(_Path);
@@ -45,10 +60,15 @@ namespace Site13Kernel.IO.FileSystem
             set => throw new System.NotImplementedException();
         }
 
-        public bool VirtualResource => throw new System.NotImplementedException();
+        public bool VirtualResource =>_VirtualResource;
 
         public virtual void Delete()
         {
+            if (DirectoryInfoWorkflow)
+            {
+                DI.Delete(true);
+                return;
+            }
             if (!_NetworkResource)
             {
                 Directory.Delete(_Path, true);
@@ -59,13 +79,27 @@ namespace Site13Kernel.IO.FileSystem
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual async Task DeleteAsync()
         {
             await Task.Run(() => { Delete(); });
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<IStorageItem> EnumerateItems()
         {
+            if (DirectoryInfoWorkflow)
+            {
+                foreach (var item in DI.EnumerateFiles())
+                {
+                    yield return new StorageFile(item, this);
+                }
+                foreach (var item in DI.EnumerateDirectories())
+                {
+                    yield return new StorageFolder(item, this);
+                }
+                yield break;
+            }
             if (!_NetworkResource && !_VirtualResource)
             {
                 foreach (var item in Directory.EnumerateDirectories(_Path))
@@ -83,9 +117,9 @@ namespace Site13Kernel.IO.FileSystem
 
         public virtual bool TryGetItem(string Name, out IStorageItem item)
         {
-            if (!_NetworkResource&&!_VirtualResource)
+            if (!_NetworkResource && !_VirtualResource)
             {
-                var __PATH=Path.Combine(DI.FullName,Name);
+                var __PATH = Path.Combine(DI.FullName, Name);
                 if (File.Exists(__PATH))
                 {
                     item = new StorageFile(__PATH, _NetworkResource, _VirtualResource, this);
@@ -107,6 +141,11 @@ namespace Site13Kernel.IO.FileSystem
                 item = null;
                 return false;
             }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator StorageFolder(DirectoryInfo di)
+        {
+            return new StorageFolder(di, null);
         }
     }
 }
