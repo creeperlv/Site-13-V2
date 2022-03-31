@@ -32,7 +32,7 @@ namespace Site13Kernel.Core.Controllers
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void DestoryAll()
+        public void DestoryAll(bool DestoryUnregisteredChildren=false)
         {
             for (int i = ControlledEntities.Count - 1; i >= 0; i--)
             {
@@ -41,6 +41,14 @@ namespace Site13Kernel.Core.Controllers
                 if (entity.ControlledObject == null)
                     Destroy(entity.gameObject);
                 else Destroy(entity.ControlledObject);
+            }
+            if (DestoryUnregisteredChildren)
+            {
+                for (int i = transform.childCount-1; i >=0 ; i--)
+                {
+                    var _obj = transform.GetChild(i);
+                    Destroy(_obj.gameObject);
+                }
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
