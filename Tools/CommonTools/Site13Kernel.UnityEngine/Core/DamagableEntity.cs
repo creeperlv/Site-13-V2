@@ -127,7 +127,12 @@ namespace Site13Kernel.Core
                 Controller.DestroyEntity(this);
             else
             {
-                Destroy(this.gameObject);
+                if (ControlledObject != null)
+                {
+                    Destroy(ControlledObject.gameObject);
+                }
+                else
+                    Destroy(this.gameObject);
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -141,27 +146,53 @@ namespace Site13Kernel.Core
                     {
                         if (Controller != null && DeathBodyReplacementID != -1)
                         {
-                            Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
+                            if (ControlledObject != null)
+                            {
+                                Controller.Instantiate(DeathBodyReplacementID, ControlledObject.transform.position, ControlledObject.transform.rotation, ControlledObject.transform.parent);
+                            }
+                            else
+                                Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
                         }
                         else
                         {
-                            ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
+                            if (ControlledObject != null)
+                            {
+                                ObjectGenerator.Instantiate(DR.TargetPrefab, ControlledObject.transform.position, ControlledObject.transform.rotation, ControlledObject.transform.parent);
+                            }
+                            else
+                                ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
                         }
                     }
                     break;
                 case DeathBodyType.Effect:
                     {
-                        EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
+                        if (ControlledObject != null)
+                        {
+                            EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, ControlledObject.transform.position, ControlledObject.transform.rotation);
+                        }
+                        else
+                            EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
                     }
                     break;
                 case DeathBodyType.Regular:
                     {
-                        ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
+                        if (ControlledObject != null)
+                        {
+                            ObjectGenerator.Instantiate(DR.TargetPrefab, ControlledObject.transform.position, ControlledObject.transform.rotation, ControlledObject.transform.parent);
+                        }
+                        else
+                            ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
                     }
                     break;
                 case DeathBodyType.Explosion:
                     {
-                        var effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
+                        GameObject effect;
+                        if (ControlledObject != null)
+                        {
+                            effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, ControlledObject.transform.position, ControlledObject.transform.rotation);
+                        }
+                        else
+                            effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
                         effect.GetComponent<ExplosionEffect>().Explode();
                     }
                     break;
