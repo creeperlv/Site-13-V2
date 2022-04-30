@@ -44,6 +44,21 @@ namespace Site13Kernel.GameLogic.Effects
                 }
                 if (willDiminish) Intensity -= Time.deltaTime * DiminishIntensity;
             }
+            else
+            {
+                if (RotationMode)
+                {
+                    var ConvertedRotation = ControlledObject.transform.localEulerAngles;
+                    if (ConvertedRotation.x > 180) ConvertedRotation.x -= 360;
+                    if (ConvertedRotation.y > 180) ConvertedRotation.y -= 360;
+                    ControlledObject.localEulerAngles = MathUtilities.SmoothClose(ConvertedRotation, Vector3.zero, Time.deltaTime * RotationShakeSpeed);
+                }
+                else
+                {
+                    if (ControlledObject.transform.localPosition != Vector3.zero)
+                        ControlledObject.transform.localPosition = Vector3.zero;
+                }
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetShake(float Intensity = 0.1f, bool willDiminish = true, float DiminishIntensity = 0.5f, bool RotationMode = false, float RotationShakeSpeed = 25f, float HorizontalBaseIntensity = 1, float VerticalBaseIntensity = 1)
