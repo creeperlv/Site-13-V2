@@ -15,15 +15,22 @@ namespace Site13Kernel.Data
         public static Settings CurrentSettings;
         public float RenderScale = 100;
         public bool FullScreen = true;
+        public bool RenderShadow = true;
         public float MouseSensibly = 1;
         public float SFX = 1;
         public float UI_SFX = 1;
         public float BGM = 1;
         public float UI_BGM = 1;
-        public int WINDOW_W=-1;
-        public int WINDOW_H=-1;
-        public int TextureQuality=0;
+        public int WINDOW_W = -1;
+        public int WINDOW_H = -1;
+        public int TextureQuality = 0;
         public bool SwitchRun = false;
+        static JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            Formatting = Formatting.Indented
+        };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Init()
         {
@@ -40,7 +47,7 @@ namespace Site13Kernel.Data
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Load()
         {
-            CurrentSettings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(_File));
+            CurrentSettings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(_File),settings);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Save()
@@ -49,7 +56,7 @@ namespace Site13Kernel.Data
             {
                 File.Delete(_File);
             }
-            File.WriteAllText(_File, JsonConvert.SerializeObject(CurrentSettings));
+            File.WriteAllText(_File, JsonConvert.SerializeObject(CurrentSettings, settings));
         }
     }
 }
