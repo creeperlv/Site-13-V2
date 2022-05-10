@@ -257,6 +257,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -755,7 +756,10 @@ MonoBehaviour:
   MeleeSFX: {fileID: 8300000, guid: 3bee61f77e764e94492ee6ba52b0cc95, type: 3}
   ReloadSFXSource: {fileID: 0}
   ReloadSFX: {fileID: 0}
-  BulletPrefab: {fileID: 268917492707514845, guid: 695ae8237e40b4c44bb4feacbc5e6e99, type: 3}
+  BulletPrefab:
+    useString: 0
+    Key: 
+    ID: 0
   ControlledAnimator: {fileID: 4370866356502920384}
   CCAnimator: {fileID: 4370866356502920385}
   FireAnime: Fire
@@ -1596,6 +1600,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 4370866356502920446}
     m_Modifications:
     - target: {fileID: -9210112528793113162, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
@@ -3696,6 +3701,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1462161286340235448, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4261204275011560736}
   m_SourcePrefab: {fileID: 100100000, guid: 7a2faf00ee8179741a8721d8e8300ef7, type: 3}
 --- !u!4 &2946141657359062745 stripped
 Transform:
@@ -3712,6 +3721,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 2946141657359062745}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a29d47eac2106bb40b8fecfb9d6e52b5, type: 3}
@@ -3791,6 +3801,13 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a29d47eac2106bb40b8fecfb9d6e52b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4370866356068237165}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a29d47eac2106bb40b8fecfb9d6e52b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4370866356491102402}
   m_SourcePrefab: {fileID: 100100000, guid: a29d47eac2106bb40b8fecfb9d6e52b5, type: 3}
 --- !u!4 &4261204275011560736 stripped
 Transform:
