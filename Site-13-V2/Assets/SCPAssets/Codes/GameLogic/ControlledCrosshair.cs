@@ -1,6 +1,7 @@
 using Site13Kernel.Core;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Site13Kernel.GameLogic
@@ -15,7 +16,10 @@ namespace Site13Kernel.GameLogic
         public bool XReversed;
         public bool YContolled;
         public bool YReversed;
-        float D=-1;
+        public bool ScaleControlled = false;
+        public Vector3 BaseScale = new Vector3(1, 1, 1);
+        public Vector3 MaxScale = new Vector3(1, 1, 1);
+        float D = -1;
         public override void Init()
         {
             D = MaxDistance - MinDistance;
@@ -23,7 +27,11 @@ namespace Site13Kernel.GameLogic
         public void UpdateCrosshair(float Recoil)
         {
             Controlled.anchoredPosition = InitialPosition + new Vector2(XContolled ? ((MinDistance + Recoil * D) * (XReversed ? -1 : 1)) : 0,
-                YContolled ? ((MinDistance + Recoil * D )* (YReversed ? -1 : 1)) : 0);
+                YContolled ? ((MinDistance + Recoil * D) * (YReversed ? -1 : 1)) : 0);
+            if (ScaleControlled)
+            {
+                Controlled.localScale = math.lerp(BaseScale, MaxScale, Recoil);
+            }
         }
     }
 }

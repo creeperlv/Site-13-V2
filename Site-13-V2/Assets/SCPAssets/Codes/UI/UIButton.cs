@@ -1,4 +1,6 @@
 using Site13Kernel.Core;
+using Site13Kernel.Core.Controllers;
+using Site13Kernel.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +21,8 @@ namespace Site13Kernel.UI
     {
 
         public Text PrimaryContentText;
+        public bool InitEffect;
+        public PrefabReference Effect;
         public string Content
         {
             get => PrimaryContentText.text;
@@ -60,6 +64,18 @@ namespace Site13Kernel.UI
 
             UISystemProfilerApi.AddMarker("Button.onClick", this);
             m_OnClick.Invoke();
+            if (InitEffect)
+            {
+                try
+                {
+
+                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Effect, Vector3.zero, Quaternion.identity, false);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
+            }
             if (OnClick != null)
             {
                 OnClick();

@@ -3,6 +3,8 @@ using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.UI;
+using Site13Kernel.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,8 +26,10 @@ namespace Site13Kernel.GameLogic.AI
         public string EscapeTrigger = "Escape";
         public int Escaped_HASH = 2;
         public float Escape_P = 0.1f;
-        public string CombatMoveTrigger = "Combat";
+        public string CombatMoveTrigger = "Combat_W";
         public int CombatMove_HASH = 3;
+        public string CombatStopTrigger = "Combat_S";
+        public int CombatStop_HASH = 5;
         public string ThrowGrenadeTrigger = "Throw";
         public int Throw_HASH = 4;
         public float Throw_P = 0.1f;
@@ -39,7 +43,7 @@ namespace Site13Kernel.GameLogic.AI
         public AudioSource SpeechSource;
 
         [Header("Death")]// Yep, this is death.
-
+        public List<DeathDropItem> deathDropItems;
         public GameObject DropItemPrefab;
         public string DropItemID;
 
@@ -47,6 +51,8 @@ namespace Site13Kernel.GameLogic.AI
         public float RemainingMagzineMin;
         public float RemainingBackupMax;
         public float RemainingBackupMin;
+
+        public string ScoringID;
 
         [Header("Combat Behavior")]
         public Goal CombatGoal;
@@ -58,6 +64,7 @@ namespace Site13Kernel.GameLogic.AI
         /// Back to normal routine.
         /// </summary>
         public float ChaseStopRange;
+        public float CombatStopDistance;
         public float ChaseSpeed;
         public float CombatMoveSpeed = 2;
 
@@ -80,23 +87,58 @@ namespace Site13Kernel.GameLogic.AI
             {
                 if (Died) return false;
                 Died = true;
-                if (DropItemID != "")
+                if (ScoringID != "")
+                    ScoreBoard.Count(ScoringID);
+                if (deathDropItems.Count > 0)
                 {
-                    WeaponPool.CurrentPool.Instantiate(DropItemID, base.transform.position, base.transform.rotation, base.transform.parent);
+                    foreach (var item in deathDropItems)
+                    {
+                        var p = UnityEngine.Random.Range(0f, 1f);
+                        if (p < item.Probability)
+                        {
+                            if (item.isWeapon)
+                            {
+                                (var _G, _) = WeaponPool.CurrentPool.Instantiate(item.ItemID.Key, base.transform.position, base.transform.rotation, base.transform.parent);
+                                var SD = _G.AddComponent<SelfDestruction>();
+                                SD.Time = 30;
+                            }
+                            else
+                            {
+                                var _G = Utilities.ObjectGenerator.Instantiate(item.ItemID, base.transform.position, base.transform.rotation, base.transform.parent);
+                                var SD = _G.AddComponent<SelfDestruction>();
+                                SD.Time = 30;
+                            }
+                        }
+                    }
                 }
-                else if (DropItemPrefab != null)
+                else
                 {
+                    if (DropItemID != "")
+                    {
+                        WeaponPool.CurrentPool.Instantiate(DropItemID, base.transform.position, base.transform.rotation, base.transform.parent);
+                    }
+                    else if (DropItemPrefab != null)
+                    {
 
-                    GameObject.Instantiate(DropItemPrefab, base.transform.position, base.transform.rotation, base.transform.parent);
+                        GameObject.Instantiate(DropItemPrefab, base.transform.position, base.transform.rotation, base.transform.parent);
+                    }
                 }
                 Parent.UnregisterRefresh(this);
                 return false;
             };
         }
         float TIME_COMBAT = 0;
+        bool isNotFirstSpot = false;
+        bool isSetDestSuccessed = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
+            if (!Agent.isOnNavMesh)
+            {
+                Agent.enabled = false;
+                Agent.enabled = true;
+                return;
+            }
             switch (CurrentState)
             {
                 case AIState.Walk:
@@ -106,29 +148,39 @@ namespace Site13Kernel.GameLogic.AI
 
                         if (LastState != CurrentState)
                         {
-                            ControlledCharacterAnimator.SetAnimation(Walk_HASH);
                             SetGoal(GoalRoutine.CurrentExecutingGoals[GoalRoutine.Step], WalkSpeed);
                             LastState = CurrentState;
                         }
+                        if (ControlledCharacterAnimator.CurrentClip != Walk_HASH)
+                            ControlledCharacterAnimator.SetAnimation(Walk_HASH);
 
                         if (Detect(GoalRoutine.CurrentExecutingGoals[GoalRoutine.Step]))
                         {
-                            GoalRoutine.Step++;
-                            if (GoalRoutine.Step >= GoalRoutine.CurrentExecutingGoals.Count)
+                            if (GoalRoutine.isRandomNextGoal)
                             {
-                                if (GoalRoutine.isLoop)
-                                {
-                                    GoalRoutine.Step = 0;
-
-                                }
-                                else
-                                {
-                                    CurrentState = AIState.Idle;
-                                }
+                                var (goal,index)=Maths.ObtainOneWithIndex(GoalRoutine.CurrentExecutingGoals);
+                                GoalRoutine.Step = index;
+                                SetGoal(goal, WalkSpeed);
                             }
-                            if (GoalRoutine.Step < GoalRoutine.CurrentExecutingGoals.Count)
+                            else
                             {
-                                SetGoal(GoalRoutine.CurrentExecutingGoals[GoalRoutine.Step], WalkSpeed);
+                                GoalRoutine.Step++;
+                                if (GoalRoutine.Step >= GoalRoutine.CurrentExecutingGoals.Count)
+                                {
+                                    if (GoalRoutine.isLoop)
+                                    {
+                                        GoalRoutine.Step = 0;
+
+                                    }
+                                    else
+                                    {
+                                        CurrentState = AIState.Idle;
+                                    }
+                                }
+                                if (GoalRoutine.Step < GoalRoutine.CurrentExecutingGoals.Count)
+                                {
+                                    SetGoal(GoalRoutine.CurrentExecutingGoals[GoalRoutine.Step], WalkSpeed);
+                                }
                             }
                             //ControlledCharacterAnimator.SetAnimation(Walk_HASH);
                         }
@@ -158,30 +210,35 @@ namespace Site13Kernel.GameLogic.AI
                     {
                         if (LastState != CurrentState)
                         {
-                            ControlledCharacterAnimator.SetAnimation(CombatMove_HASH);
                             LastState = CurrentState;
                         }
-
+                        if (ControlledCharacterAnimator.CurrentClip != CombatMove_HASH)
+                            ControlledCharacterAnimator.SetAnimation(CombatMove_HASH);
+                        if (isNotFirstSpot) ControlledCharacterAnimator.ControlledAnimator.SetBool("FirstSpot", false);
+                        isNotFirstSpot = true;
                         TIME_COMBAT += DeltaTime;
                         if (TIME_COMBAT > 1)
                         {
-                            SetGoal(CombatGoal, WalkSpeed);
+                            if (CombatGoal.Target != null)
+                                SetGoal(CombatGoal, WalkSpeed);
+
                             TIME_COMBAT = 0;
                         }
-                        if (Weapon != null)
-                        {
-                            var angle = Vector3.Angle(Weapon.FirePoint.forward, Weapon.FirePoint.position - CombatGoal.Target.position) - 90;
-
-                            if (Math.Abs(angle) < FireAngleThreshold)
+                        if (CombatGoal.Target != null)
+                            if (Weapon != null)
                             {
-                                Weapon.Fire();
+                                var angle = Vector3.Angle(Weapon.FirePoint.forward, Weapon.FirePoint.position - CombatGoal.Target.position);
+                                var _angle = Math.Abs(angle);
+                                if (90 - FireAngleThreshold < _angle && _angle < 90 + FireAngleThreshold)
+                                {
+                                    Weapon.Fire();
+                                }
+                                else
+                                {
+                                    Weapon.Unfire();
+                                }
+                                Weapon.OnFrame(DeltaTime, UnscaledDeltaTime);
                             }
-                            else
-                            {
-                                Weapon.Unfire();
-                            }
-                            Weapon.OnFrame(DeltaTime, UnscaledDeltaTime);
-                        }
                     }
                     break;
                 case AIState.Chase:
@@ -196,7 +253,11 @@ namespace Site13Kernel.GameLogic.AI
                 default:
                     break;
             }
-
+            if (GoalPos != Vector3.zero)
+                if (!isSetDestSuccessed)
+                {
+                    isSetDestSuccessed = Agent.SetDestination(GoalPos);
+                }
             // State Change?
 
             {
@@ -221,6 +282,11 @@ namespace Site13Kernel.GameLogic.AI
                 else
                 if (CurrentState == AIState.Combat)
                 {
+                    if (CombatGoal != null)
+                    {
+                        if (CombatGoal.Target == null)
+                            CurrentState = AIState.Walk;
+                    }
                     if (Collector.LastClosestFoe == null)
                     {
                         CurrentState = AIState.Walk;
@@ -266,23 +332,28 @@ namespace Site13Kernel.GameLogic.AI
                 {
                     if (item.State == CurrentState)
                     {
+                        if (item.TimeD == -1)
+                        {
+                            item.LoopWaitRandom= UnityEngine.Random.Range(0, item.LoopWaitRandomMax);
+                            item.TimeD = 0.01f;
+                        }
                         if (item.TimeD == 0)
                         {
                             {
                                 //Play Sound.
                                 if (item.audioClips.Count > 0)
                                 {
-                                    SpeechSource.clip = item.audioClips[UnityEngine.Random.Range((int)0, item.audioClips.Count)];
+                                    SpeechSource.clip = Maths.ObtainOne(item.audioClips);
 
                                 }
                                 SpeechSource.Play();
                             }
                         }
                         item.TimeD += DeltaTime;
-                        if (item.TimeD > item.LoopWait)
+                        if (item.TimeD > item.LoopWait+item.LoopWaitRandom)
                         {
                             item.TimeD = 0;
-                         
+                            item.LoopWaitRandom= UnityEngine.Random.Range(0, item.LoopWaitRandomMax);
                         }
                         break;
                     }
@@ -290,11 +361,13 @@ namespace Site13Kernel.GameLogic.AI
 
             }
         }
+        Vector3 GoalPos;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetGoal(Goal g, float BaseSpeed = 1)
+        public bool SetGoal(Goal g, float BaseSpeed = 1)
         {
             Agent.speed = BaseSpeed * g.Speed;
-            Agent.destination = g.Target.position;
+            GoalPos = g.Target.position;
+            return isSetDestSuccessed = Agent.SetDestination(GoalPos);
         }
         /// <summary>
         /// 
@@ -315,7 +388,7 @@ namespace Site13Kernel.GameLogic.AI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetRoutine(Routine r)
         {
-            GoalRoutine = r;
+            GoalRoutine = r.Duplicate();
             if (r.CurrentExecutingGoals != null)
                 if (r.CurrentExecutingGoals.Count > 0)
                     SetGoal(r.CurrentExecutingGoals[0], CurrentState == AIState.Walk ? WalkSpeed : 1);
@@ -323,11 +396,23 @@ namespace Site13Kernel.GameLogic.AI
         }
     }
     [Serializable]
+    public class DeathDropItem
+    {
+        public bool isWeapon = true;
+        public PrefabReference ItemID;
+        public float Probability = 1;
+    }
+    [Serializable]
     public class Routine
     {
         public bool isLoop;
+        public bool isRandomNextGoal=false;
         public int Step;
         public List<Goal> CurrentExecutingGoals;
+        public Routine Duplicate()
+        {
+            return new Routine { isLoop = isLoop, Step = Step,isRandomNextGoal= isRandomNextGoal, CurrentExecutingGoals = CurrentExecutingGoals };
+        }
     }
     [Serializable]
     public class SpeechCollection
@@ -336,6 +421,9 @@ namespace Site13Kernel.GameLogic.AI
         public List<AudioClip> audioClips;
         public bool isLoop;
         public float LoopWait;
+        public float LoopWaitRandomMax;
+        [HideInInspector]
+        public float LoopWaitRandom;
         public float TimeD;
     }
     public enum EscapeReason

@@ -21,6 +21,7 @@ namespace Site13Kernel.GameLogic.FPS
         public Weapon Weapon;
         public int GrenadeID;
         public GameObject ControlledEntity;
+        public Action OnPickup = null;
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
             {
@@ -77,10 +78,17 @@ namespace Site13Kernel.GameLogic.FPS
                                 {
                                     return;
                                 }
-                                var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
-                                var P = G.GetComponentInChildren<Pickupable>();
-                                G.transform.position = Holder.transform.position;
-                                P.Weapon = Holder.Weapon0.Weapon.Base;
+
+                                var t = Holder.Weapon0.Weapon.Base.CurrentBackup + Holder.Weapon0.Weapon.Base.CurrentMagazine;
+                                if (t > 0)
+                                {
+
+                                    var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                    var P = G.GetComponentInChildren<Pickupable>();
+                                    G.transform.position = Holder.transform.position;
+                                    P.Weapon = Holder.Weapon0.Weapon.Base;
+
+                                }
                             }
                             GameObject.Destroy(Holder.Weapon0.gameObject);
 
@@ -100,10 +108,14 @@ namespace Site13Kernel.GameLogic.FPS
                                 {
                                     return;
                                 }
-                                var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
-                                var P = G.GetComponentInChildren<Pickupable>();
-                                G.transform.position = Holder.transform.position;
-                                P.Weapon = Holder.Weapon1.Weapon.Base;
+                                var t = Holder.Weapon1.Weapon.Base.CurrentBackup + Holder.Weapon1.Weapon.Base.CurrentMagazine;
+                                if (t > 0)
+                                {
+                                    var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                    var P = G.GetComponentInChildren<Pickupable>();
+                                    G.transform.position = Holder.transform.position;
+                                    P.Weapon = Holder.Weapon1.Weapon.Base;
+                                }
                             }
 
                             GameObject.Destroy(Holder.Weapon1.gameObject);
@@ -122,6 +134,7 @@ namespace Site13Kernel.GameLogic.FPS
 
                     }
                     Debugger.CurrentDebugger.Log($"Giving {Weapon.WeaponID} to {Holder.name}... Completed.");
+                    if (OnPickup != null) OnPickup();
                     Destroy(ControlledEntity);
                 }
                 else
@@ -202,6 +215,7 @@ namespace Site13Kernel.GameLogic.FPS
                 if (PG.MaxCount > PG.RemainingCount)
                 {
                     PG.RemainingCount++;
+                    if (OnPickup != null) OnPickup();
                     Destroy(ControlledEntity);
                     return true;
                 }
@@ -233,6 +247,7 @@ namespace Site13Kernel.GameLogic.FPS
                         this.Parent.UnregisterRefresh(this);
 
                     }
+                    if (OnPickup != null) OnPickup();
                     Destroy(ControlledEntity);
                 }
             }

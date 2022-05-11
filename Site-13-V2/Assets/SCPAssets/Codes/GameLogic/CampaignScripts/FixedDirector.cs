@@ -1,4 +1,6 @@
 using Site13Kernel.Core.Controllers;
+using Site13Kernel.Core.Interactives;
+using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.Utilities;
 using System;
@@ -16,6 +18,10 @@ namespace Site13Kernel.GameLogic.CampaignScripts
         //public GameObject PlayerPrefab;
         public BaseController LevelController;
         public static FixedDirector CurrentDirector;
+        public Dictionary<string, bool> Symbols = new Dictionary<string, bool>();
+        public PrefabReference DefaultPlayer;
+        public Weapon DefaultWeapon;
+        public List<Transform> RespawnPoints;
         void Start()
         {
             CurrentDirector = this;
@@ -23,7 +29,13 @@ namespace Site13Kernel.GameLogic.CampaignScripts
             {
                 if (item.Trigger != null)
                     if (item.useTrigger)
-                        item.Trigger.Callback.Add(() => ExecuteEvent(item));
+                    {
+                        var t = item.Trigger.GetComponent<ITriggerable>();
+                        if (t != null)
+                        {
+                            t.AddCallback(() => ExecuteEvent(item));
+                        }
+                    }
             }
         }
         public bool isRunning = false;
@@ -32,7 +44,22 @@ namespace Site13Kernel.GameLogic.CampaignScripts
             yield return new WaitForSeconds(e.OnTriggeredTime);
             RealExecute(e);
         }
-        FPSController FPSC;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetSymbol(string Name)
+        {
+            var __key = Name.ToUpper();
+            Symbols.Add(__key, true);
+            foreach (var item in EventList)
+            {
+                if (item.useSymbol)
+                {
+                    if (item.TargetSymbol.ToUpper() == __key)
+                    {
+                        StartCoroutine(Execute(item));
+                    }
+                }
+            }
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void RealExecute(CampaignEvent e)
         {
@@ -64,7 +91,7 @@ namespace Site13Kernel.GameLogic.CampaignScripts
                                 var PLAYER = GlobalBioController.CurrentGlobalBioController.Spawn(e.PlayerSpawnID, Vector3.zero, Vector3.zero);
                                 PLAYER.transform.GetChild(1).position = e.Location.position;
                                 PLAYER.transform.GetChild(1).rotation = e.Location.rotation;
-                                FPSC = PLAYER.GetComponentInChildren<FPSController>();
+                                var FPSC = PLAYER.GetComponentInChildren<FPSController>();
 
                                 LevelController.RegisterRefresh(FPSC);
                                 FPSC.Parent = LevelController;
@@ -78,14 +105,14 @@ namespace Site13Kernel.GameLogic.CampaignScripts
                         break;
                     case EventType.DisablePlayer:
                         {
-                            if (FPSC != null)
-                                FPSC.gameObject.SetActive(false);
+                            if (FPSController.Instance != null)
+                                FPSController.Instance.gameObject.SetActive(false);
                         }
                         break;
                     case EventType.EnablePlayer:
                         {
-                            if (FPSC != null)
-                                FPSC.gameObject.SetActive(true);
+                            if (FPSController.Instance != null)
+                                FPSController.Instance.gameObject.SetActive(true);
                         }
                         break;
                     case EventType.Script:
@@ -107,10 +134,20 @@ namespace Site13Kernel.GameLogic.CampaignScripts
                         break;
                     case EventType.GivePlayerWeapon:
                         {
-                            if (FPSC != null)
+                            if (FPSController.Instance != null)
                             {
-                                var BAG = FPSC.BagHolder;
+                                var BAG = FPSController.Instance.BagHolder;
+                                FPSController.Instance.GiveWeapon(e.TargetWeapon);
                                 //TODO
+                            }
+                        }
+                        break;
+                    case EventType.SetPlayerTransform:
+                        {
+                            if (FPSController.Instance != null)
+                            {
+                                FPSController.Instance.transform.position = e.Location.position;
+                                FPSController.Instance.transform.rotation = e.Location.rotation;
                             }
                         }
                         break;
@@ -147,6 +184,14 @@ namespace Site13Kernel.GameLogic.CampaignScripts
                             }
                         }
                         break;
+                    case EventType.IssueMission:
+                        {
+                            if (FPSController.Instance != null)
+                            {
+                                FPSController.Instance.IssueMission(e.MissionText);
+                            }
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -161,6 +206,7 @@ namespace Site13Kernel.GameLogic.CampaignScripts
         void ExecuteEvent(CampaignEvent e)
         {
             if (e.isIgnored) return;
+            if (e.Executed && !e.AllowDuplicateExecution) return;
             if (e.useTrigger && e.useTimer)
             {
                 StartCoroutine(Execute(e));
@@ -177,7 +223,7 @@ namespace Site13Kernel.GameLogic.CampaignScripts
             foreach (var item in EventList)
             {
                 if (item.useTrigger && !item.useTimer) continue;
-
+                if (item.useSymbol) continue;
                 bool EXE = true;
                 if (item.useTrigger) continue;
                 if (item.useTimer)
@@ -208,6 +254,6 @@ namespace Site13Kernel.GameLogic.CampaignScripts
 
     public enum EventType
     {
-        Speak, Spawn, Win, Script, SpawnPlayer, TriggerGameObject, DisablePlayer, EnablePlayer, GivePlayerWeapon, SceneVisibility, CheckPoint, SceneActive
+        Speak, Spawn, Win, Script, SpawnPlayer, TriggerGameObject, DisablePlayer, EnablePlayer, GivePlayerWeapon, SceneVisibility, CheckPoint, SceneActive, SetPlayerTransform,IssueMission
     }
 }

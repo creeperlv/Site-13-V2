@@ -3,14 +3,24 @@ using Site13Kernel.Core.Interactives;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Site13Kernel
 {
-    public class EventTrigger : InteractiveBase
+    public class EventTrigger : InteractiveBase, ITriggerable
     {
-        public List<Action> Callback=new List<Action>();
+        [SerializeField]
+        private List<Action> __Callback = new List<Action>();
+        public List<Action> Callback
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => __Callback;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set => __Callback = value;
+        }
         bool Executed = false;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
             if (!Executed)
@@ -22,6 +32,11 @@ namespace Site13Kernel
                 Executed = true;
             }
 
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AddCallback(Action Callback)
+        {
+            __Callback.Add(Callback);
         }
     }
 }

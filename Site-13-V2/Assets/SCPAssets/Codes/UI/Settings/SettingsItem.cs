@@ -117,14 +117,14 @@ namespace Site13Kernel.UI.Settings
                             List<ComboBoxData> items = new List<ComboBoxData>();
                             foreach (var item in Screen.resolutions)
                             {
-                                items.Add(new ComboBoxData { text = $"{item.width} x {item.height}" } );
+                                items.Add(new ComboBoxData { text = $"{item.width} x {item.height}" });
                             }
                             cb.AddOptions(items);
                         }
                         for (int i = 0; i < Screen.resolutions.Length; i++)
                         {
                             var r = Screen.resolutions[i];
-                            if(r.width== Data.Settings.CurrentSettings.WINDOW_W&&r.height== Data.Settings.CurrentSettings.WINDOW_H)
+                            if (r.width == Data.Settings.CurrentSettings.WINDOW_W && r.height == Data.Settings.CurrentSettings.WINDOW_H)
                             {
                                 __edit.InitValue(i);
                                 break;
@@ -137,12 +137,58 @@ namespace Site13Kernel.UI.Settings
                                 //AudioUtility.SetVolume(Parent.BGM.audioMixer, f);
                                 int W = Screen.resolutions[i].width;
                                 int H = Screen.resolutions[i].height;
-                                Screen.SetResolution(W,H,Screen.fullScreen);
+                                Screen.SetResolution(W, H, Screen.fullScreen);
                                 Data.Settings.CurrentSettings.WINDOW_W = W;
                                 Data.Settings.CurrentSettings.WINDOW_H = H;
                                 Data.Settings.Save();
                             }
                         });
+                    }
+                    break;
+                case Constants.TextureQuality:
+                    {
+                        Debug.Log("Texture: " + QualitySettings.masterTextureLimit);
+                        __edit.InitValue(3 - QualitySettings.masterTextureLimit);
+                        __edit.SetCallback((v) =>
+                        {
+                            if (v is float f)
+                            {
+                                var val = (int)Mathf.Abs((int)f - 3);
+                                QualitySettings.masterTextureLimit = val;
+                                Data.Settings.CurrentSettings.TextureQuality = val;
+                                Data.Settings.Save();
+                            }
+                        });
+                    }
+                    break;
+                case Constants.Control_MouseSensitivity:
+                    {
+                        {
+                            __edit.InitValue(Data.Settings.CurrentSettings.MouseSensibly);
+                            __edit.SetCallback((v) =>
+                            {
+                                if (v is float f)
+                                {
+                                    Data.Settings.CurrentSettings.MouseSensibly = f;
+                                    Data.Settings.Save();
+                                }
+                            });
+                        }
+                    }
+                    break;
+                case Constants.RenderShadow:
+                    {
+                        {
+                            __edit.InitValue(Data.Settings.CurrentSettings.RenderShadow);
+                            __edit.SetCallback((v) =>
+                            {
+                                if (v is bool b)
+                                {
+                                    Data.Settings.CurrentSettings.RenderShadow = b;
+                                    Data.Settings.Save();
+                                }
+                            });
+                        }
                     }
                     break;
                 default:

@@ -247,7 +247,11 @@ namespace Site13Kernel.UI
             isCallbackLocked = true;
             try
             {
-                isOn = (bool)obj;
+                m_IsOn = (bool)obj;
+                Set(m_IsOn,false);
+
+                PlayEffect(toggleTransition == ToggleTransition.None);
+                //graphic.canvasRenderer.SetAlpha(m_IsOn? 1f : 0f);
             }
             catch (Exception)
             {

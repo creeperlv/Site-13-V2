@@ -51,52 +51,83 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
+    isGameInputAxisForButton: 0
     PositiveKeys: 77000000
     NegativeKeys: 73000000
-    GamepadInput: []
+    GamepadInput:
+    - CVertical
   - Name: MoveHorizontal
     isButton: 0
     AcceptMouse: 0
     Axis: 0
     Intensity: 1
     DeadZone: 0
+    isGameInputAxisForButton: 0
     PositiveKeys: 64000000
     NegativeKeys: 61000000
-    GamepadInput: []
+    GamepadInput:
+    - CHorizontal
   - Name: MouseH
     isButton: 0
     AcceptMouse: 1
     Axis: 1
-    Intensity: 3
+    Intensity: 4
     DeadZone: 0
+    isGameInputAxisForButton: 0
     PositiveKeys: 13010000
     NegativeKeys: 14010000
     GamepadInput: []
+  - Name: MouseH
+    isButton: 0
+    AcceptMouse: 0
+    Axis: 1
+    Intensity: 20
+    DeadZone: 0
+    isGameInputAxisForButton: 0
+    PositiveKeys: 
+    NegativeKeys: 
+    GamepadInput:
+    - Mouse CHorizontal
   - Name: MouseV
     isButton: 0
     AcceptMouse: 1
     Axis: 2
-    Intensity: -3
+    Intensity: -4
     DeadZone: 0
+    isGameInputAxisForButton: 0
     PositiveKeys: 11010000
     NegativeKeys: 12010000
     GamepadInput: []
+  - Name: MouseV
+    isButton: 0
+    AcceptMouse: 0
+    Axis: 2
+    Intensity: -20
+    DeadZone: 0
+    isGameInputAxisForButton: 0
+    PositiveKeys: 
+    NegativeKeys: 
+    GamepadInput:
+    - Mouse CVertical
   - Name: Fire
-    isButton: 1
+    isButton: 0
     AcceptMouse: 0
     Axis: 0
     Intensity: 1
     DeadZone: 0
+    isGameInputAxisForButton: 0
     PositiveKeys: 43010000
     NegativeKeys: 
-    GamepadInput: []
+    GamepadInput:
+    - CFire
   - Name: Zoom
     isButton: 1
     AcceptMouse: 0
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 44010000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 4401000053010000
     NegativeKeys: 
     GamepadInput: []
   - Name: Run
@@ -105,7 +136,8 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 30010000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 300100004c010000
     NegativeKeys: 
     GamepadInput: []
   - Name: Jump
@@ -114,7 +146,8 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 20000000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 200000004a010000
     NegativeKeys: 
     GamepadInput: []
   - Name: SwitchWeapon
@@ -123,7 +156,8 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 31000000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 310000004d010000
     NegativeKeys: 
     GamepadInput: []
   - Name: SwitchGrenade
@@ -132,7 +166,8 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 32000000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 320000004e010000
     NegativeKeys: 
     GamepadInput: []
   - Name: Reload
@@ -141,7 +176,8 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 72000000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 720000004f010000
     NegativeKeys: 
     GamepadInput: []
   - Name: Crouch
@@ -150,7 +186,8 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 32010000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 3201000052010000
     NegativeKeys: 
     GamepadInput: []
   - Name: Interact
@@ -159,7 +196,8 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 65000000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 650000004f010000
     NegativeKeys: 
     GamepadInput: []
   - Name: Combat
@@ -168,16 +206,53 @@ MonoBehaviour:
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 71000000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 710000004b010000
     NegativeKeys: 
     GamepadInput: []
   - Name: ThrowGrenade
+    isButton: 0
+    AcceptMouse: 0
+    Axis: 0
+    Intensity: 1
+    DeadZone: 0
+    isGameInputAxisForButton: 0
+    PositiveKeys: 66000000
+    NegativeKeys: 
+    GamepadInput:
+    - CGrenade
+  - Name: Esc
     isButton: 1
     AcceptMouse: 0
     Axis: 0
     Intensity: 1
     DeadZone: 0
-    PositiveKeys: 66000000
+    isGameInputAxisForButton: 0
+    PositiveKeys: 1b000000
     NegativeKeys: 
     GamepadInput: []
+  - Name: Detail
+    isButton: 1
+    AcceptMouse: 0
+    Axis: 0
+    Intensity: 1
+    DeadZone: 0
+    isGameInputAxisForButton: 0
+    PositiveKeys: 09000000
+    NegativeKeys: 
+    GamepadInput: []
+  - Name: FlashLight
+    isButton: 1
+    AcceptMouse: 0
+    Axis: 0
+    Intensity: 1
+    DeadZone: 0
+    isGameInputAxisForButton: 0
+    PositiveKeys: 34000000
+    NegativeKeys: 
+    GamepadInput: []
+  simulation:
+    isEnabled: 0
+    PassedTime: 0
+    inputs: []
   Names: []

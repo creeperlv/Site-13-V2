@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using ShadowQuality = UnityEngine.ShadowQuality;
 
 namespace Site13Kernel.UEFI
 {

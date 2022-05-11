@@ -49,6 +49,31 @@ namespace Site13Kernel
                 }
             }
         }
+
+        private void Update()
+        {
+            float DeltaTime = Time.deltaTime;
+            float UnscaledDeltaTime = Time.unscaledDeltaTime;
+            for (int num = _OnRefresh.Count - 1; num >= 0; num--)
+            {
+                if (!INTERRUPT_REFRESH)
+                {
+                    AICharacter controllable = _OnRefresh[num] as AICharacter;
+                    if (controllable != null)
+                        try
+                        {
+                            controllable.Refresh(DeltaTime, UnscaledDeltaTime);
+                        }
+                        catch (Exception obj)
+                        {
+                            Debugger.CurrentDebugger.Log(obj, LogLevel.Error);
+                        }
+                }
+            }
+        }
+        //public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
+        //{
+        //}
         public AICharacter Spawn(string ID, Vector3 position, Vector3 Rotation)
         {
             var OBJ = GlobalBioController.CurrentGlobalBioController.Spawn(ID, position, Rotation);
@@ -63,7 +88,14 @@ namespace Site13Kernel
             for (int i = this._OnRefresh.Count - 1; i >= 0; i--)
             {
                 var item = this._OnRefresh[i] as AICharacter;
-                DestoryAICharacter(item);
+                if (item == null)
+                {
+                    _OnRefresh.RemoveAt(i);
+                }
+                else
+                {
+                    DestoryAICharacter(item);
+                }
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

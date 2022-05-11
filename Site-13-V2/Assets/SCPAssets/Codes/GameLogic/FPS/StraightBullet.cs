@@ -33,7 +33,7 @@ namespace Site13Kernel.GameLogic.FPS
                 {
                     return;
                 }
-                EffectController.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
+                var Effect = EffectController.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
             }
             else
             {
@@ -43,6 +43,11 @@ namespace Site13Kernel.GameLogic.FPS
             if (HitEffect != -1)
                 EffectController.CurrentEffectController.Spawn(HitEffect, collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
             var Entity = collision.gameObject.GetComponent<DamagableEntity>();
+            var EntityREF = collision.gameObject.GetComponent<DamagableEntityReference>();
+            if(EntityREF != null)
+            {
+                Entity = EntityREF.Reference;
+            }
             var WeakPoint = collision.gameObject.GetComponent<WeakPoint>();
             if (WeakPoint != null)
             {

@@ -29,7 +29,7 @@ namespace Site13Kernel.UI.Combat
                     this.gameObject.SetActive(true);
                 if (!isPercentage)
                 {
-                    DisplayText.text = $"{ListeningWeapon.Weapon.Base.CurrentMagazine}/{ListeningWeapon.Weapon.Base.MagazineCapacity}";
+                    DisplayText.text = $"{ListeningWeapon.Weapon.Base.CurrentMagazine}|{ListeningWeapon.Weapon.Base.CurrentBackup}";
                     if (!DisplayText.gameObject.activeSelf)
                     {
                         DisplayText.gameObject.SetActive(true);

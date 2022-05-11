@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
+using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using System;
 using System.Collections;
@@ -29,7 +30,7 @@ namespace Site13Kernel.GameLogic
                 foreach (var item in Preloads)
                 {
                     if (!item.isRef)
-                        SceneLoader.Instance.LoadScene(item.SceneID, item.isShow, item.isAddictive, item.isStick);
+                        Instance.LoadScene(item.SceneID, item.isShow, item.isAddictive, item.isStick);
                 }
             }
 
@@ -37,11 +38,49 @@ namespace Site13Kernel.GameLogic
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void EndLevel()
         {
-            GlobalBioController.CurrentGlobalBioController.DestoryAll();
-
+            Time.timeScale = 1;
+            AudioListener.pause = false;
+            try
+            {
+                AIController.CurrentController.DestoryAllCharacters();
+            }
+            catch (System.Exception)
+            {
+            }
+            try
+            {
+                GlobalBioController.CurrentGlobalBioController.DestoryAll(true);
+            }
+            catch (System.Exception)
+            {
+            }
+            try
+            {
+                GlobalBioController.CurrentGlobalBioController.DestoryAll(true);
+            }
+            catch (Exception)
+            {
+            }
+            try
+            {
+                for (int i = WeaponPool.CurrentPool.transform.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(WeaponPool.CurrentPool.transform.GetChild(i).gameObject);
+                }
+            }
+            catch (Exception)
+            {
+            }
             GameRuntime.CurrentGlobals.isInLevel = false;
-            //SceneLoader.Instance.ShowScene(3);
-            SceneLoader.Instance.LoadScene(GameRuntime.CurrentGlobals.MainMenuSceneID, true, false, false);
+            Instance.ShowScene(4);
+            try
+            {
+                Instance.Unload("LEVELBASE");
+            }
+            catch (Exception)
+            {
+            }
+            Instance.LoadScene(GameRuntime.CurrentGlobals.MainMenuSceneID, true, false, false);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Init()
@@ -49,7 +88,7 @@ namespace Site13Kernel.GameLogic
             Start();
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetStick(int SceneID,bool isStick)
+        public void SetStick(int SceneID, bool isStick)
         {
             SceneMapStickFlag[SceneID] = isStick;
             //return SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(SceneID));
@@ -58,6 +97,17 @@ namespace Site13Kernel.GameLogic
         public bool SetActive(int SceneID)
         {
             return SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(SceneID));
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool SetActive(string SceneID)
+        {
+            var SID = Utilities.SceneUtility.LookUp(SceneID);
+            if (SID == -1)
+            {
+                return false;
+            }
+            else
+                return SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(SID));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int GetActiveSceneID(int SceneID)
@@ -91,6 +141,26 @@ namespace Site13Kernel.GameLogic
                 SceneMapStickFlag[SceneID] = Stick;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SceneKey"></param>
+        /// <param name="ShowImmediately"></param>
+        /// <param name="Additive"></param>
+        /// <param name="stick"></param>
+        /// <returns>false for Lookup failure. true for lookup succeed</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool LoadScene(string SceneKey, bool ShowImmediately, bool Additive, bool stick)
+        {
+            var SID = Utilities.SceneUtility.LookUp(SceneKey);
+            if (SID == -1)
+            {
+                return false;
+            }
+            else
+                LoadScene(SID, ShowImmediately, Additive, stick);
+            return true;
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void LoadScene(int SceneID, bool ShowImmediately, bool Additive, bool Stick)
         {
@@ -112,6 +182,22 @@ namespace Site13Kernel.GameLogic
                     if (_On)
                     {
                         HideScene(SceneID);
+                    }
+                }
+                {
+                    for (int i = SceneMap.Count - 1; i > 0; i--)
+                    {
+                        if (SceneMapStickFlag.ContainsKey(SceneMap.Keys.ElementAt(i)))
+                        {
+                            if (SceneMapStickFlag[SceneMap.Keys.ElementAt(i)] == false)
+                            {
+                                Unload(SceneMap.Keys.ElementAt(i));
+                            }
+                        }
+                        else
+                        {
+                            Unload(SceneMap.Keys.ElementAt(i));
+                        }
                     }
                 }
                 return;
@@ -141,7 +227,6 @@ namespace Site13Kernel.GameLogic
             }
             else
             {
-
                 Debugger.CurrentDebugger.Log($"[SceneLoader]No Loaded Scene Matches \"{ID}\"");
             }
         }
@@ -185,7 +270,21 @@ namespace Site13Kernel.GameLogic
                 Scenes.Remove(SceneID);
                 SceneMap.Remove(SceneID);
                 SceneMapStickFlag.Remove(SceneID);
-
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Unload(string sceneName)
+        {
+            var SceneID = Site13Kernel.Utilities.SceneUtility.LookUp(sceneName);
+            Debugger.CurrentDebugger.Log($"[SceneLoader]Unloading \"{SceneID}\"");
+            if (SceneManager.GetSceneByBuildIndex(SceneID).isLoaded)
+                SceneManager.UnloadSceneAsync(SceneID);
+            if (SceneMap.ContainsKey(SceneID))
+            {
+                SceneLoader.Instance.SceneStatusMap.Remove(SceneID);
+                Scenes.Remove(SceneID);
+                SceneMap.Remove(SceneID);
+                SceneMapStickFlag.Remove(SceneID);
             }
         }
         public int LoadingOperationCount = 0;

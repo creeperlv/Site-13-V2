@@ -1,4 +1,5 @@
-﻿using Site13Kernel.Data;
+﻿using CLUNL.Localization;
+using Site13Kernel.Data;
 using Site13Kernel.GameLogic.AI;
 using System;
 using UnityEngine;
@@ -8,12 +9,15 @@ namespace Site13Kernel.GameLogic.CampaignScripts
     [Serializable]
     public class CampaignEvent
     {
+        [Header("Execution")]
         public bool isIgnored;
         public bool useTrigger;
         public bool useTimer;
+        public bool useSymbol;
+        public string TargetSymbol;
         public bool AllowDuplicateExecution;
         public bool Executed;
-        public EventTrigger Trigger;
+        public GameObject Trigger;
         public float OnTriggeredTime;
         public EventType TriggerType;
         [Header("Speak")]
@@ -40,6 +44,8 @@ namespace Site13Kernel.GameLogic.CampaignScripts
         public string VisibilitySceneName;
         public bool Visibility;
         public string ActiveSceneName;
+        [Header("Issue Mission Text")]
+        public LocalizedString MissionText;
         #region ExecutorFields
         [HideInInspector]
         public float TimeD;

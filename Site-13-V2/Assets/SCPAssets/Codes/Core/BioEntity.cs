@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
@@ -30,6 +31,8 @@ namespace Site13Kernel.Core
 
         public bool useShieldDownObject;
         public List<GameObject> ShieldObjects;
+        public bool useShieldRecoverObject;
+        public List<GameObject> ShieldRecoverObjects;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
@@ -91,6 +94,32 @@ namespace Site13Kernel.Core
                 else
                 {
                     foreach (var item in ShieldObjects)
+                    {
+                        if (item.activeSelf)
+                        {
+                            item.SetActive(false);
+                        }
+                    }
+                }
+            }
+            if (useShieldRecoverObject)
+            {
+                if (ShieldRecoverCountDown <= 0)
+                {
+                    if (CurrentShield < MaxShield)
+                    {
+                        foreach (var item in ShieldRecoverObjects)
+                        {
+                            if (!item.activeSelf)
+                            {
+                                item.SetActive(true);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in ShieldRecoverObjects)
                     {
                         if (item.activeSelf)
                         {

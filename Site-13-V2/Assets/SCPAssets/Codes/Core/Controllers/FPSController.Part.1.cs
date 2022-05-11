@@ -14,6 +14,8 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
+            if (Interrupt00) return;
+            if (Time.timeScale == 0) return;//The game is absolutely paused. :P
             if (GameRuntime.CurrentGlobals.isPaused)
             {
                 return;
@@ -29,6 +31,7 @@ namespace Site13Kernel.Core.Controllers
             }
             WeaponControl(DeltaTime, UnscaledDeltaTime);
             Weapon = BagHolder.CurrentWeapon == 0 ? BagHolder.Weapon0 : BagHolder.Weapon1;
+            if(MainCam!=null)
             Zoom(DeltaTime);
             Movement(DeltaTime, UnscaledDeltaTime);
             if (Weapon != null)
@@ -38,7 +41,6 @@ namespace Site13Kernel.Core.Controllers
             Interact(DeltaTime, UnscaledDeltaTime);
             {
                 //Weapons
-
                 if (Weapon != null)
                     Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
@@ -49,44 +51,47 @@ namespace Site13Kernel.Core.Controllers
             UpdateHUD(DeltaTime, UnscaledDeltaTime);
             SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
         }
+        bool Grenade0 = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Grenade(float DeltaTime, float UnscaledDeltaTime)
         {
-            if (InputProcessor.GetInputDown("ThrowGrenade"))
+            if (InputProcessor.GetAxis("ThrowGrenade") > 0.4f)
             {
-                if (Grenade_Throwing == false)
+                if (Grenade0 == false)
                 {
-
-                    if (Weapon != null)
+                    if (Grenade_Throwing == false)
                     {
-                        if (Weapon.Weapon.WeaponMode != WeaponConstants.WEAPON_MODE_NORMAL)
+                        if (Weapon != null)
                         {
-                            return;
-                        }
-                    }
-
-                    ProcessedGrenade PG = null;
-                    PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
-                    if (PG.GrenadeHashCode != -1)
-                    {
-                        if (PG.RemainingCount > 0)
-                        {
-                            if (Weapon != null)
+                            if (Weapon.Weapon.WeaponMode != WeaponConstants.WEAPON_MODE_NORMAL)
                             {
-                                Weapon.gameObject.SetActive(false);
-                                Weapon.Weapon.ResetTakeOut();
+                                return;
                             }
-                            CancelRun();
-                            toZoom = false;
-                            GrenadeThrowD = 0;
-                            Grenade_Throwing = true;
-                            Grenade_Throwed = false;
-                            GrenadeThrower.gameObject.SetActive(true);
                         }
+                        ProcessedGrenade PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
+                        if (PG.GrenadeHashCode != -1)
+                        {
+                            if (PG.RemainingCount > 0)
+                            {
+                                if (Weapon != null)
+                                {
+                                    Weapon.gameObject.SetActive(false);
+                                    Weapon.Weapon.ResetTakeOut();
+                                }
+                                CancelRun();
+                                toZoom = false;
+                                GrenadeThrowD = 0;
+                                Grenade_Throwing = true;
+                                Grenade_Throwed = false;
+                                GrenadeThrower.gameObject.SetActive(true);
+                            }
+                        }
+                        //GrenadeThrower.playbackTime=0;
                     }
-                    //GrenadeThrower.playbackTime=0;
+                    Grenade0 = true;
                 }
             }
+            else Grenade0 = false;
             if (InputProcessor.GetInputDown("SwitchGrenade"))
             {
                 BagHolder.CurrentGrenade = (BagHolder.CurrentGrenade == 0 ? 1 : 0);
@@ -99,13 +104,11 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (Grenade_Throwed == false)
                     {
-                        ProcessedGrenade PG = null;
-                        PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
+                        ProcessedGrenade PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
                         if (PG.GrenadeHashCode != -1)
                         {
                             if (PG.RemainingCount > 0)
                             {
-
                                 GrenadeController.CurrentController.Instantiate(
                                     GrenadePool.CurrentPool.GrenadeItemMap[PG.GrenadeHashCode].GamePlayPrefab,
                                     Grenade_ThrowOutPoint.position,
@@ -126,7 +129,6 @@ namespace Site13Kernel.Core.Controllers
                         Weapon.gameObject.SetActive(true);
                 }
             }
-
         }
         int FRAME_IGNORACED = 0;
         float ANIMATION_DELTA_T;
@@ -317,13 +319,13 @@ namespace Site13Kernel.Core.Controllers
             switch (State)
             {
                 case MoveState.Walk:
-                    FootStepSoundSource.volume = NormalFootStepVolume;
+                    FootStepSoundSource.volume = NormalFootStepVolume * VolumeMultiplier;
                     break;
                 case MoveState.Run:
-                    FootStepSoundSource.volume = RunningFootStepVolume;
+                    FootStepSoundSource.volume = RunningFootStepVolume * VolumeMultiplier;
                     break;
                 case MoveState.Crouch:
-                    FootStepSoundSource.volume = CrouchFootStepVolume;
+                    FootStepSoundSource.volume = CrouchFootStepVolume * VolumeMultiplier;
                     break;
                 default:
                     break;

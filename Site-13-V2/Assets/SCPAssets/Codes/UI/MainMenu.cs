@@ -30,6 +30,8 @@ namespace Site13Kernel.UI
         public GameObject TextTemplate;
         public GameObject ImageTemplate;
         public UIButton StartButton;
+        public UIButton ForgeButton;
+        public UIButton FirefightButton;
         public int LevelBase;
         public List<UIButton> CloseButtons=new List<UIButton>();
         CampaignButtonGroup group = new CampaignButtonGroup();
@@ -42,6 +44,7 @@ namespace Site13Kernel.UI
                     try
                     {
                         PLNEngineCore.Init(TextTemplate, ImageTemplate);
+                        PLNEngineCore.SetStyle(new StylingConfiguration());
                         PLNEngineCore.View(AboutContainer, AboutDoc, Color.white, 36);
                     }
                     catch (Exception e)
@@ -103,8 +106,31 @@ namespace Site13Kernel.UI
                                 cb.Init(group, item);
                             }
             }
+            FirefightButton.OnClick = () => {
+                if (SceneLoader.Instance.LoadScene("FIREFIGHTUI", true, false, false))
+                {
+                    //SceneLoader.Instance.HideScene(4);
+                    GameRuntime.CurrentGlobals.MainUIBGM.Stop();
+                }
+                else
+                {
+                    DialogManager.Show("FIREFIGHT NOT ENABLED.", "FIREFIGHT FEATURE IS NOT ENABLED IN THIS VERSION OF KNIGHTS OF FAVONIUS: 2.", "OK", () => { });
+                }
+            };
             Parent.RegisterRefresh(this);
             StartButton.OnClick = LoadLevel;
+            if(ForgeButton != null)
+            {
+                ForgeButton.OnClick = () => {
+                    if (SceneLoader.Instance.LoadScene("FORGEUI", true, false, false))
+                    {
+                    }
+                    else
+                    {
+                        DialogManager.Show("FORGE NOT ENABLED.", "FORGE FEATURE IS NOT ENABLED IN THIS VERSION OF KNIGHTS OF FAVONIUS: 2.", "OK", () => { });
+                    }
+                };
+            }
             //SettingsButton.onClick.AddListener(() => {
             //    this.GetComponent<CanvasGroup>().interactable=false;
             //    SceneManager.LoadScene("SettingsUI", LoadSceneMode.Additive);

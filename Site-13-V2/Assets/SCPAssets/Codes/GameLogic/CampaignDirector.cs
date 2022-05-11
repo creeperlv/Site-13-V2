@@ -8,6 +8,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.GameLogic
 {
@@ -18,8 +19,17 @@ namespace Site13Kernel.GameLogic
         public override void Init()
         {
             CurrentDirector = this;
-            var SCRIPT = GameRuntime.CurrentGlobals.Scripts[GameRuntime.CurrentGlobals.CurrentMission.TargetScript];
-            StartCoroutine(ExecuteScript(SCRIPT.text));
+            if (GameRuntime.CurrentGlobals.OneTimeScript != null)
+            {
+                StartCoroutine(ExecuteScript(GameRuntime.CurrentGlobals.OneTimeScript));
+
+            }
+            else
+            {
+                var SCRIPT = GameRuntime.CurrentGlobals.Scripts[GameRuntime.CurrentGlobals.CurrentMission.TargetScript];
+                StartCoroutine(ExecuteScript(SCRIPT.text));
+
+            }
             //script = GameRuntime.CurrentLocals.CurrentScipt;
         }
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
@@ -63,6 +73,7 @@ namespace Site13Kernel.GameLogic
         public IEnumerator ExecuteScript(string Content)
         {
             StringReader TR = new StringReader(Content);
+            GameRuntime.CurrentGlobals.OneTimeScript = null;
             string Line;
             while ((Line = TR.ReadLine()) != null)
             {
@@ -99,19 +110,34 @@ namespace Site13Kernel.GameLogic
         }
         public IEnumerator WaitForLoadComplete()
         {
+            Debug.Log("Waitting for loading.");
             while (true)
             {
                 yield return null;
                 if (SceneLoader.Instance.LoadingOperationCount <= 0)
                 {
+                    Debug.Log("Loaded.");
                     SceneLoader.Instance.LoadingOperationCount = 0;
-                    break;
+                    yield break;
                 }
             }
         }
         public void Win()
         {
-            GlobalBioController.CurrentGlobalBioController.DestoryAll();
+            try
+            {
+                AIController.CurrentController.DestoryAllCharacters();
+            }
+            catch (System.Exception)
+            {
+            }
+            try
+            {
+                GlobalBioController.CurrentGlobalBioController.DestoryAll(true);
+            }
+            catch (System.Exception)
+            {
+            }
             SceneLoader.Instance.SetStick(GameRuntime.CurrentGlobals.Scene_LevelBase, false);
             SceneLoader.Instance.LoadScene(GameRuntime.CurrentGlobals.Scene_WinScene, true, false, false);
         }

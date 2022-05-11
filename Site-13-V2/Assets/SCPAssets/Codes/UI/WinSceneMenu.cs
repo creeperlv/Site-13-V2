@@ -10,8 +10,8 @@ namespace Site13Kernel
 {
     public class WinSceneMenu : MonoBehaviour
     {
-        public GameObject NextLevelGroup;
-        public GameObject WaitForDLCGroup;
+        public List<GameObject> NextLevelGroup;
+        public List<GameObject> WaitForDLCGroup;
         public Text NextLevelName;
         public UIButton NextLevel;
         public UIButton MainMenu;
@@ -21,26 +21,48 @@ namespace Site13Kernel
             Cursor.visible = true;
             MainMenu.OnClick = () => {
                 GameRuntime.CurrentGlobals.CurrentMission = null;
-                SceneLoader.Instance.ShowScene(3);
-                SceneLoader.Instance.LoadScene(GameRuntime.CurrentGlobals.MainMenuSceneID, true, false, false);
+                SceneLoader.Instance.EndLevel();
+                //SceneLoader.Instance.ShowScene(4);
+                //SceneLoader.Instance.Unload("LEVELBASE");
+                //SceneLoader.Instance.LoadScene(GameRuntime.CurrentGlobals.MainMenuSceneID, true, false, false);
             };
             var CM=GameRuntime.CurrentGlobals.CurrentMission;
             if (CM == null)
             {
-                NextLevelGroup.SetActive(false);
-                WaitForDLCGroup.SetActive(true);
+                foreach (var item in NextLevelGroup)
+                {
+                    item.SetActive(false);
+                }
+                foreach (var item in WaitForDLCGroup)
+                {
+                    item.SetActive(true);
+                }
+                NextLevel.gameObject.SetActive(false);
                 return;
             }
             var INDEX = GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections[0].MissionDefinitions.IndexOf(CM);
             if(INDEX>= GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections[0].MissionDefinitions.Count - 1)
             {
-                NextLevelGroup.SetActive(false);
-                WaitForDLCGroup.SetActive(true);
+                foreach (var item in NextLevelGroup)
+                {
+                    item.SetActive(false);
+                }
+                foreach (var item in WaitForDLCGroup)
+                {
+                    item.SetActive(true);
+                }
+                NextLevel.gameObject.SetActive(false);
             }
             else
             {
-                NextLevelGroup.SetActive(false);
-                NextLevelGroup.SetActive(true);
+                foreach (var item in NextLevelGroup)
+                {
+                    item.SetActive(true);
+                }
+                foreach (var item in WaitForDLCGroup)
+                {
+                    item.SetActive(false);
+                }
                 var NM = GameRuntime.CurrentGlobals.CurrentGameDef.MissionCollections[0].MissionDefinitions[INDEX + 1];
                 NextLevelName.text = NM.DispFallback;
                 NextLevel.OnClick = () => {

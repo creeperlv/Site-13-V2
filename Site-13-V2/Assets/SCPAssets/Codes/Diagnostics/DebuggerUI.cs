@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.Diagnostics.Functions;
+using Site13Kernel.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Site13Kernel.Diagnostics
     {
         public Text Output;
         public InputField _Input;
+        public TextBox __Input;
         public override void Init()
         {
             Parent.RegisterRefresh(this);
@@ -45,15 +47,17 @@ namespace Site13Kernel.Diagnostics
                             break;
                     }
                 });
-                Debugger.CurrentDebugger.Register(() => {
+                Debugger.CurrentDebugger.Register(() =>
+                {
                     Output.text = "<b>SITE-13 CONSOLE</b>";
                 });
             }
             FunctionCollection.GatherFunctions();
             //#if DEBUG
+
             Debugger.CurrentDebugger.Register((a, b) =>
             {
-                StackTrace st=new StackTrace();
+                StackTrace st = new StackTrace();
                 var CALLER = st.GetFrame(4).GetMethod().DeclaringType;
                 switch (b)
                 {
@@ -86,6 +90,23 @@ namespace Site13Kernel.Diagnostics
                             Debug.Log("You entered en empty string, is it by design?");
                         }
                     _Input.text = "";
+                });
+            }
+            if (__Input != null)
+            {
+
+                __Input.onSubmit.AddListener((string cmd) =>
+                {
+                    if (GameRuntime.CurrentGlobals.isDebugFunctionEnabled)
+                        if (cmd != "")
+                        {
+                            ScriptEngine.Execute(cmd);
+                        }
+                        else
+                        {
+                            Debug.Log("You entered en empty string, is it by design?");
+                        }
+                    __Input.text = "";
                 });
             }
         }

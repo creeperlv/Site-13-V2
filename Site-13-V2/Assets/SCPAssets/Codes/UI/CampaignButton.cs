@@ -31,7 +31,6 @@ namespace Site13Kernel.UI
             get=> _visibility;
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set {
-
                 _visibility = value;
                 switch (_visibility)
                 {
@@ -62,8 +61,6 @@ namespace Site13Kernel.UI
         [SerializeField]
         private ButtonClickedEvent m_OnClick = new ButtonClickedEvent();
         internal MissionDefinition definition;
-
-
         public void Init(CampaignButtonGroup parent, MissionDefinition definition)
         {
             CampaignParent = parent;
@@ -72,7 +69,6 @@ namespace Site13Kernel.UI
             try
             {
                 BackgroundImage.sprite = GameRuntime.CurrentGlobals.CurrentGameDef.Sprites[this.definition.ImageName].LoadedSprite;
-
             }
             catch (Exception)
             {

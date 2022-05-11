@@ -24,10 +24,11 @@ namespace Site13Kernel.UI
             MainMenu.OnClick = () =>
             {
                 {
-
                     this.gameObject.SetActive(!this.gameObject.activeSelf);
                     Toggle(this.gameObject.activeSelf);
                 }
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 SceneLoader.Instance.EndLevel();
             };
             Parent.RegisterRefresh(this);
@@ -52,11 +53,13 @@ namespace Site13Kernel.UI
             if (b)
             {
                 Time.timeScale = 0;
+                AudioListener.pause = true;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
             else
             {
+                AudioListener.pause = false;
                 Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = false;
                 Time.timeScale = 1;

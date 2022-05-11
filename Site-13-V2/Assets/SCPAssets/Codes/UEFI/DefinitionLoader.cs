@@ -57,6 +57,7 @@ namespace Site13Kernel.UEFI
                     default:
                         break;
                 }
+                ImageStorage.Sprites.Add(item.Name, item);
                 _sprites.Add(item.Name, item);
             }
             foreach (var item in textures)

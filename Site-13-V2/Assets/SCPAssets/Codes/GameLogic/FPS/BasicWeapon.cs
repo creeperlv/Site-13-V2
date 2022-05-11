@@ -1,7 +1,9 @@
 using Site13Kernel.Animations;
 using Site13Kernel.Core;
+using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic.Effects;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections;
@@ -16,10 +18,12 @@ namespace Site13Kernel.GameLogic.FPS
     {
         public Weapon Base;
         public float MaxHitScanDistance;
+        public bool isMeleeWeapon;
         public List<AudioSource> GunSFXSources;
         public AudioSource MeleeSFXSource;
         public AudioClip MeleeSFX;
         public AudioSource ReloadSFXSource;
+        public AudioSource TakeOutSFXSource;
         public AudioClip ReloadSFX;
         public PrefabReference BulletPrefab;
         public Animator ControlledAnimator;
@@ -70,16 +74,25 @@ namespace Site13Kernel.GameLogic.FPS
         public byte FIRE1 = 0;
         public byte FIRE2 = 0; //Semi Auto Use
         public SpherePosition RelativeEmissionPoint;
+        [Header("Effects")]
         public Transform FirePoint;
         public Transform EffectPoint;
         public Transform CurrentEffectPoint;
         public bool isHoldByPlayer = false;
+        public bool useEffectPointInsteadFirePoint = false;
+        public float BaseCameraShakeIntensity = 0.3f;
+        public float AimModeMultiplier= 0.5f;
+        public float CamShakeDecay = 5f;
+        public float CamShakeSpeed = 50f;
+        public float CameraShakeIntensity = 0.3f;
         float CountDown = 0;
         float SemiCountDown = 0;
         int Mode = 0;
+        [Header("Melee")]
         public float MeleePoint;
         public MeleeArea MeleeArea;
-
+        public float NormalMelee = 80;
+        public float NoAmmoMeleeDamage = 80;
         public Action OnHit;
 
         public GameObject ActualHolder = null;
@@ -109,14 +122,25 @@ namespace Site13Kernel.GameLogic.FPS
         /// Melee, in other words.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Combat()
+        public void Combat(bool useFireAnimation = false)
         {
-            Debugger.CurrentDebugger.Log("Meleeeeee?");
             if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
-                Debugger.CurrentDebugger.Log("Meleeeeee!");
                 CombatT = 0;
                 WeaponMode = WeaponConstants.WEAPON_MODE_MELEE;
+                if (isMeleeWeapon)
+                {
+                    if (this.Base.CurrentMagazine <= 0)
+                    {
+                        MeleeArea.BaseDamage = NoAmmoMeleeDamage;
+                    }
+                    else
+                    {
+                        MeleeArea.BaseDamage = NormalMelee;
+                    }
+                    if (isHoldByPlayer)
+                        this.Base.CurrentMagazine--;
+                }
                 if (MeleeSFXSource != null)
                 {
                     MeleeSFXSource.clip = MeleeSFX;
@@ -124,11 +148,17 @@ namespace Site13Kernel.GameLogic.FPS
                 }
                 if (CCAnimator != null)
                 {
-                    CCAnimator.SetAnimation(Combat_HashCode);
+                    if (useFireAnimation)
+                        CCAnimator.SetAnimation(Fire_HashCode);
+                    else CCAnimator.SetAnimation(Combat_HashCode);
                 }
                 if (MeleeArea != null)
                 {
-                    MeleeArea.StartDetection();
+                    if (isHoldByPlayer)
+                    {
+                        ActualHolder.GetComponentInChildren<CameraShakeEffect>().SetShake(5f, true, 10f, true, 20, 0.01f, 1);
+                    }
+                    //MeleeArea.StartDetection();
                 }
             }
         }
@@ -160,10 +190,11 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Reload()
         {
-            if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
+            if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL|| WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
             {
                 if (Base.CurrentMagazine < Base.MagazineCapacity && Base.CurrentBackup > 0)
                 {
+                    Recoil = MaxRecoil;
                     ReloadSFXSource.clip = ReloadSFX;
                     ReloadSFXSource.Play();
                     ReloadCountDown = ReloadP0 + ReloadP1;
@@ -186,6 +217,12 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
+            if (!Played)
+            {
+                if (TakeOutSFXSource != null)
+                    TakeOutSFXSource.Play();
+                Played = true;
+            }
             if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
             {
                 //Fire.
@@ -282,7 +319,11 @@ namespace Site13Kernel.GameLogic.FPS
             else if (WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
             {
                 CombatT += DeltaT;
-                if (CombatT > MeleePoint)
+                if (CombatT > MeleePoint && CombatT < MeleePoint + 0.05f)
+                {
+                    MeleeArea.StartDetection();
+                }
+                else if (CombatT > MeleePoint + 0.05f)
                 {
                     MeleeArea.StopDetection();
                 }
@@ -301,10 +342,13 @@ namespace Site13Kernel.GameLogic.FPS
                 }
             }
         }
+        bool Played = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ResetTakeOut()
         {
+            Played = false;
             TakeOut_Length_D = 0;
+            Recoil = MaxRecoil;
             WeaponMode = WeaponConstants.WEAPON_MODE_TAKEOUT;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -316,7 +360,9 @@ namespace Site13Kernel.GameLogic.FPS
                 CountDown -= DeltaTime;
                 if (CountDown <= 0)
                 {
-                    SingleFire();
+                    if (!isMeleeWeapon)
+                        SingleFire();
+                    else Combat(true);
                     CountDown = FireInterval;
                     SemiCountDown--;
                 }
@@ -356,12 +402,14 @@ namespace Site13Kernel.GameLogic.FPS
                 if (FireType == WeaponFireType.FullAuto || FireType == WeaponFireType.SemiAuto)
                 {
                     if (isHoldByPlayer)
+                    {
                         this.Base.CurrentMagazine--;
+                        ActualHolder.GetComponentInChildren<CameraShakeEffect>().SetShake(1f, true, CamShakeDecay, true, CamShakeSpeed, CameraShakeIntensity, CameraShakeIntensity);
+                    }
                     if (OnCurrentMagChanged != null)
                     {
                         OnCurrentMagChanged(Base.CurrentMagazine);
                     }
-                    Recoil = Math.Min(Recoil + SingleFireRecoil, MaxRecoil);
                     Quaternion Rotation = this.transform.rotation;
                     Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode), Camera.main.fieldOfView);
                     Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
@@ -374,8 +422,6 @@ namespace Site13Kernel.GameLogic.FPS
                         V += RecoilAngle;
                         Rotation = Quaternion.Euler(V);
                     }
-                    if (BulletPrefab != null)
-                        GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
                     if (EffectPrefab != -1)
                     {
                         var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
@@ -397,6 +443,11 @@ namespace Site13Kernel.GameLogic.FPS
                             {
                                 info.collider.attachedRigidbody.AddForce(_Rotation.normalized * Base.PhysicsForce, ForceMode.Impulse);
 
+                            }
+                            if (useEffectPointInsteadFirePoint)
+                            {
+                                var _d = (info.point - EffectPoint.position).normalized;
+                                Rotation = Quaternion.LookRotation(_d);
                             }
                             {
                                 var Hittable = info.collider.GetComponent<IHittable>();
@@ -423,16 +474,46 @@ namespace Site13Kernel.GameLogic.FPS
                                 }
                                 else if (Entity != null)
                                 {
-                                    if (OnHit != null)
+                                    CauseDamage(Entity);
+                                }
+                                else
+                                {
+                                    var Ref = info.collider.GetComponent<DamagableEntityReference>();
+                                    if (Ref != null)
                                     {
-                                        OnHit();
+                                        Entity = Ref.Reference;
+                                        CauseDamage(Entity);
                                     }
-                                    Entity.Damage(BulletPrefab.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
                                 }
 
                             }
                         }
+
+                        if (BulletPrefab != null)
+                        {
+                            if (!useEffectPointInsteadFirePoint)
+                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
+                            else
+                            {
+
+                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, EffectPoint.position, Rotation, ActualHolder);
+                            }
+                        }
                     }
+                    else
+                    {
+
+                        if (BulletPrefab != null)
+                        {
+                            if (!useEffectPointInsteadFirePoint)
+                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
+                            else
+                            {
+                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, EffectPoint.position, Rotation, ActualHolder);
+                            }
+                        }
+                    }
+                    Recoil = Math.Min(Recoil + SingleFireRecoil, MaxRecoil);
                     SFXIndex = UnityEngine.Random.Range(0, GunSFXSources.Count);
                     GunSFXSources[SFXIndex].Stop();
                     GunSFXSources[SFXIndex].clip = FireSounds[UnityEngine.Random.Range(0, FireSounds.Count)];
@@ -442,13 +523,20 @@ namespace Site13Kernel.GameLogic.FPS
                     //{
                     //    SFXIndex = 0;
                     //}
-
                 }
             }
             else
             {
             }
+        }
 
+        private void CauseDamage(DamagableEntity Entity)
+        {
+            if (OnHit != null)
+            {
+                OnHit();
+            }
+            Entity.Damage(BulletPrefab.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
         }
     }
 }

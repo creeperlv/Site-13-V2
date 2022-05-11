@@ -151,6 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8060735986288835763}
+  - component: {fileID: 3140862920658801125}
   m_Layer: 0
   m_Name: ControlledHead
   m_TagString: Untagged
@@ -174,6 +175,26 @@ Transform:
   m_Father: {fileID: 8060735987347077754}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3140862920658801125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060735986288835724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 417454038, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlledObject: {fileID: 8060735987181429430}
+  HorizontalBaseIntensity: 1
+  VerticalBaseIntensity: 1
+  Intensity: 0
+  willDiminish: 0
+  DiminishIntensity: 0
+  RotationShakeSpeed: 25
+  RotationMode: 0
 --- !u!1 &8060735986319183511
 GameObject:
   m_ObjectHideFlags: 0
@@ -3187,7 +3208,7 @@ MonoBehaviour:
   Name: 
   ProtoTypeID: 
   MaxHP: 100
-  InitHP: 0
+  InitHP: 100
   CurrentHP: 100
   HitEffect: 0
   CanBeBackstabed: 0
@@ -3217,6 +3238,8 @@ MonoBehaviour:
   Intensity: 0
   useShieldDownObject: 0
   ShieldObjects: []
+  useShieldRecoverObject: 0
+  ShieldRecoverObjects: []
 --- !u!114 &8060735987918564071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3255,17 +3278,28 @@ MonoBehaviour:
   CrouchFootStepVolume: 0.1
   FootStepSoundSource: {fileID: 8060735986566758188}
   Footsteps:
-  - {fileID: 8300000, guid: 41709c8113b810343a15c54b41d3027f, type: 3}
-  - {fileID: 8300000, guid: 9668d1391119e704d9ba9cc4876bedd5, type: 3}
-  - {fileID: 8300000, guid: fbc90fb92d631e048bb182de2b595919, type: 3}
-  - {fileID: 8300000, guid: 9bb89578896db234eb807a4734ec9542, type: 3}
+    PrefabDefinitions:
+    - Key: 0
+      Value:
+      - {fileID: 8300000, guid: 41709c8113b810343a15c54b41d3027f, type: 3}
+      - {fileID: 8300000, guid: 9668d1391119e704d9ba9cc4876bedd5, type: 3}
+      - {fileID: 8300000, guid: fbc90fb92d631e048bb182de2b595919, type: 3}
+      - {fileID: 8300000, guid: 9bb89578896db234eb807a4734ec9542, type: 3}
+  FootstepVolumeMultipliers:
+    PrefabDefinitions: []
+  CurrentStandingMaterial: 0
+  FloatPositionDelta: {x: 0, y: -0.025, z: 0}
+  ToNormalSpeed: 5
+  ToFloatSpeed: 3
   CurrentEntity: {fileID: 8060735987918564064}
+  MainCam: {fileID: 8060735987181429431}
   FPSCam: {fileID: 8060735987049442445}
   RealMainCam: {fileID: 8060735987347077754}
   Cycle: 0
   NormalHeadPosition: {x: 0, y: 0.5, z: 0}
   CrouchHeadPosition: {x: 0, y: 0.25, z: 0}
   HeadExchangeSpeed: 2
+  WalkDistanceMultiplier: 1
   FPSCamSwingIntensity: 0.015
   FPSCamSwingRunningIntensity: 0.1
   FPSCamSwingCrouchIntensity: 0.05
@@ -3287,7 +3321,8 @@ MonoBehaviour:
     Key: 
     ID: 1500
   HP: {fileID: 8060735988008900653}
-  Shield: {fileID: 8060735987647401918}
+  Shield:
+  - {fileID: 8060735987647401918}
   W_HUD0: {fileID: 8060735986861169712}
   W_HUD1: {fileID: 8060735986519635048}
   G_HUD0: {fileID: 8060735988040529979}
@@ -3323,8 +3358,11 @@ MonoBehaviour:
   GrenadeThrowD: 0
   Grenade_Throwed: 0
   Grenade_Throwing: 0
+  ShieldDownObject: []
   FlashLightEnabled: 0
   FlashLightObject: {fileID: 0}
+  MissionHint_HintObject: {fileID: 0}
+  MissionHint_TextHolder: {fileID: 0}
 --- !u!114 &8060735987918564069
 MonoBehaviour:
   m_ObjectHideFlags: 0

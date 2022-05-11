@@ -519,7 +519,8 @@ namespace Site13Kernel.UI
             try
             {
                 this.value = (float)obj;
-
+                m_Value = (float)obj;
+                UpdateVisuals();
             }
             catch (Exception)
             {

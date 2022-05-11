@@ -1,12 +1,20 @@
 ﻿using Site13Kernel.Core.CustomizedInput;
+using Site13Kernel.Data;
+using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic;
+using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.Utilities;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.Core.Controllers
 {
     public partial class FPSController
     {
+        public Action OnDeath = null;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CancelRun()
         {
@@ -36,6 +44,10 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void TrySwitchWeapon()
         {
+            if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1)
+            {
+                return;
+            }
             BagHolder.CurrentWeapon = (BagHolder.CurrentWeapon == 1 ? 0 : 1);
             BagHolder.VerifyWeaponSlot();
             ApplySwitchWeapon();
@@ -95,6 +107,11 @@ namespace Site13Kernel.Core.Controllers
                         BagHolder.Weapon0.gameObject.SetActive(false);
                     }
                 }
+            }
+            if (Weapon != null)
+            {
+                _WalkPosition = Weapon.NormalPosition;
+                _RunPosition = Weapon.RunningPosition;
             }
 
         }
@@ -212,16 +229,137 @@ namespace Site13Kernel.Core.Controllers
                     HP.Value = CurrentEntity.CurrentHP;
                     HP.MaxValue = CurrentEntity.MaxHP;
                 }
-                if (Shield != null)
+                if (Shield.Count > 0)
                 {
-                    Shield.Value = CurrentEntity.CurrentShield;
-                    Shield.MaxValue = CurrentEntity.MaxShield;
+                    foreach (var item in Shield)
+                    {
+                        item.Value = CurrentEntity.CurrentShield;
+                        item.MaxValue = CurrentEntity.MaxShield;
+                    }
                 }
             }
             W_HUD0.Refresh(DT, UDT);
             W_HUD1.Refresh(DT, UDT);
             G_HUD0.Refresh(DT, UDT);
             G_HUD1.Refresh(DT, UDT);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void GiveWeapon(Weapon TargetWeapon)
+        {
+            Weapon Weapon = TargetWeapon.Duplicate();
+            var Holder = BagHolder;
+            if (Holder != null)
+            {
+                ControlledWeapon GeneratedWeapon;
+                if (Holder.Weapon0 == null)
+                {
+                    if (Holder.Weapon1 != null)
+                    {
+                        if (Weapon.WeaponID == Holder.Weapon1.Weapon.Base.WeaponID)
+                        {
+                            return;
+                        }
+                    }
+                    GeneratedWeapon = Holder.Weapon0 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                    Holder.CurrentWeapon = 0;
+                    try
+                    {
+
+                        if (Holder.OnSwapWeapon != null)
+                            Holder.OnSwapWeapon();
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError(e);
+                    }
+                }
+                else
+                if (Holder.Weapon1 == null)
+                {
+                    if (Weapon.WeaponID == Holder.Weapon0.Weapon.Base.WeaponID)
+                    {
+                        return;
+                    }
+                    GeneratedWeapon = Holder.Weapon1 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                    Holder.CurrentWeapon = 1;
+                    if (Holder.OnSwapWeapon != null)
+                        Holder.OnSwapWeapon();
+                }
+                else
+                {
+                    if (Holder.CurrentWeapon == 0)
+                    {
+                        {
+
+                            if (Weapon.WeaponID == Holder.Weapon0.Weapon.Base.WeaponID)
+                            {
+                                return;
+                            }
+                            if (Weapon.WeaponID == Holder.Weapon1.Weapon.Base.WeaponID)
+                            {
+                                return;
+                            }
+                            var t = Holder.Weapon0.Weapon.Base.CurrentBackup +
+                                                        Holder.Weapon0.Weapon.Base.CurrentMagazine;
+                            if (t > 0)
+                            {
+                                var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                var P = G.GetComponentInChildren<Pickupable>();
+                                G.transform.position = Holder.transform.position;
+                                P.Weapon = Holder.Weapon0.Weapon.Base;
+                            }
+                        }
+                        GameObject.Destroy(Holder.Weapon0.gameObject);
+
+                        GeneratedWeapon = Holder.Weapon0 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                        if (Holder.OnSwapWeapon != null)
+                            Holder.OnSwapWeapon();
+                    }
+                    else
+                    {
+                        {
+
+                            if (Weapon.WeaponID == Holder.Weapon1.Weapon.Base.WeaponID)
+                            {
+                                return;
+                            }
+                            if (Weapon.WeaponID == Holder.Weapon1.Weapon.Base.WeaponID)
+                            {
+                                return;
+                            }
+                            var t = Holder.Weapon1.Weapon.Base.CurrentBackup +
+                                                        Holder.Weapon1.Weapon.Base.CurrentMagazine;
+                            if (t > 0)
+                            {
+                                var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                var P = G.GetComponentInChildren<Pickupable>();
+                                G.transform.position = Holder.transform.position;
+                                P.Weapon = Holder.Weapon1.Weapon.Base;
+                            }
+                        }
+                        Destroy(Holder.Weapon1.gameObject);
+                        GeneratedWeapon = Holder.Weapon1 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponentInChildren<ControlledWeapon>();
+                        if (Holder.OnSwapWeapon != null)
+                            Holder.OnSwapWeapon();
+                    }
+                }
+                GeneratedWeapon.Weapon.Base = Weapon;
+
+            }
+            else
+            {
+            }
+
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Disable()
+        {
+            Interrupt00 = true;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Enable()
+        {
+            Interrupt00 = false;
         }
     }
     [Serializable]

@@ -16,6 +16,7 @@ namespace Site13Kernel.Core
     public class GameGlobals
     {
         public string AppData;
+        public string OneTimeScript=null;
         public bool isDebugFunctionEnabled = false;
         public bool isPaused = false;
 
@@ -29,7 +30,7 @@ namespace Site13Kernel.Core
         public int LayerExcludePlayerAndAirBlock;
         public int LayerExcludePlayerAndAirBlockAndEventTrigger;
         public int LayerExcludeAirBlock;
-        public Dictionary<string,TextAsset> Scripts=new Dictionary<string,TextAsset>();
+        public Dictionary<string, TextAsset> Scripts = new Dictionary<string, TextAsset>();
         public UniversalRenderPipelineAsset UsingAsset;
         public BulletSystem CurrentBulletSystem;
         public AudioSource MainUIBGM;
@@ -46,7 +47,7 @@ namespace Site13Kernel.Core
             get => EffectController.CurrentEffectController;
         }
         public Dictionary<int, GameObject> GeneralPrefabMap;
-        internal bool isInLevel = true;
+        internal bool isInLevel = false;
 
         public void Init()
         {
@@ -55,14 +56,14 @@ namespace Site13Kernel.Core
             {
                 int _000 = 1 << 10;// Layer 10, Air Block Layer.
                 int _001 = 1 << 11;// Layer 11, Player Layer.
-                LayerExcludePlayerAndAirBlockAndEventTrigger= LayerMask.GetMask("Player", "Air block", "EventTrigger");
+                LayerExcludePlayerAndAirBlockAndEventTrigger = LayerMask.GetMask("Player", "Air block", "EventTrigger");
                 LayerExcludePlayerAndAirBlock = _000 | _001;
                 LayerExcludePlayerAndAirBlock = ~LayerExcludePlayerAndAirBlock;
                 LayerExcludeAirBlock = ~_000;
             }
-//#if DEBUG
+            //#if DEBUG
             isDebugFunctionEnabled = true;
-//#endif
+            //#endif
         }
     }
 }

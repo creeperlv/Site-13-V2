@@ -23,12 +23,15 @@ namespace Site13Kernel.UI
             c2 = HintText.color;
             if (GameRuntime.CurrentGlobals.MainUIBGM == null)
             {
-                GameRuntime.CurrentGlobals.MainUIBGM = MainUIBGM;
                 DontDestroyOnLoad(MainUIBGM);
+                GameRuntime.CurrentGlobals.MainUIBGM = MainUIBGM;
                 GameRuntime.CurrentGlobals.MainUIBGM.Play();
             }
             else
+            {
                 MainUIBGM.Stop();
+
+            }
             Parent.RegisterRefresh(this);
             foreach (var item in BGSceneIDs)
             {

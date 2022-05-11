@@ -28,6 +28,10 @@ namespace Site13Kernel.GameLogic
         public bool isPercentage;
         public GameObject CrosshairCanvasGroup;
         public Renderer FPSRenderer;
+        public AudioSource ZoomInEffect = null;
+        public AudioSource ZoomOutEffect = null;
+        public byte ZoomInEffectState = 0;
+        public byte ZoomOutEffectState = 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Combat()
         {
@@ -71,12 +75,16 @@ namespace Site13Kernel.GameLogic
         {
 
             //Weapon.ControlledAnimator.gameObject.SetActive(true);
-            Weapon.CCAnimator.gameObject.SetActive(true);
-            if (isInited)
+            if (!Weapon.CCAnimator.gameObject.activeSelf)
             {
-                //Weapon.ControlledAnimator.SetTrigger(Weapon.Idle);
-                Weapon.CCAnimator.SetAnimation(Weapon.Idle_HashCode);
+                Weapon.CCAnimator.gameObject.SetActive(true);
+                if (isInited)
+                {
+                    //Weapon.ControlledAnimator.SetTrigger(Weapon.Idle);
+                    Weapon.CCAnimator.SetAnimation(Weapon.Idle_HashCode);
+                }
             }
+
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void HideCoreWeaponAnimator()
@@ -97,14 +105,16 @@ namespace Site13Kernel.GameLogic
         {
             //if (a)
             {
-
-                if (Weapon.Recoil > 0)
+                if(Weapon.WeaponMode== WeaponConstants.WEAPON_MODE_NORMAL)
                 {
-                    Weapon.Recoil -= Weapon.RecoilRecoverSpeed * DeltaTime;
-                }
-                else if (Weapon.Recoil != 0)
-                {
-                    Weapon.Recoil = 0;
+                    if (Weapon.Recoil > 0)
+                    {
+                        Weapon.Recoil -= Weapon.RecoilRecoverSpeed * DeltaTime;
+                    }
+                    else if (Weapon.Recoil != 0)
+                    {
+                        Weapon.Recoil = 0;
+                    }
                 }
                 //a = false;
             }

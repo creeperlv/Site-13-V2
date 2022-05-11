@@ -9,16 +9,19 @@ using Site13Kernel.GameLogic.Level;
 using Site13Kernel.UI;
 using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Site13Kernel.Core.Controllers
 {
     public partial class FPSController : ControlledBehavior, ICheckpointData
     {
+        public static FPSController Instance = null;
         #region Movement and recoil by move
         [Header("Move")]
         public float MoveSpeed = 1f;
@@ -49,7 +52,16 @@ namespace Site13Kernel.Core.Controllers
         public float RunningFootStepVolume = 0.75f;
         public float CrouchFootStepVolume = 0.2f;
         public AudioSource FootStepSoundSource;
-        public List<AudioClip> Footsteps;
+        public KVList<int, List<AudioClip>> Footsteps;
+        public KVList<int, float> FootstepVolumeMultipliers;
+        public Dictionary<int, float> _FootstepVolumeMultipliers;
+        float VolumeMultiplier = 1;
+        public Dictionary<int, List<AudioClip>> _FootSteps;
+        public int CurrentStandingMaterial;
+        [Header("Floating Movement")]
+        public Vector3 FloatPositionDelta = new Vector3(0, -0.025f, 0);
+        public float ToNormalSpeed = 5;
+        public float ToFloatSpeed = 3;
         #endregion
         #region Bio info
         public BioEntity CurrentEntity;
@@ -57,6 +69,7 @@ namespace Site13Kernel.Core.Controllers
         //public ControlledWeapon Weapon0;
         //public ControlledWeapon Weapon1;
         #region FPS Viewport
+        public Camera MainCam;
         public Transform FPSCam;
         public Transform RealMainCam;
         Vector3 _JUMP_V;
@@ -67,6 +80,7 @@ namespace Site13Kernel.Core.Controllers
         public Vector3 NormalHeadPosition;
         public Vector3 CrouchHeadPosition;
         public float HeadExchangeSpeed;
+        public float WalkDistanceMultiplier = 1;
         public float FPSCamSwingIntensity = 0.1f;
         public float FPSCamSwingRunningIntensity = 0.1f;
         public float FPSCamSwingCrouchIntensity = 0.1f;
@@ -104,7 +118,7 @@ namespace Site13Kernel.Core.Controllers
 
         [Header("HUD/Status")]
         public ProgressBar HP;
-        public ProgressBar Shield;
+        public List<ProgressBar> Shield;
 
         public WeaponHUD W_HUD0;
         public WeaponHUD W_HUD1;
@@ -152,33 +166,76 @@ namespace Site13Kernel.Core.Controllers
         public float GrenadeThrowD;
         public bool Grenade_Throwed = false;
         public bool Grenade_Throwing = false;
+        [Header("UX")]
+        public List<GameObject> ShieldDownObject = new List<GameObject>();
 
         [Header("Flash Light")]
         public bool FlashLightEnabled;
         public GameObject FlashLightObject;
 
         bool isThrowingGrenade;
+        bool Interrupt00 = false;
+        Vector3 _WalkPosition;
+        Vector3 _RunPosition;
         public override void Init()
         {
+
+            Instance = this;
+            CurrentEntity.OnShieldDown = () =>
+            {
+                foreach (var item in ShieldDownObject)
+                {
+                    if (!item.activeSelf) item.SetActive(true);
+                }
+            };
+            CurrentEntity.OnDie = () =>
+            {
+                Parent.UnregisterRefresh(this);
+                {
+                    try
+                    {
+                        if (CurrentEntity.DeathReplacements.Count > 0)
+                        {
+                            foreach (var item in CurrentEntity.DeathReplacements)
+                            {
+                                DeathBodyGen(item);
+                            }
+                        }
+                        else
+                        {
+                            DeathBodyGen(new DeathReplacement { TargetPrefab = new PrefabReference { ID = CurrentEntity.DeathBodyReplacementID }, BodyType = CurrentEntity.deathBodyType });
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debugger.CurrentDebugger.Log(e);
+                    }
+                    if (CurrentEntity.Controller != null)
+                        CurrentEntity.Controller.DestroyEntity(CurrentEntity);
+                    else
+                    {
+                        if (CurrentEntity.ControlledObject != null)
+                        {
+                            Destroy(CurrentEntity.ControlledObject.gameObject);
+                        }
+                        else
+                            Destroy(CurrentEntity.gameObject);
+                    }
+                }
+                if (OnDeath != null)
+                {
+                    OnDeath();
+                }
+                return true;
+            };
+            _FootSteps = Footsteps.ObtainMap();
+            _FootstepVolumeMultipliers = FootstepVolumeMultipliers.ObtainMap();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             FPSCam_BaseT = FPSCam.localPosition;
-            Parent.RegisterRefresh(this);
+            //Parent.RegisterRefresh(this);
             WalkDistance = math.PI / 2;
             FPSCamSwingIntensitySwitchDelta = FPSCamSwingRunningIntensity - FPSCamSwingIntensity;
-            //if (BagHolder.Weapon0 != null)
-            //{
-            //    BagHolder.Weapon0.Init();
-
-            //    BagHolder.Weapon0.Weapon.OnHit = OnHit;
-            //}
-            //if (BagHolder.Weapon1 != null)
-            //{
-
-            //    BagHolder.Weapon1.Init();
-            //    BagHolder.Weapon1.Weapon.OnHit = OnHit;
-            //}
-
             G_HUD0.holder = BagHolder;
             G_HUD1.holder = BagHolder;
 
@@ -208,8 +265,8 @@ namespace Site13Kernel.Core.Controllers
                     TargetWeapon.Init();
                     if (TargetWeapon.ZoomEffectPoint == null)
                         TargetWeapon.ZoomEffectPoint = ZoomEffectPoint;
-                    if (TargetWeapon.Weapon.MeleeArea!=null)
-                    TargetWeapon.Weapon.MeleeArea.Holder = this.gameObject;
+                    if (TargetWeapon.Weapon.MeleeArea != null)
+                        TargetWeapon.Weapon.MeleeArea.Holder = this.gameObject;
                     TargetWeapon.Weapon.FirePoint = FirePoint;
                     TargetWeapon.Weapon.OnHit = OnHit;
                     TargetWeapon.Weapon.isHoldByPlayer = true;
@@ -254,6 +311,49 @@ namespace Site13Kernel.Core.Controllers
                 }
             }
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void DeathBodyGen(DeathReplacement DR)
+        {
+            var deathBodyType = DR.BodyType;
+            var DeathBodyReplacementID = DR.TargetPrefab.ID;
+            switch (deathBodyType)
+            {
+                case DeathBodyType.Entity:
+                    {
+                        if (CurrentEntity.Controller != null && DeathBodyReplacementID != -1)
+                        {
+                            CurrentEntity.Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, CurrentEntity.ControlledObject.transform.parent);
+
+                        }
+                        else
+                        {
+                            ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, CurrentEntity.ControlledObject.transform.parent);
+
+                        }
+                    }
+                    break;
+                case DeathBodyType.Effect:
+                    {
+                        EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
+                    }
+                    break;
+                case DeathBodyType.Regular:
+                    {
+                        ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, CurrentEntity.ControlledObject.transform.parent);
+                    }
+                    break;
+                case DeathBodyType.Explosion:
+                    {
+                        GameObject effect;
+                        effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
+                        effect.GetComponent<ExplosionEffect>().Explode();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SwapWeapon()
         {
@@ -275,7 +375,7 @@ namespace Site13Kernel.Core.Controllers
             if (Weapon != null)
             {
 
-                Weapon.transform.localPosition = math.lerp(Weapon.NormalPosition, Weapon.RunningPosition, WRTween);
+                Weapon.transform.localPosition = math.lerp(_WalkPosition, _RunPosition, WRTween);
                 Weapon.transform.localRotation = Quaternion.Euler(
                     math.lerp(
                         Weapon.NormalRotationEuler,
@@ -287,10 +387,12 @@ namespace Site13Kernel.Core.Controllers
         }
         bool isWalking = true;
         ControlledWeapon Weapon;
+        bool FireControl0 = false;
+        bool FireControl1 = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FireControl(float DeltaTime)
         {
-            if (InputProcessor.GetInput("Fire"))
+            if (InputProcessor.GetAxis("Fire") > 0.5f)
             {
                 if (isWalking)
                 {
@@ -302,20 +404,33 @@ namespace Site13Kernel.Core.Controllers
                         Weapon.Fire();
                 }
                 else Weapon.Unfire();
-            }
-            if (InputProcessor.GetInputDown("Fire"))
-            {
-                if (isWalking)
+
+                if (FireControl0 == false)
                 {
-                    if (Weapon.CanZoom == false && InternalZoom == true)
+
+                    if (isWalking)
                     {
+                        if (Weapon.CanZoom == false && InternalZoom == true)
+                        {
 
+                        }
+                        else
+                            Weapon.Press();
                     }
-                    else
-                        Weapon.Press();
+                    else Weapon.Unfire();
+                    FireControl0 = true;
                 }
-                else Weapon.Unfire();
+                FireControl1 = false;
+            }
+            else
 
+            {
+                if (FireControl1 == false)
+                {
+                    Weapon.Unfire();
+                    FireControl1 = true;
+                    FireControl0 = false;
+                }
             }
             if (InputProcessor.GetInputDown("Combat"))
             {
@@ -325,8 +440,6 @@ namespace Site13Kernel.Core.Controllers
                     CancelRun();
                 }
             }
-            if (InputProcessor.GetInputUp("Fire"))
-                Weapon.Unfire();
             if (InputProcessor.GetInputDown("Reload"))
             {
                 if (Weapon.Weapon.CanReload())
@@ -375,8 +488,6 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Zoom(float DeltaTime)
         {
-
-
             {
                 if (InputProcessor.GetInputDown("Zoom"))
                 {
@@ -428,29 +539,75 @@ namespace Site13Kernel.Core.Controllers
                     {
                         if (Weapon.ZoomHUD.alpha < 1)
                             Weapon.ZoomHUD.alpha += DeltaTime * ZoomSpeed;
-                        if (Camera.main.fieldOfView > Weapon.ZoomFov)
-                            Camera.main.fieldOfView -= math.abs(NormalFOV - Weapon.ZoomFov) * DeltaTime * ZoomSpeed;
+                        if (Weapon.ZoomInEffect != null)
+                        {
+                            if (Weapon.ZoomHUD.alpha > 0.5f)
+                            {
+                                if (Weapon.ZoomInEffectState == 0)
+                                {
+                                    Weapon.ZoomInEffectState = 1;
+                                    Weapon.ZoomInEffect.Play();
+                                }
+                            }
+                            else
+                            {
+                                Weapon.ZoomInEffectState = 0;
+                            }
+                        }
+                        {
+                            if (!Weapon.ZoomHUD.gameObject.activeSelf)
+                            {
+                                Weapon.ZoomHUD.gameObject.SetActive(true);
+                                Weapon.Weapon.CameraShakeIntensity = Weapon.Weapon.BaseCameraShakeIntensity * Weapon.Weapon.AimModeMultiplier;
+                            }
+                        }
+                        if (MainCam.fieldOfView > Weapon.ZoomFov)
+                            MainCam.fieldOfView -= math.abs(NormalFOV - Weapon.ZoomFov) * DeltaTime * ZoomSpeed;
                     }
                     else
                     {
                         if (Weapon.ZoomHUD.alpha > 0)
                             Weapon.ZoomHUD.alpha -= DeltaTime * ZoomSpeed;
-                        if (Camera.main.fieldOfView < NormalFOV)
-                            Camera.main.fieldOfView += math.abs(NormalFOV - Weapon.ZoomFov) * DeltaTime * ZoomSpeed;
+                        else
+                        {
+                            if (Weapon.ZoomHUD.gameObject.activeSelf)
+                            {
+                                Weapon.ZoomHUD.gameObject.SetActive(false);
+                                Weapon.Weapon.CameraShakeIntensity = Weapon.Weapon.BaseCameraShakeIntensity;
+                            }
+                        }
+                        if (Weapon.ZoomInEffect != null)
+                        {
+                            if (Weapon.ZoomHUD.alpha < 0.5f)
+                            {
+                                if (Weapon.ZoomOutEffectState == 0)
+                                {
+                                    Weapon.ZoomOutEffectState = 1;
+                                    Weapon.ZoomOutEffect.Play();
+
+                                }
+                            }
+                            else
+                            {
+                                Weapon.ZoomOutEffectState = 0;
+                            }
+                        }
+                        if (MainCam.fieldOfView < NormalFOV)
+                            MainCam.fieldOfView += math.abs(NormalFOV - Weapon.ZoomFov) * DeltaTime * ZoomSpeed;
                     }
                 }
                 else
                 {
                     if (InternalZoom)
                     {
-                        if (Camera.main.fieldOfView > ZoomFOV)
-                            Camera.main.fieldOfView -= math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
+                        if (MainCam.fieldOfView > ZoomFOV)
+                            MainCam.fieldOfView -= math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
                     }
                     else
                     {
 
-                        if (Camera.main.fieldOfView < NormalFOV)
-                            Camera.main.fieldOfView += math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
+                        if (MainCam.fieldOfView < NormalFOV)
+                            MainCam.fieldOfView += math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
                     }
                 }
             }
@@ -470,8 +627,8 @@ namespace Site13Kernel.Core.Controllers
                                 }
                             }
                         }
-                        if (Camera.main.fieldOfView > ZoomFOV)
-                            Camera.main.fieldOfView -= math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
+                        if (MainCam.fieldOfView > ZoomFOV)
+                            MainCam.fieldOfView -= math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
                     }
                     else
                     {
@@ -485,8 +642,8 @@ namespace Site13Kernel.Core.Controllers
                                 }
                             }
                         }
-                        if (Camera.main.fieldOfView < NormalFOV)
-                            Camera.main.fieldOfView += math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
+                        if (MainCam.fieldOfView < NormalFOV)
+                            MainCam.fieldOfView += math.abs(NormalFOV - ZoomFOV) * DeltaTime * ZoomSpeed;
                     }
                 }
 
@@ -510,8 +667,8 @@ namespace Site13Kernel.Core.Controllers
         {
             {
                 //View rotation
-                cc.transform.Rotate(0, InputProcessor.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime, 0);
-                var Head_V = InputProcessor.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime;
+                cc.transform.Rotate(0, InputProcessor.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime* Data.Settings.CurrentSettings.MouseSensibly, 0);
+                var Head_V = InputProcessor.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime * Data.Settings.CurrentSettings.MouseSensibly;
                 var ea = Head.localEulerAngles;
                 ea.x += Head_V;
                 if (ea.x < 180)
@@ -527,39 +684,61 @@ namespace Site13Kernel.Core.Controllers
             }
 
         }
+        [Header("MissionHint")]
+        public GameObject MissionHint_HintObject;
+        public Text MissionHint_TextHolder;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void IssueMission(string Text)
+        {
+            MissionHint_TextHolder.text = Text;
+            StartCoroutine(ShowMission());
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        IEnumerator ShowMission()
+        {
+            MissionHint_HintObject.SetActive(false);
+            yield return null;
+            MissionHint_HintObject.SetActive(true);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        bool isGrounded()
+        {
+            //return Physics.Raycast(cc.transform.position, Vector3.down, out _, cc.height / 2 + 0.05f, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlockAndEventTrigger);
+            return cc.isGrounded;
+        }
         bool PrevGrounded = true;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Move(float DeltaTime)
         {
-
             {
+                var cc_isG = isGrounded();
                 //Move
-                if (cc.isGrounded == true)
+                if (cc_isG == true)
                 {
                     if (!PrevGrounded)
                     {
-
-                        if (cc.isGrounded)
+                        if (cc_isG)
                         {
                             if (FootStepSoundSource != null)
                             {
-                                FootStepSoundSource.Stop();
-                                FootStepSoundSource.clip = Footsteps[UnityEngine.Random.Range(0, Footsteps.Count)];
-                                FootStepSoundSource.Play();
+                                PlayFootstep();
                             }
 
                         }
                     }
+                    if (Weapon != null)
+                    {
+                        _WalkPosition = Maths.SmoothClose(_WalkPosition, Weapon.NormalPosition, DeltaTime * ToNormalSpeed);
+                        _RunPosition = Maths.SmoothClose(_RunPosition, Weapon.RunningPosition, DeltaTime * ToNormalSpeed);
+                    }
                     PrevGrounded = true;
                     if (InputProcessor.GetInputDown("Jump"))
                     {
-                        if (cc.isGrounded)
+                        if (cc_isG)
                         {
                             if (FootStepSoundSource != null)
                             {
-                                FootStepSoundSource.Stop();
-                                FootStepSoundSource.clip = Footsteps[UnityEngine.Random.Range(0, Footsteps.Count)];
-                                FootStepSoundSource.Play();
+                                PlayFootstep();
                             }
 
                         }
@@ -576,7 +755,7 @@ namespace Site13Kernel.Core.Controllers
                     }
                     else
                     {
-                        _JUMP_V.y = -2;
+                        _JUMP_V.y = -Gravity;
                     }
                     var MV = InputProcessor.GetAxis("MoveVertical");
                     var MH = InputProcessor.GetAxis("MoveHorizontal");
@@ -615,17 +794,24 @@ namespace Site13Kernel.Core.Controllers
                 else
                 {
                     if (Weapon != null)
+                    {
                         Weapon.Weapon.SetRecoilMax(math.clamp(Weapon.Weapon.Recoil, RunRecoil, 1f));
+                        if (Weapon != null)
+                        {
+                            _WalkPosition = Maths.SmoothClose(_WalkPosition, Weapon.NormalPosition + FloatPositionDelta, DeltaTime * ToFloatSpeed);
+                            _RunPosition = Maths.SmoothClose(_RunPosition, Weapon.RunningPosition + FloatPositionDelta, DeltaTime * ToFloatSpeed);
+                        }
+                    }
                     PrevGrounded = false;
                 }
-                if (!cc.isGrounded)
+                if (!cc_isG)
                     cc.Move(_MOVE * DeltaTime);
                 else
                     cc.SimpleMove(_MOVE);
                 //if (cc.velocity.magnitude != 0)
                 {
                     var md = cc.velocity.magnitude * DeltaTime * FPSCamSwingSpeed;
-                    if (cc.isGrounded)
+                    if (cc_isG)
                     {
                         switch (MovingState)
                         {
@@ -687,23 +873,17 @@ namespace Site13Kernel.Core.Controllers
                                 }
                             }
                         }
-                        if (WalkDistance > MathUtilities.PI2)
+                        if (WalkDistance * WalkDistanceMultiplier > MathUtilities.PI2)
                         {
                             WalkDistance = 0;
-
                         }
-                        if (WalkDistanceD > math.PI)
+                        if (WalkDistanceD * WalkDistanceMultiplier > math.PI)
                         {
                             WalkDistanceD = 0;
-                            if (FootStepSoundSource != null)
-                            {
-                                FootStepSoundSource.Stop();
-                                FootStepSoundSource.clip = Footsteps[UnityEngine.Random.Range(0, Footsteps.Count)];
-                                FootStepSoundSource.Play();
-                            }
+                            PlayFootstep();
                         }
-                        LP.x = math.cos(WalkDistance % MathUtilities.PI2) * CurrentFPSCamSwingIntensity;
-                        LP.y = FPSCam_BaseT.y + math.abs(math.cos((WalkDistance) % MathUtilities.PI2) * CurrentFPSCamSwingIntensity * 0.5f);
+                        LP.x = math.cos(WalkDistance * WalkDistanceMultiplier % MathUtilities.PI2) * CurrentFPSCamSwingIntensity;
+                        LP.y = FPSCam_BaseT.y + math.abs(math.cos((WalkDistance * WalkDistanceMultiplier) % MathUtilities.PI2) * CurrentFPSCamSwingIntensity * 0.5f);
                         FPSCam.localPosition = LP;
                     }
                 }
@@ -717,7 +897,7 @@ namespace Site13Kernel.Core.Controllers
                     //_MOVE -= new Vector3(0, 0, _MOVE.z * MoveFriction * DeltaTime);
                     _MOVE.z = 0;
                 }
-                if (!cc.isGrounded)
+                if (!cc_isG)
                 {
                     _JUMP_V.y -= Gravity * DeltaTime;
 
@@ -726,7 +906,25 @@ namespace Site13Kernel.Core.Controllers
 
             }
         }
-
+        public void PlayFootstep()
+        {
+            if (Physics.Raycast(MainCam.transform.position, Vector3.down, out RaycastHit hit, 3f, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
+            {
+                var SM = hit.collider.GetComponent<StandMaterial>();
+                if (SM != null)
+                {
+                    CurrentStandingMaterial = SM.MaterialID;
+                    VolumeMultiplier = _FootstepVolumeMultipliers[CurrentStandingMaterial];
+                }
+            }
+            if (FootStepSoundSource != null)
+            {
+                FootStepSoundSource.Stop();
+                var L = _FootSteps[CurrentStandingMaterial];
+                FootStepSoundSource.clip = L[UnityEngine.Random.Range(0, L.Count)];
+                FootStepSoundSource.Play();
+            }
+        }
         public override void FixedRefresh(float DeltaTime, float UnscaledDeltaTime)
         {
         }

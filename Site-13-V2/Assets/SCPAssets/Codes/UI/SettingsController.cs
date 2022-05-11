@@ -19,6 +19,8 @@ namespace Site13Kernel.UI.Settings
         public AudioMixerGroup BGM;
         public override void Init()
         {
+            URP_Asset=UniversalRenderPipeline.asset;
+            
             foreach (var item in SettingsItems)
             {
                 try

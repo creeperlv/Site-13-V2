@@ -10,7 +10,7 @@ namespace Site13Kernel.Core.CustomizedInput
     /// <summary>
     /// Run in the `Do not destory on load`
     /// </summary>
-    public class InputProcessor : ControlledBehavior,ICustomizedInput
+    public class InputProcessor : ControlledBehavior, ICustomizedInput
     {
         public static InputProcessor CurrentInput;
         public Dictionary<string, float> Axis = new Dictionary<string, float>();
@@ -215,6 +215,14 @@ namespace Site13Kernel.Core.CustomizedInput
                         Key[item.Name] |= Input.GetKey(key);
                         KeyUp[item.Name] |= Input.GetKeyUp(key);
                     }
+
+
+                    foreach (var key in item.GamepadInput)
+                    {
+                        KeyDown[item.Name] |= Input.GetButtonDown(key);
+                        Key[item.Name] |= Input.GetButton(key);
+                        KeyUp[item.Name] |= Input.GetButtonUp(key);
+                    }
                 }
                 else
                 {
@@ -238,7 +246,7 @@ namespace Site13Kernel.Core.CustomizedInput
                     }
                     foreach (var key in item.GamepadInput)
                     {
-                        var v = Input.GetAxis(key);
+                        var v = Input.GetAxis(key) * item.Intensity;
                         if (Mathf.Abs(v) > Mathf.Abs(Axis[item.Name]))
                         {
                             Axis[item.Name] = v;
@@ -306,6 +314,9 @@ namespace Site13Kernel.Core.CustomizedInput
         public SnapAxis Axis;
         public float Intensity = 1;
         public float DeadZone = 0.12f;
+        public bool isGameInputAxisForButton;
+        internal bool __LastFrameGamepadStatus = false;
+
         /// <summary>
         /// Produce Axis value as positive values.
         /// </summary>

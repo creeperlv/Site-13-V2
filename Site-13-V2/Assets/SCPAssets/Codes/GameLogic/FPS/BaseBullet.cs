@@ -38,6 +38,7 @@ namespace Site13Kernel.GameLogic.FPS
         }
         private void OnTriggerEnter(Collider collision)
         {
+            if (collision.isTrigger) return;
             Hit(collision);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
