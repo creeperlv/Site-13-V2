@@ -501,6 +501,8 @@ MonoBehaviour:
   AllowBackstabDetection: 0
   Holder: {fileID: 0}
   isDetecting: 0
+  HitNormal: {fileID: 0}
+  HitDamagable: {fileID: 0}
 --- !u!1 &4370866356502920447
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,6 +659,9 @@ MonoBehaviour:
   XReversed: 0
   YContolled: 1
   YReversed: 0
+  ScaleControlled: 0
+  BaseScale: {x: 1, y: 1, z: 1}
+  MaxScale: {x: 1, y: 1, z: 1}
 --- !u!1 &4370866356586563982
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +731,10 @@ MonoBehaviour:
   isPercentage: 1
   CrosshairCanvasGroup: {fileID: 4370866356308685797}
   FPSRenderer: {fileID: 0}
+  ZoomInEffect: {fileID: 0}
+  ZoomOutEffect: {fileID: 0}
+  ZoomInEffectState: 0
+  ZoomOutEffectState: 0
 --- !u!114 &4370866356586563984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +757,7 @@ MonoBehaviour:
     WeaponFireType0: 1
     WeaponFireType1: 1
   MaxHitScanDistance: 100
+  isMeleeWeapon: 0
   GunSFXSources:
   - {fileID: 4370866357998425647}
   - {fileID: 4370866357017338255}
@@ -755,6 +765,7 @@ MonoBehaviour:
   MeleeSFXSource: {fileID: 4370866357685131526}
   MeleeSFX: {fileID: 8300000, guid: 3bee61f77e764e94492ee6ba52b0cc95, type: 3}
   ReloadSFXSource: {fileID: 0}
+  TakeOutSFXSource: {fileID: 0}
   ReloadSFX: {fileID: 0}
   BulletPrefab:
     useString: 0
@@ -806,8 +817,16 @@ MonoBehaviour:
   EffectPoint: {fileID: 4370866356068237165}
   CurrentEffectPoint: {fileID: 4370866356068237165}
   isHoldByPlayer: 1
+  useEffectPointInsteadFirePoint: 0
+  BaseCameraShakeIntensity: 0.3
+  AimModeMultiplier: 0.5
+  CamShakeDecay: 5
+  CamShakeSpeed: 50
+  CameraShakeIntensity: 0.3
   MeleePoint: 0.1
   MeleeArea: {fileID: 4370866356491102405}
+  NormalMelee: 80
+  NoAmmoMeleeDamage: 80
   ActualHolder: {fileID: 0}
 --- !u!1 &4370866356589195152
 GameObject:
@@ -1147,6 +1166,9 @@ MonoBehaviour:
   XReversed: 0
   YContolled: 1
   YReversed: 0
+  ScaleControlled: 0
+  BaseScale: {x: 1, y: 1, z: 1}
+  MaxScale: {x: 1, y: 1, z: 1}
 --- !u!1 &4370866357281038628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,6 +1227,9 @@ MonoBehaviour:
   XReversed: 0
   YContolled: 1
   YReversed: 0
+  ScaleControlled: 0
+  BaseScale: {x: 1, y: 1, z: 1}
+  MaxScale: {x: 1, y: 1, z: 1}
 --- !u!1 &4370866357665488277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +1288,9 @@ MonoBehaviour:
   XReversed: 0
   YContolled: 1
   YReversed: 0
+  ScaleControlled: 0
+  BaseScale: {x: 1, y: 1, z: 1}
+  MaxScale: {x: 1, y: 1, z: 1}
 --- !u!1 &4370866357685131524
 GameObject:
   m_ObjectHideFlags: 0
