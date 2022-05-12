@@ -12,6 +12,14 @@ Some assets are collected from some Third-party website, there must be some copy
 
 Main development activity of Site-13 is on this branch.
 
+## Third-Party Libraries
+
+Any UI Tool in CommonTools uses AvaloniaUI.
+
+Main Unity Project uses UMotion.
+
+Newtonsoft.JSON were used as a dependency of CLUNL.
+
 ## Licensing
 
 ### Art and story content
@@ -20,4 +28,4 @@ CC BY-SA 3.0 ![CC BY-SA](https://mirrors.creativecommons.org/presskit/buttons/88
 
 ### Code
 
-Codes here are licensed under [the MIT License](/LICENSE)
+Codes inside `Tools/CommonTools` and `Site-13-V2/Assets/SCPAssets` are licensed under [the MIT License](/LICENSE) other codes are distributed as-is (may be with Unity's Auto API Upgrade).
