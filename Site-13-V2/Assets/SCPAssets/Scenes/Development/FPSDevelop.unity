@@ -2739,6 +2739,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1945902110}
+  - {fileID: 1060182702}
   - {fileID: 637272744}
   - {fileID: 1607062602}
   - {fileID: 1168267487}
@@ -4780,10 +4781,14 @@ MonoBehaviour:
     PrefabDefinitions:
     - Key: PLAYER
       Value: {fileID: 2608671619807714542, guid: 7b2f41a24d960df4bb6df8f9205b9e70, type: 3}
-    - Key: P90-FPS
+    - Key: FSR-S3-FPS
       Value: {fileID: 6490600703705331879, guid: fb57496032ce7f54a81b0e40b4f90f8c, type: 3}
-    - Key: P90-PICKUPABLE
+    - Key: FSR-S3-AUTO-FPS
+      Value: {fileID: 6490600703705331879, guid: 773ced54db2815649952bc8d5647635b, type: 3}
+    - Key: FSR-S3-PICKUPABLE
       Value: {fileID: 4773773276730049914, guid: eb53dc2f3fe71264f966bcc3a80734d9, type: 3}
+    - Key: FSR-S3-AUTO-PICKUPABLE
+      Value: {fileID: 4773773276730049914, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
   IntMaps:
     PrefabDefinitions:
     - Key: 0
@@ -5597,6 +5602,70 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 23351ced7f960bc43b67d444ab5ddf70, type: 3}
+--- !u!1001 &1060182701
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 514111614}
+    m_Modifications:
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.6386547
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.34617484
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.405
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773773276730049914, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+      propertyPath: m_Name
+      value: FSR-S3-Auto-Pickupable
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+--- !u!4 &1060182702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2262842850051898463, guid: 5243e0a2c9ca6624a81e2e6b42ea5752, type: 3}
+  m_PrefabInstance: {fileID: 1060182701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1060734534
 GameObject:
   m_ObjectHideFlags: 0
@@ -10251,7 +10320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &1964406819
 Camera:
   m_ObjectHideFlags: 0
@@ -11919,7 +11988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4773773276730049914, guid: eb53dc2f3fe71264f966bcc3a80734d9, type: 3}
       propertyPath: m_Name
-      value: P90-Pickupable
+      value: FSR-S3-I7-Pickupable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
