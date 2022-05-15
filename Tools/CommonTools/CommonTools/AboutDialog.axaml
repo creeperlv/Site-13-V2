@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" Width="450" Height="300"
+        x:Class="CommonTools.AboutDialog" Background="Transparent"
+        Title="AboutDialog">
+	<Grid IsHitTestVisible="False" Background="#8000">
+		<StackPanel Margin="16" IsHitTestVisible="False">
+			<StackPanel.Styles>
+				<Style Selector="TextBlock">
+					<Setter Property="IsHitTestVisible" Value="False"/>
+					<Setter Property="TextAlignment" Value="Center"/>
+				</Style>
+			</StackPanel.Styles>
+			<TextBlock Text="Site 13" FontSize="28" FontWeight="Light"/>
+			<TextBlock Name="MainVersion"></TextBlock>
+			<TextBlock Text="Tool"></TextBlock>
+			<TextBlock Name="ToolName" FontSize="18"></TextBlock>
+			<TextBlock Name="ToolVersion"></TextBlock>
+			<TextBlock Text="Third-Party Libs" FontSize="24"></TextBlock>
+			<TextBlock Text=".Net"/>
+			<TextBlock Text="AvaloniaUI"/>
+			<TextBlock Text="CLUNL"/>
+			<TextBlock Text="CLUNL.Localization"/>
+			<TextBlock Text="Unity3D"/>
+		</StackPanel>
+	</Grid>
+</Window>

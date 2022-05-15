@@ -1,11 +1,9 @@
-﻿using Site13Kernel.Core;
-using Site13Kernel.Core.Controllers;
-using Site13Kernel.Core.Interactives;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-namespace Site13Kernel.GameLogic.CampaignScripts
+
+namespace Site13Kernel.Core.Interactives
 {
     public class SimpleTrigger : ControlledBehavior, ITriggerable
     {
@@ -28,7 +26,7 @@ namespace Site13Kernel.GameLogic.CampaignScripts
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnTriggerEnter(Collider other)
         {
-            var __FPS = other.gameObject.GetComponentInChildren<FPSController>();
+            var __FPS = other.gameObject.GetComponentInChildren<PlayerTag>();
             if (__FPS != null)
                 if (__callback != null)
                 {
@@ -39,5 +37,4 @@ namespace Site13Kernel.GameLogic.CampaignScripts
                 }
         }
     }
-
 }

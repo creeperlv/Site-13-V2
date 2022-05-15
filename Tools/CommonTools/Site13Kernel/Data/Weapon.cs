@@ -1,7 +1,5 @@
 ﻿using Site13Kernel.GameLogic.FPS;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Site13Kernel.Data
 {

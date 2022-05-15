@@ -31,15 +31,15 @@ namespace CommonTools
                     ContentPresenter.Children.Add(value);
             }
         }
-        public string DialogTitle
+        public string _DialogTitle
         {
             get
             {
-                return _DialogTitle.Text;
+                return DialogTitle.Text;
             }
             set
             {
-                _DialogTitle.Text = value;
+                DialogTitle.Text = value;
             }
         }
         public bool isOKEnabled
@@ -64,10 +64,6 @@ namespace CommonTools
                 CancelButton.IsVisible = value;
             }
         }
-        Button CancelButton;
-        Button OKButton;
-        Grid ContentPresenter;
-        TextBlock _DialogTitle;
         void Init()
         {
             CancelButton.Click += (_, _) =>
@@ -91,10 +87,6 @@ namespace CommonTools
             //this.TransparencyLevelHint = WindowTransparencyLevel.Blur;
             this.SystemDecorations = SystemDecorations.BorderOnly;
             this.CanResize = false;
-            CancelButton = this.FindControl<Button>("CancelButton");
-            OKButton = this.FindControl<Button>("OKButton");
-            ContentPresenter = this.FindControl<Grid>("ContentPresenter");
-            _DialogTitle = this.FindControl<TextBlock>("DialogTitle");
             this.Closing += (_,_) => {
                 ContentPresenter.Children.Clear();
             };

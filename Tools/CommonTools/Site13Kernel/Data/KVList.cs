@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Site13Kernel.Data
 {
@@ -7,6 +8,7 @@ namespace Site13Kernel.Data
     public class KVList<T, V>
     {
         public List<KVPair<T, V>> PrefabDefinitions = new List<KVPair<T, V>>();
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Dictionary<T, V> ObtainMap()
         {
             Dictionary<T, V> __RESULT = new Dictionary<T, V>();
@@ -16,6 +18,7 @@ namespace Site13Kernel.Data
             }
             return __RESULT;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Dictionary<T, V> ObtainMap(Func<T, T> K_Process)
         {
             Dictionary<T, V> __RESULT = new Dictionary<T, V>();
@@ -25,6 +28,7 @@ namespace Site13Kernel.Data
             }
             return __RESULT;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Dictionary<T, V> ObtainMap(Func<V, V> V_Process)
         {
             Dictionary<T, V> __RESULT = new Dictionary<T, V>();
@@ -34,6 +38,7 @@ namespace Site13Kernel.Data
             }
             return __RESULT;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Dictionary<T, V> ObtainMap(Func<T, T> K_Process, Func<V, V> V_Process)
         {
             Dictionary<T, V> __RESULT = new Dictionary<T, V>();

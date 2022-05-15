@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CampaignScriptEditor.Editors.EventItem">
+	<StackPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<ToggleButton Name="EditorToggle" IsChecked="False" HorizontalAlignment="Stretch"/>
+			<StackPanel Orientation="Horizontal" Grid.Column="1">
+				<StackPanel.Styles>
+					<Style Selector="Button">
+						<Setter Property="Padding" Value="8"/>
+						<Setter Property="Margin" Value="0"/>
+					</Style>
+				</StackPanel.Styles>
+				<Grid Name="ColorIndicator" Width="5" Height="5"></Grid>
+				<Button  Name="Up">
+					<Viewbox Width="16" Height="16">
+						<Canvas Width="24" Height="24">
+							<Path Fill="White" Data="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" />
+						</Canvas>
+					</Viewbox>
+				</Button>
+				<Button Name="Down">
+					<Viewbox Width="16" Height="16">
+						<Canvas Width="24" Height="24">
+							<Path Fill="White" Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+						</Canvas>
+					</Viewbox>
+				</Button>
+				<Button Name="Delete">
+					<Viewbox Width="16" Height="16">
+						<Canvas Width="24" Height="24">
+							<Path Fill="#FF6060" Data="M14.12,10.47L12,12.59L9.87,10.47L8.46,11.88L10.59,14L8.47,16.12L9.88,17.53L12,15.41L14.12,17.53L15.53,16.12L13.41,14L15.53,11.88L14.12,10.47M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9Z" />
+						</Canvas>
+					</Viewbox>
+				</Button>
+			</StackPanel>
+		</Grid>
+		<Grid  IsVisible="{Binding IsChecked,ElementName=EditorToggle}">
+			<Border BorderThickness="2,0,0,0" Margin="8,0,0,0" HorizontalAlignment="Left" BorderBrush="#2288EE"></Border>
+			<StackPanel Name="FieldContainer" Margin="16,0,0,0">
+
+			</StackPanel>
+		</Grid>
+	</StackPanel>
+</UserControl>

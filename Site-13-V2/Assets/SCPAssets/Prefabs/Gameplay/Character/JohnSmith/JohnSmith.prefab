@@ -2674,7 +2674,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -75}
+  m_AnchoredPosition: {x: 0, y: -122.19928}
   m_SizeDelta: {x: 450, y: 35}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8060735987647401919
@@ -3224,8 +3224,8 @@ MonoBehaviour:
   TimeToSelfDestruction: -1
   LowestKillPlane: -500
   CombatRelationGroup: 100
-  MaxShield: 100
-  CurrentShield: 100
+  MaxShield: 0
+  CurrentShield: 0
   ShieldRecoverSpeed: 15
   HPRecoverSpeed: 10
   ShieldRecoverDelay: 5
@@ -3286,7 +3286,9 @@ MonoBehaviour:
       - {fileID: 8300000, guid: fbc90fb92d631e048bb182de2b595919, type: 3}
       - {fileID: 8300000, guid: 9bb89578896db234eb807a4734ec9542, type: 3}
   FootstepVolumeMultipliers:
-    PrefabDefinitions: []
+    PrefabDefinitions:
+    - Key: 0
+      Value: 1
   CurrentStandingMaterial: 0
   FloatPositionDelta: {x: 0, y: -0.025, z: 0}
   ToNormalSpeed: 5
@@ -3301,13 +3303,13 @@ MonoBehaviour:
   HeadExchangeSpeed: 2
   WalkDistanceMultiplier: 1
   FPSCamSwingIntensity: 0.015
-  FPSCamSwingRunningIntensity: 0.1
-  FPSCamSwingCrouchIntensity: 0.05
+  FPSCamSwingRunningIntensity: 0.05
+  FPSCamSwingCrouchIntensity: 0.01
   FPSCamSwingIntensitySwitchSpeed: 4
-  FPSCamSwingSpeed: 3
-  WalkIncreasementIntensity: 1.1
-  CrouchIncreasementIntensity: 1.1
-  RunIncreasementIntensity: 0.5
+  FPSCamSwingSpeed: 2
+  WalkIncreasementIntensity: 1
+  CrouchIncreasementIntensity: 1
+  RunIncreasementIntensity: 0.6
   FrameDelay: 1
   CurrentFPSCamSwingIntensity: 0.1
   WRTween: 0
@@ -3442,7 +3444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: -147.2}
   m_SizeDelta: {x: 300, y: 25}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8060735988008900691
@@ -4379,9 +4381,17 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 8060735987918564065}
     m_Modifications:
+    - target: {fileID: 1840161051363265031, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1933371544579411828, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
       propertyPath: m_Name
       value: John-Smith-Assemble-able
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323679274827121608, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3117829729763962488, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
       propertyPath: m_RootOrder
@@ -4425,6 +4435,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3117829729763962488, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3219384177157776372, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107258166557273415, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272468078004164808, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5364240335102667703, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239311624862656469, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8493789468396865522, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8694227186186537652, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
