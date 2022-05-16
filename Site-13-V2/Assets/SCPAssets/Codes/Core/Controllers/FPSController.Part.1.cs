@@ -46,10 +46,52 @@ namespace Site13Kernel.Core.Controllers
             }
             if (FlashLightEnabled)
                 FlashLight();
+            FoundationInfo(DeltaTime);
             Grenade(DeltaTime, UnscaledDeltaTime);
             BodyAnimation(DeltaTime, UnscaledDeltaTime);
             UpdateHUD(DeltaTime, UnscaledDeltaTime);
             SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void FoundationInfo(float DeltaTime)
+        {
+            if (InputProcessor.GetInputDown("Detail"))
+            {
+                if (Weapon != null)
+                {
+                    if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1)
+                    {
+                        return;
+                    }
+                }
+                CancelRun();
+                toZoom = true;
+                if (Weapon != null)
+                {
+                    if (!Weapon.CanZoom)
+                    {
+                        Weapon.Unfire();
+                    }
+                    Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
+                    Weapon.Weapon.AimingMode = 1;
+                    HideWeapon();
+
+                }
+            }
+            if (InputProcessor.GetInputUp("Detail"))
+            {
+                CancelZoom();
+            }
+        }
+        public void CancelFoundationInfo()
+        {
+            toZoom = false;
+            if (Weapon != null)
+            {
+                Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
+                Weapon.Weapon.AimingMode = 0;
+                ShowWeapon();
+            }
         }
         bool Grenade0 = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

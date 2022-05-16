@@ -261,6 +261,7 @@ namespace Site13Kernel.Core.Controllers
                         }
                     }
                     GeneratedWeapon = Holder.Weapon0 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+
                     Holder.CurrentWeapon = 0;
                     try
                     {
@@ -281,6 +282,7 @@ namespace Site13Kernel.Core.Controllers
                         return;
                     }
                     GeneratedWeapon = Holder.Weapon1 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+
                     Holder.CurrentWeapon = 1;
                     if (Holder.OnSwapWeapon != null)
                         Holder.OnSwapWeapon();
@@ -312,6 +314,7 @@ namespace Site13Kernel.Core.Controllers
                         GameObject.Destroy(Holder.Weapon0.gameObject);
 
                         GeneratedWeapon = Holder.Weapon0 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponent<ControlledWeapon>();
+                        GeneratedWeapon.transform.localPosition = GeneratedWeapon.NormalPosition;
                         if (Holder.OnSwapWeapon != null)
                             Holder.OnSwapWeapon();
                     }
@@ -339,12 +342,14 @@ namespace Site13Kernel.Core.Controllers
                         }
                         Destroy(Holder.Weapon1.gameObject);
                         GeneratedWeapon = Holder.Weapon1 = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Weapon.WeaponID].FPSPrefab, Holder.WeaponTransform).GetComponentInChildren<ControlledWeapon>();
+                        GeneratedWeapon.transform.localPosition = GeneratedWeapon.NormalPosition;
                         if (Holder.OnSwapWeapon != null)
                             Holder.OnSwapWeapon();
                     }
                 }
                 GeneratedWeapon.Weapon.Base = Weapon;
-
+                GeneratedWeapon.transform.localPosition = GeneratedWeapon.NormalPosition;
+                GeneratedWeapon.transform.localEulerAngles = GeneratedWeapon.NormalRotationEuler;
             }
             else
             {

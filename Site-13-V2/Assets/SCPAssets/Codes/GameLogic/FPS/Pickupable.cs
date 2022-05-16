@@ -126,7 +126,8 @@ namespace Site13Kernel.GameLogic.FPS
                         }
                     }
                     GeneratedWeapon.Weapon.Base = Weapon;
-
+                    GeneratedWeapon.transform.localPosition = GeneratedWeapon.NormalPosition;
+                    GeneratedWeapon.transform.localEulerAngles= GeneratedWeapon.NormalRotationEuler;
                     if (this.Parent != null)
                     {
                         this.Parent.UnregisterFixedRefresh(this);
