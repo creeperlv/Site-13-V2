@@ -53,7 +53,6 @@ namespace Site13Kernel.Utilities
             if (Ref.useString)
             {
                 return Instantiate(Ref.Key);
-
             }
             else
             {
@@ -66,7 +65,6 @@ namespace Site13Kernel.Utilities
             if (Ref.useString)
             {
                 return Instantiate(Ref.Key, Parent);
-
             }
             else
             {
@@ -79,7 +77,6 @@ namespace Site13Kernel.Utilities
             if (Ref.useString)
             {
                 return Instantiate(Ref.Key, Position, Rotation);
-
             }
             else
             {
@@ -156,6 +153,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform parent, string ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation, parent);
+            SetLayerForChildren(_Object, parent.gameObject.layer);
             ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
@@ -179,6 +177,7 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Vector3 Position, Quaternion Rotation, Transform parent, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject, Position, Rotation, parent);
+            SetLayerForChildren(_Object, parent.gameObject.layer);
             ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
@@ -187,14 +186,26 @@ namespace Site13Kernel.Utilities
         public static GameObject Instantiate(GameObject gameObject, Transform parent, string ID)
         {
             var _Object = GameObject.Instantiate(gameObject, parent);
+            SetLayerForChildren(_Object, parent.gameObject.layer);
             ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetLayerForChildren(GameObject obj,int Layer)
+        {
+            if (Layer == 0) return;
+            obj.layer = Layer;
+            for (int i = 0; i < obj.transform.childCount; i++)
+            {
+                SetLayerForChildren(obj.transform.GetChild(i).gameObject,Layer);
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(GameObject gameObject, Transform parent, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject, parent);
+            SetLayerForChildren(_Object, parent.gameObject.layer);
             ComponentHolder.TryAddHolder(_Object);
             AttachID(ID, _Object);
             return _Object;

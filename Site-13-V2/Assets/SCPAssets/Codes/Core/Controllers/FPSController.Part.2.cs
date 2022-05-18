@@ -63,6 +63,8 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (!BagHolder.Weapon0.gameObject.activeSelf)
                     {
+                        Weapon =
+                            BagHolder.Weapon0;
                         BagHolder.Weapon0.Unfire();
                         BagHolder.Weapon0.Weapon.ResetTakeOut();
                         BagHolder.Weapon0.gameObject.SetActive(true);
@@ -91,6 +93,8 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (!BagHolder.Weapon1.gameObject.activeSelf)
                     {
+                        Weapon =
+                            BagHolder.Weapon1;
                         BagHolder.Weapon1.Unfire();
                         BagHolder.Weapon1.Weapon.ResetTakeOut();
                         BagHolder.Weapon1.gameObject.SetActive(true);

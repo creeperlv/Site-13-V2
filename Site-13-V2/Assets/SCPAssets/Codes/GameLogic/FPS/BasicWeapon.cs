@@ -79,6 +79,7 @@ namespace Site13Kernel.GameLogic.FPS
         public Transform EffectPoint;
         public Transform CurrentEffectPoint;
         public bool isHoldByPlayer = false;
+        public bool CreateBullet = true;
         public bool useEffectPointInsteadFirePoint = false;
         public float BaseCameraShakeIntensity = 0.3f;
         public float AimModeMultiplier= 0.5f;
@@ -491,12 +492,15 @@ namespace Site13Kernel.GameLogic.FPS
 
                         if (BulletPrefab != null)
                         {
-                            if (!useEffectPointInsteadFirePoint)
-                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
-                            else
+                            if (CreateBullet)
                             {
+                                if (!useEffectPointInsteadFirePoint)
+                                    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
+                                else
+                                {
 
-                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, EffectPoint.position, Rotation, ActualHolder);
+                                    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, CurrentEffectPoint.position, Rotation, ActualHolder);
+                                }
                             }
                         }
                     }
