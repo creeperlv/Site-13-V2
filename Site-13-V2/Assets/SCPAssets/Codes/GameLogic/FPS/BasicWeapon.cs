@@ -82,7 +82,7 @@ namespace Site13Kernel.GameLogic.FPS
         public bool CreateBullet = true;
         public bool useEffectPointInsteadFirePoint = false;
         public float BaseCameraShakeIntensity = 0.3f;
-        public float AimModeMultiplier= 0.5f;
+        public float AimModeMultiplier = 0.5f;
         public float CamShakeDecay = 5f;
         public float CamShakeSpeed = 50f;
         public float CameraShakeIntensity = 0.3f;
@@ -142,11 +142,6 @@ namespace Site13Kernel.GameLogic.FPS
                     if (isHoldByPlayer)
                         this.Base.CurrentMagazine--;
                 }
-                if (MeleeSFXSource != null)
-                {
-                    MeleeSFXSource.clip = MeleeSFX;
-                    MeleeSFXSource.Play();
-                }
                 if (CCAnimator != null)
                 {
                     if (useFireAnimation)
@@ -191,7 +186,7 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Reload()
         {
-            if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL|| WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
+            if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL || WeaponMode == WeaponConstants.WEAPON_MODE_MELEE)
             {
                 if (Base.CurrentMagazine < Base.MagazineCapacity && Base.CurrentBackup > 0)
                 {
@@ -214,7 +209,7 @@ namespace Site13Kernel.GameLogic.FPS
         {
             Recoil = Mathf.Max(Recoil, V);
         }
-
+        bool MeleeState = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnFrame(float DeltaT, float UnscaledDeltaT)
         {
@@ -322,11 +317,24 @@ namespace Site13Kernel.GameLogic.FPS
                 CombatT += DeltaT;
                 if (CombatT > MeleePoint && CombatT < MeleePoint + 0.05f)
                 {
-                    MeleeArea.StartDetection();
+                    if (!MeleeState)
+                    {
+                        if (MeleeSFXSource != null)
+                        {
+                            MeleeSFXSource.clip = MeleeSFX;
+                            MeleeSFXSource.Play();
+                        }
+                        MeleeArea.StartDetection();
+                        MeleeState = true;
+                    }
                 }
                 else if (CombatT > MeleePoint + 0.05f)
                 {
-                    MeleeArea.StopDetection();
+                    if (MeleeState)
+                    {
+                        MeleeArea.StopDetection();
+                        MeleeState = false;
+                    }
                 }
                 if (CombatT > CombatLength)
                 {

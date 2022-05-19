@@ -691,8 +691,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -386}
-  m_SizeDelta: {x: 600, y: 150}
+  m_AnchoredPosition: {x: 0, y: -290}
+  m_SizeDelta: {x: 600, y: 600}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5418883580848397603
 CanvasRenderer:
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   Weapon: {fileID: 6490600703705331874}
   CanZoom: 1
   ZoomHUD: {fileID: 6490600704389172731}
-  ZoomFov: 30
+  ZoomFov: 45
   ZoomEffectPoint: {fileID: 7482231408064128286}
   NormalPosition: {x: 0.1, y: 0.13, z: -0.025}
   RunningPosition: {x: 0.175, y: -0.22, z: 0.5}
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   - {fileID: 6490600703992947067}
   - {fileID: 6490600703539577913}
   - {fileID: 8763248880694948819}
+  - {fileID: 5114920442078916574}
   HUDCanvas: {fileID: 6490600705105107612}
   isPercentage: 0
   CrosshairCanvasGroup: {fileID: 0}
@@ -1138,10 +1139,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Base:
-    WeaponID: FSR-S3
-    MaxCapacity: 16
+    WeaponID: FSR-S6
+    MaxCapacity: 160
     MagazineCapacity: 16
-    CurrentBackup: 108
+    CurrentBackup: 160
     CurrentMagazine: 16
     PhysicsForce: 5
     WeaponFireType0: 1
@@ -1178,7 +1179,7 @@ MonoBehaviour:
   ReloadP0: 0.5
   ReloadP1: 0.5
   ReloadCountDown: 0
-  CombatLength: 0.6666667
+  CombatLength: 1
   CombatT: 0
   Idle: Idle
   Idle_HashCode: 4
@@ -1187,13 +1188,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 122d3b585943e804083ffec74cbfdd50, type: 3}
   - {fileID: 8300000, guid: 7b1695c90e6bf86409d0bf6c89772017, type: 3}
   - {fileID: 8300000, guid: 7d8bfcaca6eb5b14297047761b278200, type: 3}
-  FireInterval: 0.1
+  FireInterval: 0.16666667
   Recoil: 1
   SingleFireRecoil: 0.3
   MaxRecoil: 1
   RecoilRecoverSpeed: 1.5
   MaxScatterAngle: 6
-  MaxScatterAngleAimMode: 3
+  MaxScatterAngleAimMode: 4
   AimingMode: 0
   BulletFireType: 0
   FireType: 1
@@ -1213,12 +1214,12 @@ MonoBehaviour:
   isHoldByPlayer: 1
   CreateBullet: 0
   useEffectPointInsteadFirePoint: 1
-  BaseCameraShakeIntensity: 1
+  BaseCameraShakeIntensity: 1.5
   AimModeMultiplier: 0.5
   CamShakeDecay: 4
   CamShakeSpeed: 50
-  CameraShakeIntensity: 0.3
-  MeleePoint: 0.1
+  CameraShakeIntensity: 0.4
+  MeleePoint: 0.35
   MeleeArea: {fileID: 4758673300268850176}
   NormalMelee: 80
   NoAmmoMeleeDamage: 80
@@ -1550,6 +1551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6490600704389172730}
   - component: {fileID: 6490600704389172731}
+  - component: {fileID: 5114920442078916574}
   m_Layer: 5
   m_Name: Zoom
   m_TagString: Untagged
@@ -1569,7 +1571,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6490600705032199770}
   - {fileID: 8743136571037045702}
   - {fileID: 1826073822559351023}
   - {fileID: 3305477382711776305}
@@ -1590,10 +1591,33 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6490600704389172733}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &5114920442078916574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490600704389172733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7086ac5abb2e1e9448c2709ca9cfb1da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controlled: {fileID: 6490600704389172730}
+  MaxDistance: 35
+  MinDistance: 0
+  InitialPosition: {x: 0, y: 0}
+  XContolled: 0
+  XReversed: 0
+  YContolled: 1
+  YReversed: 0
+  ScaleControlled: 1
+  BaseScale: {x: 1, y: 1, z: 1}
+  MaxScale: {x: 1.05, y: 1.05, z: 1.05}
 --- !u!1 &6490600704538559508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,82 +1716,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &6490600705032199773
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6490600705032199770}
-  - component: {fileID: 6490600705032199768}
-  - component: {fileID: 6490600705032199771}
-  m_Layer: 5
-  m_Name: Image_004
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &6490600705032199770
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6490600705032199773}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6490600704389172730}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &6490600705032199768
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6490600705032199773}
-  m_CullTransparentMesh: 1
---- !u!114 &6490600705032199771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6490600705032199773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.88235295}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 23f236941e7012c4e984edb9467d9a4e, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 1
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2
 --- !u!1 &6490600705094744946
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,8 +2134,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -37.5}
-  m_SizeDelta: {x: 600, y: 350}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: 600, y: 250}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &834167351173087029
 CanvasRenderer:
@@ -2382,6 +2330,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.19500004
       objectReference: {fileID: 0}
+    - target: {fileID: 1817204257752219525, guid: 41eb97ae74a304e4e96699bb17254bef, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2567602893295291657, guid: 41eb97ae74a304e4e96699bb17254bef, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -2483,6 +2435,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6921484738938818427, guid: 41eb97ae74a304e4e96699bb17254bef, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7736496101021507378, guid: 41eb97ae74a304e4e96699bb17254bef, type: 3}
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
@@ -2752,6 +2708,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2254478316791774095, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
       propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2254478316791774095, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2291618719135843413, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
