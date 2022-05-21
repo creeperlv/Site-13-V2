@@ -1,0 +1,33 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="RUNNING" Value="True"/>
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="#2288EE">
+	
+		<Text Content="SECTION WIDE ELEVATOR" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.03" X="0" Y="0.05" Width="1" Height="0.1" Align="Center" VerticalAlign="Near" />
+		
+		
+		<Rectangle X="0.3" Y="0.15" Width=".1" Height="0.05" Size="0.001" Fill="False" Color="#1155DD"/>
+		<Text Content="A" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.02" X="0.3" Y="0.15" Width=".1" Height="0.05" Align="Center" VerticalAlign="Center" />
+		
+		
+		<Rectangle X="0.3" Y="0.25" Width=".1" Height="0.05" Size="0.001" Fill="False" Color="#1155DD" />
+		<Text Content="B" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.02" X="0.3" Y="0.25" Width=".1" Height="0.05" Align="Center" VerticalAlign="Center" />
+		
+		<Rectangle X="0.3" Y="0.35" Width=".1" Height="0.05" Size="0.001" Fill="False" Color="#1155DD" />
+		<Text Content="C" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.02" X="0.3" Y="0.35" Width=".1" Height="0.05" Align="Center" VerticalAlign="Center" />
+		
+		<Rectangle X="0.3" Y="0.45" Width=".1" Height="0.05" Size="0.001" Fill="False" Color="#1155DD" />
+		<Text Content="D" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.02" X="0.3" Y="0.45" Width=".1" Height="0.05" Align="Center" VerticalAlign="Center" />
+		
+		<Rectangle X="0.3" Y="0.55" Width=".1" Height="0.05" Size="0.001" Fill="False" Color="#1155DD" />
+		<Text Content="E" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.02" X="0.3" Y="0.55" Width=".1" Height="0.05" Align="Center" VerticalAlign="Center" />
+		
+		<Group Visible="IDLE">
+		<Rectangle X="0.45" Y="0.15" Width=".25" Height="0.45" Size="0.001" Fill="False" Color="#1155DD" />
+			<Text Content="IDLE" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.05"  X="0.45" Y="0.15" Width=".25" Height="0.45" Align="Center" VerticalAlign="Center" />
+		</Group>
+		<Group Visible="RUNNING">
+		<Rectangle X="0.45" Y="0.15" Width=".25" Height="0.45" Size="0.001" Fill="False" Color="#33EE33" />
+			<Text Content="RUNNING" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.03"  X="0.45" Y="0.15" Width=".25" Height="0.45" Align="Center" VerticalAlign="Center" Color="#33EE33"/>
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>
