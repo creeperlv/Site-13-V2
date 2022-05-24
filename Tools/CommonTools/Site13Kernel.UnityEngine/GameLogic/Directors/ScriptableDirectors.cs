@@ -27,11 +27,13 @@ namespace Site13Kernel.GameLogic.Directors
         public KVList<string, SimpleTrigger> SimpleTriggers = new KVList<string, SimpleTrigger>();
         public KVList<string, EventTrigger> EventTriggers = new KVList<string, EventTrigger>();
         public KVList<string, GameObject> ReferencedObjects = new KVList<string, GameObject>();
+        public KVList<string, MonoBehaviour> ReferenceMonoBehaviours= new KVList<string, MonoBehaviour>();
         public KVList<string, Transform> ReferenceLocations = new KVList<string, Transform>();
         public KVList<string, Goal> ReferenceRountines = new KVList<string, Goal>();
         public Dictionary<string, SimpleTrigger> __SimpleTriggers = new Dictionary<string, SimpleTrigger>();
         public Dictionary<string, EventTrigger> __EventTriggers = new Dictionary<string, EventTrigger>();
         public Dictionary<string, GameObject> __ReferencedObjects = new Dictionary<string, GameObject>();
+        public Dictionary<string, MonoBehaviour> __ReferenceMonoBehaviours = new Dictionary<string, MonoBehaviour>();
         public Dictionary<string, Transform> __ReferenceLocations = new Dictionary<string, Transform>();
         public Dictionary<string, Goal> __ReferenceRountines = new Dictionary<string, Goal>();
         public Dictionary<Type, Action<EventBase>> Actions = new Dictionary<Type, Action<EventBase>>();
@@ -40,9 +42,9 @@ namespace Site13Kernel.GameLogic.Directors
             __SimpleTriggers = SimpleTriggers.ObtainMap();
             __EventTriggers = EventTriggers.ObtainMap();
             __ReferencedObjects = ReferencedObjects.ObtainMap();
+            __ReferenceMonoBehaviours = ReferenceMonoBehaviours.ObtainMap();
             __ReferenceLocations = ReferenceLocations.ObtainMap();
             __ReferenceRountines = ReferenceRountines.ObtainMap();
-
         }
         public virtual void SetupActions()
         {
