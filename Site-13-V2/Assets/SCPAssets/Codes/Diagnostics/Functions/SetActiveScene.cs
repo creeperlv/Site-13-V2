@@ -37,7 +37,7 @@ namespace Site13Kernel.Diagnostics.Functions
                     var ID=SceneUtility.LookUp(arguments[0].EntireArgument);
                     if (ID != -1)
                     {
-                        SceneLoader.Instance.SetActive(i);
+                        SceneLoader.Instance.SetActive(ID);
                         Debugger.CurrentDebugger.Log($"Scene (Name:{arguments[0].EntireArgument}=>ID={ID}) is now active");
 
                     }

@@ -26,6 +26,7 @@ namespace Site13Kernel.GameLogic
             }
             else
             {
+                Debug.Log("Trying fetching script...");
                 var SCRIPT = GameRuntime.CurrentGlobals.Scripts[GameRuntime.CurrentGlobals.CurrentMission.TargetScript];
                 StartCoroutine(ExecuteScript(SCRIPT.text));
 
@@ -72,6 +73,7 @@ namespace Site13Kernel.GameLogic
         }
         public IEnumerator ExecuteScript(string Content)
         {
+            Debug.Log(Content);
             StringReader TR = new StringReader(Content);
             GameRuntime.CurrentGlobals.OneTimeScript = null;
             string Line;

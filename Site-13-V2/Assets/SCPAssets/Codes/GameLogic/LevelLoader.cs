@@ -28,6 +28,7 @@ namespace Site13Kernel.GameLogic
                 CampaignCover.sprite=GameRuntime.CurrentGlobals.CurrentGameDef.Sprites[Target.ImageName].LoadedSprite;
                 CampaignTitle.text = Target.DispFallback;
                 CampaignDescription.text = Target.DescFallback;
+                
                 SceneLoader.Instance.LoadScene(SceneUtility.LookUp("LevelBase"), true, true, true);
             }
         }

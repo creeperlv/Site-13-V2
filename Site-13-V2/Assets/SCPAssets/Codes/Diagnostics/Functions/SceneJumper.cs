@@ -45,11 +45,16 @@ namespace Site13Kernel.Diagnostics.Functions
                 if (int.TryParse(arguments[0].EntireArgument, out var i))
                 {
                     SceneLoader.Instance.LoadScene(i, isShow, isAdditive, isStick);
-
                 }
                 else
                 {
-                    Debugger.CurrentDebugger.LogError("Invalid Argument.");
+                    var id = Utilities.SceneUtility.LookUp(arguments[0].EntireArgument);
+                    if (id == -1)
+                    {
+                        Debugger.CurrentDebugger.LogError("Invalid Argument.");
+                        return;
+                    }
+                    SceneLoader.Instance.LoadScene(id, isShow, isAdditive, isStick);
                 }
 
             }
