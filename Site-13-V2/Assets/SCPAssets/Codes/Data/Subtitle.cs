@@ -1,16 +1,19 @@
-﻿using TMPro;
+﻿using CLUNL.Localization;
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Site13Kernel.Data
 {
+    [Serializable]
     public class Subtitle
     {
-        public string ID;
-        public string Fallback;
+        public LocalizedString Content;
         public float Duration;
         public float CurrentTimeD;
         [HideInInspector]
-        public TMP_Text ControlledSubtitle;
+        public Text ControlledSubtitle;
     }
 
 }

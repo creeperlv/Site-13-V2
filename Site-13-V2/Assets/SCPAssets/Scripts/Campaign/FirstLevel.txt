@@ -1,10 +1,10 @@
 #Created By Creeper Lv
-echo "Overture"
-load OVERTURE false false false
-load DREAM0 false false false
+cls
+echo "OVERTURE"
+jump OVERTURE true true false
 wait_for_load
-hide levelloader
-show OVERTURE
-wait 25
-hide OVERTURE
-show DREAM0
+wait 1
+active OVERTURE
+
+unload levelloader
+fdirector true

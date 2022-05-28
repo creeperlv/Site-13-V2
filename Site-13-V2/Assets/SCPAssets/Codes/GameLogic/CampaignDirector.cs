@@ -40,7 +40,9 @@ namespace Site13Kernel.GameLogic
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         bool isComment(string Line)
         {
+            if (Line.Length == 0) return true;
             var L = Line = Line.Trim();
+            if (L.Length == 0) return true;
             string Prefix;
             switch (L[0])
             {

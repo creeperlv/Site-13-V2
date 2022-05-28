@@ -71,7 +71,7 @@ namespace Site13Kernel.GameLogic
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ShowCoreWeaponAnimator()
+        public void ShowCoreWeaponAnimator(bool UseTakeOut=false)
         {
 
             //Weapon.ControlledAnimator.gameObject.SetActive(true);
@@ -81,7 +81,9 @@ namespace Site13Kernel.GameLogic
                 if (isInited)
                 {
                     //Weapon.ControlledAnimator.SetTrigger(Weapon.Idle);
-                    Weapon.CCAnimator.SetAnimation(Weapon.Idle_HashCode);
+                    if (!UseTakeOut)
+                        Weapon.CCAnimator.SetAnimation(Weapon.Idle_HashCode);
+                    else Weapon.CCAnimator.SetAnimation(Weapon.TakeOut_HashCode);
                 }
             }
 

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Site13Kernel.Core.Controllers
 {
@@ -12,43 +13,57 @@ namespace Site13Kernel.Core.Controllers
 
         public Transform MainHolder;
         public Transform SubHolder;
-        public TMP_Text MainTemplate;
-        public TMP_Text SubTemplate;
+        public Text MainTemplate;
+        public Text SubTemplate;
         public void ShowSubtitle(Subtitle subtitle, bool isMain = true)
         {
-            TMP_Text t;
+            Text t;
             subtitle.Duration = Mathf.Max(subtitle.Duration, .5f);
             if (isMain)
             {
-                t = Instantiate(MainTemplate.gameObject, MainHolder).GetComponent<TMP_Text>();
+                t = Instantiate(MainTemplate.gameObject, MainHolder).GetComponent<Text>();
 
             }
             else
             {
-                t = Instantiate(SubTemplate.gameObject, SubHolder).GetComponent<TMP_Text>();
+                t = Instantiate(SubTemplate.gameObject, SubHolder).GetComponent<Text>();
             }
-            t.text = Language.Find(subtitle.ID, subtitle.Fallback);
-            subtitle.ControlledSubtitle = t.GetComponent<TMP_Text>();
+            t.text =subtitle.Content;
+            subtitle.ControlledSubtitle = t.GetComponent<Text>();
             ShowedSubtitles.Add(subtitle);
         }
         [HideInInspector]
         public List<Subtitle> ShowedSubtitles=new List<Subtitle>();
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
-            foreach (var item in ShowedSubtitles)
+            for (int i = ShowedSubtitles.Count-1; i >=0; i--)
             {
+                var item = ShowedSubtitles[i];
+
                 item.CurrentTimeD += UnscaledDeltaTime;
                 if (item.CurrentTimeD < .25f)
                 {
-                    item.ControlledSubtitle.alpha =
+                    var c = item.ControlledSubtitle.color; c.a =
                         Mathf.Clamp(item.CurrentTimeD * 4f, 0f, 1f);
+                    item.ControlledSubtitle.color = c;
                 }
                 else if (item.CurrentTimeD > item.Duration - .25f)
                 {
-                    item.ControlledSubtitle.alpha =
+                    var c = item.ControlledSubtitle.color; c.a =
                         Mathf.Clamp((item.Duration - item.CurrentTimeD) * 4f, 0f, 1f);
+                    item.ControlledSubtitle.color = c;
+                    //item.ControlledSubtitle.alpha =
+                    //    Mathf.Clamp((item.Duration - item.CurrentTimeD) * 4f, 0f, 1f);
+                }
+                if (item.CurrentTimeD > item.Duration)
+                {
+                    ShowedSubtitles.Remove(item);
+                    Destroy(item.ControlledSubtitle.gameObject);
                 }
             }
+            //foreach (var item in ShowedSubtitles)
+            //{
+            //}
         }
         public override void Init()
         {

@@ -172,7 +172,8 @@ namespace Site13Kernel.Core.Controllers
         [Header("Flash Light")]
         public bool FlashLightEnabled;
         public GameObject FlashLightObject;
-
+        [Header("Watch Info")]
+        public GameObject WatchLayer;
         bool isThrowingGrenade;
         bool Interrupt00 = false;
         Vector3 _WalkPosition;
@@ -392,6 +393,8 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FireControl(float DeltaTime)
         {
+            if (FoundationStatus)
+                return;
             if (InputProcessor.GetAxis("Fire") > 0.5f)
             {
                 if (isWalking)
@@ -457,37 +460,46 @@ namespace Site13Kernel.Core.Controllers
         bool InternalZoom = false;
         bool WeaponZooom = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ShowWeapon()
+        public void ShowWeapon(bool UseTakeOut= false)
         {
-            Weapon.ShowCoreWeaponAnimator();
+            Weapon.ShowCoreWeaponAnimator(UseTakeOut);
             if (Weapon.CrosshairCanvasGroup != null)
             {
                 Weapon.CrosshairCanvasGroup.SetActive(true);
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void HideWeapon()
+        public void HideWeapon(bool IsZooming = true)
         {
             Weapon.HideCoreWeaponAnimator();
+
             if (Weapon.CrosshairCanvasGroup != null)
             {
-                Weapon.CrosshairCanvasGroup.SetActive(false);
+                if (IsZooming)
+                {
+                    if (!Weapon.CanZoom)
+                        Weapon.CrosshairCanvasGroup.SetActive(false);
+                }
+                else
+                    Weapon.CrosshairCanvasGroup.SetActive(false);
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CancelZoom()
         {
             toZoom = false;
-            if (Weapon != null)
-            {
-                Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
-                Weapon.Weapon.AimingMode = 0;
-                ShowWeapon();
-            }
+            if (!FoundationStatus)
+                if (Weapon != null)
+                {
+                    Weapon.Weapon.CurrentEffectPoint = Weapon.Weapon.EffectPoint;
+                    Weapon.Weapon.AimingMode = 0;
+                    ShowWeapon();
+                }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Zoom(float DeltaTime)
         {
+            if (FoundationStatus) return;
             {
                 if (InputProcessor.GetInputDown("Zoom"))
                 {
@@ -667,7 +679,7 @@ namespace Site13Kernel.Core.Controllers
         {
             {
                 //View rotation
-                cc.transform.Rotate(0, InputProcessor.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime* Data.Settings.CurrentSettings.MouseSensibly, 0);
+                cc.transform.Rotate(0, InputProcessor.GetAxis("MouseH") * MouseHoriztonalIntensity * DeltaTime * Data.Settings.CurrentSettings.MouseSensibly, 0);
                 var Head_V = InputProcessor.GetAxis("MouseV") * MouseHoriztonalIntensity * DeltaTime * Data.Settings.CurrentSettings.MouseSensibly;
                 var ea = Head.localEulerAngles;
                 ea.x += Head_V;

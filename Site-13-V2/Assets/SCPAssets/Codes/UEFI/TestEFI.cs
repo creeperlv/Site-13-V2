@@ -19,7 +19,7 @@ namespace Site13Kernel.UEFI
         IEnumerator DelayedAction()
         {
             yield return null;
-            GameRuntime.CurrentGlobals.SubtitleController.ShowSubtitle(new Subtitle { ID = "", Fallback = "Test Subtitle", Duration = 4 });
+            //GameRuntime.CurrentGlobals.SubtitleController.ShowSubtitle(new Subtitle { ID = "", Fallback = "Test Subtitle", Duration = 4 });
         }
 #endif
     }

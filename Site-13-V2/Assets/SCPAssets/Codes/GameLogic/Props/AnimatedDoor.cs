@@ -21,7 +21,7 @@ namespace Site13Kernel.GameLogic.Props
         public bool IsWorking;
         public AudioSource OpenSFXSource;
         public AudioSource CloseSFXSource;
-        
+
         public override void Init()
         {
             this.Parent.RegisterRefresh(this);
@@ -29,10 +29,9 @@ namespace Site13Kernel.GameLogic.Props
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Open()
         {
-            //Animator.ResetTrigger(State_Open);
-            //Animator.ResetTrigger(State_Close);
             Mode = 0;
         }
+        string LastState;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void OnFrame(float DeltaTime, float UnscaledDeltaTime)
         {
@@ -47,7 +46,11 @@ namespace Site13Kernel.GameLogic.Props
                 {
                     if (State_Open_Idle != GameEnv.EmptyString)
                     {
-                        Animator.Play(State_Open_Idle);
+                        if (LastState != State_Open_Idle)
+                        {
+                            Animator.Play(State_Open_Idle);
+                            LastState = State_Open_Idle;
+                        }
                     }
                     IsWorking = false;
                     //LastMode = 2;
@@ -64,7 +67,11 @@ namespace Site13Kernel.GameLogic.Props
                 {
                     if (State_Open_Idle != GameEnv.EmptyString)
                     {
-                        Animator.Play(State_Close_Idle);
+                        if (LastState != State_Close_Idle)
+                        {
+                            Animator.Play(State_Close_Idle);
+                            LastState = State_Close_Idle;
+                        }
                     }
                     //LastMode = 3;
                     IsWorking = false;
@@ -83,11 +90,15 @@ namespace Site13Kernel.GameLogic.Props
                     {
                         case 0:
                             CurrentD = 0;
-                            if(OpenSFXSource!= null)
+                            if (OpenSFXSource != null)
                             {
                                 OpenSFXSource.Play();
                             }
-                            Animator.Play(State_Open);
+                            if (LastState != State_Open)
+                            {
+                                Animator.Play(State_Open);
+                                LastState = State_Open;
+                            }
                             break;
                         case 1:
                             CurrentD = 0;
@@ -95,33 +106,17 @@ namespace Site13Kernel.GameLogic.Props
                             {
                                 CloseSFXSource.Play();
                             }
-                            Animator.Play(State_Close);
+                            if (LastState != State_Close)
+                            {
+                                Animator.Play(State_Close);
+                                LastState = State_Close;
+                            }
                             break;
                         default:
                             break;
                     }
                     IsWorking = true;
                 }
-                //if ((LastMode == 2 && Mode == 0) || (LastMode == 3 && Mode == 1))
-                //{
-                //    return;
-                //}
-                //if (LastMode == 0 || LastMode == 1)
-                //    return;
-                //LastMode = Mode;
-                //switch (LastMode)
-                //{
-                //    case 0:
-                //        CurrentD = 0;
-                //        Animator.Play(State_Open);
-                //        break;
-                //    case 1:
-                //        CurrentD = 0;
-                //        Animator.Play(State_Close);
-                //        break;
-                //    default:
-                //        break;
-                //}
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

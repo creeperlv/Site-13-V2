@@ -16,6 +16,7 @@ namespace Site13Kernel.Core.Controllers
         {
             if (Interrupt00) return;
             if (Time.timeScale == 0) return;//The game is absolutely paused. :P
+            if (!this.gameObject.activeSelf) return;
             if (GameRuntime.CurrentGlobals.isPaused)
             {
                 return;
@@ -52,6 +53,7 @@ namespace Site13Kernel.Core.Controllers
             UpdateHUD(DeltaTime, UnscaledDeltaTime);
             SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
         }
+        bool FoundationStatus = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FoundationInfo(float DeltaTime)
         {
@@ -65,17 +67,30 @@ namespace Site13Kernel.Core.Controllers
                     }
                 }
                 CancelRun();
-                toZoom = true;
-                if (Weapon != null)
+                
+                FoundationStatus = !FoundationStatus;
+                if (FoundationStatus)
                 {
-                    if (!Weapon.CanZoom)
+                    WatchLayer.SetActive(true); 
+                    if (Weapon != null)
                     {
-                        Weapon.Unfire();
+                        if (!Weapon.CanZoom)
+                        {
+                            Weapon.Unfire();
+                        }
+                        Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
+                        Weapon.Weapon.AimingMode = 1;
+                        HideWeapon(false);
                     }
-                    Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
-                    Weapon.Weapon.AimingMode = 1;
-                    HideWeapon();
-
+                }
+                else
+                {
+                    WatchLayer.SetActive(false);
+                    if (Weapon != null)
+                    {
+                        //Weapon.Weapon.ResetTakeOut();
+                        ShowWeapon(true);
+                    }
                 }
             }
             if (InputProcessor.GetInputUp("Detail"))
