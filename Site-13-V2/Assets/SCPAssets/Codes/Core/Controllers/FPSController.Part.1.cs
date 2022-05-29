@@ -3,7 +3,9 @@ using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Core.Interactives;
 using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic.Character;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.GameLogic.RuntimeScenes;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -32,8 +34,8 @@ namespace Site13Kernel.Core.Controllers
             }
             WeaponControl(DeltaTime, UnscaledDeltaTime);
             Weapon = BagHolder.CurrentWeapon == 0 ? BagHolder.Weapon0 : BagHolder.Weapon1;
-            if(MainCam!=null)
-            Zoom(DeltaTime);
+            if (MainCam != null)
+                Zoom(DeltaTime);
             Movement(DeltaTime, UnscaledDeltaTime);
             if (Weapon != null)
             {
@@ -45,6 +47,7 @@ namespace Site13Kernel.Core.Controllers
                 if (Weapon != null)
                     Weapon.Refresh(DeltaTime, UnscaledDeltaTime);
             }
+            RegistryRelated(DeltaTime);
             if (FlashLightEnabled)
                 FlashLight();
             FoundationInfo(DeltaTime);
@@ -53,7 +56,44 @@ namespace Site13Kernel.Core.Controllers
             UpdateHUD(DeltaTime, UnscaledDeltaTime);
             SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
         }
+        [Header("Armor Pieces")]
+        public string UseShieldPiece = "MobileSRA";
+        public string PlayerDescription = "JOHN";
+        public bool _UseShieldPiece = true;
+        public string SRAPosition;
+        public float MaxShield = 100;
+        public float ShieldRecoverSpeed = 10;
+        public float ShieldRecoverDelay = 10;
+        public PrefabReference SRA;
         bool FoundationStatus = false;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void RegistryRelated(float DeltaTime)
+        {
+            var UseSRA = LevelRuntimeRegistry.QueryBool(UseShieldPiece);
+            bool NeedReassemble = false;
+
+            if (UseSRA != _UseShieldPiece)
+            {
+                if (UseSRA)
+                {
+                    CurrentEntity.ShieldRecoverDelay = ShieldRecoverDelay;
+                    CurrentEntity.ShieldRecoverSpeed = ShieldRecoverSpeed;
+                    CurrentEntity.MaxShield = MaxShield;
+                    var DESC = ArmorDescriptions.QueryDescription(PlayerDescription);
+                    DESC.PutArmorPiece(SRAPosition, SRA);
+                }
+                _UseShieldPiece = UseSRA;
+                NeedReassemble = true;
+            }
+            if (NeedReassemble)
+            {
+                var asms = this.GetComponentsInChildren<ArmorAssembler>();
+                foreach (var item in asms)
+                {
+                    item.Assemble();
+                }
+            }
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FoundationInfo(float DeltaTime)
         {
@@ -67,11 +107,11 @@ namespace Site13Kernel.Core.Controllers
                     }
                 }
                 CancelRun();
-                
+
                 FoundationStatus = !FoundationStatus;
                 if (FoundationStatus)
                 {
-                    WatchLayer.SetActive(true); 
+                    WatchLayer.SetActive(true);
                     if (Weapon != null)
                     {
                         if (!Weapon.CanZoom)
@@ -112,43 +152,46 @@ namespace Site13Kernel.Core.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Grenade(float DeltaTime, float UnscaledDeltaTime)
         {
-            if (InputProcessor.GetAxis("ThrowGrenade") > 0.4f)
+            if (!FoundationStatus)
             {
-                if (Grenade0 == false)
+                if (InputProcessor.GetAxis("ThrowGrenade") > 0.4f)
                 {
-                    if (Grenade_Throwing == false)
+                    if (Grenade0 == false)
                     {
-                        if (Weapon != null)
+                        if (Grenade_Throwing == false)
                         {
-                            if (Weapon.Weapon.WeaponMode != WeaponConstants.WEAPON_MODE_NORMAL)
+                            if (Weapon != null)
                             {
-                                return;
-                            }
-                        }
-                        ProcessedGrenade PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
-                        if (PG.GrenadeHashCode != -1)
-                        {
-                            if (PG.RemainingCount > 0)
-                            {
-                                if (Weapon != null)
+                                if (Weapon.Weapon.WeaponMode != WeaponConstants.WEAPON_MODE_NORMAL)
                                 {
-                                    Weapon.gameObject.SetActive(false);
-                                    Weapon.Weapon.ResetTakeOut();
+                                    return;
                                 }
-                                CancelRun();
-                                toZoom = false;
-                                GrenadeThrowD = 0;
-                                Grenade_Throwing = true;
-                                Grenade_Throwed = false;
-                                GrenadeThrower.gameObject.SetActive(true);
                             }
+                            ProcessedGrenade PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
+                            if (PG.GrenadeHashCode != -1)
+                            {
+                                if (PG.RemainingCount > 0)
+                                {
+                                    if (Weapon != null)
+                                    {
+                                        Weapon.gameObject.SetActive(false);
+                                        Weapon.Weapon.ResetTakeOut();
+                                    }
+                                    CancelRun();
+                                    toZoom = false;
+                                    GrenadeThrowD = 0;
+                                    Grenade_Throwing = true;
+                                    Grenade_Throwed = false;
+                                    GrenadeThrower.gameObject.SetActive(true);
+                                }
+                            }
+                            //GrenadeThrower.playbackTime=0;
                         }
-                        //GrenadeThrower.playbackTime=0;
+                        Grenade0 = true;
                     }
-                    Grenade0 = true;
                 }
+                else Grenade0 = false;
             }
-            else Grenade0 = false;
             if (InputProcessor.GetInputDown("SwitchGrenade"))
             {
                 BagHolder.CurrentGrenade = (BagHolder.CurrentGrenade == 0 ? 1 : 0);

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &309099585912952706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3038917907585008060}
+  m_Layer: 0
+  m_Name: SRAPOS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3038917907585008060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309099585912952706}
+  m_LocalRotation: {x: 0.05766986, y: -0.051992755, z: -0.7047511, w: 0.70519286}
+  m_LocalPosition: {x: 0.016592868, y: 0.16379544, z: -0.0008423347}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2741734443635486506}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0.461, y: -8.895, z: -90}
 --- !u!1 &1933371544579411828
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,7 +62,7 @@ Transform:
   m_Children:
   - {fileID: 2254478316791774095}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7133136667306971485
 MonoBehaviour:
@@ -60,9 +91,10 @@ MonoBehaviour:
     Value: {fileID: 5417321136818650886}
   - Key: R_HAND
     Value: {fileID: 6029930693096332862}
-  DefaultArmor:
-    ID: 
-    ArmorPieces: []
+  - Key: SRAPOS
+    Value: {fileID: 3038917907585008060}
+  UsingArmorDescription: JOHN
+  TrackingArmors: []
 --- !u!1001 &1784337398089178212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144,6 +176,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -4697353797531045042, guid: 8fbb964a495fcbd4fb38291c1f764679, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6406076783189277056}
+    - targetCorrespondingSourceObject: {fileID: -4697353797531045042, guid: 8fbb964a495fcbd4fb38291c1f764679, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3038917907585008060}
   m_SourcePrefab: {fileID: 100100000, guid: 8fbb964a495fcbd4fb38291c1f764679, type: 3}
 --- !u!4 &2254478316791774095 stripped
 Transform:

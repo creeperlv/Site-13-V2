@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8515860672820802732}
   - component: {fileID: 5133884432198688566}
   - component: {fileID: 5249864048120449536}
-  - component: {fileID: 5042278831347181913}
   m_Layer: 13
   m_Name: Type-1-Plasma-Grenade-Pickupable
   m_TagString: Untagged
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 2737505288347331704}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &5133884432198688566
 SphereCollider:
@@ -46,7 +45,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.08
+  m_Radius: 0.09
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5249864048120449536
 Rigidbody:
@@ -56,7 +55,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978580431676505306}
   serializedVersion: 2
-  m_Mass: 0.05
+  m_Mass: 2
   m_Drag: 2
   m_AngularDrag: 0.1
   m_UseGravity: 1
@@ -64,19 +63,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &5042278831347181913
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1978580431676505306}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7616205896992377262
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +261,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8515860672820802732}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4aca71a714e3b164bb4b9208aabd6991, type: 3}
@@ -334,6 +321,13 @@ PrefabInstance:
       value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4aca71a714e3b164bb4b9208aabd6991, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4647015364615455328}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4aca71a714e3b164bb4b9208aabd6991, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4444218321231471366}
   m_SourcePrefab: {fileID: 100100000, guid: 4aca71a714e3b164bb4b9208aabd6991, type: 3}
 --- !u!4 &2737505288347331704 stripped
 Transform:
