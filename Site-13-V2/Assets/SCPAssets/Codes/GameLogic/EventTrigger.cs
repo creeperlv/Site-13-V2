@@ -19,7 +19,7 @@ namespace Site13Kernel
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set => __Callback = value;
         }
-        bool Executed = false;
+        public bool Executed = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {

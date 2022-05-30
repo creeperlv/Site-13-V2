@@ -39,6 +39,24 @@ namespace CampaignScriptEditor
             Save.Click += async (_, _) => await __Save();
             SaveAs.Click += async (_, _) => await __SaveAs();
             Open.Click += async (_, _) => await __Open();
+            ShowButton.Click += (_, _) => {
+                foreach (var item in Events.Children)
+                {
+                    if (item is EventItem e)
+                    {
+                        e.EditorToggle.IsChecked = true;
+                    }
+                }
+            }; 
+            HideButton.Click += (_, _) => {
+                foreach (var item in Events.Children)
+                {
+                    if (item is EventItem e)
+                    {
+                        e.EditorToggle.IsChecked = false;
+                    }
+                }
+            };
             About.Click += async (_, _) =>
             {
                 AboutDialog aboutDialog = new AboutDialog();
