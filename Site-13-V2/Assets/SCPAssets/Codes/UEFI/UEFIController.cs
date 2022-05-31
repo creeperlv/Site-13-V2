@@ -12,42 +12,69 @@ namespace Site13Kernel.UEFI
 {
     public class UEFIController : MonoBehaviour
     {
+        static bool isInited;
         public List<UEFIBase> EFIs=new List<UEFIBase>();
+        public List<UEFIBase> RepeatableEFIs=new List<UEFIBase>();
         public List<ParameterProcessor> PreBoot_ParameterProcessors=new List<ParameterProcessor>();
         public List<ParameterProcessor> PostBoot_ParameterProcessors=new List<ParameterProcessor>();
         public float SplashScreenLength=10f;
         public int TargetSceneID;
         public int UEFISceneID;
         public int SetupUtilitySceneID;
-        bool isCompleted;
+        bool isCompleted0;
+        bool isCompleted1;
         void Start()
         {
-            foreach (var item in EFIs)
+            if (!isInited)
             {
-                item.Init();
-            }
-            var args=Environment.GetCommandLineArgs();
-            foreach (var item in PreBoot_ParameterProcessors)
-            {
-                __INTERRUPT |= item.Process(args);
-            }
-            Task.Run(async () =>
-            {
-
                 foreach (var item in EFIs)
                 {
-                    try
-                    {
-                        await item.Run();
-                    }
-                    catch (System.Exception e)
-                    {
-                        Debugger.CurrentDebugger.Log(e.Message, LogLevel.Error);
-                    }
+                    item.Init();
                 }
-                isCompleted = true;
-            });
+                var args = Environment.GetCommandLineArgs();
+                foreach (var item in PreBoot_ParameterProcessors)
+                {
+                    __INTERRUPT |= item.Process(args);
+                }
+                Task.Run(async () =>
+                {
 
+                    foreach (var item in EFIs)
+                    {
+                        try
+                        {
+                            await item.Run();
+                        }
+                        catch (System.Exception e)
+                        {
+                            Debugger.CurrentDebugger.Log(e.Message, LogLevel.Error);
+                        }
+                    }
+                    isCompleted0 = true;
+                });
+            }
+            {
+                foreach (var item in RepeatableEFIs)
+                {
+                    item.Init();
+                }
+                Task.Run(async () =>
+                {
+
+                    foreach (var item in RepeatableEFIs)
+                    {
+                        try
+                        {
+                            await item.Run();
+                        }
+                        catch (System.Exception e)
+                        {
+                            Debugger.CurrentDebugger.Log(e.Message, LogLevel.Error);
+                        }
+                    }
+                    isCompleted1 = true;
+                });
+            }
         }
         bool __INTERRUPT = false;
         bool __post_boot = false;
@@ -63,8 +90,9 @@ namespace Site13Kernel.UEFI
             }
             if (TimeD > SplashScreenLength)
             {
-                if (isCompleted)
+                if (isCompleted0&&isCompleted1)
                 {
+                    if(!isInited)
                     if (__post_boot == false)
                     {
                         var args = Environment.GetCommandLineArgs();
@@ -78,7 +106,9 @@ namespace Site13Kernel.UEFI
                     SceneLoader.Instance.AddSceneLog(UEFISceneID, false, false);
                     SceneLoader.Instance.LoadScene(TargetSceneID,true,false,false);
 
-                    isCompleted = false;
+                    isInited = true;
+                    isCompleted0 = false;
+                    isCompleted1 = false;
                     //SceneManager.UnloadSceneAsync(0);
                 }
             }

@@ -25,6 +25,8 @@ namespace Site13Kernel.Data
         public int WINDOW_H = -1;
         public int TextureQuality = 0;
         public bool SwitchRun = false;
+        public string LanguageCode = "en-US";
+        public bool useAlternativeFoundationLogo = false;
         static JsonSerializerSettings settings = new JsonSerializerSettings
         {
             NullValueHandling = NullValueHandling.Ignore,
@@ -47,7 +49,7 @@ namespace Site13Kernel.Data
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Load()
         {
-            CurrentSettings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(_File),settings);
+            CurrentSettings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(_File), settings);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Save()
