@@ -1,7 +1,9 @@
 using Site13Kernel.Assets.KoFMUST.Codes.Utilities;
 using Site13Kernel.Core;
+using Site13Kernel.UEFI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -185,6 +187,56 @@ namespace Site13Kernel.UI.Settings
                                 if (v is bool b)
                                 {
                                     Data.Settings.CurrentSettings.RenderShadow = b;
+                                    Data.Settings.Save();
+                                }
+                            });
+                        }
+                    }
+                    break;
+                case Constants.UseAlternativeSCPLogo:
+                    {
+                        {
+                            __edit.InitValue(Data.Settings.CurrentSettings.useAlternativeFoundationLogo);
+                            __edit.SetCallback((v) =>
+                            {
+                                if (v is bool b)
+                                {
+                                    Debug.Log("Set ");
+                                    Data.Settings.CurrentSettings.useAlternativeFoundationLogo = b;
+                                    Data.Settings.Save();
+                                }
+                            });
+                        }
+                    }
+                    break;
+                case Constants.Language:
+                    {
+                        if (LocalizationProcessor.AvailableLanguages == null)
+                        {
+                            return;
+                        }
+                        int SelectedIndex = 0;
+                        if (__edit is ComboBox cb)
+                        {
+                            int i = 0;
+                            List<ComboBoxData> items = new List<ComboBoxData>();
+                            foreach (var item in LocalizationProcessor.AvailableLanguages)
+                            {
+                                if (item.Key == Data.Settings.CurrentSettings.LanguageCode)
+                                {
+                                    SelectedIndex = i;
+                                }
+                                i++;
+                                items.Add(new ComboBoxData { text = $"{item.Key} {item.Value}" });
+                            }
+                            cb.AddOptions(items);
+                            cb.InitValue(SelectedIndex);
+                            cb.SetCallback((o) =>
+                            {
+                                if (o is int i)
+                                {
+                                    var code = LocalizationProcessor.AvailableLanguages.ElementAt(i).Key;
+                                    Data.Settings.CurrentSettings.LanguageCode = code;
                                     Data.Settings.Save();
                                 }
                             });

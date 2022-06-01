@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 namespace Site13Kernel.UI
 {
-    public class ToggleButton : UIButton
+    public class ToggleButton : UIButton,IEditable
     {
         [Header("Normal Color")]
         public ColorBlock NormalColor;
         [Header("Selected Color")]
         public ColorBlock SelectedColor;
-        public Action<bool> OnToggle = null;
+        public List<Action<bool>> OnToggle = new List<Action<bool>>();
         public bool _IsOn = false;
         public bool PreventClickToOff = false;
         [HideInInspector]
@@ -28,7 +28,10 @@ namespace Site13Kernel.UI
                 _IsOn = value;
                 if (!SuspendCallback)
                     if (OnToggle != null)
-                        OnToggle(value);
+                        foreach (var item in OnToggle)
+                        {
+                            item(value);
+                        }
                 this.colors = value ? SelectedColor : NormalColor;
             }
         }
@@ -64,6 +67,34 @@ namespace Site13Kernel.UI
             };
 
             this.colors = _IsOn ? SelectedColor : NormalColor;
+        }
+
+        public void SetCallback(Action<object> callback)
+        {
+            OnToggle.Add((v) => { callback(v); });
+        }
+
+        public void SetValue(object obj)
+        {
+            if(obj is bool b)
+            {
+                IsOn = b;
+            }
+        }
+
+        public void InitValue(object obj)
+        {
+            SuspendCallback = true;
+            if (obj is bool b)
+            {
+                IsOn = b;
+            }
+            SuspendCallback = false;
+        }
+
+        public object GetValue()
+        {
+            return IsOn;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Site13Kernel.UI
             foreach (var item in Buttons)
             {
                 var i=index;
-                item.OnToggle = (b) =>
+                item.OnToggle.Add( (b) =>
                 {
                     //item.IsOn = true;
                     if (b)
@@ -37,7 +37,7 @@ namespace Site13Kernel.UI
                             item.SetValue(true);
                         }
                     }
-                };
+                });
                 index++;
             }
         }

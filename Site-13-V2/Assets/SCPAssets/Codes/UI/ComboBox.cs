@@ -425,12 +425,12 @@ namespace Site13Kernel.UI
 
             // Reposition all items now that all of them have been added
             Vector2 sizeDelta = contentRectTransform.sizeDelta;
-            sizeDelta.y = itemSize.y * m_Items.Count + offsetMin.y - offsetMax.y;
+            sizeDelta.y = itemSize.y * (m_Items.Count+1) + offsetMin.y - offsetMax.y;
             contentRectTransform.sizeDelta = sizeDelta;
 
             float extraSpace = dropdownRectTransform.rect.height - contentRectTransform.rect.height;
             if (extraSpace > 0)
-                dropdownRectTransform.sizeDelta = new Vector2(dropdownRectTransform.sizeDelta.x, dropdownRectTransform.sizeDelta.y - extraSpace);
+                dropdownRectTransform.sizeDelta = new Vector2(dropdownRectTransform.sizeDelta.x, dropdownRectTransform.sizeDelta.y+ itemSize.y - extraSpace);
 
             // Invert anchoring and position if dropdown is partially or fully outside of canvas rect.
             // Typically this will have the effect of placing the dropdown above the button instead of below,

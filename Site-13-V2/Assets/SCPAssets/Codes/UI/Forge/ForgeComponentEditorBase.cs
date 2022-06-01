@@ -17,13 +17,14 @@ namespace Site13Kernel.UI.Forge
         public virtual void Init()
         {
             Header.Content = Name;
-            Header.OnToggle = (v) => {
+            Header.OnToggle.Add((v) =>
+            {
                 foreach (var item in TogglableFields)
                 {
                     item.gameObject.SetActive(v);
                 }
                 CurrentSystem.ForceObjectMenuUpdate();
-            };
+            });
         }
         public virtual void SetComponent(EditableComponent component)
         {
