@@ -2,7 +2,8 @@
 cls
 echo "THRESHER"
 jump THRESHER true true false
-wait_for_load
+WAIT_FOR_LOAD
 active THRESHER
+WAIT 1
 unload levelloader
 fdirector true
