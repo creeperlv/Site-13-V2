@@ -55,6 +55,8 @@ namespace Site13Kernel.Core
         public void OnCollisionEnter(Collision collision)
         {
             if (TakeCollisionDamage)
+            {
+                if (collision.gameObject.GetComponent<DoNotCauseCollisionDamage>() != null) return;
                 if (collision.rigidbody != null)
                 {
                     var V = collision.relativeVelocity;
@@ -65,6 +67,7 @@ namespace Site13Kernel.Core
                         Damage(DELTA * GameEnv.CollisionDamageIntensity);
                     }
                 }
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

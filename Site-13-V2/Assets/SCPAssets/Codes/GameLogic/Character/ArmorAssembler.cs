@@ -19,6 +19,10 @@ namespace Site13Kernel.GameLogic.Character
             _ArmorPositions = CollectionUtilities.ToDictionary(ArmorPositions);
             Assemble();
         }
+        private void OnEnable()
+        {
+            Assemble();
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Assemble(ArmorDescription description = null)
         {

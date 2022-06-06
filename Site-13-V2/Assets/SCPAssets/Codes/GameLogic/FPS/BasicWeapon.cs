@@ -77,7 +77,10 @@ namespace Site13Kernel.GameLogic.FPS
         [Header("Effects")]
         public Transform FirePoint;
         public Transform EffectPoint;
+        public Transform EjectionPoint;
         public Transform CurrentEffectPoint;
+        public float EjectionForce = 1;
+        public PrefabReference EjectionPrefab;
         public bool isHoldByPlayer = false;
         public bool CreateBullet = true;
         public bool useEffectPointInsteadFirePoint = false;
@@ -430,6 +433,18 @@ namespace Site13Kernel.GameLogic.FPS
                         Vector3 V = Rotation.eulerAngles;
                         V += RecoilAngle;
                         Rotation = Quaternion.Euler(V);
+                    }
+                    if (EjectionPoint != null)
+                    {
+                        var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EjectionPrefab, EjectionPoint.position, EjectionPoint.rotation, Vector3.one);
+                        //GO.layer = this.gameObject.layer;
+                        {
+                            var RIG = GO.GetComponentInChildren<Rigidbody>();
+                            if (RIG != null)
+                            {
+                                RIG.AddForce(EjectionPoint.forward* EjectionForce, ForceMode.Impulse);
+                            }
+                        }
                     }
                     if (EffectPrefab != -1)
                     {
