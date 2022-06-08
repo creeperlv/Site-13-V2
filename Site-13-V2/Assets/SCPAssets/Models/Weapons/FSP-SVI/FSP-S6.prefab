@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2567602893295291657}
+  - component: {fileID: 5070782347493943657}
   m_Layer: 0
   m_Name: FSP-S6
   m_TagString: Untagged
@@ -30,8 +31,38 @@ Transform:
   m_Children:
   - {fileID: 5459109905546100601}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5070782347493943657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193809212938284416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafc95afe09c2b74cae145af34d5bbd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetWeaponCoating: STANDARD
+  WeaponID: FSP
+  ControlledCustomizableMeshRenders:
+    PrefabDefinitions:
+    - Key: 0
+      Value:
+        ControlledRenderer: {fileID: 89712978033537351}
+        MaterialMap:
+          PrefabDefinitions:
+          - Key: 0
+            Value: 0
+    - Key: 1
+      Value:
+        ControlledRenderer: {fileID: 6483238014421095640}
+        MaterialMap:
+          PrefabDefinitions:
+          - Key: 0
+            Value: 1
 --- !u!1 &5601493322184060812
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +170,11 @@ PrefabInstance:
 --- !u!4 &1066181282311842289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 11965e5b21b2414408277182be4ba62d, type: 3}
+  m_PrefabInstance: {fileID: 666936571783761434}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6483238014421095640 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3406839147019396414, guid: 11965e5b21b2414408277182be4ba62d, type: 3}
   m_PrefabInstance: {fileID: 666936571783761434}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1583411596249055956
@@ -321,6 +357,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6359749779021098399, guid: f5fe67ffced1b474fb21cd38757350e8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eeac15e0c760fa43aeaf1b9e070501d, type: 2}
     - target: {fileID: 919132149155446097, guid: f5fe67ffced1b474fb21cd38757350e8, type: 3}
       propertyPath: m_Name
       value: FSP-S6-Main
@@ -328,6 +368,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f5fe67ffced1b474fb21cd38757350e8, type: 3}
+--- !u!23 &89712978033537351 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6359749779021098399, guid: f5fe67ffced1b474fb21cd38757350e8, type: 3}
+  m_PrefabInstance: {fileID: 2775088454562374438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2380611184706913485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f5fe67ffced1b474fb21cd38757350e8, type: 3}
