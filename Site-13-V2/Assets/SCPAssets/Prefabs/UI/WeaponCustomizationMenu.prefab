@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6176770356309673106}
   - component: {fileID: 1733419706053817318}
   - component: {fileID: 8507030535735535028}
-  - component: {fileID: 6590230527101377484}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -103,18 +102,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!225 &6590230527101377484
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764362741511160695}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &2809380047193699877
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +201,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3981259385680799085}
-  m_LocalRotation: {x: 0, y: -0.01745245, z: 0, w: 0.99984777}
+  m_LocalRotation: {x: 0, y: -0.043619405, z: 0, w: 0.9990483}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -224,7 +211,7 @@ RectTransform:
   - {fileID: 6960861197637385432}
   m_Father: {fileID: 4601694939599523918}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: -2, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -5, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 50, y: 0}
@@ -265,7 +252,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 100, y: 0}
-  m_SizeDelta: {x: 300, y: 0}
+  m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &6581763854310220637
 GameObject:
@@ -312,15 +299,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ede14e5824a48847ace140331a7c8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentManager: {fileID: 0}
   BackButton: {fileID: 1715301999013332886}
-  ButtonPrefab: {fileID: 4670120380374856814, guid: 6a07821e7aa998c4a86ed81950d2e2fa, type: 3}
+  ButtonPrefab: {fileID: 4670120380374856814, guid: 60b1f7391d5618c4d952c344b56d393f, type: 3}
   WeaponHolder: {fileID: 7313924117921032051}
+  WeaponDemo: {fileID: 0}
   CoatingsHolder: {fileID: 8959792544982570639}
   Weapons:
   - Weapon:
       useString: 1
-      Key: FSP-S6-Hand
+      Key: FSP-S6-PICKUPABLE
       ID: 0
+    DisplayName:
+      ID: FSP-S6.Name
+      Fallback: Foundation Standard Pistol Series VI
+    Coatings:
+    - ID: STANDARD
+      Name:
+        ID: STANDARD.Name
+        Fallback: Standard Issue
+      Description:
+        ID: STANDARD.Desc
+        Fallback: Standard Issue Coating of Foundation Armory
+    - ID: SWORD
+      Name:
+        ID: SWORD.Name
+        Fallback: Sword Memory
+      Description:
+        ID: SWORD.Desc
+        Fallback: Sword Coating was created in memory of a group of unsung heros.
+  - Weapon:
+      useString: 1
+      Key: FSR-S3-AUTO-PICKUPABLE
+      ID: 0
+    DisplayName:
+      ID: FSR-S3-AUTO.Name
+      Fallback: Foundation Standard Riffle Series III (Auto)
     Coatings:
     - ID: STANDARD
       Name:
@@ -370,7 +384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: 0}
+  m_AnchoredPosition: {x: 600, y: 0}
   m_SizeDelta: {x: 300, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1001 &2330168463227078837

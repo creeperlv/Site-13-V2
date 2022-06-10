@@ -20,6 +20,26 @@ namespace Site13Kernel.Core.CustomizedInput
         public List<InputDefinition> InputDefinitions;
         public SimulationDefinition simulation;
         public List<string> Names;
+        public string ConfirmInput;
+        public string CancelInput;
+        Action confirm = null;
+        Action cancel = null;
+        public void SetConfirm(Action action)
+        {
+            confirm = action;
+        }
+        public void RemoveConfirm()
+        {
+            confirm = null;
+        }
+        public void SetCancel(Action action)
+        {
+            cancel = action;
+        }
+        public void RemoveCancel()
+        {
+            cancel = null;
+        }
         public override void Init()
         {
             if (CurrentInput != null)
@@ -107,7 +127,7 @@ namespace Site13Kernel.Core.CustomizedInput
             return CurrentInput.__GetInputUp(Name);
         }
         /// <summary>
-        /// Trus during the press time.
+        /// True during the press time.
         /// </summary>
         /// <param name="Name"></param>
         /// <returns></returns>
@@ -276,6 +296,20 @@ namespace Site13Kernel.Core.CustomizedInput
                         }
                     }
 
+                }
+            }
+            if (confirm != null)
+            {
+                if (ConfirmInput != "")
+                {
+                    if (GetInputDown(ConfirmInput)) confirm();
+                }
+            }
+            if (cancel != null)
+            {
+                if (CancelInput!= "")
+                {
+                    if (GetInputDown(CancelInput)) cancel();
                 }
             }
         }

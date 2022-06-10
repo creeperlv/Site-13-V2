@@ -1,6 +1,7 @@
 using Site13Kernel.Core;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic;
+using Site13Kernel.UI.Customizations;
 using Site13Kernel.UI.Documents.PLN;
 using System;
 using System.Collections;
@@ -13,7 +14,7 @@ using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.UI
 {
-    public class MainMenu : ControlledBehavior
+    public class MainMenu : Page
     {
         #region 
         public Button SettingsButton;
@@ -32,6 +33,8 @@ namespace Site13Kernel.UI
         public UIButton StartButton;
         public UIButton ForgeButton;
         public UIButton FirefightButton;
+        public UIButton CustomizationButton;
+        public int CustomizationPage=1;
         public int LevelBase;
         public List<UIButton> CloseButtons=new List<UIButton>();
         CampaignButtonGroup group = new CampaignButtonGroup();
@@ -117,8 +120,15 @@ namespace Site13Kernel.UI
                     DialogManager.Show("FIREFIGHT NOT ENABLED.", "FIREFIGHT FEATURE IS NOT ENABLED IN THIS VERSION OF KNIGHTS OF FAVONIUS: 2.", "OK", () => { });
                 }
             };
+            if(Parent!=null)
             Parent.RegisterRefresh(this);
             StartButton.OnClick = LoadLevel;
+            if (CustomizationButton != null)
+            {
+                CustomizationButton.OnClick = () => {
+                    ParentManager.ShowPage(CustomizationPage);
+                };
+            }
             if(ForgeButton != null)
             {
                 ForgeButton.OnClick = () => {
