@@ -37,6 +37,7 @@ namespace Site13Kernel.UI
         public int CustomizationPage=1;
         public int LevelBase;
         public List<UIButton> CloseButtons=new List<UIButton>();
+        public List<UIButton> ResetButtons=new List<UIButton>();
         CampaignButtonGroup group = new CampaignButtonGroup();
         public override void Init()
         {
@@ -117,7 +118,7 @@ namespace Site13Kernel.UI
                 }
                 else
                 {
-                    DialogManager.Show("FIREFIGHT NOT ENABLED.", "FIREFIGHT FEATURE IS NOT ENABLED IN THIS VERSION OF KNIGHTS OF FAVONIUS: 2.", "OK", () => { });
+                    DialogManager.Show("FIREFIGHT NOT ENABLED.", "FIREFIGHT FEATURE IS NOT ENABLED IN THIS VERSION OF SITE-13.", "OK", () => { });
                 }
             };
             if(Parent!=null)
@@ -137,9 +138,13 @@ namespace Site13Kernel.UI
                     }
                     else
                     {
-                        DialogManager.Show("FORGE NOT ENABLED.", "FORGE FEATURE IS NOT ENABLED IN THIS VERSION OF KNIGHTS OF FAVONIUS: 2.", "OK", () => { });
+                        DialogManager.Show("FORGE NOT ENABLED.", "FORGE FEATURE IS NOT ENABLED IN THIS VERSION OF SITE-13.", "OK", () => { });
                     }
                 };
+            }
+            foreach (var item in ResetButtons)
+            {
+                item.OnClick = () => { };
             }
             //SettingsButton.onClick.AddListener(() => {
             //    this.GetComponent<CanvasGroup>().interactable=false;

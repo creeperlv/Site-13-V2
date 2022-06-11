@@ -37,6 +37,12 @@ namespace Site13Kernel.UI.Customizations
                             if (WeaponDemo.childCount > 0)
                                 Destroy(WeaponDemo.GetChild(0).gameObject);
                             var weapon = ObjectGenerator.Instantiate(item.Weapon, WeaponDemo);
+                            {
+
+                                var CW = weapon.GetComponentInChildren<CustomizableWeapon>();
+                                CW.TargetWeaponCoating = PlayerWeaponCoatings.CurrentPlayerWeaponCoatings.GetCoating(CW.WeaponID, "STANDARD");
+                                CW.ApplyCoating();
+                            }
                             var r = weapon.GetComponentsInChildren<Rigidbody>();
                             foreach (var _r in r)
                             {
@@ -54,13 +60,15 @@ namespace Site13Kernel.UI.Customizations
                             if (UIBtn2 != null)
                             {
                                 UIBtn2.Content = coating.Name;
-                                UIBtn2.OnClick = () => {
+                                UIBtn2.OnClick = () =>
+                                {
                                     if (WeaponDemo.childCount > 0)
                                     {
-                                        var t=WeaponDemo.GetChild(0);
-                                        var CW=t.gameObject.GetComponentInChildren<CustomizableWeapon>();
+                                        var t = WeaponDemo.GetChild(0);
+                                        var CW = t.gameObject.GetComponentInChildren<CustomizableWeapon>();
                                         CW.TargetWeaponCoating = coating.ID;
                                         CW.ApplyCoating();
+                                        PlayerWeaponCoatings.CurrentPlayerWeaponCoatings.SetCoating(CW.WeaponID, CW.TargetWeaponCoating);
                                     }
                                 };
                             }

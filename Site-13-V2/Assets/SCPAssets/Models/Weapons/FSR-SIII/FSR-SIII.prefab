@@ -247,6 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8823137823163303378}
+  - component: {fileID: 8268484171906255334}
   m_Layer: 0
   m_Name: FSR-SIII
   m_TagString: Untagged
@@ -270,6 +271,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8268484171906255334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6654713916540744268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafc95afe09c2b74cae145af34d5bbd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetWeaponCoating: DEFAULT
+  WeaponID: FSR
+  ControlledCustomizableMeshRenders:
+    PrefabDefinitions:
+    - Key: 0
+      Value:
+        ControlledRenderer: {fileID: 1526293783292737963}
+        MaterialMap:
+          PrefabDefinitions:
+          - Key: 0
+            Value: 0
 --- !u!1001 &1408932095859210318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -531,6 +555,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8890138623678640177}
   m_SourcePrefab: {fileID: 100100000, guid: 65b7fe439e5dd0546aeeb17fc0931b67, type: 3}
+--- !u!23 &1526293783292737963 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3010080078284370516, guid: 65b7fe439e5dd0546aeeb17fc0931b67, type: 3}
+  m_PrefabInstance: {fileID: 4833611471490233351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4944610972809614316 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65b7fe439e5dd0546aeeb17fc0931b67, type: 3}

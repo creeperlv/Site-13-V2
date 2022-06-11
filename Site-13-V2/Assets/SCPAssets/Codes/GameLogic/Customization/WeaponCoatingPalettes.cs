@@ -12,11 +12,20 @@ namespace Site13Kernel.GameLogic.Customization
         {
             Instance = this;
         }
-
-        // Update is called once per frame
-        void Update()
+        public static WeaponCustomizationPalette Find(string WeaponID,string CoatingID)
         {
-        
+            if (Instance == null) return null;
+            foreach (var item in Instance.Palettes)
+            {
+                if (item.ID == CoatingID && item.TargetWeapon == WeaponID) {
+                    if (item._MaterialMap == null)
+                    {
+                        item._MaterialMap = item.MaterialMap.ObtainMap();
+                    }
+                    return item;
+                }
+            }
+            return null;
         }
     }
 }

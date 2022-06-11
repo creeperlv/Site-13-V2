@@ -35,6 +35,7 @@ namespace Site13Kernel.UEFI
             GameEnv.CollisionDamageIntensity = InitConfiguration.CollisionDamageIntensity;
 
             Settings.Init();
+            PlayerWeaponCoatings.Init();
 
             GameRuntime.CurrentGlobals.UI = UI;
             GameRuntime.CurrentGlobals.UI_BGM = UI_BGM;
