@@ -2,6 +2,7 @@
 using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic;
+using Site13Kernel.GameLogic.Customization;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.Utilities;
 using System;
@@ -116,6 +117,16 @@ namespace Site13Kernel.Core.Controllers
             {
                 _WalkPosition = Weapon.NormalPosition;
                 _RunPosition = Weapon.RunningPosition;
+
+                var CW = Weapon.GetComponentInChildren<CustomizableWeapon>();
+                if (CW != null)
+                {
+                    if (CW.TargetWeaponCoating == "DEFAULT")
+                    {
+                        CW.TargetWeaponCoating = PlayerWeaponCoatings.CurrentPlayerWeaponCoatings.GetCoating(CW.WeaponID, CW.TargetWeaponCoating);
+                    }
+                    CW.ApplyCoating();
+                }
             }
 
         }
@@ -354,6 +365,7 @@ namespace Site13Kernel.Core.Controllers
                 GeneratedWeapon.Weapon.Base = Weapon;
                 GeneratedWeapon.transform.localPosition = GeneratedWeapon.NormalPosition;
                 GeneratedWeapon.transform.localEulerAngles = GeneratedWeapon.NormalRotationEuler;
+
             }
             else
             {
