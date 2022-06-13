@@ -3,6 +3,7 @@ using Site13Kernel.Core.Interactives;
 using Site13Kernel.Data;
 using Site13Kernel.Data.IO;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic.Customization;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections;
@@ -84,7 +85,14 @@ namespace Site13Kernel.GameLogic.FPS
                                 {
 
                                     var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                    var __CW=Holder.Weapon0.gameObject.GetComponentInChildren<CustomizableWeapon>();
                                     var P = G.GetComponentInChildren<Pickupable>();
+                                    var CW=G.GetComponentInChildren<CustomizableWeapon>();
+                                    if (CW != null&&__CW!=null)
+                                    {
+                                        CW.TargetWeaponCoating = __CW.TargetWeaponCoating;
+                                        CW.ApplyCoating();
+                                    }
                                     G.transform.position = Holder.transform.position;
                                     P.Weapon = Holder.Weapon0.Weapon.Base;
 
@@ -112,7 +120,14 @@ namespace Site13Kernel.GameLogic.FPS
                                 if (t > 0)
                                 {
                                     var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon1.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
+                                    var __CW = Holder.Weapon1.gameObject.GetComponentInChildren<CustomizableWeapon>();
                                     var P = G.GetComponentInChildren<Pickupable>();
+                                    var CW = G.GetComponentInChildren<CustomizableWeapon>();
+                                    if (CW != null && __CW != null)
+                                    {
+                                        CW.TargetWeaponCoating = __CW.TargetWeaponCoating;
+                                        CW.ApplyCoating();
+                                    }
                                     G.transform.position = Holder.transform.position;
                                     P.Weapon = Holder.Weapon1.Weapon.Base;
                                 }

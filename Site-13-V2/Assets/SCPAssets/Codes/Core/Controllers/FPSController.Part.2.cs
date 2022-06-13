@@ -6,6 +6,7 @@ using Site13Kernel.GameLogic.Customization;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.Utilities;
 using System;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Debug = Site13Kernel.Diagnostics.Debug;
@@ -118,15 +119,7 @@ namespace Site13Kernel.Core.Controllers
                 _WalkPosition = Weapon.NormalPosition;
                 _RunPosition = Weapon.RunningPosition;
 
-                var CW = Weapon.GetComponentInChildren<CustomizableWeapon>();
-                if (CW != null)
-                {
-                    if (CW.TargetWeaponCoating == "DEFAULT")
-                    {
-                        CW.TargetWeaponCoating = PlayerWeaponCoatings.CurrentPlayerWeaponCoatings.GetCoating(CW.WeaponID, CW.TargetWeaponCoating);
-                    }
-                    CW.ApplyCoating();
-                }
+                StartCoroutine(TryApplyCoating());
             }
 
         }
@@ -365,12 +358,25 @@ namespace Site13Kernel.Core.Controllers
                 GeneratedWeapon.Weapon.Base = Weapon;
                 GeneratedWeapon.transform.localPosition = GeneratedWeapon.NormalPosition;
                 GeneratedWeapon.transform.localEulerAngles = GeneratedWeapon.NormalRotationEuler;
-
+                StartCoroutine(TryApplyCoating());
             }
             else
             {
             }
 
+        }
+        public IEnumerator TryApplyCoating()
+        {
+            yield return null;
+            var CW = Weapon.GetComponentInChildren<CustomizableWeapon>();
+            if (CW != null)
+            {
+                if (CW.TargetWeaponCoating == "DEFAULT")
+                {
+                    CW.TargetWeaponCoating = PlayerWeaponCoatings.CurrentPlayerWeaponCoatings.GetCoating(CW.WeaponID, CW.TargetWeaponCoating);
+                }
+                CW.ApplyCoating();
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Disable()
