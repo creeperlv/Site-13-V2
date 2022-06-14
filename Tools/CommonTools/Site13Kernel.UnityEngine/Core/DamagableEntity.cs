@@ -1,6 +1,8 @@
 using CLUNL.Data.Serializables.CheckpointSystem;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
+using Site13Kernel.Data.IO;
+using Site13Kernel.Data.Serializables;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.Utilities;
@@ -12,7 +14,7 @@ using UnityEngine;
 
 namespace Site13Kernel.Core
 {
-    public class DamagableEntity : ControlledBehavior, ICheckpointData, IHittable
+    public class DamagableEntity : ControlledBehavior, ICheckpointData, IHittable,IContainsPureData
     {
         public string Name;
 
@@ -240,6 +242,19 @@ namespace Site13Kernel.Core
         public virtual int HitEffectHashCode()
         {
             return HitEffect;
+        }
+
+        public IPureData ObtainData()
+        {
+            return new SerializableDamagableEntity { CurrentHP = CurrentHP };
+        }
+
+        public void ApplyData(IPureData data)
+        {
+            if(data is SerializableDamagableEntity SDE)
+            {
+                CurrentHP = SDE.CurrentHP;
+            }
         }
     }
 }

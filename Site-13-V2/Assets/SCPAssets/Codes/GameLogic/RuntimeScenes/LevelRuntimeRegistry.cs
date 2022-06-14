@@ -1,4 +1,7 @@
+using Newtonsoft.Json;
 using Site13Kernel.Data;
+using Site13Kernel.Data.IO;
+using Site13Kernel.Data.Serializables;
 using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,27 +9,27 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.RuntimeScenes
 {
-    public class LevelRuntimeRegistry : MonoBehaviour
+    public class LevelRuntimeRegistry : MonoBehaviour,IContainsPureData
     {
         public static LevelRuntimeRegistry Instance;
+        [JsonIgnore]
         public List<KVPair<string, string>> PredefinedStringValues;
+        [JsonIgnore]
         public List<KVPair<string, bool>> PredefinedBoolValues;
+        [JsonIgnore]
         public List<KVPair<string, float>> PredefinedFloatValues;
-        public Dictionary<string, string> StringValuePool;
-        public Dictionary<string, bool> BoolValuePool;
-        public Dictionary<string, float> FloatValuePool;
         public void Start()
         {
             Instance = this;
-            StringValuePool = CollectionUtilities.ToDictionary(PredefinedStringValues);
-            BoolValuePool = CollectionUtilities.ToDictionary(PredefinedBoolValues);
-            FloatValuePool = CollectionUtilities.ToDictionary(PredefinedFloatValues);
+            __Serializable.StringValuePool = CollectionUtilities.ToDictionary(PredefinedStringValues);
+            __Serializable.BoolValuePool = CollectionUtilities.ToDictionary(PredefinedBoolValues);
+            __Serializable.FloatValuePool = CollectionUtilities.ToDictionary(PredefinedFloatValues);
         }
         public static string QueryString(string Name, string Fallback = null)
         {
             if (Instance != null)
             {
-                if (Instance.StringValuePool.TryGetValue(Name, out string Value))
+                if (Instance.__Serializable.StringValuePool.TryGetValue(Name, out string Value))
                 {
                     return Value;
                 }
@@ -38,7 +41,7 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
         {
             if (Instance != null)
             {
-                if (Instance.BoolValuePool.TryGetValue(Name, out var value))
+                if (Instance.__Serializable.BoolValuePool.TryGetValue(Name, out var value))
                 {
                     return value;
                 }
@@ -50,7 +53,7 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
         {
             if (Instance != null)
             {
-                if (Instance.FloatValuePool.TryGetValue(Name, out var value))
+                if (Instance.__Serializable.FloatValuePool.TryGetValue(Name, out var value))
                 {
                     return value;
                 }
@@ -62,9 +65,9 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
         {
             if (Instance != null)
             {
-                if (!Instance.StringValuePool.TryAdd(Name, Value))
+                if (!Instance.__Serializable.StringValuePool.TryAdd(Name, Value))
                 {
-                    Instance.StringValuePool[Name] = Value;
+                    Instance.__Serializable.StringValuePool[Name] = Value;
                 }
             }
         }
@@ -72,9 +75,9 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
         {
             if (Instance != null)
             {
-                if (!Instance.BoolValuePool.TryAdd(Name, Value))
+                if (!Instance.__Serializable.BoolValuePool.TryAdd(Name, Value))
                 {
-                    Instance.BoolValuePool[Name] = Value;
+                    Instance.__Serializable.BoolValuePool[Name] = Value;
                 }
             }
         }
@@ -82,10 +85,23 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
         {
             if (Instance != null)
             {
-                if (!Instance.FloatValuePool.TryAdd(Name, Value))
+                if (!Instance.__Serializable.FloatValuePool.TryAdd(Name, Value))
                 {
-                    Instance.FloatValuePool[Name] = Value;
+                    Instance.__Serializable.FloatValuePool[Name] = Value;
                 }
+            }
+        }
+        private SerializableLevelRuntimeRegistry __Serializable=new SerializableLevelRuntimeRegistry();
+        public IPureData ObtainData()
+        {
+            return __Serializable;
+        }
+
+        public void ApplyData(IPureData data)
+        {
+            if(data is SerializableLevelRuntimeRegistry S)
+            {
+                __Serializable = S;
             }
         }
     }

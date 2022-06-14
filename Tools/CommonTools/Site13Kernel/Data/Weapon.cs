@@ -1,10 +1,11 @@
-﻿using Site13Kernel.GameLogic.FPS;
+﻿using Site13Kernel.Data.IO;
+using Site13Kernel.GameLogic.FPS;
 using System;
 
 namespace Site13Kernel.Data
 {
     [Serializable]
-    public class Weapon
+    public class Weapon : IPureData
     {
         public string WeaponID;
         public float MaxCapacity;

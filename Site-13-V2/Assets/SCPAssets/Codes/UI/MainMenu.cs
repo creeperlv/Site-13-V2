@@ -3,6 +3,8 @@ using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic;
 using Site13Kernel.UI.Customizations;
 using Site13Kernel.UI.Documents.PLN;
+using Site13Kernel.UI.General;
+using Site13Kernel.UI.Settings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace Site13Kernel.UI
     public class MainMenu : Page
     {
         #region 
-        public Button SettingsButton;
+        public UIButton SettingsButton;
         #endregion
         public Transform CampaignHolder;
         public GameObject CampaignButton;
@@ -39,8 +41,13 @@ namespace Site13Kernel.UI
         public List<UIButton> CloseButtons=new List<UIButton>();
         public List<UIButton> ResetButtons=new List<UIButton>();
         CampaignButtonGroup group = new CampaignButtonGroup();
+        public int FakePageID = 2;
+        public float FadeDuration= 0.5f;
         public override void Init()
         {
+            SettingsButton.OnClick = () => {
+                StartCoroutine(WaitAndToSettings());
+            };
             if (AboutContainer != null)
             {
                 if (AboutDoc != null)
@@ -123,7 +130,7 @@ namespace Site13Kernel.UI
             };
             if(Parent!=null)
             Parent.RegisterRefresh(this);
-            StartButton.OnClick = LoadLevel;
+            StartButton.OnClick = () => { StartCoroutine(TryLoadLevel()); };
             if (CustomizationButton != null)
             {
                 CustomizationButton.OnClick = () => {
@@ -153,6 +160,27 @@ namespace Site13Kernel.UI
             //    //    this. GetComponent<CanvasGroup>().interactable = true;
             //    //};
             //});
+        }
+        public IEnumerator WaitAndToSettings()
+        {
+            GlobalBlackCover.RequestShowCover(0.5f, 0.01f, 0.5f);
+            yield return new WaitForSeconds(FadeDuration);
+
+            SettingsController.Instance.Show(() => {
+                GlobalBlackCover.RequestShowCover(0.5f, 0.01f, 0.5f);
+            }, () => { 
+                this.gameObject.SetActive(true);
+            });
+            this.gameObject.SetActive(false);
+        }
+        bool TryingLoadLevel = false;
+        public IEnumerator TryLoadLevel()
+        {
+            if (TryingLoadLevel) yield break;
+            TryingLoadLevel = true;
+            GlobalBlackCover.RequestShowCover(1, 0.01f, 1f);
+            yield return new WaitForSecondsRealtime(1);
+            LoadLevel();
         }
         public void LoadLevel()
         {

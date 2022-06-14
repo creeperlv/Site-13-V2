@@ -1,3 +1,6 @@
+using Site13Kernel.Data;
+using Site13Kernel.Data.IO;
+using Site13Kernel.Data.Serializables;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,7 +9,7 @@ using UnityEngine;
 
 namespace Site13Kernel.Core
 {
-    public class BioEntity : DamagableEntity
+    public class BioEntity : DamagableEntity, IContainsPureData
     {
         //public new BaseController Parent;
 
@@ -161,6 +164,37 @@ namespace Site13Kernel.Core
                 CurrentShield,
                 ShieldRecoverSpeed,
                 HPRecoverSpeed };
+        }
+
+        public new IPureData ObtainData()
+        {
+            SerializableBioEntity SBE = new SerializableBioEntity();
+            SBE.CombatRelationGroup = CombatRelationGroup;
+            SBE.CurrentShield = CurrentShield;
+            SBE.MaxShield = MaxShield;
+            SBE.ShieldRecoverCountDown = ShieldRecoverCountDown;
+            SBE.ShieldRecoverDelay = ShieldRecoverDelay;
+            SBE.ShieldRecoverSpeed = ShieldRecoverSpeed;
+            SBE.HPRecoverCountDown = HPRecoverCountDown;
+            SBE.HPRecoverDelay = HPRecoverDelay;
+            SBE.HPRecoverSpeed = HPRecoverSpeed;
+            return SBE;
+        }
+
+        public new void ApplyData(IPureData data)
+        {
+            if (data is SerializableBioEntity SBE)
+            {
+                CombatRelationGroup = SBE.CombatRelationGroup;
+                CurrentShield = SBE.CurrentShield;
+                MaxShield = SBE.MaxShield;
+                ShieldRecoverCountDown = SBE.ShieldRecoverCountDown;
+                ShieldRecoverDelay = SBE.ShieldRecoverDelay;
+                ShieldRecoverSpeed = SBE.ShieldRecoverSpeed;
+                HPRecoverCountDown = SBE.HPRecoverCountDown;
+                HPRecoverDelay = SBE.HPRecoverDelay;
+                HPRecoverSpeed = SBE.HPRecoverSpeed;
+            }
         }
     }
 }

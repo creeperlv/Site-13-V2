@@ -4,12 +4,17 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
 {
     public class FogControl : MonoBehaviour
     {
+        public static FogControl Instance;
         public Color Fog;
         public float Far;
         private float LastFar=-1;
         public float Near;
         private float LastNear=-1;
         private Color LastFog;
+        private void Start()
+        {
+            Instance = this;
+        }
         // Update is called once per frame
         void Update()
         {

@@ -99,8 +99,4 @@ namespace Site13Kernel.UI
         [HideInInspector]
         public float DeltaT;
     }
-    public class Page : ControlledBehavior
-    {
-        public PageManager ParentManager;
-    }
 }

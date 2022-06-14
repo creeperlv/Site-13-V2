@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Site13Kernel.Data.IO;
+using System;
 
 namespace Site13Kernel.Data.Serializables
 {
     [Serializable]
-    public class SerializableLocation
+    public class SerializableLocation:IPureData
     {
         public bool UseSceneLookUp;
         public string LookUpName;

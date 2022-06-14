@@ -1,6 +1,8 @@
 using Site13Kernel.Core;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.GameLogic;
+using Site13Kernel.UI.General;
+using Site13Kernel.UI.Settings;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -12,10 +14,14 @@ namespace Site13Kernel.UI
     {
         public UIButton MainMenu;
         public UIButton Continue;
+        public UIButton SettingsButton;
         public static PauseMenu CurrentMenu;
         public override void Init()
         {
             CurrentMenu = this;
+            SettingsButton.OnClick = () => {
+                StartCoroutine(WaitAndToSettings());
+            };
             Continue.OnClick = () =>
             {
                 this.gameObject.SetActive(!this.gameObject.activeSelf);
@@ -32,6 +38,18 @@ namespace Site13Kernel.UI
                 SceneLoader.Instance.EndLevel();
             };
             Parent.RegisterRefresh(this);
+        }
+        public IEnumerator WaitAndToSettings()
+        {
+            GlobalBlackCover.RequestShowCover(0.5f, 0.01f, 0.5f);
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            SettingsController.Instance.Show(() => {
+                GlobalBlackCover.RequestShowCover(0.5f, 0.01f, 0.5f);
+            }, () => {
+                this.gameObject.SetActive(true);
+            });
+            this.gameObject.SetActive(false);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
