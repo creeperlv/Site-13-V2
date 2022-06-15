@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Site13Kernel.UI.Customizations
 {
@@ -16,6 +17,7 @@ namespace Site13Kernel.UI.Customizations
         public Transform WeaponHolder;
         public Transform WeaponDemo;
         public Transform CoatingsHolder;
+        public Text DescriptionText;
         public List<WeaponCoatingCollection> Weapons;
         // Start is called before the first frame update
         public override void Init()
@@ -33,6 +35,7 @@ namespace Site13Kernel.UI.Customizations
                     UIBtn.Content = item.DisplayName;
                     UIBtn.OnClick = () =>
                     {
+                        string SelectedCoating="";
                         {
                             if (WeaponDemo.childCount > 0)
                                 Destroy(WeaponDemo.GetChild(0).gameObject);
@@ -41,6 +44,7 @@ namespace Site13Kernel.UI.Customizations
 
                                 var CW = weapon.GetComponentInChildren<CustomizableWeapon>();
                                 CW.TargetWeaponCoating = PlayerWeaponCoatings.CurrentPlayerWeaponCoatings.GetCoating(CW.WeaponID, "STANDARD");
+                                SelectedCoating = CW.TargetWeaponCoating;
                                 CW.ApplyCoating();
                             }
                             var r = weapon.GetComponentsInChildren<Rigidbody>();
@@ -55,6 +59,10 @@ namespace Site13Kernel.UI.Customizations
                         }
                         foreach (var coating in item.Coatings)
                         {
+                            if(coating.ID== SelectedCoating)
+                            {
+                                DescriptionText.text = coating.Description;
+                            }
                             var BTN2 = GameObject.Instantiate(ButtonPrefab, CoatingsHolder);
                             var UIBtn2 = BTN2.GetComponent<UIButton>();
                             if (UIBtn2 != null)
@@ -62,6 +70,7 @@ namespace Site13Kernel.UI.Customizations
                                 UIBtn2.Content = coating.Name;
                                 UIBtn2.OnClick = () =>
                                 {
+                                    DescriptionText.text = coating.Description;
                                     if (WeaponDemo.childCount > 0)
                                     {
                                         var t = WeaponDemo.GetChild(0);

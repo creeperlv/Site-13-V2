@@ -8,7 +8,6 @@ namespace Site13Kernel.Diagnostics.Functions
 {
     public class SetFixedDirector : IDiagnosticsFunction
     {
-
         public List<string> GetAlias()
         {
             return new List<string>
@@ -74,7 +73,6 @@ namespace Site13Kernel.Diagnostics.Functions
     }
     public class StartFirefightDirector : IDiagnosticsFunction
     {
-
         public List<string> GetAlias()
         {
             return new List<string>

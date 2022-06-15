@@ -7,6 +7,7 @@ using Site13Kernel.Data.Serializables;
 using Site13Kernel.GameLogic.AI;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
 
@@ -18,8 +19,8 @@ namespace Site13Kernel.GameLogic.Directors
         public bool isRunning = false;
         public string TargetScriptName;
         public TextAsset DefaultScript;
-        static
-        JsonSerializerSettings settings = new JsonSerializerSettings
+        public static ScriptableDirector Instance;
+        static JsonSerializerSettings settings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.All,
             Formatting = Formatting.Indented,
@@ -28,7 +29,7 @@ namespace Site13Kernel.GameLogic.Directors
         public KVList<string, EventTrigger> EventTriggers = new KVList<string, EventTrigger>();
         public KVList<string, GameObject> ReferencedObjects = new KVList<string, GameObject>();
         public KVList<string, Animator> ReferencedAnimators = new KVList<string, Animator>();
-        public KVList<string, MonoBehaviour> ReferenceMonoBehaviours= new KVList<string, MonoBehaviour>();
+        public KVList<string, MonoBehaviour> ReferenceMonoBehaviours = new KVList<string, MonoBehaviour>();
         public KVList<string, Transform> ReferenceLocations = new KVList<string, Transform>();
         public KVList<string, Goal> ReferenceRountines = new KVList<string, Goal>();
         public Dictionary<string, SimpleTrigger> __SimpleTriggers = new Dictionary<string, SimpleTrigger>();
@@ -39,12 +40,13 @@ namespace Site13Kernel.GameLogic.Directors
         public Dictionary<string, Transform> __ReferenceLocations = new Dictionary<string, Transform>();
         public Dictionary<string, Goal> __ReferenceRountines = new Dictionary<string, Goal>();
         public Dictionary<Type, Action<EventBase>> Actions = new Dictionary<Type, Action<EventBase>>();
+        public List<PackagedEventBase> _events = new List<PackagedEventBase>();
         public void initResources()
         {
             __SimpleTriggers = SimpleTriggers.ObtainMap();
             __EventTriggers = EventTriggers.ObtainMap();
             __ReferencedObjects = ReferencedObjects.ObtainMap();
-            __ReferencedAnimators= ReferencedAnimators.ObtainMap();
+            __ReferencedAnimators = ReferencedAnimators.ObtainMap();
             __ReferenceMonoBehaviours = ReferenceMonoBehaviours.ObtainMap();
             __ReferenceLocations = ReferenceLocations.ObtainMap();
             __ReferenceRountines = ReferenceRountines.ObtainMap();
@@ -55,7 +57,90 @@ namespace Site13Kernel.GameLogic.Directors
         }
         public virtual void SetupScript(List<EventBase> events)
         {
+            _events.Clear();
+            foreach (var item in events)
+            {
+                var __e = new PackagedEventBase { RawEvent = item };
+                if (item.UseEventTrigger)
+                {
+                    if (__SimpleTriggers.ContainsKey(item.EventTriggerID))
+                    {
+                        var t = __SimpleTriggers[item.EventTriggerID];
+                        if (t != null)
+                        {
+                            t.AddCallback(() => ExecuteEvent(__e));
+                        }
+                    }
+                    else
+                    {
+                        if (__EventTriggers.ContainsKey(item.EventTriggerID))
+                        {
+                            var t = __EventTriggers[item.EventTriggerID];
+                            if (t != null)
+                            {
+                                t.AddCallback(() => ExecuteEvent(__e));
+                            }
+                        }
+                    }
+                }
+                _events.Add(__e);
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void ExecuteEvent(PackagedEventBase e)
+        {
+            //if (e) return;
+            if (e.Executed && !e.RawEvent.Repeatable) return;
 
+            {
+                StartCoroutine(Execute(e));
+            }
+        }
+        System.Collections.IEnumerator Execute(PackagedEventBase e)
+        {
+            yield return new WaitForSeconds(e.RawEvent.TimeDelay);
+            RealExecute(e);
+        }
+        void RealExecute(PackagedEventBase e)
+        {
+            if (Actions.TryGetValue(e.RawEvent.GetType(), out var func))
+            {
+                e.Executed = true;
+                func(e.RawEvent);
+            }
+        }
+        public void Start()
+        {
+            Instance = this;
+            SetupActions();
+        }
+        public void Update()
+        {
+            float DT = Time.deltaTime;
+            float UDT = Time.unscaledDeltaTime;
+            if (isRunning == false) return;
+            foreach (var item in _events)
+            {
+                if (item.Executed && !item.RawEvent.Repeatable) continue;
+                if (item.RawEvent.UseEventTrigger) continue;
+                if (item.RawEvent.UseSymbolInsteadOfEventTrigger) continue;
+                bool EXE;
+                if (item.RawEvent.UseEventTrigger) continue;
+                {
+                    item.TimeD += DT;
+                    if (item.TimeD > item.RawEvent.TimeDelay)
+                    {
+                        EXE = true;
+                        if (item.RawEvent.Repeatable) item.TimeD = 0;
+                    }
+                    else EXE = false;
+                }
+                EXE = EXE & (!item.Executed || item.RawEvent.Repeatable);
+                if (EXE)
+                {
+                    ExecuteEvent(item);
+                }
+            }
         }
         public UnityLocation FromSerializableLocation(SerializableLocation serializableLocation)
         {

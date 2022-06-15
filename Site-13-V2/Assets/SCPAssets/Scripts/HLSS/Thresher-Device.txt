@@ -1,0 +1,77 @@
+{
+  "$type": "System.Collections.Generic.List`1[[Site13Kernel.GameLogic.Directors.EventBase, Site13Kernel]], System.Private.CoreLib",
+  "$values": [
+    {
+      "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+      "ObjectID": "ANIME_000",
+      "TargetState": true,
+      "UseEventTrigger": false,
+      "UseSymbolInsteadOfEventTrigger": false,
+      "EventTriggerID": null,
+      "TimeDelay": 0.0,
+      "Repeatable": false
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+      "ObjectID": "ANIME_000",
+      "TargetState": false,
+      "UseEventTrigger": false,
+      "UseSymbolInsteadOfEventTrigger": false,
+      "EventTriggerID": "",
+      "TimeDelay": 7.65,
+      "Repeatable": false
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.Directors.SpawnPlayerEvent, Site13Kernel",
+      "PlayerID": "PLAYER",
+      "Location": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableLocation, Site13Kernel",
+        "UseSceneLookUp": true,
+        "LookUpName": "INITIAL_SPAWN_LOCATION",
+        "Position": {
+          "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+          "X": 0.0,
+          "Y": 0.0,
+          "Z": 0.0
+        },
+        "Rotation": {
+          "$type": "Site13Kernel.Data.Serializables.SerializableQuaternion, Site13Kernel",
+          "X": 0.0,
+          "Y": 0.0,
+          "Z": 0.0,
+          "W": 0.0
+        },
+        "Scale": {
+          "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+          "X": 0.0,
+          "Y": 0.0,
+          "Z": 0.0
+        }
+      },
+      "UseEventTrigger": false,
+      "UseSymbolInsteadOfEventTrigger": false,
+      "EventTriggerID": null,
+      "TimeDelay": 7.65,
+      "Repeatable": false
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.Directors.GiveWeaponEvent, Site13Kernel",
+      "weapon": {
+        "$type": "Site13Kernel.Data.Weapon, Site13Kernel",
+        "WeaponID": "FSP-S6",
+        "MaxCapacity": 160.0,
+        "MagazineCapacity": 16.0,
+        "CurrentBackup": 160.0,
+        "CurrentMagazine": 16.0,
+        "PhysicsForce": 5.0,
+        "WeaponFireType0": 0,
+        "WeaponFireType1": 0
+      },
+      "UseEventTrigger": false,
+      "UseSymbolInsteadOfEventTrigger": false,
+      "EventTriggerID": null,
+      "TimeDelay": 7.66,
+      "Repeatable": false
+    }
+  ]
+}

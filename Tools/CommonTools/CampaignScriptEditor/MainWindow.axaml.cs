@@ -39,7 +39,8 @@ namespace CampaignScriptEditor
             Save.Click += async (_, _) => await __Save();
             SaveAs.Click += async (_, _) => await __SaveAs();
             Open.Click += async (_, _) => await __Open();
-            ShowButton.Click += (_, _) => {
+            ShowButton.Click += (_, _) =>
+            {
                 foreach (var item in Events.Children)
                 {
                     if (item is EventItem e)
@@ -47,8 +48,9 @@ namespace CampaignScriptEditor
                         e.EditorToggle.IsChecked = true;
                     }
                 }
-            }; 
-            HideButton.Click += (_, _) => {
+            };
+            HideButton.Click += (_, _) =>
+            {
                 foreach (var item in Events.Children)
                 {
                     if (item is EventItem e)
@@ -57,12 +59,130 @@ namespace CampaignScriptEditor
                     }
                 }
             };
+            CollectVariable.Click += (_, _) => CollectReferences();
             About.Click += async (_, _) =>
             {
                 AboutDialog aboutDialog = new AboutDialog();
                 aboutDialog.SetInfo("Script Editor", typeof(MainWindow).Assembly.GetName().Version);
                 await aboutDialog.ShowDialog(this);
             };
+        }
+        void CollectReferences()
+        {
+            {
+                List<string> Triggers = new List<string>();
+                List<string> Locations = new List<string>();
+                List<string> Objects = new List<string>();
+                List<string> Components = new List<string>();
+                foreach (var item in Events.Children)
+                {
+                    if (item is EventItem e)
+                    {
+                        var __e = (EventBase)e.ObtainObject();
+                        if (__e.EventTriggerID != "")
+                        {
+                            if (!Triggers.Contains(__e.EventTriggerID))
+                            {
+                                Triggers.Add(__e.EventTriggerID);
+                            }
+                        }
+                        switch (__e)
+                        {
+                            case ToggleObject o:
+                                if (!Objects.Contains(o.ObjectID))
+                                {
+                                    Objects.Add(o.ObjectID);
+                                }
+                                break;
+                            case ToggleComponent c:
+                                {
+                                    if (!Components.Contains(c.ComponentID)){
+                                        Components.Add(c.ComponentID);
+                                    }
+                                }
+                                break;
+                            default:
+                                {
+                                    __e.GetType();
+                                    var SL = FindLocation(__e.GetType(), __e);
+                                    if(SL is not null)
+                                    {
+                                        if (SL.UseSceneLookUp)
+                                        {
+                                            if (!Locations.Contains(SL.LookUpName))
+                                            {
+                                                Locations.Add(SL.LookUpName);
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                        }
+
+                    }
+                }
+                TriggerIDContainer.Children.Clear();
+                ObjectsIDContainer.Children.Clear();
+                LocationsIDContainer.Children.Clear();
+                ComponentsIDContainer.Children.Clear();
+                foreach (var item in Triggers)
+                {
+                    if (item is not null)
+                        TriggerIDContainer.Children.Add(MakeTB(item));
+                }
+                foreach (var item in Objects)
+                {
+                    if (item is not null)
+                        ObjectsIDContainer.Children.Add(MakeTB(item));
+                }
+                foreach (var item in Locations)
+                {
+                    if (item is not null)
+                        LocationsIDContainer.Children.Add(MakeTB(item));
+                }
+                foreach (var item in Components)
+                {
+                    if (item is not null)
+                        ComponentsIDContainer.Children.Add(MakeTB(item));
+                }
+            }
+        }
+        SerializableLocation? FindLocation(Type t, object obj)
+        {
+            var fs = t.GetFields();
+            foreach (var item in fs)
+            {
+                if (!item.FieldType.IsSealed)
+                {
+                    if (item.FieldType == typeof(SerializableLocation))
+                    {
+                        return item.GetValue(obj) as SerializableLocation;
+                    }
+                    else
+                    {
+                        var v = item.GetValue(obj);
+                        if (v is not null)
+                        {
+                            var L = FindLocation(item.FieldType, v);
+                            if (L is not null) return L;
+
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        Thickness Zero = new Thickness(0);
+        TextBox MakeTB(string content)
+        {
+            TextBox textBlock = new TextBox();
+            textBlock.Text = content;
+            textBlock.IsReadOnly = true;
+            textBlock.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch;
+            textBlock.FontSize = 11;
+            //textBlock.BorderThickness = Zero;
+            //textBlock.Padding = Zero;
+            return textBlock;
         }
         async Task __Open()
         {
@@ -74,6 +194,8 @@ namespace CampaignScriptEditor
                     CurrentFile = new FileInfo(L[0]);
                     var _L = JsonConvert.DeserializeObject<List<EventBase>>(await File.ReadAllTextAsync(CurrentFile.FullName), settings);
                     if (_L is not null)
+                    {
+                        Events.Children.Clear();
                         foreach (var item in _L)
                         {
                             var e = new EventItem();
@@ -81,6 +203,7 @@ namespace CampaignScriptEditor
                             e.InitObject(item);
                             Events.Children.Add(e);
                         }
+                    }
                     GC.Collect();
                 }
         }

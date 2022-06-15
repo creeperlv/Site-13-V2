@@ -1,4 +1,6 @@
+using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
+using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using System;
 using System.Collections;
@@ -34,6 +36,40 @@ namespace Site13Kernel.GameLogic.Directors
                     catch (Exception _e)
                     {
                         Debugger.CurrentDebugger.LogError(_e);
+                    }
+                }
+            });
+            Actions.Add(typeof(ToggleObject), (e) => {
+                if (e is ToggleObject to)
+                {
+                    __ReferencedObjects[to.ObjectID].gameObject.SetActive(to.TargetState);
+                }
+            });
+            Actions.Add(typeof(ShowSubtitle), (e) => {
+                if (e is ShowSubtitle ss)
+                {
+                    Subtitle subtitle = new Subtitle();
+                    subtitle.Content = ss.Content;
+                    subtitle.Duration = ss.Length;
+                    GameRuntime.CurrentGlobals.SubtitleController.ShowSubtitle(subtitle);
+                }
+            });
+            Actions.Add(typeof(IssueMission), (e) => { 
+                if(e is IssueMission mission)
+                {
+                    if (FPSController.Instance != null)
+                    {
+                        FPSController.Instance.IssueMission(mission.MissionText);
+                    }
+                }
+            });
+            Actions.Add(typeof(GiveWeaponEvent), (e) => { 
+                if(e is GiveWeaponEvent GWE)
+                {
+                    if (FPSController.Instance != null)
+                    {
+                        var BAG = FPSController.Instance.BagHolder;
+                        FPSController.Instance.GiveWeapon(GWE.weapon);
                     }
                 }
             });

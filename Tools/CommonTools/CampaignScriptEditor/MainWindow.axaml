@@ -7,9 +7,9 @@
         Title="CampaignScriptEditor">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>	
-			<RowDefinition Height="Auto"/>	
-			<RowDefinition/>	
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
 		</Grid.RowDefinitions>
 		<Grid IsHitTestVisible="False" Background="#8333">
 			<Border  Margin="16,8,0,0" CornerRadius="8" IsHitTestVisible="False" Background="#5333" HorizontalAlignment="Left">
@@ -67,6 +67,14 @@
 					</Viewbox>
 				</Button>
 				<Separator VerticalAlignment="Center" Width="2" Height="20" Background="#888"/>
+				<Button Name="CollectVariable">
+					<Viewbox Width="16" Height="16">
+						<Canvas Width="24" Height="24">
+							<Path Fill="#80DD80" Data="M21 2H3C1.9 2 1 2.9 1 4V20C1 21.1 1.9 22 3 22H21C22.1 22 23 21.1 23 20V4C23 2.9 22.1 2 21 2M21 20H3V6H21V20M16.6 8C18.1 9.3 19 11.1 19 13C19 14.9 18.1 16.7 16.6 18L15 17.4C16.3 16.4 17 14.7 17 13S16.3 9.6 15 8.6L16.6 8M7.4 8L9 8.6C7.7 9.6 7 11.3 7 13S7.7 16.4 9 17.4L7.4 18C5.9 16.7 5 14.9 5 13S5.9 9.3 7.4 8M12.1 12L13.5 10H15L12.8 13L14.1 16H12.8L12 14L10.6 16H9L11.3 12.9L10 10H11.3L12.1 12Z" />
+						</Canvas>
+					</Viewbox>
+				</Button>
+				<Separator VerticalAlignment="Center" Width="2" Height="20" Background="#888"/>
 				<Button Name="About">
 					<Viewbox Width="16" Height="16">
 						<Canvas Width="24" Height="24">
@@ -81,6 +89,8 @@
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto" MinWidth="12"/>
 			</Grid.ColumnDefinitions>
 			<Grid Background="#8333">
 				<ScrollViewer HorizontalAlignment="Stretch" Margin="8,0">
@@ -113,6 +123,69 @@
 						</ScrollViewer.Styles>
 						<StackPanel Name="Events" Margin="0,0,10,0"></StackPanel>
 					</ScrollViewer>
+				</Border>
+			</Grid>
+			<GridSplitter Grid.Column="3" Width="2" BorderThickness="0" Background="#8333" Foreground="#8333" />
+
+			<Grid Grid.Column="4" Background="#8333" >
+				<Border Background="#5000" CornerRadius="5" Margin="4,5,10,10">
+					<Grid Margin="2">
+						<ScrollViewer HorizontalAlignment="Stretch" Margin="8,0">
+							<ScrollViewer.Styles>
+								<Style Selector="Expander">
+									<Setter Property="FontSize" Value="11"/>
+								</Style>
+								<Style Selector="TextBox">
+									<Setter Property="Padding" Value="4,2"/>
+									<Setter Property="VerticalAlignment" Value="Top"/>
+									<Setter Property="HorizontalAlignment" Value="Stretch"/>
+									<Setter Property="AcceptsTab" Value="True"/>
+									<Setter Property="FontSize" Value="10"/>
+									<Setter Property="MinHeight" Value="10"/>
+								</Style>
+								<Style Selector="Button">
+									<Setter Property="HorizontalAlignment" Value="Stretch"/>
+									<Setter Property="HorizontalContentAlignment" Value="Left"/>
+								</Style>
+								<Style Selector="ToggleButton">
+									<Setter Property="HorizontalAlignment" Value="Stretch"/>
+									<Setter Property="FontSize" Value="11"/>
+								</Style>
+								<Style Selector="StackPanel">
+									<Setter Property="HorizontalAlignment" Value="Stretch"/>
+								</Style>
+							</ScrollViewer.Styles>
+							<StackPanel Name="Inspector">
+								<Border Background="#828E" CornerRadius="5" Margin="0,5,0,0" Padding="4">
+									<TextBlock Text="Reference Inspector"/>
+								</Border>
+								<Border Background="#8333" CornerRadius="5" Margin="0,5">
+									<StackPanel Margin="2">
+										<ToggleButton Name="TriggerIDs" Content="TriggerIDs"/>
+										<StackPanel  Name="TriggerIDContainer" IsVisible="{Binding IsChecked,ElementName=TriggerIDs}"></StackPanel>
+									</StackPanel>
+								</Border>
+								<Border Background="#8333" CornerRadius="5" Margin="0,5">
+									<StackPanel Margin="2">
+										<ToggleButton Name="Locations" Content="Locations"/>
+										<StackPanel  Name="LocationsIDContainer" IsVisible="{Binding IsChecked,ElementName=Locations}"></StackPanel>
+									</StackPanel>
+								</Border>
+								<Border Background="#8333" CornerRadius="5" Margin="0,5">
+									<StackPanel Margin="2">
+										<ToggleButton Name="Objects" Content="Objects"/>
+										<StackPanel  Name="ObjectsIDContainer" IsVisible="{Binding IsChecked,ElementName=Objects}"></StackPanel>
+									</StackPanel>
+								</Border>
+								<Border Background="#8333" CornerRadius="5" Margin="0,5">
+									<StackPanel Margin="2">
+										<ToggleButton Name="Components" Content="Components"/>
+										<StackPanel  Name="ComponentsIDContainer" IsVisible="{Binding IsChecked,ElementName=Components}"></StackPanel>
+									</StackPanel>
+								</Border>
+							</StackPanel>
+						</ScrollViewer>
+					</Grid>
 				</Border>
 			</Grid>
 		</Grid>
