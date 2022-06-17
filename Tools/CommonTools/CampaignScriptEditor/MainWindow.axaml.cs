@@ -243,7 +243,7 @@ namespace CampaignScriptEditor
         }
         JsonSerializerSettings settings = new JsonSerializerSettings
         {
-            TypeNameHandling = TypeNameHandling.All,
+            TypeNameHandling = TypeNameHandling.Objects,TypeNameAssemblyFormatHandling= TypeNameAssemblyFormatHandling.Simple,
             Formatting = Formatting.Indented,
         };
         public FileInfo? CurrentFile;

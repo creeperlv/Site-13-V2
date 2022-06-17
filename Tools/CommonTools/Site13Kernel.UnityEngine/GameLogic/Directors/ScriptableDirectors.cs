@@ -16,6 +16,7 @@ namespace Site13Kernel.GameLogic.Directors
     public class ScriptableDirector : ControlledBehavior
     {
         public BaseController LevelController;
+        public bool LoadScriptOnSceneLoad = false;
         public bool isRunning = false;
         public string TargetScriptName;
         public TextAsset DefaultScript;
@@ -55,6 +56,11 @@ namespace Site13Kernel.GameLogic.Directors
         {
 
         }
+        public virtual void LoadScript()
+        {
+            var _L = JsonConvert.DeserializeObject<List<EventBase>>(DefaultScript.text, settings);
+            SetupScript(_L);
+        }
         public virtual void SetupScript(List<EventBase> events)
         {
             _events.Clear();
@@ -68,7 +74,7 @@ namespace Site13Kernel.GameLogic.Directors
                         var t = __SimpleTriggers[item.EventTriggerID];
                         if (t != null)
                         {
-                            t.AddCallback(() => ExecuteEvent(__e));
+                            t.AddCallback(() => ExecuteEvent(__e, __e.RawEvent.TimeDelay));
                         }
                     }
                     else
@@ -78,7 +84,7 @@ namespace Site13Kernel.GameLogic.Directors
                             var t = __EventTriggers[item.EventTriggerID];
                             if (t != null)
                             {
-                                t.AddCallback(() => ExecuteEvent(__e));
+                                t.AddCallback(() => ExecuteEvent(__e, __e.RawEvent.TimeDelay));
                             }
                         }
                     }
@@ -87,32 +93,34 @@ namespace Site13Kernel.GameLogic.Directors
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void ExecuteEvent(PackagedEventBase e)
+        void ExecuteEvent(PackagedEventBase e,float t=0)
         {
             //if (e) return;
             if (e.Executed && !e.RawEvent.Repeatable) return;
-
             {
-                StartCoroutine(Execute(e));
+                Debug.Log("Will Execute-1");
+                e.Executed = true;
+                StartCoroutine(Execute(e,t));
             }
         }
-        System.Collections.IEnumerator Execute(PackagedEventBase e)
+        System.Collections.IEnumerator Execute(PackagedEventBase e,float t=0)
         {
-            yield return new WaitForSeconds(e.RawEvent.TimeDelay);
+            yield return new WaitForSeconds(t);
             RealExecute(e);
         }
         void RealExecute(PackagedEventBase e)
         {
             if (Actions.TryGetValue(e.RawEvent.GetType(), out var func))
             {
-                e.Executed = true;
                 func(e.RawEvent);
             }
         }
         public void Start()
         {
             Instance = this;
+            initResources();
             SetupActions();
+            if (LoadScriptOnSceneLoad) LoadScript();
         }
         public void Update()
         {
@@ -138,6 +146,7 @@ namespace Site13Kernel.GameLogic.Directors
                 EXE = EXE & (!item.Executed || item.RawEvent.Repeatable);
                 if (EXE)
                 {
+                    Debug.Log("Will Execute-0");
                     ExecuteEvent(item);
                 }
             }

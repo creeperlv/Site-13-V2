@@ -21,6 +21,7 @@ namespace Site13Kernel.GameLogic.FPS
         public PickupItem ItemType;
         public Weapon Weapon;
         public int GrenadeID;
+        public int EquipmentID;
         public GameObject ControlledEntity;
         public Action OnPickup = null;
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
@@ -221,6 +222,46 @@ namespace Site13Kernel.GameLogic.FPS
                     }
                 }
             }
+            else if (ItemType == PickupItem.Equipment)
+            {
+                Debugger.CurrentDebugger.Log("Giving Equipment...");
+                bool isMatched = false;
+                if (holder.Grenade0.GrenadeHashCode != -1)
+                {
+                    Debugger.CurrentDebugger.Log("Giving Grenade...Position 0");
+                    isMatched = __ObtainRemaining(holder.Grenade0);
+                }
+
+                if (isMatched == false && holder.Grenade1.GrenadeHashCode != -1)
+                {
+                    Debugger.CurrentDebugger.Log("Giving Grenade...Position 1");
+                    isMatched = __ObtainRemaining(holder.Grenade1);
+                }
+                if (isMatched == false)
+                {
+                    if (holder.Grenade0.GrenadeHashCode == -1)
+                    {
+                        holder.Grenade0 = new ProcessedGrenade
+                        {
+                            GrenadeHashCode = GrenadeID,
+                            MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
+                            RemainingCount = 1
+                        };
+                        Destroy(ControlledEntity);
+                    }
+                    else
+                    if (holder.Grenade1.GrenadeHashCode == -1)
+                    {
+                        holder.Grenade1 = new ProcessedGrenade
+                        {
+                            GrenadeHashCode = GrenadeID,
+                            MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
+                            RemainingCount = 1
+                        };
+                        Destroy(ControlledEntity);
+                    }
+                }
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal bool __ObtainRemaining(ProcessedGrenade PG)
@@ -286,6 +327,6 @@ namespace Site13Kernel.GameLogic.FPS
     }
     public enum PickupItem
     {
-        Weapon, Grenade
+        Weapon, Grenade,Equipment
     }
 }

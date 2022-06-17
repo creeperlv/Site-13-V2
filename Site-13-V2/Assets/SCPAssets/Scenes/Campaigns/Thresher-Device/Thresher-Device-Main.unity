@@ -168,7 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelController: {fileID: 1739764457}
-  isRunning: 0
+  LoadScriptOnSceneLoad: 1
+  isRunning: 1
   TargetScriptName: Thresher-Device
   DefaultScript: {fileID: 4900000, guid: 4839459ff02767a418cae9b84bcf8e5d, type: 3}
   SimpleTriggers:
@@ -177,7 +178,7 @@ MonoBehaviour:
     PrefabDefinitions: []
   ReferencedObjects:
     PrefabDefinitions:
-    - Key: WAKEUP
+    - Key: ANIME_000
       Value: {fileID: 2079857404}
   ReferencedAnimators:
     PrefabDefinitions: []
@@ -185,10 +186,11 @@ MonoBehaviour:
     PrefabDefinitions: []
   ReferenceLocations:
     PrefabDefinitions:
-    - Key: SPAWN00
+    - Key: INITIAL_SPAWN_LOCATION
       Value: {fileID: 1557893755}
   ReferenceRountines:
     PrefabDefinitions: []
+  _events: []
 --- !u!1001 &7056266
 PrefabInstance:
   m_ObjectHideFlags: 0

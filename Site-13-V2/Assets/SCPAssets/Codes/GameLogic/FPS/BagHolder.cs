@@ -18,6 +18,8 @@ namespace Site13Kernel.GameLogic.FPS
         public int CurrentGrenade;
         public Action OnSwapWeapon;
         public Transform WeaponTransform;
+        public KVList<int, int> PreDefinedEquipments = new KVList<int, int>();
+        public Dictionary<int,int > Equipments=new Dictionary<int,int>();
         /// <summary>
         /// Verifies weapon slot.
         /// </summary>
