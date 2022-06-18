@@ -1,7 +1,7 @@
 <ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
 	<Define Name="MAIN" Value="True"/>
-	<Define Name="EMI" Value="True"/>
-	<Define Name="DEBUG" Value="True"/>
+	<Define Name="EMI" Value="False"/>
+	<Define Name="DEBUG" Value="False"/>
 	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent">
 		<Group Visible="MAIN">
 			<PixImg X="0" Y="0" Width="1" Height="1" Source="../../RefTextures/Plastic010_4K_Color.png" />
@@ -14,12 +14,14 @@
 			<Rectangle X="0.26" Y="0.55" Width=".1" Height="0.05" Size="0" Fill="True" Color="#FF2050"/>
 			<Rectangle X="0.265" Y="0.07" Width=".07" Height="0.21" Size="0" Fill="True" Color="#FF2050"/>
 			<Rectangle X="0.165" Y="0.08" Width=".07" Height="0.125" Size="0" Fill="True" Color="#FF2050"/>
-			<Text Content="+" FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.05" X="0.8" Y="0.12" Width="0.15" Height="0.1" Align="Center" VerticalAlign="Center" Color="#FFFFFF" />
+			<Rectangle X="0.835" Y="0.13" Width=".05" Height="0.05" Size="0.0025" Fill="False" Color="#FFFFFF"/>
+			<Text Content="A" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.03" X="0.835" Y="0.135" Width="0.05" Height="0.05" Align="Center" VerticalAlign="Center" Color="#FFFFFF" />
 		</Group>
 		<Group Visible="EMI">
 			<Dot X="0.82" Y="0.115" Size="0.01" Color="#00FF00"/>
 			<Dot X="0.51" Y="0.115" Size="0.01" Color="#00FF00"/>
-			<Text Content="+" FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.05" X="0.8" Y="0.12" Width="0.15" Height="0.1" Align="Center" VerticalAlign="Center" Color="#FF2050" />
+			<Rectangle X="0.835" Y="0.13" Width=".05" Height="0.05" Size="0.0025" Fill="False" Color="#FF2050"/>
+			<Text Content="A" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.03" X="0.835" Y="0.135" Width="0.05" Height="0.05" Align="Center" VerticalAlign="Center" Color="#FF2050" />
 		</Group>
 		<Group Visible="LAB">
 			<Text Content="FOUNDATION MEDIC" FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.0075" X="0.6" Y="0.58" Width="0.15" Height="0.04" Align="Center" VerticalAlign="Near" Color="#FF2050" />

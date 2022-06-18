@@ -5,7 +5,9 @@ using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic.Character;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.GameLogic.Level;
 using Site13Kernel.GameLogic.RuntimeScenes;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -36,6 +38,7 @@ namespace Site13Kernel.Core.Controllers
             Weapon = BagHolder.CurrentWeapon == 0 ? BagHolder.Weapon0 : BagHolder.Weapon1;
             if (MainCam != null)
                 Zoom(DeltaTime);
+            Equipment(DeltaTime);
             Movement(DeltaTime, UnscaledDeltaTime);
             if (Weapon != null)
             {
@@ -55,6 +58,41 @@ namespace Site13Kernel.Core.Controllers
             BodyAnimation(DeltaTime, UnscaledDeltaTime);
             UpdateHUD(DeltaTime, UnscaledDeltaTime);
             SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
+        }
+        public void Equipment(float DeltaTime)
+        {
+            if (E_HUD_COUNT != null)
+            {
+                if (BagHolder.Equipments.TryGetValue(SelectedEquipment, out var i))
+                {
+                    E_HUD_COUNT.text = i.ToString();
+                }
+                else E_HUD_COUNT.text = "0";
+            }
+            if (E_HUD_ICON != null)
+            {
+                if (LastSelectedEquipment != SelectedEquipment)
+                {
+                    LastSelectedEquipment = SelectedEquipment;
+                    if(EquipmentManifest.Instance.EqupimentMap.TryGetValue(SelectedEquipment,out var def)){
+                        E_HUD_ICON.sprite = def.Icon;
+                        E_HUD_ICON.material = def.IconMat;
+                    }
+                }
+            }
+            if (InputProcessor.GetInputDown("ChangeEquip"))
+            {
+                var K = EquipmentManifest.Instance.EqupimentMap.Keys.ToList();
+                var i=K.IndexOf(SelectedEquipment);
+                if (i + 1 < K.Count)
+                {
+                    SelectedEquipment = K[i + 1];
+                }
+                else
+                {
+                    SelectedEquipment = K[0];
+                }
+            }
         }
         [Header("Armor Pieces")]
         public string UseShieldPiece = "MobileSRA";

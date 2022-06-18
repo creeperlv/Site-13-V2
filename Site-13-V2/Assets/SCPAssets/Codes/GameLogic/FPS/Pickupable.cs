@@ -4,6 +4,7 @@ using Site13Kernel.Data;
 using Site13Kernel.Data.IO;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic.Customization;
+using Site13Kernel.GameLogic.Level;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections;
@@ -86,10 +87,10 @@ namespace Site13Kernel.GameLogic.FPS
                                 {
 
                                     var G = ObjectGenerator.Instantiate(WeaponPool.CurrentPool.WeaponItemMap[Holder.Weapon0.Weapon.Base.WeaponID].PickablePrefab, WeaponPool.CurrentPool.transform);
-                                    var __CW=Holder.Weapon0.gameObject.GetComponentInChildren<CustomizableWeapon>();
+                                    var __CW = Holder.Weapon0.gameObject.GetComponentInChildren<CustomizableWeapon>();
                                     var P = G.GetComponentInChildren<Pickupable>();
-                                    var CW=G.GetComponentInChildren<CustomizableWeapon>();
-                                    if (CW != null&&__CW!=null)
+                                    var CW = G.GetComponentInChildren<CustomizableWeapon>();
+                                    if (CW != null && __CW != null)
                                     {
                                         CW.TargetWeaponCoating = __CW.TargetWeaponCoating;
                                         CW.ApplyCoating();
@@ -143,7 +144,7 @@ namespace Site13Kernel.GameLogic.FPS
                     }
                     GeneratedWeapon.Weapon.Base = Weapon;
                     GeneratedWeapon.transform.localPosition = GeneratedWeapon.NormalPosition;
-                    GeneratedWeapon.transform.localEulerAngles= GeneratedWeapon.NormalRotationEuler;
+                    GeneratedWeapon.transform.localEulerAngles = GeneratedWeapon.NormalRotationEuler;
                     if (this.Parent != null)
                     {
                         this.Parent.UnregisterFixedRefresh(this);
@@ -225,39 +226,23 @@ namespace Site13Kernel.GameLogic.FPS
             else if (ItemType == PickupItem.Equipment)
             {
                 Debugger.CurrentDebugger.Log("Giving Equipment...");
-                bool isMatched = false;
-                if (holder.Grenade0.GrenadeHashCode != -1)
                 {
-                    Debugger.CurrentDebugger.Log("Giving Grenade...Position 0");
-                    isMatched = __ObtainRemaining(holder.Grenade0);
-                }
-
-                if (isMatched == false && holder.Grenade1.GrenadeHashCode != -1)
-                {
-                    Debugger.CurrentDebugger.Log("Giving Grenade...Position 1");
-                    isMatched = __ObtainRemaining(holder.Grenade1);
-                }
-                if (isMatched == false)
-                {
-                    if (holder.Grenade0.GrenadeHashCode == -1)
+                    if (holder.Equipments.TryGetValue(EquipmentID, out var i))
                     {
-                        holder.Grenade0 = new ProcessedGrenade
+                        int Max = int.MaxValue;
+                        if (EquipmentManifest.Instance.EqupimentMap.TryGetValue(EquipmentID, out var def))
                         {
-                            GrenadeHashCode = GrenadeID,
-                            MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
-                            RemainingCount = 1
-                        };
-                        Destroy(ControlledEntity);
+                            Max = def.MaxCount;
+                        }
+                        holder.Equipments[EquipmentID] = Mathf.Min(Max, i + 1);
+                        if (holder.Equipments[EquipmentID] != i)
+                        {
+                            Destroy(ControlledEntity);
+                        }
                     }
                     else
-                    if (holder.Grenade1.GrenadeHashCode == -1)
                     {
-                        holder.Grenade1 = new ProcessedGrenade
-                        {
-                            GrenadeHashCode = GrenadeID,
-                            MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
-                            RemainingCount = 1
-                        };
+                        holder.Equipments.Add(EquipmentID, 1);
                         Destroy(ControlledEntity);
                     }
                 }
@@ -327,6 +312,6 @@ namespace Site13Kernel.GameLogic.FPS
     }
     public enum PickupItem
     {
-        Weapon, Grenade,Equipment
+        Weapon, Grenade, Equipment
     }
 }

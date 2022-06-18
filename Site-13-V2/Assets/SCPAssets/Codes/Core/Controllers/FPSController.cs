@@ -131,6 +131,8 @@ namespace Site13Kernel.Core.Controllers
         public Vector2 W_HUD_SecondaryPosition;
         public Vector3 W_HUD_SecondaryScale;
 
+        public Image E_HUD_ICON;
+        public Text E_HUD_COUNT;
 
         #endregion
 
@@ -166,6 +168,11 @@ namespace Site13Kernel.Core.Controllers
         public float GrenadeThrowD;
         public bool Grenade_Throwed = false;
         public bool Grenade_Throwing = false;
+        [Header("Equipments")]
+        public int SelectedEquipment;
+        public int LastSelectedEquipment=-1;
+        public KVList<int, GameLogic.Equipments.EquipmentBase> Equipments = new KVList<int, GameLogic.Equipments.EquipmentBase>();
+        public Dictionary<int, GameLogic.Equipments.EquipmentBase> __equipments = new Dictionary<int, GameLogic.Equipments.EquipmentBase>();
         [Header("UX")]
         public List<GameObject> ShieldDownObject = new List<GameObject>();
 
@@ -182,6 +189,7 @@ namespace Site13Kernel.Core.Controllers
         {
 
             Instance = this;
+            __equipments = Equipments.ObtainMap();
             CurrentEntity.OnShieldDown = () =>
             {
                 foreach (var item in ShieldDownObject)

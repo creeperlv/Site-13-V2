@@ -1,6 +1,7 @@
 <ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
 	<Define Name="MAIN" Value="True"/>
 	<Define Name="EMI" Value="True"/>
+	<Define Name="NOR" Value="True"/>
 	<Define Name="DEBUG" Value="True"/>
 	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent">
 		<Group Visible="MAIN">
@@ -12,18 +13,28 @@
 			<Rectangle X="0.0" Y="0.45" Width=".3" Height="0.6" Size="0" Fill="True" Color="#FF2050"/>
 			<Rectangle X="0.3" Y="0.7" Width=".3" Height="0.6" Size="0" Fill="True" Color="#FF2050"/>
 			<Rectangle X="0.6" Y="0" Width=".2" Height="0.6" Size="0" Fill="True" Color="#FF2050"/>
-			<Text Content="+" FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.05" X="0.475" Y="0.07" Width="0.15" Height="0.1" Align="Center" VerticalAlign="Center" Color="#FF2050" />
-		</Group>
+			<Dot X="0.4" Y="0.9" Size="0.15" Color="#CCCCCC"/>
+			<Dot X="0.4" Y="0.9" Size="0.07" Color="#CCCCCC"/>
+			<Dot X="0.1" Y="0.9" Size="0.15" Color="#CCCCCC"/>
+			<Dot X="0.1" Y="0.9" Size="0.07" Color="#CCCCCC"/>
+			<Rectangle X="0.5" Y="0.07" Width=".09" Height="0.09" Size="0.005" Fill="False" Color="#FF2050"/>
+			<Text Content="A" FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.05" X="0.5" Y="0.07" Width="0.09" Height="0.09" Align="Center" VerticalAlign="Center" Color="#FF2050" />
+			</Group>
 		<Group Visible="EMI">
-			<Dot X="0.82" Y="0.115" Size="0.01" Color="#00FF00"/>
 			<Dot X="0.65" Y="0.115" Size="0.01" Color="#00FF00"/>
-				</Group>
+			<Dot X="0.65" Y="0.45" Size="0.01" Color="#00FF00"/>
+			</Group>
 		<Group Visible="LAB">
 			<Text Content="FOUNDATION MEDIC" FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.0075" X="0.6" Y="0.58" Width="0.15" Height="0.04" Align="Center" VerticalAlign="Near" Color="#FF2050" />
 			<Text Content="FIRST AID GUN" FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.01" X="0.6" Y="0.6" Width="0.15" Height="0.04" Align="Center" VerticalAlign="Near" Color="#FF2050" />
 		</Group>
 		<Group Visible="NOR">
 			<Dot X="0.65" Y="0.115" Size="0.01" Color="#000000"/>
+			<Dot X="0.65" Y="0.425" Size="0.01" Color="#000000"/>
+			<Dot X="0.4" Y="0.9" Size="0.15" Color="#333333"/>
+			<Dot X="0.4" Y="0.9" Size="0.07" Color="#000000"/>
+			<Dot X="0.1" Y="0.9" Size="0.15" Color="#333333"/>
+			<Dot X="0.1" Y="0.9" Size="0.07" Color="#000000"/>
 		</Group>
 		<Group Visible="DESIGN">
 			<PixImg X="0" Y="0" Width="1" Height="1" Source="Can-UV.png" />

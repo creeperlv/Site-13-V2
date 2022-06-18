@@ -132,7 +132,16 @@ namespace Site13Kernel.Core
                 }
             }
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void HealthRegen(float V)
+        {
+            CurrentHP = math.min(CurrentHP + V, MaxHP);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ShieldRegen(float V)
+        {
+            CurrentShield = math.min(CurrentShield + V, MaxShield);
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Damage(float V)
         {
