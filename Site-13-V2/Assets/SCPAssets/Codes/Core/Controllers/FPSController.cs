@@ -403,6 +403,8 @@ namespace Site13Kernel.Core.Controllers
         {
             if (FoundationStatus)
                 return;
+            if (EquipStage != -1) 
+                return;
             if (InputProcessor.GetAxis("Fire") > 0.5f)
             {
                 if (isWalking)

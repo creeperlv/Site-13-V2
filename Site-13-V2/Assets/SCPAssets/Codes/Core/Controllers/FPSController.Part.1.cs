@@ -59,6 +59,8 @@ namespace Site13Kernel.Core.Controllers
             UpdateHUD(DeltaTime, UnscaledDeltaTime);
             SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
         }
+        int EquipStage = -1;
+        float EquipT = 0;
         public void Equipment(float DeltaTime)
         {
             if (E_HUD_COUNT != null)
@@ -74,16 +76,18 @@ namespace Site13Kernel.Core.Controllers
                 if (LastSelectedEquipment != SelectedEquipment)
                 {
                     LastSelectedEquipment = SelectedEquipment;
-                    if(EquipmentManifest.Instance.EqupimentMap.TryGetValue(SelectedEquipment,out var def)){
+                    if (EquipmentManifest.Instance.EqupimentMap.TryGetValue(SelectedEquipment, out var def))
+                    {
                         E_HUD_ICON.sprite = def.Icon;
                         E_HUD_ICON.material = def.IconMat;
                     }
                 }
             }
+            if(EquipStage==-1)
             if (InputProcessor.GetInputDown("ChangeEquip"))
             {
                 var K = EquipmentManifest.Instance.EqupimentMap.Keys.ToList();
-                var i=K.IndexOf(SelectedEquipment);
+                var i = K.IndexOf(SelectedEquipment);
                 if (i + 1 < K.Count)
                 {
                     SelectedEquipment = K[i + 1];
@@ -91,6 +95,63 @@ namespace Site13Kernel.Core.Controllers
                 else
                 {
                     SelectedEquipment = K[0];
+                }
+            }
+            if (InputProcessor.GetInputDown("UseEquip"))
+            {
+
+                if (Weapon != null)
+                {
+                    if (Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_0 || Weapon.Weapon.WeaponMode == WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1)
+                    {
+                        return;
+                    }
+                }
+                if (FoundationStatus) return;
+                CancelRun();
+                if (BagHolder.Equipments.TryGetValue(SelectedEquipment, out var i))
+                {
+                    if (i > 0)
+                    {
+                        BagHolder.Equipments[SelectedEquipment] = i - 1;
+                        EquipT = 0;
+                        if (EquipStage == -1)
+                        {
+                            EquipStage = 0;
+                            __equipments[SelectedEquipment].AnimationPart.SetActive(true);
+                            if (Weapon != null)
+                            {
+                                if (!Weapon.CanZoom)
+                                {
+                                    Weapon.Unfire();
+                                }
+                                Weapon.Weapon.CurrentEffectPoint = Weapon.ZoomEffectPoint;
+                                Weapon.Weapon.AimingMode = 1;
+                                HideWeapon(false);
+                            }
+                        }
+                    }
+                }
+            }
+            if (EquipStage >= 0)
+            {
+                EquipT += DeltaTime;
+                if (EquipStage == 0)
+                {
+                    if (EquipT > __equipments[SelectedEquipment].ActionPoint)
+                    {
+                        __equipments[SelectedEquipment].Action();
+                        EquipStage = 1;
+                    }
+                }
+                if (EquipT > __equipments[SelectedEquipment].AnimationLength)
+                {
+                    __equipments[SelectedEquipment].AnimationPart.SetActive(false);
+                    if (Weapon != null)
+                    {
+                        ShowWeapon(true);
+                    }
+                    EquipStage = -1;
                 }
             }
         }
@@ -144,6 +205,7 @@ namespace Site13Kernel.Core.Controllers
                         return;
                     }
                 }
+                if (EquipStage != -1) return;
                 CancelRun();
 
                 FoundationStatus = !FoundationStatus;
@@ -166,7 +228,6 @@ namespace Site13Kernel.Core.Controllers
                     WatchLayer.SetActive(false);
                     if (Weapon != null)
                     {
-                        //Weapon.Weapon.ResetTakeOut();
                         ShowWeapon(true);
                     }
                 }

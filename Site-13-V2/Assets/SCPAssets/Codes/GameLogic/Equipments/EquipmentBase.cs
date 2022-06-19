@@ -13,7 +13,6 @@ namespace Site13Kernel.GameLogic.Equipments
         public GameObject AnimationPart;
         public float AnimationLength;
         public float ActionPoint;
-        public float RegenAmount;
         public float ActionAmount;
         public EquipmentType equipmentType;
         public PrefabReference InitPrefabRef;
