@@ -1,0 +1,72 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+
+namespace Site13Kernel.UI.Elements
+{
+    [Serializable]
+    [AddComponentMenu("UI/Site13/ToggleButton")]
+    public class ToggleButton : Button
+    {
+        [FormerlySerializedAs("AnimatedMark")]
+        [SerializeField]
+        public Animator AnimatedMark;
+        [FormerlySerializedAs("CheckedTrigger")]
+        [SerializeField]
+        public string CheckedTrigger;
+        [FormerlySerializedAs("UnCheckedTrigger")]
+        [SerializeField]
+        public string UnCheckedTrigger;
+        [FormerlySerializedAs("CheckedMouseOnTrigger")]
+        [SerializeField]
+        public string CheckedMouseOnTrigger;
+        [FormerlySerializedAs("UnCheckedMouseOnTrigger")]
+        [SerializeField]
+        public string UnCheckedMouseOnTrigger;
+        public UIEvent Checked;
+        public UIEvent Unchecked;
+        bool _isOn = false;
+        bool _isPointerIn = false;
+        [SerializeField]
+        public bool isOn
+        {
+            get => _isOn; set
+            {
+                _isOn = value;
+                ApplyState();
+                if (_isOn) Checked.Invoke();
+                else Unchecked.Invoke();
+            }
+        }
+        void ApplyState()
+        {
+            if (_isPointerIn)
+            {
+                AnimatedMark.SetTrigger(_isOn ? CheckedMouseOnTrigger : UnCheckedMouseOnTrigger);
+            }
+            else
+            AnimatedMark.SetTrigger(_isOn ? CheckedTrigger : UnCheckedTrigger);
+        }
+        ToggleButton()
+        {
+            onClick.AddListener(() =>
+            {
+                isOn = !_isOn;
+            });
+        }
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            base.OnPointerEnter(eventData);
+            AnimatedMark.SetTrigger(_isOn ? CheckedMouseOnTrigger : UnCheckedMouseOnTrigger);
+            _isPointerIn = true;
+        }
+        public override void OnPointerExit(PointerEventData eventData)
+        {
+            base.OnPointerExit(eventData);
+            AnimatedMark.SetTrigger(_isOn ? CheckedTrigger : UnCheckedTrigger);
+            _isPointerIn = false;
+        }
+    }
+}

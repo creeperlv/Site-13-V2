@@ -268,6 +268,16 @@ namespace Site13Kernel.Utilities
             return Original + (Target - Original) * DeltaTime;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float SmoothClose(float Original, float Target, float DeltaTime)
+        {
+            return Original + (Target - Original) * DeltaTime;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 SmoothClose(Vector2 Original, Vector2 Target, float DeltaTime)
+        {
+            return Original + (Target - Original) * DeltaTime;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool WithInRange(Vector3 L,Vector3 R, float MaxDistance)
         {
             return (L-R).magnitude < MaxDistance;
