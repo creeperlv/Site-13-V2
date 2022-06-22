@@ -2,13 +2,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 namespace Site13Kernel.UI.Elements
 {
+
     [Serializable]
     [AddComponentMenu("UI/Site13/ToggleButton")]
-    public class ToggleButton : Button
+    public class ToggleButton : TextButton
     {
         [FormerlySerializedAs("AnimatedMark")]
         [SerializeField]
@@ -28,6 +28,9 @@ namespace Site13Kernel.UI.Elements
         public UIEvent Checked;
         public UIEvent Unchecked;
         bool _isOn = false;
+        [FormerlySerializedAs("PreventUncheckOnClick")]
+        [SerializeField]
+        public bool PreventUncheckOnClick = false;
         bool _isPointerIn = false;
         [SerializeField]
         public bool isOn
@@ -49,10 +52,11 @@ namespace Site13Kernel.UI.Elements
             else
             AnimatedMark.SetTrigger(_isOn ? CheckedTrigger : UnCheckedTrigger);
         }
-        ToggleButton()
+        protected ToggleButton()
         {
             onClick.AddListener(() =>
             {
+                if (PreventUncheckOnClick && _isOn) return;
                 isOn = !_isOn;
             });
         }

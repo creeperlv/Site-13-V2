@@ -3,14 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEditor;
-using UnityEditor.UI;
 using UnityEngine.UI;
 
-namespace Site13Kernel.UnityEngine.Editor.UI
+namespace Site13Kernel.Editor.UI
 {
     [CustomEditor(typeof(ToggleButton), true)]
     [CanEditMultipleObjects]
-    public class ToggleButtonEditor: ButtonEditor
+    public class ToggleButtonEditor : TextButtonEditor
     {
 
         SerializedProperty AnimatedMark;
@@ -18,6 +17,7 @@ namespace Site13Kernel.UnityEngine.Editor.UI
         SerializedProperty CheckedMouseOnTrigger;
         SerializedProperty UnCheckedTrigger;
         SerializedProperty UnCheckedMouseOnTrigger;
+        SerializedProperty PreventUncheckOnClick;
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -26,6 +26,7 @@ namespace Site13Kernel.UnityEngine.Editor.UI
             UnCheckedTrigger = serializedObject.FindProperty("UnCheckedTrigger");
             CheckedMouseOnTrigger = serializedObject.FindProperty("CheckedMouseOnTrigger");
             UnCheckedMouseOnTrigger = serializedObject.FindProperty("UnCheckedMouseOnTrigger");
+            PreventUncheckOnClick = serializedObject.FindProperty("PreventUncheckOnClick");
         }
         public override void OnInspectorGUI()
         {
@@ -38,6 +39,7 @@ namespace Site13Kernel.UnityEngine.Editor.UI
             EditorGUILayout.PropertyField(CheckedMouseOnTrigger);
             EditorGUILayout.PropertyField(UnCheckedTrigger);
             EditorGUILayout.PropertyField(UnCheckedMouseOnTrigger);
+            EditorGUILayout.PropertyField(PreventUncheckOnClick);
             serializedObject.ApplyModifiedProperties();
         }
     }
