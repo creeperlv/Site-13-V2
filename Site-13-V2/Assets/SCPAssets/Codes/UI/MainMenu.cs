@@ -91,15 +91,15 @@ namespace Site13Kernel.UI
             }
             //if(false)
             {
-                SettingsPageTabs.Init();
-                SettingsPageTabs.OnSelected = (i) =>
-                {
-                    foreach (var item in SettingsPages)
-                    {
-                        item.SetActive(false);
-                    }
-                    SettingsPages[i].SetActive(true);
-                };
+                //SettingsPageTabs.Init();
+                //SettingsPageTabs.OnSelected = (i) =>
+                //{
+                //    foreach (var item in SettingsPages)
+                //    {
+                //        item.SetActive(false);
+                //    }
+                //    SettingsPages[i].SetActive(true);
+                //};
             }
             //if (false)
             {

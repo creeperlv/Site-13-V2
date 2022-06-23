@@ -128,6 +128,7 @@ namespace Site13Kernel.GameLogic
         }
         public void Win()
         {
+            GameRuntime.CurrentGlobals.isInLevel = false;
             try
             {
                 AIController.CurrentController.DestoryAllCharacters();
