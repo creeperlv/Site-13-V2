@@ -50,7 +50,7 @@ namespace Site13Kernel.UI.Elements
 
         public void RemoveChild(IVisualElement element)
         {
-
+            Children.Remove(element);
         }
 
         public void SetChildren(List<IVisualElement> ChildrenList)

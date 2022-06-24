@@ -18,6 +18,18 @@ namespace Site13Kernel.UI
         }
     }
     [Serializable]
+    public class UIEvent<T,U> : List<Action<T,U>>
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Invoke(T t,U u)
+        {
+            foreach (var item in this)
+            {
+                item(t,u);
+            }
+        }
+    }
+    [Serializable]
     public class UIEvent : List<Action>
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
