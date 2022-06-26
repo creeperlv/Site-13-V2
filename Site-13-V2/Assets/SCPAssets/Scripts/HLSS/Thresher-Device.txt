@@ -70,5 +70,43 @@
     "EventTriggerID": null,
     "TimeDelay": 7.66,
     "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "ANIME_001",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "PICKUP-AI-COMP",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.TogglePlayer, Site13Kernel",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "PICKUP-AI-COMP",
+    "TimeDelay": 0.01,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "TOGGLALBE-00",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "PICKUP-AI-COMP",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.TogglePlayer, Site13Kernel",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "PICKUP-AI-COMP",
+    "TimeDelay": 7.05,
+    "Repeatable": false
   }
 ]

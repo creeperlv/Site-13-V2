@@ -19,8 +19,9 @@ namespace Site13Kernel.GameLogic.Directors
             });
             Actions.Add(typeof(SpawnPlayerEvent), (e) =>
             {
-                if (e is SpawnPlayerEvent SPE) {
-                    var L=FromSerializableLocation(SPE.Location);
+                if (e is SpawnPlayerEvent SPE)
+                {
+                    var L = FromSerializableLocation(SPE.Location);
                     try
                     {
 
@@ -39,13 +40,22 @@ namespace Site13Kernel.GameLogic.Directors
                     }
                 }
             });
-            Actions.Add(typeof(ToggleObject), (e) => {
+            Actions.Add(typeof(ToggleObject), (e) =>
+            {
                 if (e is ToggleObject to)
                 {
                     __ReferencedObjects[to.ObjectID].gameObject.SetActive(to.TargetState);
                 }
             });
-            Actions.Add(typeof(ShowSubtitle), (e) => {
+            Actions.Add(typeof(TogglePlayer), (e) =>
+            {
+                if (e is TogglePlayer to)
+                {
+                    FPSController.Instance.gameObject.SetActive(to.TargetState);
+                }
+            });
+            Actions.Add(typeof(ShowSubtitle), (e) =>
+            {
                 if (e is ShowSubtitle ss)
                 {
                     Subtitle subtitle = new Subtitle();
@@ -54,8 +64,9 @@ namespace Site13Kernel.GameLogic.Directors
                     GameRuntime.CurrentGlobals.SubtitleController.ShowSubtitle(subtitle);
                 }
             });
-            Actions.Add(typeof(IssueMission), (e) => { 
-                if(e is IssueMission mission)
+            Actions.Add(typeof(IssueMission), (e) =>
+            {
+                if (e is IssueMission mission)
                 {
                     if (FPSController.Instance != null)
                     {
@@ -63,8 +74,9 @@ namespace Site13Kernel.GameLogic.Directors
                     }
                 }
             });
-            Actions.Add(typeof(GiveWeaponEvent), (e) => { 
-                if(e is GiveWeaponEvent GWE)
+            Actions.Add(typeof(GiveWeaponEvent), (e) =>
+            {
+                if (e is GiveWeaponEvent GWE)
                 {
                     if (FPSController.Instance != null)
                     {
