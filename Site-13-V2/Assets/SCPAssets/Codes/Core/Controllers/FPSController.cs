@@ -930,7 +930,7 @@ namespace Site13Kernel.Core.Controllers
         }
         public void PlayFootstep()
         {
-            if (Physics.Raycast(MainCam.transform.position, Vector3.down, out RaycastHit hit, 3f, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
+            if (Physics.Raycast(MainCam.transform.position, Vector3.down, out RaycastHit hit, 4, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
             {
                 var SM = hit.collider.GetComponent<StandMaterial>();
                 if (SM != null)
