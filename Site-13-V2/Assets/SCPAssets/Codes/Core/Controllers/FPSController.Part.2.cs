@@ -317,6 +317,7 @@ namespace Site13Kernel.Core.Controllers
                                 var P = G.GetComponentInChildren<Pickupable>();
                                 G.transform.position = Holder.transform.position;
                                 P.Weapon = Holder.Weapon0.Weapon.Base;
+                                P.NotifyWeaponAmmo();
                             }
                         }
                         GameObject.Destroy(Holder.Weapon0.gameObject);
@@ -346,6 +347,7 @@ namespace Site13Kernel.Core.Controllers
                                 var P = G.GetComponentInChildren<Pickupable>();
                                 G.transform.position = Holder.transform.position;
                                 P.Weapon = Holder.Weapon1.Weapon.Base;
+                                P.NotifyWeaponAmmo();
                             }
                         }
                         Destroy(Holder.Weapon1.gameObject);

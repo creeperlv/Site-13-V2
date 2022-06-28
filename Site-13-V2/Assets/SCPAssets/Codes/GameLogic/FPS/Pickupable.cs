@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using UnityEngine;
+using UnityEngine.UI;
+using static Site13Kernel.GameLogic.FPS.BasicWeapon;
 using Debug = Site13Kernel.Diagnostics.Debug;
 
 namespace Site13Kernel.GameLogic.FPS
@@ -25,6 +27,42 @@ namespace Site13Kernel.GameLogic.FPS
         public int EquipmentID;
         public GameObject ControlledEntity;
         public Action OnPickup = null;
+
+        public AmmoDisp AmmoDispType = AmmoDisp.None;
+        public List<Renderer> AmmoRenderers;
+        public List<Text> AmmoDispTexts;
+        public void NotifyWeaponAmmo()
+        {
+            switch (AmmoDispType)
+            {
+                case AmmoDisp.None:
+                    break;
+                case AmmoDisp.TwoDig:
+                    {
+                        AmmoRenderers[0].material.SetFloat("_DigitNum", Weapon.CurrentMagazine % 10);
+                        AmmoRenderers[1].material.SetFloat("_DigitNum", Mathf.FloorToInt(Weapon.CurrentMagazine / 10));
+                    }
+                    break;
+                case AmmoDisp.ThreeDig:
+                    {
+
+                        AmmoRenderers[0].material.SetFloat("_DigitNum", Weapon.CurrentMagazine % 10);
+                        AmmoRenderers[1].material.SetFloat("_DigitNum", Mathf.FloorToInt(Weapon.CurrentMagazine / 10) % 10);
+                        AmmoRenderers[2].material.SetFloat("_DigitNum", Mathf.FloorToInt(Weapon.CurrentMagazine / 100));
+                    }
+                    break;
+                case AmmoDisp.Liner:
+                    break;
+                case AmmoDisp.Text:
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void OnEnable()
+        {
+            NotifyWeaponAmmo();
+        }
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
             {

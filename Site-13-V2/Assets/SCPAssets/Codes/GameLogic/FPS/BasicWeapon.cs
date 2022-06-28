@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Site13Kernel.GameLogic.FPS
 {
@@ -89,6 +90,13 @@ namespace Site13Kernel.GameLogic.FPS
         public float CamShakeDecay = 5f;
         public float CamShakeSpeed = 50f;
         public float CameraShakeIntensity = 0.3f;
+        public AmmoDisp AmmoDispType = AmmoDisp.None;
+        public List<Renderer> AmmoRenderers;
+        public List<Text> AmmoDispTexts;
+        public enum AmmoDisp
+        {
+            None, TwoDig, ThreeDig, Liner, Text
+        }
         float CountDown = 0;
         float SemiCountDown = 0;
         int Mode = 0;
@@ -100,7 +108,38 @@ namespace Site13Kernel.GameLogic.FPS
         public Action OnHit;
 
         public GameObject ActualHolder = null;
+        private void OnEnable()
+        {
+            NotifyWeaponAmmo();
+        }
+        public void NotifyWeaponAmmo()
+        {
+            switch (AmmoDispType)
+            {
+                case AmmoDisp.None:
+                    break;
+                case AmmoDisp.TwoDig:
+                    {
+                        AmmoRenderers[0].material.SetFloat("_DigitNum", Base.CurrentMagazine%10);
+                        AmmoRenderers[1].material.SetFloat("_DigitNum", Mathf.FloorToInt(Base.CurrentMagazine/10));
+                    }
+                    break;
+                case AmmoDisp.ThreeDig:
+                    {
 
+                        AmmoRenderers[0].material.SetFloat("_DigitNum", Base.CurrentMagazine % 10);
+                        AmmoRenderers[1].material.SetFloat("_DigitNum", Mathf.FloorToInt(Base.CurrentMagazine / 10) % 10);
+                        AmmoRenderers[2].material.SetFloat("_DigitNum", Mathf.FloorToInt(Base.CurrentMagazine / 100));
+                    }
+                    break;
+                case AmmoDisp.Liner:
+                    break;
+                case AmmoDisp.Text:
+                    break;
+                default:
+                    break;
+            }
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetProcessor(GameObject Processor)
         {
@@ -303,6 +342,7 @@ namespace Site13Kernel.GameLogic.FPS
                         Base.CurrentMagazine = TOTAL;
                         Base.CurrentBackup = 0;
                     }
+                    NotifyWeaponAmmo();
                     WeaponMode = WeaponConstants.WEAPON_MODE_RELOAD_STAGE_1;
                 }
             }
@@ -416,6 +456,7 @@ namespace Site13Kernel.GameLogic.FPS
                     if (isHoldByPlayer)
                     {
                         this.Base.CurrentMagazine--;
+                        NotifyWeaponAmmo();
                         ActualHolder.GetComponentInChildren<CameraShakeEffect>().SetShake(1f, true, CamShakeDecay, true, CamShakeSpeed, CameraShakeIntensity, CameraShakeIntensity);
                     }
                     if (OnCurrentMagChanged != null)
@@ -442,7 +483,7 @@ namespace Site13Kernel.GameLogic.FPS
                             var RIG = GO.GetComponentInChildren<Rigidbody>();
                             if (RIG != null)
                             {
-                                RIG.AddForce(EjectionPoint.forward* EjectionForce, ForceMode.Impulse);
+                                RIG.AddForce(EjectionPoint.forward * EjectionForce, ForceMode.Impulse);
                             }
                         }
                     }

@@ -77,7 +77,13 @@ MonoBehaviour:
     WeaponFireType0: 0
     WeaponFireType1: 0
   GrenadeID: 0
+  EquipmentID: 0
   ControlledEntity: {fileID: 4773773276730049914}
+  AmmoDispType: 1
+  AmmoRenderers:
+  - {fileID: 6238280559503321786}
+  - {fileID: 1390498498248803874}
+  AmmoDispTexts: []
 --- !u!1 &4773773276730049914
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +211,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 170eb6e033c37124f903403c93cb6db6, type: 3}
+--- !u!23 &1390498498248803874 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5200833523419285328, guid: 170eb6e033c37124f903403c93cb6db6, type: 3}
+  m_PrefabInstance: {fileID: 6584572221753917810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6238280559503321786 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1005369867662502856, guid: 170eb6e033c37124f903403c93cb6db6, type: 3}
+  m_PrefabInstance: {fileID: 6584572221753917810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6964095758784950559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4306683406015688813, guid: 170eb6e033c37124f903403c93cb6db6, type: 3}
