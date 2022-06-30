@@ -80,6 +80,7 @@ namespace Site13Kernel.GameLogic.FPS
         public Transform EffectPoint;
         public Transform EjectionPoint;
         public Transform CurrentEffectPoint;
+        public int BulletHitEffect = 1;
         public float EjectionForce = 1;
         public PrefabReference EjectionPrefab;
         public bool isHoldByPlayer = false;
@@ -520,12 +521,17 @@ namespace Site13Kernel.GameLogic.FPS
                                 Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
                                 if (Hittable != null)
                                 {
-                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform, true);
+                                    var f=GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform, true);
+                                    f.transform.localScale = new Vector3(1/ f.transform.lossyScale.x,1/ f.transform.lossyScale.y,1/ f.transform.lossyScale.z);
                                 }
                                 else
                                 {
-                                    GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(1, info.point, quaternion, Vector3.one, info.collider.transform, true);
-
+                                }
+                                if (BulletHitEffect != -1)
+                                {
+                                    var f=GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(BulletHitEffect, info.point, quaternion, Vector3.one);
+                                    f.transform.parent = info.collider.transform;
+                                    //f.transform.localScale = new Vector3(1f / f.transform.lossyScale.x, 1f / f.transform.lossyScale.y, 1f / f.transform.lossyScale.z);
                                 }
                                 var Entity = info.collider.GetComponent<DamagableEntity>();
                                 var WeakPoint = info.collider.GetComponent<WeakPoint>();

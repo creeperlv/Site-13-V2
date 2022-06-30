@@ -73,14 +73,16 @@ MonoBehaviour:
     MagazineCapacity: 36
     CurrentBackup: 108
     CurrentMagazine: 36
-    PhysicsForce: 2
+    PhysicsForce: 5
     WeaponFireType0: 1
     WeaponFireType1: 1
   GrenadeID: 0
   EquipmentID: 0
   ControlledEntity: {fileID: 4773773276730049914}
   AmmoDispType: 1
-  AmmoRenderers: []
+  AmmoRenderers:
+  - {fileID: 2462897534619411359}
+  - {fileID: 4094013682882679901}
   AmmoDispTexts: []
 --- !u!1 &4773773276730049914
 GameObject:
@@ -115,7 +117,7 @@ Transform:
   - {fileID: 7478250323026358342}
   - {fileID: 7368420142912472989}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2392142632884817026
 Rigidbody:
@@ -154,6 +156,30 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2262842850051898463}
     m_Modifications:
+    - target: {fileID: 1081853453436523479, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081853453436523479, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081853453436523479, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.45000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707577259143287887, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707577259143287887, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707577259143287887, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.45000002
+      objectReference: {fileID: 0}
     - target: {fileID: 6155580033269253722, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
       propertyPath: m_Name
       value: Foundation-Standard-Marksman-Rifle
@@ -205,6 +231,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+--- !u!23 &2462897534619411359 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1225287217963672167, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+  m_PrefabInstance: {fileID: 3687569007950545400}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4094013682882679901 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 863630895552026021, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
+  m_PrefabInstance: {fileID: 3687569007950545400}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7368420142912472989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6155580033269253733, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
