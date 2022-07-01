@@ -844,6 +844,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
+    gravitySource: 0
     maxNumParticles: 1000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
@@ -4237,6 +4238,7 @@ ParticleSystem:
         m_RotationOrder: 4
     minVertexDistance: 0.2
     textureMode: 0
+    textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
     worldSpace: 0
@@ -5145,10 +5147,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseGrenade:
     GrenadeHashCode: 0
-    EffectHashCode: 6
+    EffectHashCode: 7
     Explosion:
       Radius: 5
       Power: 15
+      ShakePower: 0
       CentralDamage: 250
     DetonationDuration: 3
   Rigidbody: {fileID: 1611655273683878862}
@@ -5178,6 +5181,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 1495309494962684627}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4aca71a714e3b164bb4b9208aabd6991, type: 3}
@@ -5229,6 +5233,10 @@ PrefabInstance:
       value: Type-1-Plasma-Grenade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4aca71a714e3b164bb4b9208aabd6991, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3449188083874950716}
   m_SourcePrefab: {fileID: 100100000, guid: 4aca71a714e3b164bb4b9208aabd6991, type: 3}
 --- !u!4 &8842282530698298021 stripped
 Transform:

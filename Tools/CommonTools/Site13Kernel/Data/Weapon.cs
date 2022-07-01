@@ -13,6 +13,10 @@ namespace Site13Kernel.Data
         public float CurrentBackup;
         public float CurrentMagazine;
         public float PhysicsForce;
+        public float MaxHeat=1;
+        public float CurrentHeat;
+        public float HeatPerShot;
+        public float Cooldown;
         public WeaponFireType WeaponFireType0;
         public WeaponFireType WeaponFireType1;// For 2-mode weapons.
         public Weapon Duplicate()

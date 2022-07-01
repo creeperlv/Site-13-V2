@@ -7,5 +7,6 @@
         public const byte WEAPON_MODE_RELOAD_STAGE_0 = 2;
         public const byte WEAPON_MODE_RELOAD_STAGE_1 = 3;
         public const byte WEAPON_MODE_MELEE = 4;
+        public const byte WEAPON_MODE_OVERHEAT = 5;
     }
 }

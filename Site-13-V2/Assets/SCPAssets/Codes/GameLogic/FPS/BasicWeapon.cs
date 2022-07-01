@@ -39,6 +39,10 @@ namespace Site13Kernel.GameLogic.FPS
         public int Combat_HashCode = 2;
         public string ReloadTrigger = "Reload";
         public int Reload_HashCode = 3;
+        public string OverheatTrigger = "Overheat";
+        public int Overheat_HashCode = 6;
+        public float Overheat_Length = 3;
+        public float Overheat_D;
         public float ReloadP0;
         public float ReloadP1;
         public float ReloadCountDown;
@@ -121,8 +125,8 @@ namespace Site13Kernel.GameLogic.FPS
                     break;
                 case AmmoDisp.TwoDig:
                     {
-                        AmmoRenderers[0].material.SetFloat("_DigitNum", Base.CurrentMagazine%10);
-                        AmmoRenderers[1].material.SetFloat("_DigitNum", Mathf.FloorToInt(Base.CurrentMagazine/10));
+                        AmmoRenderers[0].material.SetFloat("_DigitNum", Base.CurrentMagazine % 10);
+                        AmmoRenderers[1].material.SetFloat("_DigitNum", Mathf.FloorToInt(Base.CurrentMagazine / 10));
                     }
                     break;
                 case AmmoDisp.ThreeDig:
@@ -394,6 +398,22 @@ namespace Site13Kernel.GameLogic.FPS
                     WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
                 }
             }
+            else if (WeaponMode == WeaponConstants.WEAPON_MODE_OVERHEAT)
+            {
+                Overheat_D += DeltaT;
+                Base.CurrentHeat -= (Base.MaxHeat / Overheat_Length) * DeltaT;
+                if (Overheat_D > Overheat_Length)
+                {
+                    Overheat_D = 0;
+                    Base.CurrentHeat = 0;
+                    WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
+                }
+            }
+            if (WeaponMode != WeaponConstants.WEAPON_MODE_OVERHEAT)
+            {
+                if(Base.CurrentHeat>0)
+                    Base.CurrentHeat -= Base.Cooldown * DeltaT;
+            }
         }
         bool Played = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -450,10 +470,11 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SingleFire()
         {
-            if (Base.CurrentMagazine > 0 || isHoldByPlayer == false)
+            if ((Base.CurrentMagazine > 0 && Base.CurrentHeat < Base.MaxHeat) || isHoldByPlayer == false)
             {
                 if (FireType == WeaponFireType.FullAuto || FireType == WeaponFireType.SemiAuto)
                 {
+
                     if (isHoldByPlayer)
                     {
                         this.Base.CurrentMagazine--;
@@ -471,6 +492,14 @@ namespace Site13Kernel.GameLogic.FPS
 
                     if (CCAnimator != null)
                         CCAnimator.SetAnimation(Fire_HashCode);
+                    Base.CurrentHeat += Base.HeatPerShot;
+                    if (Base.CurrentHeat > Base.MaxHeat)
+                    {
+                        WeaponMode = WeaponConstants.WEAPON_MODE_OVERHEAT;
+
+                        if (CCAnimator != null)
+                            CCAnimator.SetAnimation(Overheat_HashCode);
+                    }
                     {
                         Vector3 V = Rotation.eulerAngles;
                         V += RecoilAngle;
@@ -521,15 +550,15 @@ namespace Site13Kernel.GameLogic.FPS
                                 Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
                                 if (Hittable != null)
                                 {
-                                    var f=GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform, true);
-                                    f.transform.localScale = new Vector3(1/ f.transform.lossyScale.x,1/ f.transform.lossyScale.y,1/ f.transform.lossyScale.z);
+                                    var f = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform, true);
+                                    f.transform.localScale = new Vector3(1 / f.transform.lossyScale.x, 1 / f.transform.lossyScale.y, 1 / f.transform.lossyScale.z);
                                 }
                                 else
                                 {
                                 }
                                 if (BulletHitEffect != -1)
                                 {
-                                    var f=GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(BulletHitEffect, info.point, quaternion, Vector3.one);
+                                    var f = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(BulletHitEffect, info.point, quaternion, Vector3.one);
                                     f.transform.parent = info.collider.transform;
                                     //f.transform.localScale = new Vector3(1f / f.transform.lossyScale.x, 1f / f.transform.lossyScale.y, 1f / f.transform.lossyScale.z);
                                 }

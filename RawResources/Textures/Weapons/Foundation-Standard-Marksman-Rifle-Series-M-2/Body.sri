@@ -1,8 +1,8 @@
 <ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
 	<Define Name="NOR" Value="False"/>
 	<Define Name="MAIN" Value="True"/>
-	<Define Name="EMI" Value="True"/>
-	<Define Name="MTL" Value="True"/>
+	<Define Name="EMI" Value="False"/>
+	<Define Name="MTL" Value="False"/>
 	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="White">
 		<Group Visible="NOR">
 			<Triangle Point1="0.22,0.085" Point2="0.23,0.085" Point3="0.22,0.075" Size="0" Fill="True" Color="#000000"/>
@@ -20,13 +20,19 @@
 			<Triangle Point1="0.54,0.085" Point2="0.55,0.085" Point3="0.55,0.075" Size="0" Fill="True" Color="#000000"/>
 			<Rectangle X="0.03" Y="0.075" Width="0.08" Height="0.01" Size="0" Fill="True" Color="#000000" />
 			<Rectangle X="0.17" Y="0.075" Width="0.04" Height="0.011" Size="0" Fill="True" Color="#000000" />
-			<Line StartX="0.115" StartY="0.07" EndX="0.16" EndY="0.07" Size="0.0015" Color="#000000"/>
-			<Line StartX="0.115" StartY="0.075" EndX="0.16" EndY="0.075" Size="0.0015" Color="#000000"/>
-			<Line StartX="0.115" StartY="0.08" EndX="0.16" EndY="0.08" Size="0.0015" Color="#000000"/>
-			<Line StartX="0.115" StartY="0.085" EndX="0.16" EndY="0.085" Size="0.0015" Color="#000000"/>
-			<Line StartX="0.115" StartY="0.09" EndX="0.16" EndY="0.09" Size="0.0015" Color="#000000"/>
-			<Dot X="0.5" Y="0.175" Size="0.0075" Color="Black"/>
-			<Dot X="0.54" Y="0.175" Size="0.0075" Color="Black"/>
+			<Line StartX="0.115" StartY="0.07" EndX="0.16" EndY="0.07" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.0725" EndX="0.16" EndY="0.0725" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.075" EndX="0.16" EndY="0.075" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.0775" EndX="0.16" EndY="0.0775" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.08" EndX="0.16" EndY="0.08" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.0825" EndX="0.16" EndY="0.0825" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.085" EndX="0.16" EndY="0.085" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.0875" EndX="0.16" EndY="0.0875" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.09" EndX="0.16" EndY="0.09" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.0925" EndX="0.16" EndY="0.0925" Size="0.001" Color="#000000"/>
+			<Line StartX="0.115" StartY="0.095" EndX="0.16" EndY="0.095" Size="0.001" Color="#000000"/>
+			<Dot X="0.5" Y="0.1775" Size="0.0075" Color="Black"/>
+			<Dot X="0.54" Y="0.1775" Size="0.0075" Color="Black"/>
 			<Dot X="0.0375" Y="0.12" Size="0.0075" Color="Black"/>
 			<Dot X="0.2" Y="0.12" Size="0.0075" Color="Black"/>
 			<Dot X="0.1075" Y="0.092" Size="0.005" Color="#333333"/>
@@ -37,17 +43,24 @@
 			<Dot X="0.41" Y="0.529" Size="0.003" Color="#333333"/>
 			<Line StartX="0.265" StartY="0.3625" EndX="0.3" EndY="0.3625" Size="0.0025" Color="#000000" />
 			<Dot X="0.31" Y="0.3625" Size="0.005" Color="#000000"/>
+			<Path Size="0" Fill="True" Color="Black">
+				<PathNode X="0.415" Y="0.1" Type="Line" />
+				<PathNode X="0.555" Y="0.1" Type="Line" />
+				<PathNode X="0.548" Y="0.17" Type="Line" />
+				<PathNode X="0.48" Y="0.17" Type="Line" />
+			</Path>
 		</Group>
 		<Group Visible="MAIN">
-			<PixImg X="0" Y="0" Width="1" Height="1" Source="../../RefTextures/Metal027_4K_Color.png" />
+			<!--<PixImg X="0" Y="0" Width="1" Height="1" Source="../../RefTextures/Metal027_4K_Color.png" />-->
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#80000000"/>
 			<Text Content="⚡" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".01"
 				X="0.09" Y="0.04" Width="0.1" Height="0.1" Align="Near" VerticalAlign="Near" Color="#F0A010"/>
 			<Rectangle X="0.38" Y="0.49" Width="0.019" Height="0.01" Size="0.0002" Fill="False"  Color="#F0A010"/>
 			<Rectangle X="0.38" Y="0.495" Width="0.019" Height="0.005" Size="0.0002" Fill="True"  Color="#F0A010"/>
-			<Text Content="ON BROAD COMPUTER" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".0025"
-				X="0.38" Y="0.49" Width="0.0275" Height="0.0" Align="Near" VerticalAlign="Near" Color="#F0A010"/>
-			<Text Content="         COMPUTER" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".0025"
-				X="0.38" Y="0.49" Width="0.0275" Height="0.0" Align="Near" VerticalAlign="Near" Color="Black"/>
+			<Text Content="COMPUTER" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".0022"
+				X="0.38" Y="0.491" Width="0.019" Height="0.0" Align="Center" VerticalAlign="Near" Color="#F0A010"/>
+			<Text Content="WI800E" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".0025"
+				X="0.38" Y="0.495" Width="0.019" Height="0.0" Align="Center" VerticalAlign="Near" Color="Black"/>
 			<Rectangle X="0.12" Y="0.045" Width="0.019" Height="0.005" Size="0.0002" Fill="False"  Color="#F0A010"/>
 			<Rectangle X="0.131" Y="0.045" Width="0.01" Height="0.005" Size="0.0002" Fill="False"  Color="#F0A010"/>
 			<Rectangle X="0.131" Y="0.045" Width="0.01" Height="0.005" Size="0.0002" Fill="True"  Color="#F0A010"/>
@@ -58,22 +71,32 @@
 			<Triangle Point1="0.325,0.061" Point2="0.33,0.061" Point3="0.3275,0.059" Size="0" Fill="True" Color="#FF0000"/>
 			<Triangle Point1="0.3325,0.061" Point2="0.3375,0.061" Point3="0.335,0.059" Size="0" Fill="True" Color="#FF0000"/>
 			<Triangle Point1="0.34,0.061" Point2="0.345,0.061" Point3="0.3425,0.059" Size="0" Fill="True" Color="#FF0000"/>
-			<Rectangle X="0.11325" Y=".0687" Width="0.05" Height="0.0275" Size="0" Fill="True" Color="#CCCCCC"/>
+			<Rectangle X="0.11325" Y=".0687" Width="0.05" Height="0.0275" Size="0" Fill="True" Color="#FFFFFF"/>
 			<Rectangle X="0.41" Y=".35" Width="0.13" Height="0.09" Size="0" Fill="True" Color="#000000"/>
-			<Dot X="0.1075" Y="0.092" Size="0.005" Color="#333333"/>
-			<Dot X="0.1075" Y="0.07" Size="0.005" Color="#333333"/>
-			<Dot X="0.1675" Y="0.092" Size="0.005" Color="#333333"/>
-			<Dot X="0.1675" Y="0.07" Size="0.005" Color="#333333"/>
+			<Dot X="0.1075" Y="0.092" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.1075" Y="0.07" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.1675" Y="0.092" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.1675" Y="0.07" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.5" Y="0.1775" Size="0.0075" Color="White"/>
+			<Dot X="0.54" Y="0.1775" Size="0.0075" Color="White"/>
+			<Dot X="0.0375" Y="0.12" Size="0.0075" Color="White"/>
+			<Dot X="0.2" Y="0.12" Size="0.0075" Color="White"/>
+			<Dot X="0.1075" Y="0.092" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.1075" Y="0.07" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.1675" Y="0.092" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.1675" Y="0.07" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.375" Y="0.529" Size="0.003" Color="#FFFFFF"/>
+			<Dot X="0.41" Y="0.529" Size="0.003" Color="#FFFFFF"/>
 			<Line StartX="0.265" StartY="0.3625" EndX="0.3" EndY="0.3625" Size="0.0025" Color="#000000" />
 			<Dot X="0.31" Y="0.3625" Size="0.005" Color="#000000"/>
 		</Group>
 		<Group Visible="EMI">
-			<Rectangle X="0.41" Y=".35" Width="0.13" Height="0.09" Size="0" Fill="True" Color="#010720"/>
+			<Rectangle X="0.41" Y=".35" Width="0.13" Height="0.09" Size="0" Fill="True" Color="#010725"/>
 			<Line StartX="0.265" StartY="0.3625" EndX="0.3" EndY="0.3625" Size="0.0025" Color="#2288EE" />
 			<Dot X="0.31" Y="0.3625" Size="0.005" Color="#2288EE"/>
 		</Group>
 		<Group Visible="MTL">
-			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#404040"/>
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#808080"/>
 			<Rectangle X="0.11325" Y=".0687" Width="0.05" Height="0.0275" Size="0" Fill="True" Color="#CCCCCC"/>
 			<Rectangle X="0.41" Y=".35" Width="0.13" Height="0.09" Size="0" Fill="True" Color="#C0C0C0"/>
 			<Line StartX="0.265" StartY="0.3625" EndX="0.3" EndY="0.3625" Size="0.0025" Color="#2288EE" />

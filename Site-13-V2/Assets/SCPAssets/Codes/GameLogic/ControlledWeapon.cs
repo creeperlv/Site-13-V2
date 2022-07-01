@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Site13Kernel.GameLogic
 {
@@ -30,6 +31,7 @@ namespace Site13Kernel.GameLogic
         public Renderer FPSRenderer;
         public AudioSource ZoomInEffect = null;
         public AudioSource ZoomOutEffect = null;
+        public Image HeatBar = null;
         public byte ZoomInEffectState = 0;
         public byte ZoomOutEffectState = 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -117,6 +119,10 @@ namespace Site13Kernel.GameLogic
                     {
                         Weapon.Recoil = 0;
                     }
+                }
+                if (HeatBar != null)
+                {
+                    HeatBar.fillAmount = Weapon.Base.CurrentHeat / Weapon.Base.MaxHeat;
                 }
                 //a = false;
             }
