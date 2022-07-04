@@ -78,19 +78,20 @@ namespace Site13Kernel.Core
             CurrentHP = InitHP;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual void Damage(float V)
+        public virtual bool Damage(float V)
         {
             if (HitSound != null)
                 HitSound.Play();
-            if (isInvincible) return;
+            if (isInvincible) return false;
             CurrentHP = math.max(0, CurrentHP - V);
             if (CurrentHP <= 0)
             {
                 Die();
-                return;
+                return true;
             }
             if (OnTakingDamage != null)
                 OnTakingDamage(V, 0, V, 0, CurrentHP);
+            return false;
         }
 
         /// <summary>

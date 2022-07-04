@@ -60,17 +60,61 @@ namespace Site13Kernel.GameLogic.FPS
                 EffectController.CurrentEffectController.Spawn(1, collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
 
             }
+            Person EmitterPerson = null;
+            Person HitedPerson = null;
+            if (Emitter != null)
+            {
+                EmitterPerson = Emitter.GetComponentInChildren<Person>();
+            }
             var Entity = collision.gameObject.GetComponent<DamagableEntity>();
             var WeakPoint = collision.gameObject.GetComponent<WeakPoint>();
             if (WeakPoint != null)
             {
+                HitedPerson = WeakPoint.AttachedBioEntity.GetComponentInChildren<Person>();
                 TrySpawnHitEffect();
-                WeakPoint.AttachedBioEntity.Damage(WeakPointDamage);
+                if (EmitterPerson != null)
+                {
+                    EmitterPerson.OnHitOther.Invoke();
+                }
+                if (HitedPerson != null)
+                {
+                    HitedPerson.OnHitByOther.Invoke();
+                }
+                if (WeakPoint.AttachedBioEntity.Damage(WeakPointDamage))
+                {
+                    if (EmitterPerson != null)
+                    {
+                        EmitterPerson.OnKillOther.Invoke();
+                    }
+                    if (HitedPerson != null)
+                    {
+                        HitedPerson.OnDie.Invoke();
+                    }
+                }
             }
             else if (Entity != null)
             {
+                HitedPerson = collision.gameObject.GetComponentInChildren<Person>();
                 TrySpawnHitEffect();
-                Entity.Damage(BaseDamage);
+                if (EmitterPerson != null)
+                {
+                    EmitterPerson.OnHitOther.Invoke();
+                }
+                if (HitedPerson != null)
+                {
+                    HitedPerson.OnHitByOther.Invoke();
+                }
+                if (Entity.Damage(BaseDamage))
+                {
+                    if (EmitterPerson != null)
+                    {
+                        EmitterPerson.OnKillOther.Invoke();
+                    }
+                    if (HitedPerson != null)
+                    {
+                        HitedPerson.OnDie.Invoke();
+                    }
+                }
             }
 
             ParentSystem.DestoryBullet(this);

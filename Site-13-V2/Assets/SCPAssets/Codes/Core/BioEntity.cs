@@ -143,7 +143,7 @@ namespace Site13Kernel.Core
             CurrentShield = math.min(CurrentShield + V, MaxShield);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override void Damage(float V)
+        public override bool Damage(float V)
         {
             var V2 = math.max(0, V - CurrentShield);
             if (CurrentShield != 0)
@@ -153,16 +153,18 @@ namespace Site13Kernel.Core
                     if (OnShieldDown != null)
                         OnShieldDown();
             }
-            CurrentHP = math.max(0, CurrentHP - V2);
+            if (!isInvincible)
+                CurrentHP = math.max(0, CurrentHP - V2);
             if (CurrentHP <= 0)
             {
                 Die();
-                return;
+                return true;
             }
             ShieldRecoverCountDown = ShieldRecoverDelay;
             HPRecoverCountDown = HPRecoverDelay;
             if (OnTakingDamage != null)
                 OnTakingDamage(V, V - V2, V2, CurrentShield, CurrentHP);
+            return false;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
