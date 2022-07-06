@@ -65,6 +65,62 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
+--- !u!1 &5228014945818116210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7286407507757249225}
+  - component: {fileID: 5848835875092912378}
+  m_Layer: 0
+  m_Name: Audio Reverb Zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7286407507757249225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5228014945818116210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3527734306992138837}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!167 &5848835875092912378
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5228014945818116210}
+  m_Enabled: 1
+  m_MinDistance: 5
+  m_MaxDistance: 7
+  m_ReverbPreset: 6
+  m_Room: -1000
+  m_RoomHF: -300
+  m_DecayTime: 2.31
+  m_DecayHFRatio: 0.64
+  m_Reflections: -711
+  m_ReflectionsDelay: 0.012
+  m_Reverb: 83
+  m_ReverbDelay: 0.017
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1 &8510002050519888263
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,6 +154,7 @@ Transform:
   - {fileID: 7107117677567276642}
   - {fileID: 264499990164175574}
   - {fileID: 6749022013378325037}
+  - {fileID: 7286407507757249225}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -112,6 +169,22 @@ PrefabInstance:
     - target: {fileID: 512043780753136899, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 802639479061897073, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
+      propertyPath: m_Range
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 802639479061897073, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 802639479061897073, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8292183
+      objectReference: {fileID: 0}
+    - target: {fileID: 802639479061897073, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.45660377
       objectReference: {fileID: 0}
     - target: {fileID: 1611265104515934705, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
       propertyPath: m_Name
@@ -256,6 +329,22 @@ PrefabInstance:
     - target: {fileID: 512043780753136899, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 802639479061897073, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
+      propertyPath: m_Range
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 802639479061897073, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 802639479061897073, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8292183
+      objectReference: {fileID: 0}
+    - target: {fileID: 802639479061897073, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.45660377
       objectReference: {fileID: 0}
     - target: {fileID: 1611265104515934705, guid: e0d8e08245bcd814d96ac01ef5e9ade2, type: 3}
       propertyPath: m_Name

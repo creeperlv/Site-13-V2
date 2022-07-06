@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 1761971565265330243}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7405581021101732728
 GameObject:
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 1761971565265330243}
   - component: {fileID: 3505182123643934985}
   - component: {fileID: 108458785902411165}
+  - component: {fileID: 529587168330311826}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -115,3 +116,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &529587168330311826
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7405581021101732728}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: 01e5c8a0b5caabb4cb4071dca83d35cc, type: 3}
