@@ -27,7 +27,7 @@ namespace Site13Kernel.GameLogic.FPS
         public int EquipmentID;
         public GameObject ControlledEntity;
         public Action OnPickup = null;
-
+        public bool AmmoSupplyOnly = false;
         public AmmoDisp AmmoDispType = AmmoDisp.None;
         public List<Renderer> AmmoRenderers;
         public List<Text> AmmoDispTexts;
@@ -65,6 +65,7 @@ namespace Site13Kernel.GameLogic.FPS
         }
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
+            if (AmmoSupplyOnly) return;
             {
                 var Holder = Operator.GetComponent<BagHolder>();
                 if (Holder != null)
@@ -224,41 +225,18 @@ namespace Site13Kernel.GameLogic.FPS
             else if (ItemType == PickupItem.Grenade)
             {
                 Debugger.CurrentDebugger.Log("Giving Grenade...");
-                bool isMatched = false;
-                if (holder.Grenade0.GrenadeHashCode != -1)
+                if (holder.Grenades.TryGetValue(GrenadeID, out var pg))
                 {
-                    Debugger.CurrentDebugger.Log("Giving Grenade...Position 0");
-                    isMatched = __ObtainRemaining(holder.Grenade0);
+                    __ObtainRemaining(pg);
                 }
-
-                if (isMatched == false && holder.Grenade1.GrenadeHashCode != -1)
+                else
                 {
-                    Debugger.CurrentDebugger.Log("Giving Grenade...Position 1");
-                    isMatched = __ObtainRemaining(holder.Grenade1);
-                }
-                if (isMatched == false)
-                {
-                    if (holder.Grenade0.GrenadeHashCode == -1)
+                    holder.Grenades.Add(GrenadeID, new ProcessedGrenade()
                     {
-                        holder.Grenade0 = new ProcessedGrenade
-                        {
-                            GrenadeHashCode = GrenadeID,
-                            MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
-                            RemainingCount = 1
-                        };
-                        Destroy(ControlledEntity);
-                    }
-                    else
-                    if (holder.Grenade1.GrenadeHashCode == -1)
-                    {
-                        holder.Grenade1 = new ProcessedGrenade
-                        {
-                            GrenadeHashCode = GrenadeID,
-                            MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
-                            RemainingCount = 1
-                        };
-                        Destroy(ControlledEntity);
-                    }
+                        GrenadeHashCode = GrenadeID,
+                        MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
+                        RemainingCount = 1
+                    });
                 }
             }
             else if (ItemType == PickupItem.Equipment)
@@ -290,7 +268,7 @@ namespace Site13Kernel.GameLogic.FPS
         internal bool __ObtainRemaining(ProcessedGrenade PG)
         {
 
-            if (PG.GrenadeHashCode == this.GrenadeID)
+            PG.GrenadeHashCode = this.GrenadeID;
             {
                 if (PG.MaxCount > PG.RemainingCount)
                 {

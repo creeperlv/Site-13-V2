@@ -122,7 +122,8 @@ namespace Site13Kernel.Core.Controllers
 
         public WeaponHUD W_HUD0;
         public WeaponHUD W_HUD1;
-
+        public KVList<int, GrenadeHUD> GrenadeHUD;
+        public Dictionary<int, GrenadeHUD> __GrenadeHUD;
         public GrenadeHUD G_HUD0;
         public GrenadeHUD G_HUD1;
 
@@ -160,6 +161,8 @@ namespace Site13Kernel.Core.Controllers
         public Transform ZoomEffectPoint;
         [Header("Grenades")]
         public Animator GrenadeThrower;
+        public int SelectedGrenade;
+        public int LastSelectedGrenade = -1;
         public List<HoldGrenade> Grenades;
         public Transform Grenade_ThrowOutPoint;
         public float GrenadeThrowForce;
@@ -190,6 +193,9 @@ namespace Site13Kernel.Core.Controllers
 
             Instance = this;
             __equipments = Equipments.ObtainMap();
+            __GrenadeHUD = GrenadeHUD.ObtainMap();
+            BagHolder.Equipments = BagHolder.PreDefinedEquipments.ObtainMap();
+            BagHolder.Grenades= BagHolder.PreDefinedProcessedGrenade.ObtainMap();
             CurrentEntity.OnShieldDown = () =>
             {
                 foreach (var item in ShieldDownObject)

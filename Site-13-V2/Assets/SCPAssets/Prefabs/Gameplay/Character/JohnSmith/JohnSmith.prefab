@@ -4704,6 +4704,12 @@ MonoBehaviour:
   - {fileID: 8060735987647401918}
   W_HUD0: {fileID: 8060735986861169712}
   W_HUD1: {fileID: 8060735986519635048}
+  GrenadeHUD:
+    PrefabDefinitions:
+    - Key: 0
+      Value: {fileID: 4479063954676786697}
+    - Key: 1
+      Value: {fileID: 8242302680643934883}
   G_HUD0: {fileID: 4479063954676786697}
   G_HUD1: {fileID: 8242302680643934883}
   W_HUD_PrimaryPosition: {x: -50, y: 50}
@@ -4727,6 +4733,8 @@ MonoBehaviour:
   FirePoint: {fileID: 8060735988109971851}
   ZoomEffectPoint: {fileID: 8060735988023397493}
   GrenadeThrower: {fileID: 8060735987246635514}
+  SelectedGrenade: 0
+  LastSelectedGrenade: -1
   Grenades:
   - HashCode: 0
     GrenadeMode: {fileID: 8406013539779976951}
@@ -4777,6 +4785,18 @@ MonoBehaviour:
   Weapon0: {fileID: 0}
   Weapon1: {fileID: 0}
   CurrentWeapon: 0
+  PreDefinedProcessedGrenade:
+    PrefabDefinitions:
+    - Key: 0
+      Value:
+        GrenadeHashCode: -1
+        RemainingCount: 0
+        MaxCount: 4
+    - Key: 1
+      Value:
+        GrenadeHashCode: -1
+        RemainingCount: 0
+        MaxCount: 4
   Grenade0:
     GrenadeHashCode: -1
     RemainingCount: 0

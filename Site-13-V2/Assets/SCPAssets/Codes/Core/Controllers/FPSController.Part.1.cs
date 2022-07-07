@@ -266,7 +266,7 @@ namespace Site13Kernel.Core.Controllers
                                     return;
                                 }
                             }
-                            ProcessedGrenade PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
+                            ProcessedGrenade PG = BagHolder.Grenades[SelectedGrenade];// == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
                             if (PG.GrenadeHashCode != -1)
                             {
                                 if (PG.RemainingCount > 0)
@@ -293,7 +293,18 @@ namespace Site13Kernel.Core.Controllers
             }
             if (InputProcessor.GetInputDown("SwitchGrenade"))
             {
-                BagHolder.CurrentGrenade = (BagHolder.CurrentGrenade == 0 ? 1 : 0);
+                var K = BagHolder.Grenades.Keys.ToList();
+                var i = K.IndexOf(SelectedGrenade);
+                if (i + 1 < K.Count)
+                {
+                    SelectedGrenade = K[i + 1];
+                }
+                else
+                {
+                    SelectedGrenade = K[0];
+                }
+                BagHolder.CurrentGrenade = SelectedGrenade;
+                //BagHolder.CurrentGrenade = (BagHolder.CurrentGrenade == 0 ? 1 : 0);
             }
             if (Grenade_Throwing)
             {
@@ -303,7 +314,7 @@ namespace Site13Kernel.Core.Controllers
                 {
                     if (Grenade_Throwed == false)
                     {
-                        ProcessedGrenade PG = BagHolder.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
+                        ProcessedGrenade PG = BagHolder.Grenades[SelectedGrenade];//.CurrentGrenade == 0 ? BagHolder.Grenade0 : BagHolder.Grenade1;
                         if (PG.GrenadeHashCode != -1)
                         {
                             if (PG.RemainingCount > 0)

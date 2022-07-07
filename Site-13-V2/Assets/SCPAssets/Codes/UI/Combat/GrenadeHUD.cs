@@ -22,16 +22,10 @@ namespace Site13Kernel.UI.Combat
         {
             if (holder != null)
             {
-                if (MonitoringPosition == 0)
+                if (holder.Grenades.TryGetValue(MonitoringPosition, out var g))
                 {
-                    ApplyGrenade(holder.Grenade0);
+                    ApplyGrenade(g);
                 }
-                else
-                if (MonitoringPosition == 1)
-                {
-                    ApplyGrenade(holder.Grenade1);
-                }
-
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -61,7 +55,8 @@ namespace Site13Kernel.UI.Combat
             if (holder.CurrentGrenade == MonitoringPosition)
             {
                 if (!SelectionBorder.activeSelf) SelectionBorder.SetActive(true);
-            }else
+            }
+            else
                 if (SelectionBorder.activeSelf) SelectionBorder.SetActive(false);
             NumberDisp.text = GEN.RemainingCount.ToString();
         }

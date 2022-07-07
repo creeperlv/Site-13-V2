@@ -13,6 +13,8 @@ namespace Site13Kernel.GameLogic.FPS
         public ControlledWeapon Weapon0 = null;
         public ControlledWeapon Weapon1 = null;
         public int CurrentWeapon;
+        public KVList<int, ProcessedGrenade> PreDefinedProcessedGrenade = new KVList<int, ProcessedGrenade>();
+        public Dictionary<int, ProcessedGrenade> Grenades = new Dictionary<int, ProcessedGrenade>();
         public ProcessedGrenade Grenade0;
         public ProcessedGrenade Grenade1;
         public int CurrentGrenade;
