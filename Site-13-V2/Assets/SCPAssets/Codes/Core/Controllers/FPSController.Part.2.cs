@@ -370,6 +370,7 @@ namespace Site13Kernel.Core.Controllers
         public IEnumerator TryApplyCoating()
         {
             yield return null;
+            if (Weapon == null) yield break;
             var CW = Weapon.GetComponentInChildren<CustomizableWeapon>();
             if (CW != null)
             {
