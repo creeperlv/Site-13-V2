@@ -14,10 +14,12 @@ namespace CampaignScriptEditor.Editors
     public partial class EventItem : UserControl
     {
         static Random r = new Random();
+        public MainWindow? ParentContainer;
         public EventItem()
         {
             InitializeComponent();
-            Up.Click += (_, _) => {
+            Up.Click += (_, _) =>
+            {
                 var sp = (this.Parent as StackPanel);
                 if (sp is not null)
                 {
@@ -29,15 +31,23 @@ namespace CampaignScriptEditor.Editors
                     }
                 }
             };
-            Down.Click += (_, _) => {
+            Copy.Click += (_, _) =>
+            {
+                if(ParentContainer is not null)
+                {
+                    ParentContainer.AddItem(ObtainObject());
+                }
+            };
+            Down.Click += (_, _) =>
+            {
                 var sp = (this.Parent as StackPanel);
                 if (sp is not null)
                 {
                     var i = sp.Children.IndexOf(this);
-                    if (i <sp.Children.Count-1)
+                    if (i < sp.Children.Count - 1)
                     {
                         sp.Children.RemoveAt(i);
-                        sp.Children.Insert(i+1, this);
+                        sp.Children.Insert(i + 1, this);
                     }
                 }
             };
@@ -49,24 +59,24 @@ namespace CampaignScriptEditor.Editors
         static Type BoolType = typeof(bool);
         public object ObtainObject()
         {
-            if(TargetT is not null)
+            if (TargetT is not null)
             {
-                var obj=Activator.CreateInstance(TargetT);
-                if(obj is not null)
+                var obj = Activator.CreateInstance(TargetT);
+                if (obj is not null)
                 {
-                    foreach (var  item in _fields)
+                    foreach (var item in _fields)
                     {
                         item.Key.SetValue(obj, item.Value.GetObject());
                     }
+                    return obj;
                 }
-                return obj;
             }
             return new object();
         }
         public Dictionary<FieldInfo, IFieldEditor> _fields = new Dictionary<FieldInfo, IFieldEditor>();
         public void InitObject(object obj)
         {
-            Type t=obj.GetType();
+            Type t = obj.GetType();
             TargetT = t;
             if (t.IsAssignableTo(MainWindow.EventBaseType))
             {

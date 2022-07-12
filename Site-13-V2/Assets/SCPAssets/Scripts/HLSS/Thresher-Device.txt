@@ -62,6 +62,10 @@
       "CurrentBackup": 160.0,
       "CurrentMagazine": 16.0,
       "PhysicsForce": 5.0,
+      "MaxHeat": 1.0,
+      "CurrentHeat": 0.0,
+      "HeatPerShot": 0.0,
+      "Cooldown": 0.0,
       "WeaponFireType0": 0,
       "WeaponFireType1": 0
     },
@@ -106,7 +110,7 @@
     "UseEventTrigger": true,
     "UseSymbolInsteadOfEventTrigger": false,
     "EventTriggerID": "PICKUP-AI-COMP",
-    "TimeDelay": 9.0,
+    "TimeDelay": 9.25,
     "Repeatable": false
   },
   {
@@ -116,6 +120,74 @@
     "UseEventTrigger": true,
     "UseSymbolInsteadOfEventTrigger": false,
     "EventTriggerID": "SITEAI-00-T",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "SITEAI-01",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "SITEAI-01-T",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "WARHEAD-LOCK",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "WARHEAD-LOCK",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.TogglePlayer, Site13Kernel",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "WARHEAD-LOCK",
+    "TimeDelay": 0.01,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "CONSOLE-WARHEAD",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "WARHEAD-LOCK",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "WARHEAD-LOCK-T",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "PICKUP-AI-COMP",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.TogglePlayer, Site13Kernel",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "WARHEAD-LOCK",
+    "TimeDelay": 7.05,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "SITEAI-02",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "SITEAI-02-T",
     "TimeDelay": 0.0,
     "Repeatable": false
   }

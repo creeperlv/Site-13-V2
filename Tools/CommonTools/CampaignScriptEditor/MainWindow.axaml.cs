@@ -198,10 +198,7 @@ namespace CampaignScriptEditor
                         Events.Children.Clear();
                         foreach (var item in _L)
                         {
-                            var e = new EventItem();
-                            //e.InitType(item.GetType());
-                            e.InitObject(item);
-                            Events.Children.Add(e);
+                            AddItem(item);
                         }
                     }
                     GC.Collect();
@@ -265,6 +262,22 @@ namespace CampaignScriptEditor
             }
         }
         public static Type EventBaseType = typeof(EventBase);
+        public EventItem AddItem(Type t)
+        {
+            var e = new EventItem();
+            e.ParentContainer = this;
+            e.InitType(t);
+            Events.Children.Add(e);
+            return e;
+        }
+        public EventItem AddItem(object t)
+        {
+            var e = new EventItem();
+            e.ParentContainer = this;
+            e.InitObject(t);
+            Events.Children.Add(e);
+            return e;
+        }
         public void Load()
         {
             FieldEditorPool.FieldEditors.Add(typeof(string), typeof(StringField));
@@ -285,9 +298,7 @@ namespace CampaignScriptEditor
                         };
                         button.Click += (_, _) =>
                         {
-                            var e = new EventItem();
-                            e.InitType(item);
-                            Events.Children.Add(e);
+                            AddItem(item);
                         };
                         EventPrimitives.Children.Add(button);
                     }
