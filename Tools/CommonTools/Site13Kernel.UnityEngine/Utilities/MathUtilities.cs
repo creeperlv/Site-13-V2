@@ -268,6 +268,11 @@ namespace Site13Kernel.Utilities
             return Original + (Target - Original) * DeltaTime;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion SmoothClose(Quaternion Original, Quaternion Target, float DeltaTime)
+        {
+            return Quaternion.RotateTowards(Original, Target, DeltaTime);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float SmoothClose(float Original, float Target, float DeltaTime)
         {
             return Original + (Target - Original) * DeltaTime;

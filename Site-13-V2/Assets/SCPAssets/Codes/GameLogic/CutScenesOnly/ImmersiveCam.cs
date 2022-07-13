@@ -24,7 +24,7 @@ namespace Site13Kernel
         {
             var dt = Time.deltaTime;
             this.transform.position=MathUtilities.SmoothClose(this.transform.position, FollowingTarget.position, dt* Speed);
-            this.transform.eulerAngles=MathUtilities.SmoothClose(this.transform.eulerAngles, FollowingTarget.eulerAngles, dt* Speed);
+            this.transform.rotation=MathUtilities.SmoothClose(this.transform.rotation, FollowingTarget.rotation, dt* Speed);
         }
     }
 }
