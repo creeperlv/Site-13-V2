@@ -1,26 +1,21 @@
 ﻿using Site13Kernel.Core;
-using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
-using UnityEngine;
 
 namespace Site13Kernel.UI.Containers
 {
-    public class BasicNavigationContainer : ControlledBehavior
+    public class ControlledBasicNavigationContainer : ControlledBehavior
     {
         public List<NavigatableItem> Children;
         public bool initOnStart = false;
         public float AnimationSpeed = 1;
         int SelectedIndex = 0;
         bool __inited = false;
-        public void Start()
+        public override void Init()
         {
             if (initOnStart) __init();
         }
-        public void Update()
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
-            float DeltaTime = Time.deltaTime;
             var _DeltaTime = DeltaTime * AnimationSpeed;
             for (int i = 0; i < Children.Count; i++)
             {

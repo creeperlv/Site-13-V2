@@ -1,4 +1,5 @@
-﻿using Site13Kernel.Core;
+﻿using CLUNL.Localization;
+using Site13Kernel.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,8 +13,10 @@ namespace Site13Kernel.UI.Elements
         public List<TextButton> Controlled_TextBUtton;
         public List<Text> Controlled_uGUI_Text;
         private Site13Event _onClick = new Site13Event();
-        private string content;
-        public string Content
+        [UnityEngine.SerializeField]
+        private LocalizedString content;
+        [UnityEngine.SerializeField]
+        public LocalizedString Content
         {
             get => content; set
             {
@@ -55,7 +58,10 @@ namespace Site13Kernel.UI.Elements
             UpdateOnClickEvents();
             UpdateContent();
         }
-
+        public void OnEnable()
+        {
+            UpdateContent();
+        }
         public override void Init()
         {
             if (isInited) return;
