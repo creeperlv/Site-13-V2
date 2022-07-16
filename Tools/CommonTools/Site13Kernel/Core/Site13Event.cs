@@ -17,6 +17,11 @@ namespace Site13Kernel.Core
                 item(t);
             }
         }
+        public static Site13Event<T> operator +(Site13Event<T> e, Action<T> a)
+        {
+            e.Add(a);
+            return e;
+        }
     }
     [Serializable]
     public class Site13Event<T, U> : ConnectableList<Action<T, U>>
@@ -29,6 +34,11 @@ namespace Site13Kernel.Core
                 item(t, u);
             }
         }
+        public static Site13Event<T, U> operator +(Site13Event<T, U> e, Action<T,U> a)
+        {
+            e.Add(a);
+            return e;
+        }
     }
     [Serializable]
     public class Site13Event : ConnectableList<Action>
@@ -40,6 +50,11 @@ namespace Site13Kernel.Core
             {
                 item();
             }
+        }
+        public static Site13Event operator +(Site13Event e, Action a)
+        {
+            e.Add(a);
+            return e;
         }
     }
 }

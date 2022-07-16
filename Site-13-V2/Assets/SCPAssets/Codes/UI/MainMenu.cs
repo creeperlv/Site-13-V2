@@ -153,13 +153,6 @@ namespace Site13Kernel.UI
             {
                 item.OnClick = () => { };
             }
-            //SettingsButton.onClick.AddListener(() => {
-            //    this.GetComponent<CanvasGroup>().interactable=false;
-            //    SceneManager.LoadScene("SettingsUI", LoadSceneMode.Additive);
-            //    //SettingsPage.OnBack = () => {
-            //    //    this. GetComponent<CanvasGroup>().interactable = true;
-            //    //};
-            //});
         }
         public IEnumerator WaitAndToSettings()
         {

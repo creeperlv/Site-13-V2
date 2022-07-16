@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Site13Kernel.Core;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -25,8 +26,8 @@ namespace Site13Kernel.UI.Elements
         [FormerlySerializedAs("UnCheckedMouseOnTrigger")]
         [SerializeField]
         public string UnCheckedMouseOnTrigger;
-        public UIEvent Checked;
-        public UIEvent Unchecked;
+        public Site13Event Checked;
+        public Site13Event Unchecked;
         bool _isOn = false;
         [FormerlySerializedAs("PreventUncheckOnClick")]
         [SerializeField]
@@ -42,6 +43,11 @@ namespace Site13Kernel.UI.Elements
                 if (_isOn) Checked.Invoke();
                 else Unchecked.Invoke();
             }
+        }
+        public new void OnEnable()
+        {
+            base.OnEnable();
+            ApplyState();
         }
         void ApplyState()
         {
