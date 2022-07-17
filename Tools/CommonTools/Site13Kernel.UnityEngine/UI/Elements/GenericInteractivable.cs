@@ -1,7 +1,10 @@
 ﻿using CLUNL.Localization;
 using Site13Kernel.Core;
+using Site13Kernel.Core.Controllers;
+using Site13Kernel.Data;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using System.Text;
 using UnityEngine.UI;
 
@@ -12,6 +15,8 @@ namespace Site13Kernel.UI.Elements
         public List<Button> Controlled_uUIBUtton;
         public List<TextButton> Controlled_TextBUtton;
         public List<Text> Controlled_uGUI_Text;
+        public bool initEffect = false;
+        public PrefabReference Effect;
         private Site13Event _onClick = new Site13Event();
         [UnityEngine.SerializeField]
         private LocalizedString content;
@@ -71,6 +76,10 @@ namespace Site13Kernel.UI.Elements
         bool isInited = false;
         void InvokeOnClick()
         {
+            if (initEffect)
+            {
+                EffectController.CurrentEffectController.Spawn(Effect, Vector3.zero , Quaternion.identity, Vector3.one, this.transform);
+            }
             _onClick.Invoke();
         }
         public Site13Event OnClick
