@@ -1,3 +1,4 @@
+using Site13Kernel.GameLogic.Character;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ namespace Site13Kernel.GameLogic.AI.V2
     public class AIAgent : MonoBehaviour
     {
         //public NavMeshAgent NMAgent;
+        public Biped ControlledBiped;
+        public Animator Animator;
+
         Vector3 Goal;
         NavMeshPath path = new NavMeshPath();
         void Update()
