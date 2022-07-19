@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 8177808081261108533}
   - component: {fileID: 3707242674868242256}
   - component: {fileID: 9157484073596338094}
+  - component: {fileID: 8578985665551666888}
   m_Layer: 0
   m_Name: Guard-Female
   m_TagString: Untagged
@@ -205,6 +206,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51ac0dffb164a044b6c883f35640972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Animator: {fileID: 7686746449250179943}
+  MotionMap:
+    PrefabDefinitions:
+    - Key: AIM
+      Value:
+        Layer: 1
+        Trigger: 
   Root: {fileID: 7686746449250179944}
   MaxHorizontalRootTolerance: 0
   HorizontalLevel0: {fileID: 6981453719817528774}
@@ -235,6 +243,14 @@ MonoBehaviour:
   R_Foot_T: {fileID: 4335051335022016574}
   L_Foot_C: {fileID: 0}
   R_Foot_C: {fileID: 0}
+  POSE_IS_CROUCH: 0
+  POSE_IS_CROUCH_L: 0
+  POSE_IS_RUN: 0
+  POSE_IS_RUN_L: 0
+  POSE_IS_AIM: 0
+  POSE_IS_AIM_L: 0
+  Crouch: []
+  Blindage: []
 --- !u!114 &3707242674868242256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +264,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlledBiped: {fileID: 8177808081261108533}
-  Animator: {fileID: 7686746449250179943}
 --- !u!114 &9157484073596338094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +311,22 @@ MonoBehaviour:
   ShieldObjects: []
   useShieldRecoverObject: 0
   ShieldRecoverObjects: []
+--- !u!114 &8578985665551666888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686746449250179945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &7686746449349998876
 GameObject:
   m_ObjectHideFlags: 0

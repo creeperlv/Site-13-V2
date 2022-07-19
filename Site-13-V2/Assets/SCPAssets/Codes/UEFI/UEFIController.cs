@@ -20,11 +20,17 @@ namespace Site13Kernel.UEFI
         public float SplashScreenLength=10f;
         public int TargetSceneID;
         public int UEFISceneID;
+        public int MultiplayerLobby;
         public int SetupUtilitySceneID;
         bool isCompleted0;
         bool isCompleted1;
         void Start()
         {
+            if (Application.isBatchMode)
+            {
+                SceneLoader.Instance.LoadScene(MultiplayerLobby,true,false,false);
+                return;
+            }
             if (!isInited)
             {
                 foreach (var item in EFIs)
@@ -81,6 +87,7 @@ namespace Site13Kernel.UEFI
         float TimeD=0;
         void Update()
         {
+            if (Application.isBatchMode) return;
             TimeD += Time.deltaTime;
             if (Input.GetKey(KeyCode.Delete))
             {

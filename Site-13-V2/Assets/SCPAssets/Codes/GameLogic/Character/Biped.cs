@@ -1,3 +1,5 @@
+using Site13Kernel.Data;
+using Site13Kernel.GameLogic.AI.V2;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +8,8 @@ namespace Site13Kernel.GameLogic.Character
 {
     public class Biped : MonoBehaviour
     {
+        public Animator Animator;
+        public KVList<string, BipedMotion> MotionMap;
         public Transform Root;
         public float MaxHorizontalRootTolerance;
         #region Spine
@@ -62,6 +66,17 @@ namespace Site13Kernel.GameLogic.Character
         public Transform R_Foot_T;
         public Collider L_Foot_C;
         public Collider R_Foot_C;
+        #endregion
+        public bool POSE_IS_CROUCH = false;
+        public bool POSE_IS_CROUCH_L = false;
+        public bool POSE_IS_RUN = false;
+        public bool POSE_IS_RUN_L = false;
+        public bool POSE_IS_AIM = false;
+        public bool POSE_IS_AIM_L = false;
+
+        #region MapAreas
+        public List<MapArea> Crouch;
+        public List<MapArea> Blindage;
         #endregion
 
         /// <summary>
