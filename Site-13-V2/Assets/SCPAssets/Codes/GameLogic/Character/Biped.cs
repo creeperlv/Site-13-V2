@@ -1,3 +1,4 @@
+using Site13Kernel.Core.TagSystem;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.AI.V2;
 using System.Collections;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Character
 {
-    public class Biped : MonoBehaviour
+    public class Biped : AttachableComponent 
     {
         public Animator Animator;
         public KVList<string, BipedMotion> MotionMap;

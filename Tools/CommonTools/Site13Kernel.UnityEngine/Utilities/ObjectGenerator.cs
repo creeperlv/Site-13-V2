@@ -1,4 +1,5 @@
 ﻿using Site13Kernel.Core;
+using Site13Kernel.Core.TagSystem;
 using Site13Kernel.Data;
 using Site13Kernel.Data.IO;
 using Site13Kernel.GameLogic.Level;
@@ -171,6 +172,7 @@ namespace Site13Kernel.Utilities
             {
                 _Object.AddComponent<GeneratedObjectData>().PrefabReference = new PrefabReference { useString = true, Key = ID };
             }
+            if (TagSystemManager.Instance != null) TagSystemManager.Instance.AddObject(_Object);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

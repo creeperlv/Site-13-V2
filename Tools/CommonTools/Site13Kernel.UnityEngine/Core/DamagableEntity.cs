@@ -1,5 +1,6 @@
 using CLUNL.Data.Serializables.CheckpointSystem;
 using Site13Kernel.Core.Controllers;
+using Site13Kernel.Core.TagSystem;
 using Site13Kernel.Data;
 using Site13Kernel.Data.IO;
 using Site13Kernel.Data.Serializables;
@@ -14,7 +15,7 @@ using UnityEngine;
 
 namespace Site13Kernel.Core
 {
-    public class DamagableEntity : ControlledBehavior, ICheckpointData, IHittable,IContainsPureData
+    public class DamagableEntity : AttachableComponent, ICheckpointData, IHittable,IContainsPureData
     {
         public string Name;
 

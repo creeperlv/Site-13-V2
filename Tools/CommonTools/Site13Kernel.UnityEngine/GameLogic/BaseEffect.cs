@@ -1,6 +1,7 @@
 using CLUNL.Data.Serializables.CheckpointSystem;
 using CLUNL.Data.Serializables.CheckpointSystem.Types;
 using Site13Kernel.Core;
+using Site13Kernel.Core.TagSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Effects
 {
-    public class BaseEffect : ControlledBehavior, ICheckpointData
+    public class BaseEffect : AttachableComponent, ICheckpointData
     {
         public float LifeTime;
         public float TimeD;
