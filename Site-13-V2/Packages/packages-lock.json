@@ -13,8 +13,17 @@
       "source": "builtin",
       "dependencies": {}
     },
+    "com.unity.ai.navigation": {
+      "version": "1.1.0-pre.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.ai": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.animation.rigging": {
-      "version": "1.1.1",
+      "version": "1.2.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -24,7 +33,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.7.2",
+      "version": "1.7.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -40,7 +49,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "1.15.18",
+      "version": "1.17.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -73,7 +82,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.14",
+      "version": "3.0.15",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -105,7 +114,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.netcode.gameobjects": {
-      "version": "1.0.0-pre.10",
+      "version": "1.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -115,7 +124,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.mono-cecil": {
-      "version": "1.10.2",
+      "version": "1.11.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -129,11 +138,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.polybrush": {
-      "version": "1.1.2",
+      "version": "1.1.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.settings-manager": "1.0.3"
+        "com.unity.settings-manager": "2.0.1"
       },
       "url": "https://packages.unity.com"
     },
@@ -158,24 +167,25 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "13.1.8",
+      "version": "14.0.3",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.terrain": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "13.1.8",
+      "version": "14.0.3",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
-        "com.unity.burst": "1.5.0",
-        "com.unity.render-pipelines.core": "13.1.8",
-        "com.unity.shadergraph": "13.1.8"
+        "com.unity.burst": "1.6.4",
+        "com.unity.render-pipelines.core": "14.0.3",
+        "com.unity.shadergraph": "14.0.3"
       }
     },
     "com.unity.searcher": {
@@ -186,11 +196,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.sequences": {
-      "version": "1.1.0",
+      "version": "2.0.0-pre.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.timeline": "1.5.2",
+        "com.unity.timeline": "1.6.3",
         "com.unity.recorder": "2.5.5",
         "com.unity.settings-manager": "1.0.3",
         "com.unity.ugui": "1.0.0"
@@ -198,18 +208,19 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.authentication": {
-      "version": "2.0.0",
+      "version": "2.1.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.unity.services.core": "1.3.1",
-        "com.unity.modules.unitywebrequest": "1.0.0"
+        "com.unity.services.core": "1.4.2",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
-      "version": "1.4.0",
+      "version": "1.4.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -243,11 +254,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "13.1.8",
+      "version": "14.0.3",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "13.1.8",
+        "com.unity.render-pipelines.core": "14.0.3",
         "com.unity.searcher": "4.9.2"
       }
     },
@@ -268,7 +279,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.terrain-tools": {
-      "version": "4.0.3",
+      "version": "5.0.0-pre.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -489,17 +500,6 @@
     "com.unity.modules.uielements": {
       "version": "1.0.0",
       "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.uielementsnative": "1.0.0"
-      }
-    },
-    "com.unity.modules.uielementsnative": {
-      "version": "1.0.0",
-      "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",

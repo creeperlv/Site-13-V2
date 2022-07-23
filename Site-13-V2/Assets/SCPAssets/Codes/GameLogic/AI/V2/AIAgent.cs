@@ -12,7 +12,7 @@ namespace Site13Kernel.GameLogic.AI.V2
         public Biped ControlledBiped;
 
         Vector3 Goal;
-        NavMeshPath path = new NavMeshPath();
+        NavMeshPath path;
         void Update()
         {
             //NMAgent.

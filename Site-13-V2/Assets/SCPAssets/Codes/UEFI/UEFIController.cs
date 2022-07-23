@@ -26,11 +26,6 @@ namespace Site13Kernel.UEFI
         bool isCompleted1;
         void Start()
         {
-            if (Application.isBatchMode)
-            {
-                SceneLoader.Instance.LoadScene(MultiplayerLobby,true,false,false);
-                return;
-            }
             if (!isInited)
             {
                 foreach (var item in EFIs)
@@ -111,8 +106,14 @@ namespace Site13Kernel.UEFI
                     }
                     if (__INTERRUPT) return;
                     SceneLoader.Instance.AddSceneLog(UEFISceneID, false, false);
-                    SceneLoader.Instance.LoadScene(TargetSceneID,true,false,false);
-
+                    if (GameRuntime.isServer)
+                    {
+                        SceneLoader.Instance.LoadScene(MultiplayerLobby, true, false, true);
+                    }
+                    else
+                    {
+                        SceneLoader.Instance.LoadScene(TargetSceneID, true, false, false);
+                    }
                     isInited = true;
                     isCompleted0 = false;
                     isCompleted1 = false;

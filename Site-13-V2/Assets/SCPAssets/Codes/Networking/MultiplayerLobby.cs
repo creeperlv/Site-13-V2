@@ -16,41 +16,39 @@ namespace Site13Kernel.Networking
         public InputField PlayerCount;
         public InputField RoomTitle;
         public InputField RoomDescription;
-
+        public HorizontalLayoutGroup MenuBar;
         public GenericInteractivable StartButton;
         public GenericInteractivable CloseButton;
         public GenericInteractivable UpdateButton;
         void Start()
         {
-            if (Application.isBatchMode) { 
-                ControlPanel.SetActive(false); 
-                CLILoop();
+            if (Application.isBatchMode)
+            {
+                ControlPanel.SetActive(false);
+                LobbyService();
             }
             else InitUI();
         }
         void InitUI()
         {
-            PlayerCount.text = configuration.MaxPlayerPerTeam+"";
-            CloseButton.OnClick += () => {
+            UnityEngine.Screen.SetResolution(800, 600, false);
+            PlayerCount.text = configuration.MaxPlayerPerTeam + "";
+            CloseButton.OnClick += () =>
+            {
                 Application.Quit();
             };
+            StartCoroutine(ResetMenuBar());
         }
-        void CLILoop()
+        IEnumerator ResetMenuBar()
         {
-            Task.Run(() => {
-                bool WillExit = false;
-                while (!WillExit)
-                {
-                    var L=Console.ReadLine();
-                    if (L.ToUpper() == "EXIT")
-                    {
-                        Console.WriteLine("Goodbye!");
-                        Environment.Exit(0);
-                    }
-                    var Parameters=CLUNL.Utilities.CommandLineTool.Analyze(L);
-                    
-                }
-            });
+            yield return null;
+            MenuBar.gameObject.SetActive(false);
+            yield return null;
+            MenuBar.gameObject.SetActive(true);
+        }
+        void LobbyService()
+        {
+            Diagnostics.Debug.Log("Starting Lobby Service");
         }
         void Update()
         {
@@ -65,7 +63,8 @@ namespace Site13Kernel.Networking
         }
     }
     [Serializable]
-    public class MultiplayerConfiguration {
+    public class MultiplayerConfiguration
+    {
         public int MaxPlayerPerTeam;
     }
 
