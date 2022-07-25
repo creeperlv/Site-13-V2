@@ -15,12 +15,19 @@ namespace Site13Kernel.Core.TagSystem
         }
         public void AddObject(GameObject _obj)
         {
+            var holder = _obj.GetComponent<ComponentHolder>();
             foreach (var item in entityCollectionDescriptions)
             {
                 bool _hit = true;
                 foreach (var t in item.Types)
                 {
-                    if (!_obj.TryGetComponent(t,out _))
+                    if (_obj.TryGetComponent(t, out var comp))
+                    {
+                        var __c = comp as IComponent;
+                        if (__c != null)
+                            holder.Components.Add(__c);
+                    }
+                    else
                     {
                         _hit = false;
                         break;
@@ -28,7 +35,7 @@ namespace Site13Kernel.Core.TagSystem
                 }
                 if (_hit)
                 {
-                    item.Resultes.Add(_obj);
+                    item.Resultes.Add(holder);
                 }
             }
         }
