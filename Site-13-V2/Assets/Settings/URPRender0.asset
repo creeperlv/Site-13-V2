@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_Settings:
-    technique: 0
+    technique: 2
     maxDrawDistance: 250
     decalLayers: 0
     dBufferSettings:
@@ -73,7 +73,7 @@ MonoBehaviour:
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
-  m_DepthPrimingMode: 0
+  m_DepthPrimingMode: 1
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
@@ -93,14 +93,14 @@ MonoBehaviour:
   m_Settings:
     AOMethod: 1
     Downsample: 1
-    AfterOpaque: 1
-    Source: 1
+    AfterOpaque: 0
+    Source: 0
     NormalSamples: 2
-    Intensity: 1
-    DirectLightingStrength: 0.48
-    Radius: 0.2
+    Intensity: 0.5
+    DirectLightingStrength: 1
+    Radius: 0.5
     Samples: 2
-    BlurQuality: 0
+    BlurQuality: 2
     Falloff: 100
     SampleCount: -1
   m_BlueNoise256Textures:
