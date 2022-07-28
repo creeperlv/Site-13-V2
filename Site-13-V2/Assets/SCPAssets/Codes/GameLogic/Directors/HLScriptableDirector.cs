@@ -74,6 +74,12 @@ namespace Site13Kernel.GameLogic.Directors
                     }
                 }
             });
+            Actions.Add(typeof(IssueBroadcast), (e) => {
+                if (BroadcastRecord.Instance != null)
+                {
+                    BroadcastRecord.Instance.IssueBroadCast((e as IssueBroadcast).BroadCast);
+                }
+            });
             Actions.Add(typeof(GiveWeaponEvent), (e) =>
             {
                 if (e is GiveWeaponEvent GWE)

@@ -248,5 +248,48 @@
     "EventTriggerID": "Activate-ST-Anchor-T",
     "TimeDelay": 7.05,
     "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.IssueBroadcast, Site13Kernel",
+    "BroadCast": {
+      "$type": "Site13Kernel.GameLogic.Directors.BroadCastItem, Site13Kernel",
+      "Title": {
+        "$type": "CLUNL.Localization.LocalizedString, CLUNL.Localization",
+        "arguments": [],
+        "ID": "Broadcast.000.Title",
+        "Fallback": "Activate Thresher Device"
+      },
+      "BroadContent": {
+        "$type": "CLUNL.Localization.LocalizedString, CLUNL.Localization",
+        "arguments": [],
+        "ID": "Broadcast.000.Content",
+        "Fallback": "Due to recent containment breach, Foundation decided to activate Thresher Device."
+      },
+      "Issuer": {
+        "$type": "CLUNL.Localization.LocalizedString, CLUNL.Localization",
+        "arguments": [],
+        "ID": "Broadcast.000.Issuer",
+        "Fallback": null
+      }
+    },
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "Activate-ST-Anchor-T",
+    "TimeDelay": 8.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.IssueMission, Site13Kernel",
+    "MissionText": {
+      "$type": "CLUNL.Localization.LocalizedString, CLUNL.Localization",
+      "arguments": [],
+      "ID": "ThresherDevice.Mission.0",
+      "Fallback": "Find an evacuation shelter"
+    },
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "Activate-ST-Anchor-T",
+    "TimeDelay": 8.5,
+    "Repeatable": false
   }
 ]
