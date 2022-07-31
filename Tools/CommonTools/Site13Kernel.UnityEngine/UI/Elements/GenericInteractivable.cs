@@ -56,6 +56,11 @@ namespace Site13Kernel.UI.Elements
             if (isInited) return;
             UpdateOnClickEvents();
             UpdateContent();
+            SideInit();
+        }
+        public virtual void SideInit()
+        {
+            SideInit();
         }
         public void Awake()
         {
@@ -74,11 +79,11 @@ namespace Site13Kernel.UI.Elements
             UpdateContent();
         }
         bool isInited = false;
-        void InvokeOnClick()
+        internal virtual void InvokeOnClick()
         {
             if (initEffect)
             {
-                EffectController.CurrentEffectController.Spawn(Effect, Vector3.zero , Quaternion.identity, Vector3.one, this.transform);
+                EffectController.CurrentEffectController.Spawn(Effect, Vector3.zero, Quaternion.identity, Vector3.one, this.transform);
             }
             _onClick.Invoke();
         }

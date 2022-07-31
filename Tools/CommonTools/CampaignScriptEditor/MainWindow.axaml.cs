@@ -1,10 +1,12 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using CampaignScriptEditor.Controls;
 using CampaignScriptEditor.Editors;
 using CampaignScriptEditor.Editors.Fields;
 using CommonTools;
 using Newtonsoft.Json;
+using Site13Kernel.Data.Attributes;
 using Site13Kernel.Data.Serializables;
 using Site13Kernel.GameLogic.Directors;
 using System;
@@ -286,12 +288,30 @@ namespace CampaignScriptEditor
             //FieldEditorPool.FieldEditors.Add(typeof(SerializableLocation), typeof(SerializableLocationField));
             FieldEditorPool.FieldEditors.Add(typeof(SerializableVector3), typeof(Vector3Field));
             FieldEditorPool.FieldEditors.Add(typeof(SerializableQuaternion), typeof(QuaternionField));
+            Dictionary<string, TitledContainer> containers = new Dictionary<string, TitledContainer>();
             foreach (var item in EventBaseType.Assembly.GetTypes())
             {
                 if (item.IsAssignableTo(EventBaseType))
                 {
                     if (item.FullName != EventBaseType.FullName)
                     {
+                        var catas=item.GetCustomAttributes(typeof(CatalogAttribute),false);
+                        string Cata = "General";
+                        if (catas.Length > 0)
+                        {
+                            Cata = (catas[0] as CatalogAttribute)!.CatalogString;
+                        }
+                        else
+                        {
+
+                        }
+                        TitledContainer? CurrentContainer=null;
+                        if (!containers.TryGetValue(Cata, out CurrentContainer))
+                        {
+                            CurrentContainer = new TitledContainer();
+                            CurrentContainer.Title = Cata;
+                            containers.Add(Cata,CurrentContainer);
+                        }
                         Button button = new Button()
                         {
                             Content = item.Name
@@ -300,9 +320,13 @@ namespace CampaignScriptEditor
                         {
                             AddItem(item);
                         };
-                        EventPrimitives.Children.Add(button);
+                        CurrentContainer!.Children.Add(button);
                     }
                 }
+            }
+            foreach (var item in containers)
+            {
+                EventPrimitives.Children.Add(item.Value);
             }
         }
     }
