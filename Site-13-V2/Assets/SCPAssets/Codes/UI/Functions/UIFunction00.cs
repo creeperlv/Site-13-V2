@@ -17,6 +17,12 @@ namespace Site13Kernel
         static LocalizedString DialogExitTitle = new LocalizedString("Dialog.Exit.Title", "Are you sure to exit?");
         static LocalizedString Yes = new LocalizedString("Dialog.Yes", "Yes");
         static LocalizedString No = new LocalizedString("Dialog.No", "No");
+        public override void Init()
+        {
+            base.Init();
+            if (!GameRuntime.CurrentGlobals.MainUIBGM.isPlaying)
+                GameRuntime.CurrentGlobals.MainUIBGM.Play();
+        }
         public void ShowCustomizationPage()
         {
             ParentManager.ShowPage(CustomizationPage);
