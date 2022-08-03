@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.UI.HUD;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,11 +61,11 @@ namespace Site13Kernel.UI.Combat
             var t = (transform as RectTransform);
             if (isPrimary)
             {
-                Move(t, Holder.W_HUD_PrimaryPosition, Holder.W_HUD_PrimaryScale, DeltaTime);
+                Move(t, HUDBase.Instance.W_HUD_PrimaryPosition, HUDBase.Instance.W_HUD_PrimaryScale, DeltaTime);
             }
             else
             {
-                Move(t, Holder.W_HUD_SecondaryPosition, Holder.W_HUD_SecondaryScale, DeltaTime);
+                Move(t, HUDBase.Instance.W_HUD_SecondaryPosition, HUDBase.Instance.W_HUD_SecondaryScale, DeltaTime);
             }
         }
         public void Move(RectTransform t, Vector2 TargetPosition, Vector3 TargetScale, float DT)

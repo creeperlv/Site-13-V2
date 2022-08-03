@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.UI.HUD;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -78,6 +79,12 @@ namespace Site13Kernel.GameLogic.Directors
                 if (BroadcastRecord.Instance != null)
                 {
                     BroadcastRecord.Instance.IssueBroadCast((e as IssueBroadcast).BroadCast);
+                }
+            });
+            Actions.Add(typeof(ToggleHUD), (e) => {
+                if(e is ToggleHUD hud)
+                {
+                    HUDBase.Instance.Show = hud.TargetState;
                 }
             });
             Actions.Add(typeof(GiveWeaponEvent), (e) =>

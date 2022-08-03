@@ -1823,6 +1823,65 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &3198626244958656265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6004806480262284160}
+  - component: {fileID: 7437006868686615082}
+  m_Layer: 0
+  m_Name: AchievementController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6004806480262284160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3198626244958656265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7096025717290730703}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7437006868686615082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3198626244958656265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 345048288, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AchievementAnimation: {fileID: 7497055424778587104}
+  AchievementIcon: {fileID: 6916090635719299855}
+  AchievementTitle: {fileID: 6404482053937967977}
+  AchievementDesc: {fileID: 1864233705042157177}
+  Definitions:
+  - ID: Achievement.000
+    CurrentAmount: 0
+    Title:
+      ID: Achievement.000.Title
+      Fallback: Welcome to Site-13
+    Content:
+      ID: Achievement.000.Desc
+      Fallback: Complete PreBreach
+    Icon: {fileID: 0}
+  Completion: []
 --- !u!1 &3611489012313320154
 GameObject:
   m_ObjectHideFlags: 0
@@ -4646,6 +4705,7 @@ MonoBehaviour:
   - {fileID: 5186272162425607761}
   - {fileID: 8846202842650533253}
   - {fileID: 4100027597579013740}
+  - {fileID: 7437006868686615082}
   OnRefresh:
   - {fileID: 4100027597579013740}
   OnFixedRefresh: []
@@ -5754,7 +5814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5020826253274917527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7278,6 +7338,7 @@ Transform:
   - {fileID: 7264565192869208782}
   - {fileID: 4571707055287667299}
   - {fileID: 7882816422181089434}
+  - {fileID: 6004806480262284160}
   m_Father: {fileID: 6467622268903063982}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

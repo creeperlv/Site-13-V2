@@ -4,6 +4,7 @@ using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.Customization;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.UI.HUD;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections;
@@ -59,8 +60,8 @@ namespace Site13Kernel.Core.Controllers
         {
             if (BagHolder.CurrentWeapon == 0)
             {
-                W_HUD0.isPrimary = true;
-                W_HUD1.isPrimary = false;
+                HUDBase.Instance.W_HUD0.isPrimary = true;
+                HUDBase.Instance.W_HUD1.isPrimary = false;
                 if (BagHolder.Weapon0 != null)
                 {
                     if (!BagHolder.Weapon0.gameObject.activeSelf)
@@ -88,8 +89,8 @@ namespace Site13Kernel.Core.Controllers
             else if (BagHolder.CurrentWeapon == 1)
             {
 
-                W_HUD0.isPrimary = false;
-                W_HUD1.isPrimary = true;
+                HUDBase.Instance.W_HUD0.isPrimary = false;
+                HUDBase.Instance.W_HUD1.isPrimary = true;
 
                 if (BagHolder.Weapon1 != null)
                 {
@@ -225,31 +226,6 @@ namespace Site13Kernel.Core.Controllers
                     OperatingTransform.localPosition += (Target - OperatingTransform.localPosition) * DeltaTime * HeadExchangeSpeed;
                 }
             }
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void UpdateHUD(float DT, float UDT)
-        {
-            if (CurrentEntity != null)
-            {
-
-                if (HP != null)
-                {
-                    HP.Value = CurrentEntity.CurrentHP;
-                    HP.MaxValue = CurrentEntity.MaxHP;
-                }
-                if (Shield.Count > 0)
-                {
-                    foreach (var item in Shield)
-                    {
-                        item.Value = CurrentEntity.CurrentShield;
-                        item.MaxValue = CurrentEntity.MaxShield;
-                    }
-                }
-            }
-            W_HUD0.Refresh(DT, UDT);
-            W_HUD1.Refresh(DT, UDT);
-            G_HUD0.Refresh(DT, UDT);
-            G_HUD1.Refresh(DT, UDT);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void GiveWeapon(Weapon TargetWeapon)

@@ -7,6 +7,7 @@ using Site13Kernel.GameLogic.Character;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.GameLogic.Level;
 using Site13Kernel.GameLogic.RuntimeScenes;
+using Site13Kernel.UI.HUD;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -56,30 +57,30 @@ namespace Site13Kernel.Core.Controllers
             FoundationInfo(DeltaTime);
             Grenade(DeltaTime, UnscaledDeltaTime);
             BodyAnimation(DeltaTime, UnscaledDeltaTime);
-            UpdateHUD(DeltaTime, UnscaledDeltaTime);
+            //UpdateHUD(DeltaTime, UnscaledDeltaTime);
             SRBoCC.Refresh(DeltaTime, UnscaledDeltaTime);
         }
         int EquipStage = -1;
         float EquipT = 0;
         public void Equipment(float DeltaTime)
         {
-            if (E_HUD_COUNT != null)
+            if (HUDBase.Instance.E_HUD_COUNT != null)
             {
                 if (BagHolder.Equipments.TryGetValue(SelectedEquipment, out var i))
                 {
-                    E_HUD_COUNT.text = i.ToString();
+                    HUDBase.Instance.E_HUD_COUNT.text = i.ToString();
                 }
-                else E_HUD_COUNT.text = "0";
+                else HUDBase.Instance.E_HUD_COUNT.text = "0";
             }
-            if (E_HUD_ICON != null)
+            if (HUDBase.Instance.E_HUD_ICON != null)
             {
                 if (LastSelectedEquipment != SelectedEquipment)
                 {
                     LastSelectedEquipment = SelectedEquipment;
                     if (EquipmentManifest.Instance.EqupimentMap.TryGetValue(SelectedEquipment, out var def))
                     {
-                        E_HUD_ICON.sprite = def.Icon;
-                        E_HUD_ICON.material = def.IconMat;
+                        HUDBase.Instance.E_HUD_ICON.sprite = def.Icon;
+                        HUDBase.Instance.E_HUD_ICON.material = def.IconMat;
                     }
                 }
             }

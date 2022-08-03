@@ -8,6 +8,7 @@ using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.GameLogic.Level;
 using Site13Kernel.UI;
 using Site13Kernel.UI.Combat;
+using Site13Kernel.UI.HUD;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections;
@@ -117,23 +118,6 @@ namespace Site13Kernel.Core.Controllers
         #region HUD - Status
 
         [Header("HUD/Status")]
-        public ProgressBar HP;
-        public List<ProgressBar> Shield;
-
-        public WeaponHUD W_HUD0;
-        public WeaponHUD W_HUD1;
-        public KVList<int, GrenadeHUD> GrenadeHUD;
-        public Dictionary<int, GrenadeHUD> __GrenadeHUD;
-        public GrenadeHUD G_HUD0;
-        public GrenadeHUD G_HUD1;
-
-        public Vector2 W_HUD_PrimaryPosition;
-        public Vector3 W_HUD_PrimaryScale;
-        public Vector2 W_HUD_SecondaryPosition;
-        public Vector3 W_HUD_SecondaryScale;
-
-        public Image E_HUD_ICON;
-        public Text E_HUD_COUNT;
 
         #endregion
 
@@ -193,7 +177,6 @@ namespace Site13Kernel.Core.Controllers
 
             Instance = this;
             __equipments = Equipments.ObtainMap();
-            __GrenadeHUD = GrenadeHUD.ObtainMap();
             BagHolder.Equipments = BagHolder.PreDefinedEquipments.ObtainMap();
             BagHolder.Grenades= BagHolder.PreDefinedProcessedGrenade.ObtainMap();
             CurrentEntity.OnShieldDown = () =>
@@ -251,8 +234,8 @@ namespace Site13Kernel.Core.Controllers
             //Parent.RegisterRefresh(this);
             WalkDistance = math.PI / 2;
             FPSCamSwingIntensitySwitchDelta = FPSCamSwingRunningIntensity - FPSCamSwingIntensity;
-            G_HUD0.holder = BagHolder;
-            G_HUD1.holder = BagHolder;
+            HUDBase.Instance.G_HUD0.holder = BagHolder;
+            HUDBase.Instance.G_HUD1.holder = BagHolder;
 
             BagHolder.OnSwapWeapon = () =>
             {
@@ -262,14 +245,14 @@ namespace Site13Kernel.Core.Controllers
                 if (BagHolder.Weapon0 != null)
                 {
                     TargetWeapon = BagHolder.Weapon0;
-                    TargetHUD = W_HUD0;
+                    TargetHUD = HUDBase.Instance.W_HUD0;
                     TargetHUD.ListeningWeapon = TargetWeapon;
                     if (BagHolder.CurrentWeapon == 0) goto APPLY;
                 }
                 if (BagHolder.Weapon1 != null)
                 {
                     TargetWeapon = BagHolder.Weapon1;
-                    TargetHUD = W_HUD1;
+                    TargetHUD = HUDBase.Instance.W_HUD1;
                     TargetHUD.ListeningWeapon = TargetWeapon;
                     if (BagHolder.CurrentWeapon == 1) goto APPLY;
                 }

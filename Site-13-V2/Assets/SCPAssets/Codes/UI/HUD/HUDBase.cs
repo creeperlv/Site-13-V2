@@ -1,4 +1,5 @@
 using Site13Kernel.Core;
+using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
@@ -11,6 +12,7 @@ namespace Site13Kernel.UI.HUD
 {
     public class HUDBase : ControlledBehavior
     {
+        public static HUDBase Instance;
         public ProgressBar HP;
         public List<ProgressBar> Shield;
         public WeaponHUD W_HUD0;
@@ -32,14 +34,20 @@ namespace Site13Kernel.UI.HUD
         public bool Show;
         public float ShowSpeed = 1;
         public float ShowThreshold = 0.01f;
-        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
+        public float ToggleScale = 0.5f;
+        public override void Init()
+        {
+            Instance = this;
+            __GrenadeHUD = GrenadeHUD.ObtainMap();
+        }
+        public override void Refresh(float DT, float UDT)
         {
             if (Show)
             {
                 if (TotalHUD.alpha != 1)
                 {
-                    TotalHUD.alpha = MathUtilities.SmoothClose(TotalHUD.alpha, 1, DeltaTime * ShowSpeed);
-                    TotalHUD.transform.localScale = Vector3.one * (1 + (1 - TotalHUD.alpha));
+                    TotalHUD.alpha = MathUtilities.SmoothClose(TotalHUD.alpha, 1, DT * ShowSpeed);
+                    TotalHUD.transform.localScale = Vector3.one * (1 + (1 - TotalHUD.alpha) * ToggleScale);
                     if (1 - TotalHUD.alpha < ShowThreshold)
                     {
                         TotalHUD.alpha = 1;
@@ -50,13 +58,37 @@ namespace Site13Kernel.UI.HUD
             {
                 if (TotalHUD.alpha != 0)
                 {
-                    TotalHUD.alpha = MathUtilities.SmoothClose(TotalHUD.alpha, 0, DeltaTime * ShowSpeed);
-                    TotalHUD.transform.localScale = Vector3.one * (1 + (1 - TotalHUD.alpha));
+                    TotalHUD.alpha = MathUtilities.SmoothClose(TotalHUD.alpha, 0, DT * ShowSpeed);
+                    TotalHUD.transform.localScale = Vector3.one * (1 + (1 - TotalHUD.alpha) * ToggleScale);
                     if (TotalHUD.alpha < ShowThreshold)
                     {
                         TotalHUD.alpha = 0;
                     }
                 }
+            }
+            {
+
+                if (FPSController.Instance != null)
+                {
+
+                    if (HP != null)
+                    {
+                        HP.Value = FPSController.Instance.CurrentEntity.CurrentHP;
+                        HP.MaxValue = FPSController.Instance.CurrentEntity.MaxHP;
+                    }
+                    if (Shield.Count > 0)
+                    {
+                        foreach (var item in Shield)
+                        {
+                            item.Value = FPSController.Instance.CurrentEntity.CurrentShield;
+                            item.MaxValue = FPSController.Instance.CurrentEntity.MaxShield;
+                        }
+                    }
+                }
+                W_HUD0.Refresh(DT, UDT);
+                W_HUD1.Refresh(DT, UDT);
+                G_HUD0.Refresh(DT, UDT);
+                G_HUD1.Refresh(DT, UDT);
             }
         }
     }
