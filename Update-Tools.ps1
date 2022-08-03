@@ -7,3 +7,6 @@ dotnet build -c Release -o ..\..\bin\SRI\CLI\
 cd ..
 cd SRI.Editor.Main
 dotnet build -c Release -o ..\..\bin\SRI\Editor\
+cd ..
+cd ..
+cd ..
