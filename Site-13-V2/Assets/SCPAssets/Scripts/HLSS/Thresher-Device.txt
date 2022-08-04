@@ -53,6 +53,15 @@
     "Repeatable": false
   },
   {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": true,
+    "UseEventTrigger": false,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": null,
+    "TimeDelay": 6.0,
+    "Repeatable": false
+  },
+  {
     "$type": "Site13Kernel.GameLogic.Directors.GiveWeaponEvent, Site13Kernel",
     "weapon": {
       "$type": "Site13Kernel.Data.Weapon, Site13Kernel",
@@ -79,6 +88,15 @@
     "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
     "ObjectID": "ANIME_001",
     "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "PICKUP-AI-COMP",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": false,
     "UseEventTrigger": true,
     "UseSymbolInsteadOfEventTrigger": false,
     "EventTriggerID": "PICKUP-AI-COMP",
@@ -211,6 +229,15 @@
     "Repeatable": false
   },
   {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "Activate-ST-Anchor-T",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
     "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
     "ObjectID": "CONSOLE-ANCHOR",
     "TargetState": false,
@@ -247,6 +274,15 @@
     "UseSymbolInsteadOfEventTrigger": false,
     "EventTriggerID": "Activate-ST-Anchor-T",
     "TimeDelay": 7.05,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "Activate-ST-Anchor-T",
+    "TimeDelay": 7.0,
     "Repeatable": false
   },
   {
@@ -290,6 +326,33 @@
     "UseSymbolInsteadOfEventTrigger": false,
     "EventTriggerID": "Activate-ST-Anchor-T",
     "TimeDelay": 8.5,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "PICKUP-AI-COMP",
+    "TimeDelay": 9.25,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "WARHEAD-LOCK",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "WARHEAD-LOCK",
+    "TimeDelay": 7.05,
     "Repeatable": false
   }
 ]

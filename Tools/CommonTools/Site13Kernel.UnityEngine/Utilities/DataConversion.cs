@@ -1,4 +1,5 @@
 ﻿
+using Site13Kernel.Data;
 using Site13Kernel.Data.Serializables;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,16 @@ namespace Site13Kernel.Utilities
             obj.transform.position = DeserializeVector3(data.Position);
             obj.transform.rotation = DeserializeQuaternion(data.Rotation);
             obj.transform.localScale = DeserializeVector3(data.Scale);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Dictionary<T, V> ToDictionary<T, V>(List<KVPair<T, V>> RawData)
+        {
+            Dictionary<T, V> dic = new Dictionary<T, V>();
+            foreach (var item in RawData)
+            {
+                dic.Add(item.Key, item.Value);
+            }
+            return dic;
         }
     }
 }

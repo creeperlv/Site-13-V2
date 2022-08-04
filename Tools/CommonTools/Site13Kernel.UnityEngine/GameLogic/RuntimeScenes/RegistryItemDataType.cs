@@ -2,6 +2,6 @@
 {
     public enum RegistryItemDataType
     {
-        STRING,FLOAT,BOOL
+        STRING, FLOAT, BOOL
     }
 }

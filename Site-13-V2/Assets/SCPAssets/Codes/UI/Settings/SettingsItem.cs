@@ -149,14 +149,14 @@ namespace Site13Kernel.UI.Settings
                     break;
                 case Constants.TextureQuality:
                     {
-                        Debug.Log("Texture: " + QualitySettings.masterTextureLimit);
-                        __edit.InitValue(3 - QualitySettings.masterTextureLimit);
+                        Debug.Log("Texture: " + QualitySettings.globalTextureMipmapLimit);
+                        __edit.InitValue(3 - QualitySettings.globalTextureMipmapLimit);
                         __edit.SetCallback((v) =>
                         {
                             if (v is float f)
                             {
                                 var val = (int)Mathf.Abs((int)f - 3);
-                                QualitySettings.masterTextureLimit = val;
+                                QualitySettings.globalTextureMipmapLimit = val;
                                 Data.Settings.CurrentSettings.TextureQuality = val;
                                 Data.Settings.Save();
                             }

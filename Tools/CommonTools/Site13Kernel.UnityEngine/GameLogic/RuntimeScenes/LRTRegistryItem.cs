@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Site13Kernel.GameLogic.RuntimeScenes
 {
@@ -21,7 +22,7 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
                 case RegistryItemDataType.FLOAT:
                     return LevelRuntimeRegistry.QueryFloat(Name, DefaultFloat);
                 case RegistryItemDataType.BOOL:
-                    return LevelRuntimeRegistry.QueryBool(Name,DefaultBoolean);
+                    return LevelRuntimeRegistry.QueryBool(Name, DefaultBoolean);
                 default:
                     return null;
             }

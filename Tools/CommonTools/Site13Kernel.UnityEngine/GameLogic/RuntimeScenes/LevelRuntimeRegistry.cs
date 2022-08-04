@@ -1,15 +1,15 @@
-using Newtonsoft.Json;
-using Site13Kernel.Data;
+﻿using Newtonsoft.Json;
 using Site13Kernel.Data.IO;
 using Site13Kernel.Data.Serializables;
-using Site13Kernel.Utilities;
-using System.Collections;
+using Site13Kernel.Data;
 using System.Collections.Generic;
 using UnityEngine;
+using Site13Kernel.Utilities;
+using Site13Kernel.Core;
 
 namespace Site13Kernel.GameLogic.RuntimeScenes
 {
-    public class LevelRuntimeRegistry : MonoBehaviour,IContainsPureData
+    public class LevelRuntimeRegistry : MonoBehaviour, IContainsPureData
     {
         public static LevelRuntimeRegistry Instance;
         [JsonIgnore]
@@ -18,12 +18,16 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
         public List<KVPair<string, bool>> PredefinedBoolValues;
         [JsonIgnore]
         public List<KVPair<string, float>> PredefinedFloatValues;
+
+        public Site13Event<KVPair<string, bool>> BoolValueWatcher = new Site13Event<KVPair<string, bool>>();
+        public Site13Event<KVPair<string, string>> StringValueWatcher = new Site13Event<KVPair<string, string>>();
+        public Site13Event<KVPair<string, float>> FloatValueWatcher = new Site13Event<KVPair<string, float>>();
         public void Start()
         {
             Instance = this;
-            __Serializable.StringValuePool = CollectionUtilities.ToDictionary(PredefinedStringValues);
-            __Serializable.BoolValuePool = CollectionUtilities.ToDictionary(PredefinedBoolValues);
-            __Serializable.FloatValuePool = CollectionUtilities.ToDictionary(PredefinedFloatValues);
+            __Serializable.StringValuePool = DataConversion.ToDictionary(PredefinedStringValues);
+            __Serializable.BoolValuePool = DataConversion.ToDictionary(PredefinedBoolValues);
+            __Serializable.FloatValuePool = DataConversion.ToDictionary(PredefinedFloatValues);
         }
         public static string QueryString(string Name, string Fallback = null)
         {
@@ -68,6 +72,7 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
                 if (!Instance.__Serializable.StringValuePool.TryAdd(Name, Value))
                 {
                     Instance.__Serializable.StringValuePool[Name] = Value;
+                    Instance.StringValueWatcher.Invoke(new KVPair<string, string> { Key = Name, Value = Value });
                 }
             }
         }
@@ -78,6 +83,7 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
                 if (!Instance.__Serializable.BoolValuePool.TryAdd(Name, Value))
                 {
                     Instance.__Serializable.BoolValuePool[Name] = Value;
+                    Instance.BoolValueWatcher.Invoke(new KVPair<string, bool> { Key = Name, Value = Value });
                 }
             }
         }
@@ -88,10 +94,11 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
                 if (!Instance.__Serializable.FloatValuePool.TryAdd(Name, Value))
                 {
                     Instance.__Serializable.FloatValuePool[Name] = Value;
+                    Instance.FloatValueWatcher.Invoke(new KVPair<string, float> { Key = Name, Value = Value });
                 }
             }
         }
-        private SerializableLevelRuntimeRegistry __Serializable=new SerializableLevelRuntimeRegistry();
+        private SerializableLevelRuntimeRegistry __Serializable = new SerializableLevelRuntimeRegistry();
         public IPureData ObtainData()
         {
             return __Serializable;
@@ -99,7 +106,7 @@ namespace Site13Kernel.GameLogic.RuntimeScenes
 
         public void ApplyData(IPureData data)
         {
-            if(data is SerializableLevelRuntimeRegistry S)
+            if (data is SerializableLevelRuntimeRegistry S)
             {
                 __Serializable = S;
             }
