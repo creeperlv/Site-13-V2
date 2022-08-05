@@ -8,17 +8,17 @@ using UnityEngine;
 
 namespace Site13Kernel
 {
-    public class EventTrigger : InteractiveBase, ITriggerable
+    public class EventTrigger : Site13Kernel.Core.Interactives.EventTrigger
     {
-        [SerializeField]
-        private List<Action> __Callback = new List<Action>();
-        public List<Action> Callback
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => __Callback;
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            set => __Callback = value;
-        }
+        //[SerializeField]
+        //private List<Action> __Callback = new List<Action>();
+        //public new List<Action> Callback
+        //{
+        //    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //    get => __Callback;
+        //    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //    set => __Callback = value;
+        //}
         public bool Executed = false;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
@@ -33,10 +33,10 @@ namespace Site13Kernel
             }
 
         }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCallback(Action Callback)
-        {
-            __Callback.Add(Callback);
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public new void AddCallback(Action Callback)
+        //{
+        //    __Callback.Add(Callback);
+        //}
     }
 }

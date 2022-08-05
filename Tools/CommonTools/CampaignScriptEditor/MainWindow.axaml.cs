@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using CampaignScriptEditor.Controls;
 using CampaignScriptEditor.Editors;
@@ -50,6 +51,29 @@ namespace CampaignScriptEditor
                         e.EditorToggle.IsChecked = true;
                     }
                 }
+            };
+            Events.PointerMoved += (a,b) => {
+                if (__events_is_drag)
+                {
+                    DragItem!.__PointerMoved(b);
+                }
+            };
+            Events.PointerReleased += (_, _) => {
+                if(DragItem is not null)
+                {
+                DragItem.Release();
+                }
+                else
+                {
+                    foreach (var item in Events.Children)
+                    {
+                        if(item is EventItem e)
+                        {
+                            e.Release();
+                        }
+                    }
+                }
+                __events_is_drag = false;
             };
             HideButton.Click += (_, _) =>
             {
@@ -272,9 +296,18 @@ namespace CampaignScriptEditor
             Events.Children.Add(e);
             return e;
         }
+        public bool __events_is_drag = false;
+        public EventItem? DragItem = null;
         public EventItem AddItem(object t)
         {
             var e = new EventItem();
+            e.PointerPressed += (_, _) => {
+                DragItem = e;
+                __events_is_drag = true;
+            }; 
+            e.PointerReleased += (_, _) => {
+                __events_is_drag = false;
+            };
             e.ParentContainer = this;
             e.InitObject(t);
             Events.Children.Add(e);

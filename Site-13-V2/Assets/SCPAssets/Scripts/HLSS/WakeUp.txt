@@ -1,0 +1,140 @@
+[
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.SpawnPlayerEvent, Site13Kernel",
+    "PlayerID": "PLAYER",
+    "Location": {
+      "$type": "Site13Kernel.Data.Serializables.SerializableLocation, Site13Kernel",
+      "UseSceneLookUp": true,
+      "LookUpName": "PlayerLoc",
+      "Position": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableQuaternion, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0,
+        "W": 0.0
+      },
+      "Scale": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      }
+    },
+    "UseEventTrigger": false,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "",
+    "TimeDelay": 14.5,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "WakeAni",
+    "TargetState": true,
+    "UseEventTrigger": false,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": null,
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "WakeAni",
+    "TargetState": false,
+    "UseEventTrigger": false,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": null,
+    "TimeDelay": 14.5,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "ElevatorAni",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "ElevatorTrigger",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "Triggered",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "ElevatorTrigger",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "EndAni",
+    "TargetState": true,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "EndTrigger",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "Toggable",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "EndTrigger",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleObject, Site13Kernel",
+    "ObjectID": "Door-023",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "EndTrigger",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.TogglePlayer, Site13Kernel",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "EndTrigger",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.WinEvent, Site13Kernel",
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "EndTrigger",
+    "TimeDelay": 27.91667,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": true,
+    "UseEventTrigger": false,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": null,
+    "TimeDelay": 14.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.ToggleHUD, Site13Kernel",
+    "TargetState": false,
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "EndTrigger",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  }
+]

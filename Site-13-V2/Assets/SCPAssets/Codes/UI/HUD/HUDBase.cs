@@ -15,6 +15,9 @@ namespace Site13Kernel.UI.HUD
         public static HUDBase Instance;
         public ProgressBar HP;
         public List<ProgressBar> Shield;
+
+        public Animator OnShieldDown;
+
         public WeaponHUD W_HUD0;
         public WeaponHUD W_HUD1;
         public KVList<int, GrenadeHUD> GrenadeHUD;
@@ -75,6 +78,27 @@ namespace Site13Kernel.UI.HUD
                     {
                         HP.Value = FPSController.Instance.CurrentEntity.CurrentHP;
                         HP.MaxValue = FPSController.Instance.CurrentEntity.MaxHP;
+                    }
+                    if (FPSController.Instance.CurrentEntity.CurrentShield == 0 && FPSController.Instance.CurrentEntity.ShieldRecoverSpeed != 0)
+                    {
+                        if (OnShieldDown != null)
+                        {
+                            if (!OnShieldDown.gameObject.activeSelf)
+                            {
+                                OnShieldDown.gameObject.SetActive(true);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (OnShieldDown != null)
+                        {
+                            if (OnShieldDown.gameObject.activeSelf)
+                            {
+                                OnShieldDown.gameObject.SetActive(false);
+                            }
+
+                        }
                     }
                     if (Shield.Count > 0)
                     {

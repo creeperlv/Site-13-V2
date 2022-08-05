@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using CampaignScriptEditor.Editors.Fields;
@@ -20,39 +21,86 @@ namespace CampaignScriptEditor.Editors
             InitializeComponent();
             Up.Click += (_, _) =>
             {
-                var sp = (this.Parent as StackPanel);
-                if (sp is not null)
-                {
-                    var i = sp.Children.IndexOf(this);
-                    if (i > 0)
-                    {
-                        sp.Children.RemoveAt(i);
-                        sp.Children.Insert(i - 1, this);
-                    }
-                }
+                GoUp();
             };
             Copy.Click += (_, _) =>
             {
-                if(ParentContainer is not null)
+                if (ParentContainer is not null)
                 {
                     ParentContainer.AddItem(ObtainObject());
                 }
             };
             Down.Click += (_, _) =>
             {
-                var sp = (this.Parent as StackPanel);
-                if (sp is not null)
-                {
-                    var i = sp.Children.IndexOf(this);
-                    if (i < sp.Children.Count - 1)
-                    {
-                        sp.Children.RemoveAt(i);
-                        sp.Children.Insert(i + 1, this);
-                    }
-                }
+                GoDown();
+            };
+            this.PointerMoved += (_, b) =>
+            {
+                __PointerMoved(b);
+            };
+            this.PointerPressed += (_, b) =>
+            {
+                ___pressed = true;
+                __BG.Background = BG1;
+                ParentContainer!.DragItem = this;
+                ParentContainer!.__events_is_drag = true;
+            };
+            this.PointerReleased += (_, _) =>
+            {
+                ParentContainer!.__events_is_drag = false;
+                Release();
             };
             Delete.Click += (_, _) => { (this.Parent as StackPanel)!.Children.Remove(this); };
         }
+        public void __PointerMoved(PointerEventArgs b)
+        {
+            if (___pressed)
+            {
+                var p = b.GetCurrentPoint(this);
+                if (p.Position.Y < -30)
+                {
+                    GoUp();
+                }
+                else if (p.Position.Y > this.DesiredSize.Height + 15)
+                {
+                    GoDown();
+                }
+            }
+        }
+        SolidColorBrush BG0 = new SolidColorBrush(Color.FromArgb(128, 0x22, 0x22, 0x22));
+        SolidColorBrush BG1 = new SolidColorBrush(Color.FromArgb(64, 0x22, 0x22, 0x22));
+        public void GoDown()
+        {
+            var sp = (this.Parent as StackPanel);
+            if (sp is not null)
+            {
+                var i = sp.Children.IndexOf(this);
+                if (i < sp.Children.Count - 1)
+                {
+                    sp.Children.RemoveAt(i);
+                    sp.Children.Insert(i + 1, this);
+                }
+            }
+        }
+        public void Release()
+        {
+            ___pressed = false;
+            __BG.Background = BG0;
+        }
+        public void GoUp()
+        {
+            var sp = (this.Parent as StackPanel);
+            if (sp is not null)
+            {
+                var i = sp.Children.IndexOf(this);
+                if (i > 0)
+                {
+                    sp.Children.RemoveAt(i);
+                    sp.Children.Insert(i - 1, this);
+                }
+            }
+        }
+        bool ___pressed = false;
         public Object? Event;
         static Type StringType = typeof(string);
         static Type FloatType = typeof(float);

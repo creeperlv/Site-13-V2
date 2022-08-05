@@ -7,11 +7,8 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Character
 {
-    public class Biped : AttachableComponent 
+    public class Biped : AnimatedCharacter 
     {
-        public Animator Animator;
-        public KVList<string, BipedMotion> MotionMap;
-        public Transform Root;
         public float MaxHorizontalRootTolerance;
         #region Spine
         [Header("Spine")]
