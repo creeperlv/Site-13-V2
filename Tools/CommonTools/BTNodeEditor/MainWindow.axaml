@@ -1,47 +1,70 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:editor="clr-namespace:NodeEditor.Controls;assembly=NodeEditorAvalonia"
-        
-              xmlns:behaviors="clr-namespace:NodeEditor.Behaviors;assembly=NodeEditorAvalonia"
-             xmlns:controls="clr-namespace:NodeEditorDemo.Controls;assembly=NodeEditor.Base"
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:editors="using:BTNodeEditor.Editors" FontFamily="Sarasa Mono CL" FontSize="9" TextBlock.FontSize="9"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="BTNodeEditor.MainWindow"
+        x:Class="BTNodeEditor.MainWindow" Background="Transparent"
         Title="BTNodeEditor">
-	<ScrollViewer VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Auto"
-                  DataContext="{Binding Drawing}">
-
-			<Panel Background="Transparent"
-				   Width="{Binding Width}"
-				   Height="{Binding Height}">
-				<Panel.Transitions>
-					<Transitions>
-						<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
-					</Transitions>
-				</Panel.Transitions>
-				<editor:DrawingNode Name="Drawing"
-									Background="White"
-									InputSource="{Binding #ZoomBorder}"
-									AdornerCanvas="{Binding #AdornerCanvas}"
-									ClipToBounds="False">
-					<editor:DrawingNode.Styles>
-						<Style Selector="editor|DrawingNode">
-							<Setter Property="EnableSnap" Value="False" />
-							<Setter Property="SnapX" Value="15.0" />
-							<Setter Property="SnapY" Value="15.0" />
-							<Setter Property="EnableGrid" Value="False" />
-							<Setter Property="GridCellWidth" Value="15.0" />
-							<Setter Property="GridCellHeight" Value="15.0" />
-						</Style>
-					</editor:DrawingNode.Styles>
-				</editor:DrawingNode>
-				<Canvas Name="AdornerCanvas"
-						Background="Transparent"
-						Width="{Binding Width}"
-						Height="{Binding Height}"
-						IsHitTestVisible="False"/>
-			</Panel>
-	</ScrollViewer>
+	<Window.Styles>
+		<Style Selector="TextBox">
+			<Setter Property="MinHeight" Value="9"/>
+			<Setter Property="FontSize" Value="9"/>
+			<Setter Property="Padding" Value="3"/>
+		</Style>
+		<Style Selector="ToggleButton">
+			<Setter Property="MinHeight" Value="9"/>
+			<Setter Property="FontSize" Value="9"/>
+		</Style>
+	</Window.Styles>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid>
+			<Grid Background="#8333" IsHitTestVisible="False"/>
+			<StackPanel Orientation="Horizontal">
+				<Border CornerRadius="3" IsHitTestVisible="False" Margin="8" HorizontalAlignment="Left" Padding="4" Background="#8333">
+					<TextBlock Text="BehaviorTree Node Editor"/>
+				</Border>
+				<Menu>
+					<MenuItem Header="_File">
+						<MenuItem Header="_Open"/>
+						<MenuItem Header="_Save"/>
+						<MenuItem Header="Save _As"/>
+						<Separator/>
+						<MenuItem Header="_Exit"/>
+					</MenuItem>
+				</Menu>
+			</StackPanel>
+		</Grid>
+		<Grid Grid.Row="1" Background="#8333">
+			<Border Name="ContentContainer" CornerRadius="8" Margin="8,0,8,8" Background="#8000" ClipToBounds="True">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Border ClipToBounds="True" CornerRadius="5" Margin="4" Background="#3333">
+						<ScrollViewer>
+							<StackPanel Name="Primitives" Margin="4">
+								<StackPanel.Styles>
+									<Style Selector="Button">
+										<Setter Property="HorizontalAlignment" Value="Stretch"/>
+										<Setter Property="Padding" Value="4,2"/>
+										<Setter Property="FontSize" Value="9"/>
+									</Style>
+								</StackPanel.Styles>
+							</StackPanel>
+						</ScrollViewer>
+					</Border>
+					<GridSplitter Grid.Column="1" Background="#01000000" Foreground="#01000000" Width="2"/>
+					<Rectangle Grid.Column="1" Width="2" Height="25" Fill="White" Stretch="None" VerticalAlignment="Center" IsHitTestVisible="False"></Rectangle>
+					<editors:NodeGraphEditor Name="CentralEditor" Grid.Column="2"/>
+				</Grid>
+			</Border>
+		</Grid>
+	</Grid>
 </Window>

@@ -3,12 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Site13Kernel.GameLogic.BT.Nodes.Conditions
+namespace Site13Kernel.GameLogic.BT.Nodes.Actions
 {
     [Serializable]
-    [Catalog("Conditions")]
-    public class IsHit : BTBaseNode
+    [Catalog("Actions>Animation")]
+    public class PlayMotion : BTBaseNode
     {
     }
-
 }

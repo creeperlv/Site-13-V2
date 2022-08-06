@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="300"
+             x:Class="BTNodeEditor.Editors.Nodes.GraphNode" ClipToBounds="False">
+	<Border Background="#333" BoxShadow="0 0 10 5 #8333" Name="NodeBorder"
+			BorderThickness="0" CornerRadius="8">
+		<Border.ContextMenu>
+			<ContextMenu>
+				<MenuItem Header="Delete"/>
+				<MenuItem Header="Duplicate"/>
+			</ContextMenu>
+		</Border.ContextMenu>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<Grid ClipToBounds="False">
+				<Button Name="LRect" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Left" Background="#28E"/>
+				<TextBlock Margin="20,0" Foreground="#8FFF" Text="=" HorizontalAlignment="Left" VerticalAlignment="Center" IsHitTestVisible="True"/>
+				<ToggleButton Margin="45,0,15,0" Name="TitleButton" IsChecked="True" HorizontalAlignment="Stretch" Content="Title"/>
+				<Button Name="RRect" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Right" Background="Green"/>
+			</Grid>
+			<Grid Grid.Row="1" IsVisible="{Binding IsChecked,ElementName=TitleButton}">
+				<StackPanel Name="FieldContainer" >
+					
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</Border>
+</UserControl>

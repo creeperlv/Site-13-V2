@@ -7,8 +7,6 @@ namespace Site13Kernel.GameLogic.BT.Nodes
     [Serializable]
     public class BTBaseNode
     {
-        public bool isStart;
-        public bool isEnd;
         public BTBaseNode NextNode;
     }
 }

@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:editor="clr-namespace:NodeEditor.Controls;assembly=NodeEditorAvalonia"
+             xmlns:behaviors="clr-namespace:NodeEditor.Behaviors;assembly=NodeEditorAvalonia"
+             xmlns:controls="clr-namespace:NodeEditorDemo.Controls;assembly=NodeEditor.Base"
+		
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BTNodeEditor.Editors.NodeGraphEditor">
+	<Grid>
+		<Border Grid.Column="2" CornerRadius="8" Margin="8" Background="#111"  BoxShadow="0 0 5 5 #222">
+			<Border ClipToBounds="True" CornerRadius="8"   BoxShadow="inset 0 0 5 5 #222">
+				<ScrollViewer VerticalScrollBarVisibility="Auto"
+							  HorizontalScrollBarVisibility="Auto"
+							  DataContext="{Binding Drawing}">
+
+					<Canvas Name="AdornerCanvas"
+							Background="Transparent"
+							Width="{Binding Width}"
+							Height="{Binding Height}"
+							IsHitTestVisible="True">
+						<Canvas.Background>
+							<VisualBrush TileMode="Tile" SourceRect="0,0,24,24" Stretch="None" DestinationRect="0,0,24,24">
+								<VisualBrush.Visual>
+									<Rectangle Width="25" Height="25" Stroke="#8888" StrokeThickness="1"></Rectangle>
+								</VisualBrush.Visual>
+							</VisualBrush>
+						</Canvas.Background>
+					</Canvas>
+
+				</ScrollViewer>
+			</Border>
+		</Border>
+	</Grid>
+</UserControl>

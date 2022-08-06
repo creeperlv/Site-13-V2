@@ -79,7 +79,7 @@ namespace Site13Kernel.UI.HUD
                         HP.Value = FPSController.Instance.CurrentEntity.CurrentHP;
                         HP.MaxValue = FPSController.Instance.CurrentEntity.MaxHP;
                     }
-                    if (FPSController.Instance.CurrentEntity.CurrentShield == 0 && FPSController.Instance.CurrentEntity.ShieldRecoverSpeed != 0)
+                    if (FPSController.Instance.CurrentEntity.CurrentShield == 0 && FPSController.Instance.CurrentEntity.MaxShield != 0)
                     {
                         if (OnShieldDown != null)
                         {
