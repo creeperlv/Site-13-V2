@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Site13Kernel.Data.Attributes;
 using Site13Kernel.GameLogic.BT.Nodes;
 using Site13Kernel.GameLogic.Directors;
+using CommonTools;
 
 namespace BTNodeEditor
 {
@@ -17,8 +18,20 @@ namespace BTNodeEditor
         public MainWindow()
         {
             InitializeComponent();
+            CentralArea.Children.Add(CentralEditor);
             ApplyVisual();
+            InitEvents();
             Load();
+        }
+        public BTNodeEditor.Editors.NodeGraphEditor CentralEditor = new Editors.NodeGraphEditor();
+        void InitEvents()
+        {
+            AboutMenuItem.Click += async (_, _) => {
+
+                AboutDialog aboutDialog = new AboutDialog();
+                aboutDialog.SetInfo("BehaviorTree Node Editor", typeof(MainWindow).Assembly.GetName().Version, "Avalonia.Controls.PanAndZoom");
+                await aboutDialog.ShowDialog(this);
+            };
         }
         public static Type BTBaseNodeType = typeof(BTBaseNode);
         void Load()
@@ -27,7 +40,7 @@ namespace BTNodeEditor
             FieldEditorPool.FieldEditors.Add(typeof(string), typeof(StringField));
             FieldEditorPool.FieldEditors.Add(typeof(bool), typeof(BoolField));
             FieldEditorPool.FieldEditors.Add(typeof(float), typeof(FloatField));
-            //FieldEditorPool.FieldEditors.Add(typeof(SerializableLocation), typeof(SerializableLocationField));
+            FieldEditorPool.FieldEditors.Add(typeof(int), typeof(IntField));
             FieldEditorPool.FieldEditors.Add(typeof(SerializableVector3), typeof(Vector3Field));
             FieldEditorPool.FieldEditors.Add(typeof(SerializableQuaternion), typeof(QuaternionField));
             Dictionary<string, TitledContainer> containers = new Dictionary<string, TitledContainer>();
@@ -60,7 +73,7 @@ namespace BTNodeEditor
                         };
                         button.Click += (_, _) =>
                         {
-                            CentralEditor.AddNode(new Editors.Nodes.SerializableNode() { X = 50, Y = 50, ID = Guid.NewGuid().ToString(), Contained = (BTBaseNode)Activator.CreateInstance(item)! }); ;
+                            CentralEditor.AddNode(new Editors.Nodes.SerializableNode() { X = 150, Y = 150, ID = Guid.NewGuid().ToString(), Contained = (BTBaseNode)Activator.CreateInstance(item)! }); ;
                         };
                         CurrentContainer!.Children.Add(button);
                     }

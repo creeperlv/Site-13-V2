@@ -36,6 +36,12 @@
 						<Separator/>
 						<MenuItem Header="_Exit"/>
 					</MenuItem>
+					<MenuItem Header="_Build">
+						<MenuItem Header="_Site13Kernel-Only Json"/>
+					</MenuItem>
+					<MenuItem Header="_Help">
+						<MenuItem Header="_About" Name="AboutMenuItem"/>
+					</MenuItem>
 				</Menu>
 			</StackPanel>
 		</Grid>
@@ -61,8 +67,8 @@
 						</ScrollViewer>
 					</Border>
 					<GridSplitter Grid.Column="1" Background="#01000000" Foreground="#01000000" Width="2"/>
-					<Rectangle Grid.Column="1" Width="2" Height="25" Fill="White" Stretch="None" VerticalAlignment="Center" IsHitTestVisible="False"></Rectangle>
-					<editors:NodeGraphEditor Name="CentralEditor" Grid.Column="2"/>
+					<Rectangle Grid.Column="1" Width="2" Height="25" Fill="#8FFF" Stretch="None" VerticalAlignment="Center" IsHitTestVisible="False"></Rectangle>
+					<Grid Grid.Column="2" Name="CentralArea"></Grid>
 				</Grid>
 			</Border>
 		</Grid>

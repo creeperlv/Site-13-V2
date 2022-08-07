@@ -9,5 +9,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
     [Catalog("Actions>Animation")]
     public class PlayMotion : BTBaseNode
     {
+        public string Trigger;
+        public int Layer;
     }
 }

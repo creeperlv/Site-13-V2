@@ -3,8 +3,54 @@
              x:Class="BTNodeEditor.App">
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
-		<StyleInclude Source="avares://NodeEditorAvalonia/Themes/NodeEditorTheme.axaml" />
-		<StyleInclude Source="avares://NodeEditor.Base/Styles/Nodes.axaml" />
-		<StyleInclude Source="avares://NodeEditor.Base/Styles/Icons.axaml" />
-		<StyleInclude Source="avares://CommonTools/ToolStyles.axaml"/>   </Application.Styles>
+		<StyleInclude Source="avares://CommonTools/ToolStyles.axaml"/>
+		<!--<Style Selector="Button">
+			<Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+			--><!--<Setter Property="BackgroundSizing" Value="OuterBorderEdge" />--><!--
+			<Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
+			<Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
+			<Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThemeThickness}" />
+			<Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+			<Setter Property="Padding" Value="{DynamicResource ButtonPadding}" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="FontWeight" Value="Normal" />
+			<Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+			--><!--<Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+    <Setter Property="FocusVisualMargin" Value="-3" />--><!--
+			<Setter Property="Template">
+				<ControlTemplate>
+					<ContentPresenter x:Name="PART_ContentPresenter"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  Content="{TemplateBinding Content}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  Padding="{TemplateBinding Padding}"
+									  RecognizesAccessKey="True"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+				</ControlTemplate>
+			</Setter>
+		</Style>-->
+		<Style Selector="Button.BlueBtn">
+			<Setter Property="Background" Value="#2288EE"/>
+		</Style>
+		<Style Selector="Button.BlueBtn:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#1177DD"/>
+		</Style>
+		<Style Selector="Button.BlueBtn:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#44AAFF"/>
+		</Style>
+		<Style Selector="Button.GreenBtn">
+			<Setter Property="Background" Value="#30C030"/>
+		</Style>
+		<Style Selector="Button.GreenBtn:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#10A010"/>
+		</Style>
+		<Style Selector="Button.GreenBtn:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#30F030"/>
+		</Style>
+	</Application.Styles>
 </Application>

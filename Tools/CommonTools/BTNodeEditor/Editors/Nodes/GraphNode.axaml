@@ -8,8 +8,9 @@
 			BorderThickness="0" CornerRadius="8">
 		<Border.ContextMenu>
 			<ContextMenu>
-				<MenuItem Header="Delete"/>
-				<MenuItem Header="Duplicate"/>
+				<MenuItem Header="Delete" Name="DeleteNode"/>
+				<MenuItem Header="Duplicate" Name="DuplicateNode"/>
+				<MenuItem Header="View Source" Name="ViewSource"/>
 			</ContextMenu>
 		</Border.ContextMenu>
 		<Grid>
@@ -18,10 +19,10 @@
 				<RowDefinition/>
 			</Grid.RowDefinitions>
 			<Grid ClipToBounds="False">
-				<Button Name="LRect" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Left" Background="#28E"/>
+				<Button Name="LRect" Classes="BlueBtn" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Left"/>
 				<TextBlock Margin="20,0" Foreground="#8FFF" Text="=" HorizontalAlignment="Left" VerticalAlignment="Center" IsHitTestVisible="True"/>
 				<ToggleButton Margin="45,0,15,0" Name="TitleButton" IsChecked="True" HorizontalAlignment="Stretch" Content="Title"/>
-				<Button Name="RRect" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Right" Background="Green"/>
+				<Button Name="RRect" Classes="GreenBtn" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Right"/>
 			</Grid>
 			<Grid Grid.Row="1" IsVisible="{Binding IsChecked,ElementName=TitleButton}">
 				<StackPanel Name="FieldContainer" >

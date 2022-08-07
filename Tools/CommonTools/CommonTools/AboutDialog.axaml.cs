@@ -15,14 +15,19 @@ namespace CommonTools
 #if DEBUG
             this.AttachDevTools();
 #endif
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;  
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
             InitStyles();
         }
-        public void SetInfo(string ToolTitle, Version ToolVersion)
+        public void SetInfo(string ToolTitle, Version ToolVersion, params string[] addiationalLibs)
         {
-            MainVersion.Text = typeof(Weapon).Assembly.GetName().Version+"";
+            MainVersion.Text = typeof(Weapon).Assembly.GetName().Version + "";
             this.ToolVersion.Text = ToolVersion + "";
-            this.ToolName.Text = ToolTitle+ "";
+            this.ToolName.Text = ToolTitle + "";
+            AdditionalLibs.Children.Clear();
+            foreach (var item in addiationalLibs)
+            {
+                AdditionalLibs.Children.Add(new TextBlock() { Text = item });
+            }
         }
         public void InitStyles()
         {

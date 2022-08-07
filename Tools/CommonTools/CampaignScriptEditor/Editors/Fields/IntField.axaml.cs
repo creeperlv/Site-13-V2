@@ -6,12 +6,13 @@ using System.Reflection;
 
 namespace CampaignScriptEditor.Editors.Fields
 {
-    public partial class FloatField : UserControl,IFieldEditor
+    public partial class IntField : UserControl, IFieldEditor
     {
-        public FloatField()
+        public IntField()
         {
             InitializeComponent();
         }
+
         FieldInfo? fi;
         public void SetField(FieldInfo fi, object? initialValue = null)
         {
@@ -43,8 +44,7 @@ namespace CampaignScriptEditor.Editors.Fields
                     case Avalonia.Input.Key.D8:
                     case Avalonia.Input.Key.D9:
                     case Avalonia.Input.Key.Decimal:
-                    case Avalonia.Input.Key.OemPeriod:
-                    
+
                         break;
                     default:
                         b.Handled = true;
@@ -54,7 +54,7 @@ namespace CampaignScriptEditor.Editors.Fields
         }
         public object GetObject()
         {
-            if (float.TryParse(ContentBox.Text, out var r))
+            if (int.TryParse(ContentBox.Text, out var r))
             {
 
                 return r;
