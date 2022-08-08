@@ -6,6 +6,7 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using BTNodeEditor.Editors.Nodes;
 using Site13Kernel.GameLogic.BT.Nodes.Generic;
+using Site13Kernel.GameLogic.BT.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,16 +29,6 @@ namespace BTNodeEditor.Editors
                         item.CalculatePath();
                     }
                 });
-            });
-            AddNode(new SerializableNode()
-            {
-                X = 150,
-                Y = 200,
-                ID = Guid.NewGuid().ToString(),
-                Contained = new Start(),
-                HaveL = false,
-                DisableDeletion = true,
-                DisableDuplicate = true
             });
             AdornerCanvas.PointerPressed += (_, _) =>
             {
@@ -71,6 +62,19 @@ namespace BTNodeEditor.Editors
                 }
             };
         }
+        public void AddStartNode()
+        {
+            AddNode(new SerializableNode()
+            {
+                X = 150,
+                Y = 200,
+                ID = Guid.NewGuid().ToString(),
+                Contained = new Start(),
+                HaveL = false,
+                DisableDeletion = true,
+                DisableDuplicate = true
+            });
+        }
         public Dictionary<string, GraphNode> ID_Node_Map = new();
         public List<GraphNode> Nodes = new();
         public void DeleteNode(GraphNode GN)
@@ -99,7 +103,7 @@ namespace BTNodeEditor.Editors
             ManagedConnections.Remove(NC);
             AdornerCanvas.Children.Remove(NC.GetPath());
         }
-        public void AddNode(SerializableNode SN)
+        public GraphNode AddNode(SerializableNode SN)
         {
             var GN = GraphNode.FromSerializableNode(SN, this);
             Nodes.Add(GN);
@@ -120,6 +124,65 @@ namespace BTNodeEditor.Editors
                     Connect(GN, R);
                 }
             }
+            return GN;
+        }
+        public void LoadSerializableGraph(SerializableGraph SG)
+        {
+
+            Dictionary<string, GraphNode> id_node_map = new Dictionary<string, GraphNode>();
+            foreach (var item in SG.nodes)
+            {
+                var GN = AddNode(item);
+                id_node_map.Add(item.ID, GN);
+            }
+            foreach (var item in SG.nodes)
+            {
+                if (id_node_map.TryGetValue(item.ID, out var op_node))
+                {
+                    foreach (var L in item.L)
+                    {
+                        if (id_node_map.TryGetValue(L, out var node_1))
+                        {
+                            Connect(node_1, op_node);
+                        }
+                    }
+                    foreach (var R in item.R)
+                    {
+                        if (id_node_map.TryGetValue(R, out var node_1))
+                        {
+                            Connect(op_node, node_1);
+                        }
+                    }
+                }
+            }
+        }
+        public SerializableGraph ToSerializableGraph()
+        {
+            SerializableGraph SG = new SerializableGraph();
+            foreach (var item in Nodes)
+            {
+                var SN = item.Serialize();
+                {
+                    foreach (var con in item.R)
+                    {
+                        if (con.R is not null)
+                        {
+                            SN.R.Add(con.R.Serialize().ID);
+                        }
+                    }
+                }
+                {
+                    foreach (var con in item.L)
+                    {
+                        if (con.L is not null)
+                        {
+                            SN.L.Add(con.L.Serialize().ID);
+                        }
+                    }
+                }
+                SG.nodes.Add(SN);
+            }
+            return SG;
         }
         public void Connect(GraphNode L, GraphNode R)
         {

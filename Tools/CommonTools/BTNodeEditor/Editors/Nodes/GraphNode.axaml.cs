@@ -6,6 +6,7 @@ using BTNodeEditor.Editors.Controls;
 using CampaignScriptEditor;
 using CampaignScriptEditor.Editors.Fields;
 using Site13Kernel.GameLogic.BT.Nodes;
+using Site13Kernel.GameLogic.BT.Serialization;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections.Generic;
@@ -185,15 +186,6 @@ namespace BTNodeEditor.Editors.Nodes
         }
         void InitEvents()
         {
-            Flyout flyout = new Flyout();
-            FlyoutCodeViewer codeViewer = new FlyoutCodeViewer();
-            flyout.Content = codeViewer;
-            codeViewer.CloseBtn.Click += (_, _) => { flyout.Hide(); };
-            ViewSource.Click += (_, _) =>
-            {
-                codeViewer.CodePresenter.Text = JsonUtilities.Serialize(Serialize());
-                flyout.ShowAt(NodeBorder);
-            };
             DuplicateNode.Click += (_, _) =>
             {
                 if (ParentEditor is not null)
@@ -210,7 +202,11 @@ namespace BTNodeEditor.Editors.Nodes
                 if (ParentEditor is not null)
                     ParentEditor.DeleteNode(this);
             };
-            NodeBorder.PropertyChanged += (_, _) => { CalcuateAll(); };
+            NodeBorder.PropertyChanged += (_, _) =>
+            {
+                if (!isPressed)
+                    CalcuateAll();
+            };
             NodeBorder.PointerPressed += (_, b) =>
             {
                 if (b.GetCurrentPoint(NodeBorder).Properties.IsRightButtonPressed) return;

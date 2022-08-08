@@ -30,9 +30,11 @@
 				</Border>
 				<Menu>
 					<MenuItem Header="_File">
-						<MenuItem Header="_Open"/>
-						<MenuItem Header="_Save"/>
-						<MenuItem Header="Save _As"/>
+						<MenuItem Header="_New" Name="NewBtn"/>
+						<Separator/>
+						<MenuItem Header="_Open" Name="OpenBtn"/>
+						<MenuItem Header="_Save" Name="SaveBtn"/>
+						<MenuItem Header="Save _As" Name="SaveAsBtn"/>
 						<Separator/>
 						<MenuItem Header="_Exit"/>
 					</MenuItem>

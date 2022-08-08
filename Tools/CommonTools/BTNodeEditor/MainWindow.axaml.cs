@@ -10,6 +10,12 @@ using Site13Kernel.Data.Attributes;
 using Site13Kernel.GameLogic.BT.Nodes;
 using Site13Kernel.GameLogic.Directors;
 using CommonTools;
+using System.IO;
+using Site13Kernel.Utilities;
+using System.Threading.Tasks;
+using Site13Kernel.GameLogic.BT.Serialization;
+using BTNodeEditor.Editors.Nodes;
+using Site13Kernel.GameLogic.BT.Attributes;
 
 namespace BTNodeEditor
 {
@@ -22,17 +28,83 @@ namespace BTNodeEditor
             ApplyVisual();
             InitEvents();
             Load();
+            CentralEditor.AddStartNode();
         }
         public BTNodeEditor.Editors.NodeGraphEditor CentralEditor = new Editors.NodeGraphEditor();
         void InitEvents()
         {
-            AboutMenuItem.Click += async (_, _) => {
+            NewBtn.Click += (_, _) => {
+                EmptyEditor();
+                CentralEditor.AddStartNode();
+                __file = null;
+                GC.Collect();
+            };
+            AboutMenuItem.Click += async (_, _) =>
+            {
 
                 AboutDialog aboutDialog = new AboutDialog();
                 aboutDialog.SetInfo("BehaviorTree Node Editor", typeof(MainWindow).Assembly.GetName().Version, "Avalonia.Controls.PanAndZoom");
                 await aboutDialog.ShowDialog(this);
             };
+            SaveAsBtn.Click += async (_, _) =>
+            {
+                await __save_as();
+            };
+            SaveBtn.Click += async (_, _) =>
+            {
+                if (__file is null)
+                {
+                    await __save_as();
+                }
+                else
+                {
+                    __save();
+                }
+            };
+            OpenBtn.Click += async(_, _) => {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.AllowMultiple = false;
+                var l=await openFileDialog.ShowAsync(this);
+                if (l.Length > 0)
+                {
+                    __file = l[0];
+                    EmptyEditor();
+                    CentralEditor.LoadSerializableGraph(JsonUtilities.Deserialize<SerializableGraph>(File.ReadAllText(__file)));
+                    GC.Collect();
+                }
+            };
         }
+        void EmptyEditor()
+        {
+            CentralArea.Children.Remove(CentralEditor); 
+            CentralEditor = new Editors.NodeGraphEditor();
+            CentralArea.Children.Add(CentralEditor);
+            GC.Collect();
+        }
+        async Task __save_as()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filters = new List<FileDialogFilter>();
+            saveFileDialog.Filters.Add(new FileDialogFilter() { Extensions = new List<string>() { "json" }, Name = "Json" });
+            var f = await saveFileDialog.ShowAsync(this);
+            if (f is not null)
+            {
+                __file = f;
+                __save();
+            }
+        }
+        void __save()
+        {
+            if (__file is not null)
+            {
+                if (File.Exists(__file))
+                {
+                    File.Delete(__file);
+                }
+                File.WriteAllText(__file, JsonUtilities.Serialize(CentralEditor.ToSerializableGraph()));
+            }
+        }
+        string? __file = null;
         public static Type BTBaseNodeType = typeof(BTBaseNode);
         void Load()
         {
@@ -50,6 +122,11 @@ namespace BTNodeEditor
                 {
                     if (item.FullName != BTBaseNodeType.FullName)
                     {
+                        {
+                            //Check HideInEditor
+                            var attr= item.GetCustomAttributes(typeof(HideInEditorAttribute), false);
+                            if (attr.Length > 0) continue;
+                        }
                         var catas = item.GetCustomAttributes(typeof(CatalogAttribute), false);
                         string Cata = "General";
                         if (catas.Length > 0)
@@ -73,7 +150,7 @@ namespace BTNodeEditor
                         };
                         button.Click += (_, _) =>
                         {
-                            CentralEditor.AddNode(new Editors.Nodes.SerializableNode() { X = 150, Y = 150, ID = Guid.NewGuid().ToString(), Contained = (BTBaseNode)Activator.CreateInstance(item)! }); ;
+                            CentralEditor.AddNode(new SerializableNode() { X = 150, Y = 150, ID = Guid.NewGuid().ToString(), Contained = (BTBaseNode)Activator.CreateInstance(item)! }); ;
                         };
                         CurrentContainer!.Children.Add(button);
                     }
