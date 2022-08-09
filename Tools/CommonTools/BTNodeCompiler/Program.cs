@@ -1,4 +1,6 @@
 ﻿using CLUNL.ConsoleAppHelper;
+using CLUNL.Localization;
+using System.Diagnostics;
 
 namespace BTNodeCompiler
 {
@@ -7,6 +9,9 @@ namespace BTNodeCompiler
         static void Main(string[] args)
         {
             ConsoleAppHelper.Colorful = true;
+            var FI= new FileInfo(Process.GetCurrentProcess().MainModule!.FileName!);
+            Language.SetDataPath(FI.Directory!.FullName);
+            ConsoleAppHelper.ExecutableName = FI.Name;
             ConsoleAppHelper.PreExecution = () =>
             {
                 Output.OutLine("This tool is licensed under the MIT License.");

@@ -10,3 +10,7 @@ dotnet build -c Release -o ..\..\bin\SRI\Editor\
 cd ..
 cd ..
 cd ..
+cd Tools\CommonTools\
+dotnet publish .\BTNodeCompiler\BTNodeCompiler.csproj -c:Release --self-contained true -r win-x64  -p:PublishSingleFile=true -o ..\..\GitHub-Tools\bin\BTNodeCompiler\
+cd ..
+cd ..

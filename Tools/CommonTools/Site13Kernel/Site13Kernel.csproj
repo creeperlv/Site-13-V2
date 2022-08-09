@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(OutDir)$(TargetFileName)&quot; &quot;$(SolutionDir)..\..\Site-13-V2\Assets\Plug-in\$(TargetFileName)&quot;" />
   </Target>
 
   <ItemGroup>

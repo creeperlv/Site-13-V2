@@ -24,7 +24,7 @@ namespace LanguageTool
             AboutButton.Click += (_, _) => {
                 Dialog dialog=new Dialog();
                 dialog.Height = 400;
-                dialog.DialogTitle = "About";
+                dialog._DialogTitle = "About";
                 dialog.DialogContent = markdownScrollViewer;
                 dialog.isCancelEnabled=false;
                 dialog.ShowDialog(this);
@@ -37,9 +37,9 @@ namespace LanguageTool
         void Load()
         {
         }
-        StackPanel CentralEditor;
-        Button AboutButton;
-        Button AddFieldButton;
+        //StackPanel CentralEditor;
+        //Button AboutButton;
+        //Button AddFieldButton;
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
@@ -49,9 +49,9 @@ namespace LanguageTool
             this.TransparencyBackgroundFallback=new SolidColorBrush(Color.FromArgb(255,0,0,0));
             Trace.WriteLine(this.ActualTransparencyLevel);
             this.Background = new SolidColorBrush(Colors.Transparent);
-            CentralEditor=this.FindControl<StackPanel>("CentralEditor");
-            AboutButton = this.FindControl<Button>("AboutButton");
-            AddFieldButton = this.FindControl<Button>("AddFieldButton");
+            //CentralEditor=this.FindControl<StackPanel>("CentralEditor");
+            //AboutButton = this.FindControl<Button>("AboutButton");
+            //AddFieldButton = this.FindControl<Button>("AddFieldButton");
             Init();
             //this.SystemDecorations = SystemDecorations.BorderOnly;
         }
