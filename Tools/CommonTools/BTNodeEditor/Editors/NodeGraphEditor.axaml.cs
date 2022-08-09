@@ -96,6 +96,20 @@ namespace BTNodeEditor.Editors
             //}
             Nodes.Remove(GN);
         }
+        public void HideAll()
+        {
+            foreach (var item in Nodes)
+            {
+                item.TitleButton.IsChecked = false;
+            }
+        }
+        public void ShowAll()
+        {
+            foreach (var item in Nodes)
+            {
+                item.TitleButton.IsChecked = true;
+            }
+        }
         public void RemoveConnection(NodeConnection NC)
         {
             if (NC.L is not null) NC.L.RemoveR(NC);
@@ -163,6 +177,7 @@ namespace BTNodeEditor.Editors
             {
                 var SN = item.Serialize();
                 {
+                    SN.R.Clear();
                     foreach (var con in item.R)
                     {
                         if (con.R is not null)
@@ -172,6 +187,7 @@ namespace BTNodeEditor.Editors
                     }
                 }
                 {
+                    SN.L.Clear();
                     foreach (var con in item.L)
                     {
                         if (con.L is not null)
@@ -186,7 +202,21 @@ namespace BTNodeEditor.Editors
         }
         public void Connect(GraphNode L, GraphNode R)
         {
-            NodeConnection nodeConnection = new NodeConnection();
+            foreach (var item in L.R)
+            {
+                if (item.R == R)
+                {
+                    return;
+                }
+            }
+            foreach (var item in R.L)
+            {
+                if (item.L == L)
+                {
+                    return;
+                }
+            }
+            NodeConnection nodeConnection = new NodeConnection(this);
             L.AddR(nodeConnection);
             R.AddL(nodeConnection);
             ManagedConnections.Add(nodeConnection);
@@ -203,7 +233,7 @@ namespace BTNodeEditor.Editors
             i = 0;
             if (NC == null)
             {
-                NC = new NodeConnection();
+                NC = new NodeConnection(this);
                 _LastGN = n;
                 if (isRightOfNode)
                 {

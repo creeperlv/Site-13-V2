@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Ceras;
+using Newtonsoft.Json;
 
 namespace Site13Kernel.Utilities
 {
@@ -9,6 +10,8 @@ namespace Site13Kernel.Utilities
             TypeNameHandling = TypeNameHandling.Objects,
             TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
             Formatting = Formatting.Indented,
+            ReferenceLoopHandling= ReferenceLoopHandling.Serialize,
+            NullValueHandling= NullValueHandling.Include
         };
         public static string Serialize<T>(T data)
         {
@@ -17,6 +20,17 @@ namespace Site13Kernel.Utilities
         public static T Deserialize<T>(string data)
         {
             return JsonConvert.DeserializeObject<T>(data,settings);
+        }
+    }
+    public static class BinaryUtilities
+    {
+        static SerializerConfig config = new SerializerConfig() {
+             PreserveReferences=true,
+        };
+        public static byte[] Serialize<T>(T Data)
+        {
+            CerasSerializer serializer = new CerasSerializer(config);
+            return serializer.Serialize(Data);
         }
     }
 }

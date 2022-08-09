@@ -21,7 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Site13Kernel.Tests", "Site1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Site13Kernel.UnityEngine.Editor", "Site13Kernel.UnityEngine.Editor\Site13Kernel.UnityEngine.Editor.csproj", "{FCA9D386-A09D-4203-A388-FC39D6E79129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTNodeEditor", "BTNodeEditor\BTNodeEditor.csproj", "{B1399E41-BEB7-4B05-B183-D32C1B18B553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTNodeEditor", "BTNodeEditor\BTNodeEditor.csproj", "{B1399E41-BEB7-4B05-B183-D32C1B18B553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTNodeCompiler", "BTNodeCompiler\BTNodeCompiler.csproj", "{9BB88DD5-958F-42C8-9C7D-2DC4D02551A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BTNode", "BTNode", "{AD82D0B3-66B2-4A3A-9780-6AEBF3291975}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,9 +73,17 @@ Global
 		{B1399E41-BEB7-4B05-B183-D32C1B18B553}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1399E41-BEB7-4B05-B183-D32C1B18B553}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1399E41-BEB7-4B05-B183-D32C1B18B553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BB88DD5-958F-42C8-9C7D-2DC4D02551A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BB88DD5-958F-42C8-9C7D-2DC4D02551A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BB88DD5-958F-42C8-9C7D-2DC4D02551A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BB88DD5-958F-42C8-9C7D-2DC4D02551A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1399E41-BEB7-4B05-B183-D32C1B18B553} = {AD82D0B3-66B2-4A3A-9780-6AEBF3291975}
+		{9BB88DD5-958F-42C8-9C7D-2DC4D02551A1} = {AD82D0B3-66B2-4A3A-9780-6AEBF3291975}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8E34229B-E319-40CB-BEAF-803253F6CEB0}

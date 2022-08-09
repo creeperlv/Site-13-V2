@@ -7,6 +7,6 @@ namespace Site13Kernel.GameLogic.BT.Nodes
     [Serializable]
     public class BTBaseNode
     {
-        public BTBaseNode NextNode;
+        public BTBaseNode NextNode=null;
     }
 }

@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Site13Kernel.GameLogic.BT.Serialization;
 using BTNodeEditor.Editors.Nodes;
 using Site13Kernel.GameLogic.BT.Attributes;
+using System.Diagnostics;
 
 namespace BTNodeEditor
 {
@@ -39,11 +40,22 @@ namespace BTNodeEditor
                 __file = null;
                 GC.Collect();
             };
+            HideButton.Click += (_, _) => {
+                CentralEditor.HideAll();
+            };
+            ShowButton.Click += (_, _) => {
+                CentralEditor.ShowAll();
+            };
+            Site13KernelOnlyBtn.Click += async (_, _) => {
+                await BuildSite13KernelJson();
+            };
+            Site13KernelBinBtn.Click += async (_, _) => {
+                await BuildSite13KernelBin();
+            };
             AboutMenuItem.Click += async (_, _) =>
             {
-
                 AboutDialog aboutDialog = new AboutDialog();
-                aboutDialog.SetInfo("BehaviorTree Node Editor", typeof(MainWindow).Assembly.GetName().Version, "Avalonia.Controls.PanAndZoom");
+                aboutDialog.SetInfo("BehaviorTree Node Editor", typeof(MainWindow).Assembly.GetName().Version, "wieslawsoltes/PanAndZoom", "rikimaru0345/Ceras");
                 await aboutDialog.ShowDialog(this);
             };
             SaveAsBtn.Click += async (_, _) =>
@@ -73,6 +85,47 @@ namespace BTNodeEditor
                     GC.Collect();
                 }
             };
+        }
+        async Task BuildSite13KernelJson()
+        {
+            var __n = CentralEditor.ToSerializableGraph().Build();
+            CheckNode(__n);
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filters = new List<FileDialogFilter>();
+            saveFileDialog.Filters.Add(new FileDialogFilter() { Extensions = new List<string>() { "json" }, Name = "Json" });
+            var f = await saveFileDialog.ShowAsync(this);
+            if (f is not null)
+            {
+                if (File.Exists(f))
+                {
+                    File.Delete(f);
+                }
+                Trace.WriteLine(__n.NextNode == null);
+                File.WriteAllText(f, JsonUtilities.Serialize(__n));
+            }
+        }
+        async Task BuildSite13KernelBin()
+        {
+            var __n = CentralEditor.ToSerializableGraph().Build();
+            CheckNode(__n);
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filters = new List<FileDialogFilter>();
+            saveFileDialog.Filters.Add(new FileDialogFilter() { Extensions = new List<string>() { "bytes" }, Name = "Binary" });
+            var f = await saveFileDialog.ShowAsync(this);
+            if (f is not null)
+            {
+                if (File.Exists(f))
+                {
+                    File.Delete(f);
+                }
+                Trace.WriteLine(__n.NextNode == null);
+                File.WriteAllBytes(f, BinaryUtilities.Serialize(__n));
+            }
+        }
+        void CheckNode(BTBaseNode Node)
+        {
+            Trace.WriteLine(Node.GetType().Name);
+            if (Node.NextNode is not null) CheckNode(Node.NextNode);
         }
         void EmptyEditor()
         {

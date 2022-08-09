@@ -13,6 +13,13 @@ namespace BTNodeEditor.Editors.Nodes
     [Serializable]
     public class NodeConnection
     {
+        public NodeGraphEditor ParentEditor;
+
+        public NodeConnection(NodeGraphEditor parentEditor)
+        {
+            ParentEditor = parentEditor;
+        }
+
         private Point start;
         private Point end;
         Path? _path = null;
@@ -45,11 +52,11 @@ namespace BTNodeEditor.Editors.Nodes
             Point end = this.end;
             if (L != null)
             {
-                start = new Point(L.Margin.Left + L.NodeBorder.DesiredSize.Width, L.Margin.Top+15);
+                start = new Point(L.Margin.Left + L.NodeBorder.DesiredSize.Width, L.Margin.Top+10);
             }
             if (R != null)
             {
-                end = new Point(R.Margin.Left, R.Margin.Top + 15);
+                end = new Point(R.Margin.Left, R.Margin.Top + 10);
             }
             try
             {
@@ -62,14 +69,27 @@ namespace BTNodeEditor.Editors.Nodes
             {
             }
         }
-        static SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(0xFF, 0x88, 0x88, 0x88));
+        static SolidColorBrush brush0 = new SolidColorBrush(Color.FromArgb(0xFF, 0x88, 0x88, 0x88));
+        static SolidColorBrush brush1 = new SolidColorBrush(Color.FromArgb(0xFF, 0xAA, 0xAA, 0xAA));
         public Path GetPath()
         {
             if (_path is null)
             {
                 _path = new Path();
-                _path.Stroke = brush;
+                _path.Stroke = brush0;
                 _path.StrokeThickness = 1;
+                _path.PointerPressed += (_, b) => {
+                    if (b.GetCurrentPoint(_path).Properties.IsLeftButtonPressed)
+                    {
+                        ParentEditor.RemoveConnection(this);
+                    }
+                };
+                _path.PointerEnter += (_, _) => {
+                    _path.Stroke = brush1;
+                };
+                _path.PointerLeave += (_, _) => {
+                    _path.Stroke = brush0;
+                };
             }
             return _path;
         }

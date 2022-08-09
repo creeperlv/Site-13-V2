@@ -10,24 +10,28 @@
 			<Border ClipToBounds="True" CornerRadius="8"   BoxShadow="inset 0 0 5 5 #222">
 				<ScrollViewer VerticalScrollBarVisibility="Auto"
 							  HorizontalScrollBarVisibility="Auto">
-
+					<ScrollViewer.Background>
+						<VisualBrush TileMode="Tile" SourceRect="0,0,40,40" Stretch="Uniform"  DestinationRect="0,0,40,40">
+							<VisualBrush.Visual>
+								<Canvas Width="40" Height="40">
+									<Rectangle Width="20" Height="20" Fill="#3333"></Rectangle>
+									<Rectangle Width="20" Height="20" Margin="20,20,0,0" Fill="#3333"></Rectangle>
+								</Canvas>
+							</VisualBrush.Visual>
+						</VisualBrush>
+					</ScrollViewer.Background>
 					<paz:ZoomBorder  Name="ZoomBorder" ClipToBounds="True" PanButton="Middle" EnableGestureZoom="True"
 									 EnablePan="True" EnableConstrains="True" EnableGestureRotation="False" >
 						<Panel>
-							<Panel.Background>
-								<VisualBrush TileMode="Tile" SourceRect="0,0,24,24" Stretch="None"  DestinationRect="0,0,24,24">
-									<VisualBrush.Visual>
-										<Rectangle Width="25" Height="25" Stroke="#8888" StrokeThickness="1"></Rectangle>
-									</VisualBrush.Visual>
-								</VisualBrush>
-							</Panel.Background>
-							<!--<Panel.Transitions>
-								<Transitions>
-									<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.5" />
-								</Transitions>
-							</Panel.Transitions>-->
 							<Canvas Name="AdornerCanvas" Margin="-100"	Background="Transparent"
 							IsHitTestVisible="True">
+								<Canvas.Background>
+									<VisualBrush TileMode="Tile" SourceRect="0,0,24,24" Stretch="None"  DestinationRect="0,0,24,24">
+										<VisualBrush.Visual>
+											<Rectangle Width="25" Height="25" Stroke="#8888" StrokeThickness="1"></Rectangle>
+										</VisualBrush.Visual>
+									</VisualBrush>
+								</Canvas.Background>
 							</Canvas>
 						</Panel>
 					</paz:ZoomBorder>
