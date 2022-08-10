@@ -10,8 +10,8 @@ namespace Site13Kernel.Utilities
             TypeNameHandling = TypeNameHandling.Objects,
             TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
             Formatting = Formatting.Indented,
-            ReferenceLoopHandling= ReferenceLoopHandling.Serialize,
-            NullValueHandling= NullValueHandling.Include
+            ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+            NullValueHandling = NullValueHandling.Include
         };
         public static string Serialize<T>(T data)
         {
@@ -19,18 +19,23 @@ namespace Site13Kernel.Utilities
         }
         public static T Deserialize<T>(string data)
         {
-            return JsonConvert.DeserializeObject<T>(data,settings);
+            return JsonConvert.DeserializeObject<T>(data, settings);
         }
     }
     public static class BinaryUtilities
     {
-        static SerializerConfig config = new SerializerConfig() {
-             PreserveReferences=true,
+        static SerializerConfig config = new SerializerConfig()
+        {
+            PreserveReferences = true,
         };
+        static CerasSerializer serializer = new CerasSerializer(config);
         public static byte[] Serialize<T>(T Data)
         {
-            CerasSerializer serializer = new CerasSerializer(config);
             return serializer.Serialize(Data);
+        }
+        public static T Deserialize<T>(byte[] data)
+        {
+            return serializer.Deserialize<T>(data);
         }
     }
 }

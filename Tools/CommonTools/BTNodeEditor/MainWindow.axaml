@@ -2,7 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:editors="using:BTNodeEditor.Editors" FontFamily="Sarasa Mono CL" FontSize="9" TextBlock.FontSize="9"
+		xmlns:editors="using:BTNodeEditor.Editors" FontFamily="Sarasa Mono CL" FontSize="9" 
+		TextBlock.FontSize="9"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BTNodeEditor.MainWindow" Background="Transparent"
         Title="BTNodeEditor">
@@ -12,9 +13,24 @@
 			<Setter Property="FontSize" Value="9"/>
 			<Setter Property="Padding" Value="3"/>
 		</Style>
+		<Style Selector="MenuItem">
+			<Setter Property="MinHeight" Value="9"/>
+			<Setter Property="FontSize" Value="11"/>
+			<Setter Property="Padding" Value="4,4"/>
+		</Style>
+		<Style Selector="MenuItem.MenuBar">
+			<Setter Property="MinHeight" Value="9"/>
+			<Setter Property="FontSize" Value="11"/>
+			<Setter Property="Padding" Value="4,4"/>
+		</Style>
+		<Style Selector="Menu">
+			<Setter Property="MinHeight" Value="9"/>
+			<Setter Property="FontSize" Value="11"/>
+			<Setter Property="Padding" Value="4,0"/>
+		</Style>
 		<Style Selector="TextBlock">
 			<Setter Property="MinHeight" Value="9"/>
-			<Setter Property="FontSize" Value="9"/>
+			<Setter Property="FontSize" Value="11"/>
 		</Style>
 		<Style Selector="ToggleButton">
 			<Setter Property="MinHeight" Value="9"/>
@@ -30,27 +46,32 @@
 		<Grid>
 			<Grid Background="#8333" IsHitTestVisible="False"/>
 			<StackPanel Orientation="Horizontal">
-				<Border CornerRadius="3" IsHitTestVisible="False" Margin="8" HorizontalAlignment="Left" Padding="4" Background="#8333">
+				<Border CornerRadius="4" IsHitTestVisible="False" Margin="8" HorizontalAlignment="Left" Padding="4" Background="#8333">
 					<TextBlock Text="BehaviorTree Node Editor"/>
 				</Border>
-				<Menu>
-					<MenuItem Header="_File">
-						<MenuItem Header="_New" Name="NewBtn"/>
-						<Separator/>
-						<MenuItem Header="_Open" Name="OpenBtn"/>
-						<MenuItem Header="_Save" Name="SaveBtn"/>
-						<MenuItem Header="Save _As" Name="SaveAsBtn"/>
-						<Separator/>
-						<MenuItem Header="_Exit"/>
-					</MenuItem>
-					<MenuItem Header="_Build">
-						<MenuItem Header="_Site13Kernel-Only Json" Name="Site13KernelOnlyBtn"/>
-						<MenuItem Header="_Site13Kernel-Only Binary" Name="Site13KernelBinBtn"/>
-					</MenuItem>
-					<MenuItem Header="_Help">
-						<MenuItem Header="_About" Name="AboutMenuItem"/>
-					</MenuItem>
-				</Menu>
+				<Border CornerRadius="4" VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						Background="#8333" ClipToBounds="True">
+
+					<Menu VerticalAlignment="Center" Height="NaN">
+						<MenuItem Header="_File" Classes="MenuBar">
+							<MenuItem Header="_New" Name="NewBtn"/>
+							<Separator/>
+							<MenuItem Header="_Open" Name="OpenBtn"/>
+							<MenuItem Header="_Save" Name="SaveBtn"/>
+							<MenuItem Header="Save _As" Name="SaveAsBtn"/>
+							<Separator/>
+							<MenuItem Header="_Exit"/>
+						</MenuItem>
+						<MenuItem Header="_Build" Classes="MenuBar">
+							<MenuItem Header="_Site13Kernel-Only Json" Name="Site13KernelOnlyBtn"/>
+							<MenuItem Header="_Site13Kernel-Only Binary" Name="Site13KernelBinBtn"/>
+						</MenuItem>
+						<MenuItem Header="_Help" Classes="MenuBar">
+							<MenuItem Header="_About" Name="AboutMenuItem"/>
+						</MenuItem>
+					</Menu>
+				</Border>
 			</StackPanel>
 		</Grid>
 		<Grid Grid.Row="1" Background="#8333">
@@ -68,7 +89,17 @@
 									<Style Selector="Button">
 										<Setter Property="HorizontalAlignment" Value="Stretch"/>
 										<Setter Property="Padding" Value="4,2"/>
-										<Setter Property="FontSize" Value="9"/>
+										<Setter Property="FontSize" Value="11"/>
+									</Style>
+									<Style Selector="ToggleButton">
+										<Setter Property="Background" Value="#01000000"/>
+										<Setter Property="FontSize" Value="11"/>
+									</Style>
+									<Style Selector="ToggleButton:checked /template/ Border#PART_ROOT">
+										<Setter Property="Background" Value="#1FFF"/>
+									</Style>
+									<Style Selector="ToggleButton:checked:pointerover /template/ Border#PART_ROOT">
+										<Setter Property="Background" Value="#2FFF"/>
 									</Style>
 								</StackPanel.Styles>
 							</StackPanel>

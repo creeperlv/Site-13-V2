@@ -10,32 +10,34 @@ namespace Site13Kernel.GameLogic.AI.V2
     public class AIAgent : MonoBehaviour
     {
         //public NavMeshAgent NMAgent;
-        public Biped ControlledBiped;
-        [SerializeField]
-        public BehaviorTree tree;
+        public AnimatedCharacter ControlledAnimatedCharacter;
         Vector3 Goal;
         NavMeshPath path;
         private void Awake()
         {
-            tree = new BehaviorTreeBuilder(gameObject).Sequence().Condition("Is crouch", () =>
-            {
-                return false;
-            })
-                .Do("Crouch", () =>
-            {
-                var motion = ControlledBiped._MotionMap["crouch"];
-                ControlledBiped.Animator.Play(motion.Trigger, motion.Layer);
-                return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
-            })
-            .End().Build();
         }
         void Update()
         {
             //NMAgent.
         }
+        bool willCrouch = false;
         private void OnTriggerStay(Collider other)
         {
-
+            var area = other.GetComponent<MapArea>();
+            if (area != null)
+            {
+                switch (area.areaType)
+                {
+                    case MapAreaType.Crouch:
+                        willCrouch = true;
+                        break;
+                    case MapAreaType.Blindage:
+                        break;
+                    default:
+                        willCrouch = false;
+                        break;
+                }
+            }
         }
         public void GenPath()
         {

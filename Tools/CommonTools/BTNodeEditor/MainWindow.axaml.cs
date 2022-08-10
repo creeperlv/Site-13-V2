@@ -199,7 +199,7 @@ namespace BTNodeEditor
                         }
                         Button button = new Button()
                         {
-                            Content = item.Name
+                            Content = item.Name,FontSize=11
                         };
                         button.Click += (_, _) =>
                         {

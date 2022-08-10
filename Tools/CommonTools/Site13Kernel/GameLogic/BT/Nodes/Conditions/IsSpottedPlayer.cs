@@ -1,13 +1,12 @@
 ﻿using Site13Kernel.Data.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Site13Kernel.GameLogic.BT.Nodes.Conditions
 {
     [Serializable]
     [Catalog("Conditions")]
-    public class IsHit : BTBaseNode
+    public class IsSpottedPlayer : BTBaseNode
     {
+
     }
 }
