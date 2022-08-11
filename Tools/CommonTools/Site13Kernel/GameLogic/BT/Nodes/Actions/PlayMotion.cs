@@ -12,4 +12,10 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
         public string Trigger;
         public int Layer;
     }
+    [Serializable]
+    [Catalog("Actions>Animation")]
+    public class PlayRandomMotion : BTBaseNode
+    {
+        public string MotionCollectionID;
+    }
 }
