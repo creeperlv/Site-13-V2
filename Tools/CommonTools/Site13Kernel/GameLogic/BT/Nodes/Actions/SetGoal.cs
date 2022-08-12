@@ -5,12 +5,8 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
 {
     [Serializable]
     [Catalog("Actions>Basic Logic")]
-    public class SetBehaviorMode : BTBaseNode
+    public class SetGoal : BTBaseNode
     {
-        public BehaviorMode TargetMode;
-    }
-    public enum BehaviorMode
-    {
-        Goal, Fight, Search,Hide
+        public LogicGoal TargetGoal;
     }
 }

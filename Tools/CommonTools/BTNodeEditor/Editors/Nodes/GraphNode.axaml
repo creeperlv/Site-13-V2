@@ -24,9 +24,11 @@
 				<Button Name="RRect" Classes="GreenBtn" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Right"/>
 			</Grid>
 			<Grid Grid.Row="1" IsVisible="{Binding IsChecked,ElementName=TitleButton}">
-				<StackPanel Name="FieldContainer" >
-					
-				</StackPanel>
+				<Border Margin="2" Name="Fields" IsVisible="False" Background="#80282828" CornerRadius="4" ClipToBounds="True">
+					<StackPanel Name="FieldContainer" Margin="2">
+
+					</StackPanel>
+				</Border>
 			</Grid>
 		</Grid>
 	</Border>

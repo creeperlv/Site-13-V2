@@ -11,6 +11,7 @@ namespace CampaignScriptEditor.Editors.Fields
         public EnumField()
         {
             InitializeComponent();
+            EnumBox.PointerPressed += (a, b) => { b.Handled = true; };
         }
         public object GetObject()
         {

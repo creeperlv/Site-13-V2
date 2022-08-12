@@ -77,7 +77,7 @@ namespace BTNodeEditor.Editors.Nodes
             {
                 _path = new Path();
                 _path.Stroke = brush0;
-                _path.StrokeThickness = 1;
+                _path.StrokeThickness = 2;
                 _path.PointerPressed += (_, b) => {
                     if (b.GetCurrentPoint(_path).Properties.IsLeftButtonPressed)
                     {

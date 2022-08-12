@@ -34,22 +34,27 @@ namespace BTNodeEditor
         public BTNodeEditor.Editors.NodeGraphEditor CentralEditor = new Editors.NodeGraphEditor();
         void InitEvents()
         {
-            NewBtn.Click += (_, _) => {
+            NewBtn.Click += (_, _) =>
+            {
                 EmptyEditor();
                 CentralEditor.AddStartNode();
                 __file = null;
                 GC.Collect();
             };
-            HideButton.Click += (_, _) => {
+            HideButton.Click += (_, _) =>
+            {
                 CentralEditor.HideAll();
             };
-            ShowButton.Click += (_, _) => {
+            ShowButton.Click += (_, _) =>
+            {
                 CentralEditor.ShowAll();
             };
-            Site13KernelOnlyBtn.Click += async (_, _) => {
+            Site13KernelOnlyBtn.Click += async (_, _) =>
+            {
                 await BuildSite13KernelJson();
             };
-            Site13KernelBinBtn.Click += async (_, _) => {
+            Site13KernelBinBtn.Click += async (_, _) =>
+            {
                 await BuildSite13KernelBin();
             };
             AboutMenuItem.Click += async (_, _) =>
@@ -73,10 +78,11 @@ namespace BTNodeEditor
                     __save();
                 }
             };
-            OpenBtn.Click += async(_, _) => {
+            OpenBtn.Click += async (_, _) =>
+            {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.AllowMultiple = false;
-                var l=await openFileDialog.ShowAsync(this);
+                var l = await openFileDialog.ShowAsync(this);
                 if (l.Length > 0)
                 {
                     __file = l[0];
@@ -129,7 +135,7 @@ namespace BTNodeEditor
         }
         void EmptyEditor()
         {
-            CentralArea.Children.Remove(CentralEditor); 
+            CentralArea.Children.Remove(CentralEditor);
             CentralEditor = new Editors.NodeGraphEditor();
             CentralArea.Children.Add(CentralEditor);
             GC.Collect();
@@ -177,7 +183,7 @@ namespace BTNodeEditor
                     {
                         {
                             //Check HideInEditor
-                            var attr= item.GetCustomAttributes(typeof(HideInEditorAttribute), false);
+                            var attr = item.GetCustomAttributes(typeof(HideInEditorAttribute), false);
                             if (attr.Length > 0) continue;
                         }
                         var catas = item.GetCustomAttributes(typeof(CatalogAttribute), false);
@@ -199,7 +205,8 @@ namespace BTNodeEditor
                         }
                         Button button = new Button()
                         {
-                            Content = item.Name,FontSize=11
+                            Content = item.Name,
+                            FontSize = 11
                         };
                         button.Click += (_, _) =>
                         {
@@ -216,7 +223,6 @@ namespace BTNodeEditor
         }
         void ApplyVisual()
         {
-
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -230,6 +236,14 @@ namespace BTNodeEditor
                 {
                     TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
                 }
+                else
+                {
+                    TransparencyLevelHint = WindowTransparencyLevel.Blur;
+                }
+            }
+            else
+            {
+                TransparencyLevelHint = WindowTransparencyLevel.Blur;
             }
         }
     }

@@ -7,13 +7,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Conditions
 {
     [Serializable]
     [Catalog("Conditions")]
-    public class IsHit : BTBaseNode
+    public class IsHit : ConditionNode
     {
-    }
-    [Serializable]
-    [Catalog("Conditions")]
-    public class IsLowHealth : BTBaseNode
-    {
-
     }
 }

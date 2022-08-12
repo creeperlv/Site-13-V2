@@ -9,6 +9,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Generic
     [Catalog("Sequence")]
     public class Sequence: BTBaseNode
     {
+        public string Name = "";
     }
     [Serializable]
     [Catalog("Generic")]

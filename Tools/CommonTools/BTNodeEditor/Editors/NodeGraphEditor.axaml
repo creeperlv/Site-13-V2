@@ -6,8 +6,7 @@
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BTNodeEditor.Editors.NodeGraphEditor">
 	<Grid>
-		<Border Grid.Column="2" CornerRadius="8" Margin="8" Background="#111"  BoxShadow="0 0 5 5 #222">
-			<Border ClipToBounds="True" CornerRadius="8"   BoxShadow="inset 0 0 5 5 #222">
+		<Border Grid.Column="2" CornerRadius="8" ClipToBounds="True" Margin="0,8,8,8" Background="#8111">
 				<ScrollViewer VerticalScrollBarVisibility="Auto"
 							  HorizontalScrollBarVisibility="Auto">
 					<ScrollViewer.Background>
@@ -35,9 +34,7 @@
 							</Canvas>
 						</Panel>
 					</paz:ZoomBorder>
-
 				</ScrollViewer>
-			</Border>
 		</Border>
 	</Grid>
 </UserControl>

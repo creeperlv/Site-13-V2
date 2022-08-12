@@ -1,4 +1,5 @@
-﻿using CLUNL.ConsoleAppHelper;
+﻿using BTNode.Core;
+using CLUNL.ConsoleAppHelper;
 namespace BTNodeBuilder
 {
     [DependentFeature("BTNodeBuilder", "BUILD", Description = "Build a project", Options = new string[] { "C" },
@@ -22,6 +23,12 @@ namespace BTNodeBuilder
                 Output.OutLine(new ErrorMsg { ID = "BT.B.ERR.1", Fallback = "Specified project file does not exist." });
                 return;
             }
+            var confs = Parameters.Query<string>("C");
+            if (confs == null)
+            {
+                confs = "";
+            }
+            var cond = confs.Split(';');
             Site13Project.Core.LoadedProject? LP = null;
             try
             {
@@ -33,9 +40,19 @@ namespace BTNodeBuilder
                 Output.OutLine(new ErrorMsg { ID = "ST", Fallback = e.Message });
                 return;
             }
-            if(LP is not null)
+            if (LP is not null)
             {
-                
+                LP.Conditions = cond.ToList();
+                int count = 0;
+                var __list = BuildItem.Discover(LP);
+                Output.OutLine("Generated", $"Found {__list.Count} target(s) to build.");
+                foreach (var item in __list)
+                {
+                    item.Build(LP);
+                    Output.OutLine($"{count}:{item.SourceFile}->{item.TargetFile}");
+                    count++;
+                }
+                Output.OutLine("BT.INFO.3", "Done.");
             }
         }
     }

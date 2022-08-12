@@ -1,5 +1,5 @@
 cd RawResources
 cd BehaviorTrees
-..\..\GitHub-Tools\bin\BTNodeCompiler\BTNodeCompiler.exe  Build -t json -o <remain> <remain>
+..\..\GitHub-Tools\bin\BTNodeBuilder\BTNodeBuilder.exe  Build Behaviors-000.btproj
 cd ..
 cd ..

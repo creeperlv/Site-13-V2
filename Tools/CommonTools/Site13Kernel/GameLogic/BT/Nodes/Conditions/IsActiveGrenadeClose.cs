@@ -5,7 +5,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Conditions
 {
     [Serializable]
     [Catalog("Conditions")]
-    public class IsActiveGrenadeClose : BTBaseNode
+    public class IsActiveGrenadeClose : ConditionNode
     {
 
     }

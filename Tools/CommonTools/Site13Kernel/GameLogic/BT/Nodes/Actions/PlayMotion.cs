@@ -18,4 +18,5 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
     {
         public string MotionCollectionID;
     }
+
 }

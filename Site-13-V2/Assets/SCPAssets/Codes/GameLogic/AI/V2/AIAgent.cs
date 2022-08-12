@@ -1,4 +1,6 @@
 using CleverCrow.Fluid.BTs.Trees;
+using Site13Kernel.Core;
+using Site13Kernel.GameLogic.BT.Nodes.Actions;
 using Site13Kernel.GameLogic.Character;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,8 +13,12 @@ namespace Site13Kernel.GameLogic.AI.V2
     {
         //public NavMeshAgent NMAgent;
         public AnimatedCharacter ControlledAnimatedCharacter;
+        public BioEntity ControlledEntity;
+        public float LowHealth;
+        public BehaviorMode CurrentMode = BehaviorMode.Goal;
         Vector3 Goal;
         NavMeshPath path;
+        public float BlockActionCountDown = 0;
         private void Awake()
         {
         }

@@ -1,15 +1,27 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Design.PreviewWith>
-		<Border Padding="20" Background="#2288EE">
+		<Border Padding="20" Background="#000000">
 			<!-- Add Controls for Previewer Here -->
 			<Grid>
 
-				<Expander Header="123">
-					<StackPanel>
-						<TextBlock>Expanded content</TextBlock>
-					</StackPanel>
-				</Expander>
+				<StackPanel>
+					<Expander Header="123">
+						<StackPanel>
+							<TextBlock>Expanded content</TextBlock>
+						</StackPanel>
+					</Expander>
+
+					<Grid>
+						<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+							A
+						</Button>
+						<ComboBox SelectedIndex="0">
+							<ComboBoxItem Content="A"/>
+							<ComboBoxItem Content="B"/>
+						</ComboBox>
+					</Grid>
+				</StackPanel>
 			</Grid>
 		</Border>
 	</Design.PreviewWith>

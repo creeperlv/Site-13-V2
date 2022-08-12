@@ -6,7 +6,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Conditions
 {
     [Serializable]
     [Catalog("Conditions")]
-    public class CheckBehaviorMode : BTBaseNode
+    public class CheckBehaviorMode : ConditionNode
     {
         public BehaviorMode TargetMode;
     }

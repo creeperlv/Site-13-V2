@@ -111,6 +111,7 @@ namespace BTNodeEditor.Editors.Nodes
                         {
                         }
                     }
+                    if (ExistedFields.Count > 0) Fields.IsVisible = true;
                 }
             }
         }
@@ -152,6 +153,7 @@ namespace BTNodeEditor.Editors.Nodes
                         {
                         }
                     }
+                    if (ExistedFields.Count > 0) Fields.IsVisible = true;
                 }
             }
         }

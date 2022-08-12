@@ -45,7 +45,7 @@
 		</Grid.RowDefinitions>
 		<Grid>
 			<Grid Background="#8333" IsHitTestVisible="False"/>
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal" Margin="0,5,0,0">
 				<Border CornerRadius="4" IsHitTestVisible="False" Margin="8" HorizontalAlignment="Left" Padding="4" Background="#8333">
 					<TextBlock Text="BehaviorTree Node Editor"/>
 				</Border>
@@ -107,12 +107,12 @@
 					</Border>
 					<GridSplitter Grid.Column="1" Background="#01000000" Foreground="#01000000" Width="2"/>
 					<Rectangle Grid.Column="1" Width="2" Height="25" Fill="#8FFF" Stretch="None" VerticalAlignment="Center" IsHitTestVisible="False"></Rectangle>
-					<Grid Grid.Column="2">
+					<Grid Grid.Column="2" Margin="4,0,0,0">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition/>
 						</Grid.RowDefinitions>
-						<Grid Margin="0,8,0,8">
+						<Grid Margin="0,8,8,8">
 							<Border CornerRadius="8" Background="#A333" ClipToBounds="True">
 								<StackPanel Orientation="Horizontal">
 									<StackPanel.Styles>
@@ -138,7 +138,7 @@
 								</StackPanel>
 							</Border>
 						</Grid>
-						<Grid  Name="CentralArea" Grid.Row="1"></Grid>
+						<Grid  Name="CentralArea" Grid.Row="1 "></Grid>
 					</Grid>
 				</Grid>
 			</Border>

@@ -1,0 +1,394 @@
+{
+  "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableGraph, Site13Kernel",
+  "nodes": [
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "ebeb587d-ce0a-49ca-a9f6-1ca2ce1db2c3",
+      "X": 35.84000000000003,
+      "Y": 176.9600000000001,
+      "HaveL": false,
+      "HaveR": true,
+      "DisableDeletion": true,
+      "DisableDuplicate": true,
+      "L": [],
+      "R": [
+        "9c6d1527-3427-4edb-b830-21a238e45563",
+        "d0a0fa6a-410e-4862-97ad-35544e8cbf91"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Start, Site13Kernel",
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "9c6d1527-3427-4edb-b830-21a238e45563",
+      "X": 250.8,
+      "Y": 250.93333333333345,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "ebeb587d-ce0a-49ca-a9f6-1ca2ce1db2c3"
+      ],
+      "R": [
+        "bfa00574-e72b-493a-8f54-1197d06d1011",
+        "65a9b03b-ea93-4abb-90a1-bb432b852b5b",
+        "0cbf1791-dd04-41ad-b6f3-298c394b1089"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsActionComplete, Site13Kernel",
+        "RevertBool": false,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "0b22f7ee-ec7b-4623-8e6d-c2d21c85b604",
+      "X": 793.5999999999999,
+      "Y": 233.5999999999999,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "b9a1285f-9e68-43e5-ab36-7121777184a8"
+      ],
+      "R": [
+        "04d05752-a771-4676-b516-45633f51406c"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsSpottedEnemy, Site13Kernel",
+        "RevertBool": false,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "04d05752-a771-4676-b516-45633f51406c",
+      "X": 1001.5999999999999,
+      "Y": 226.39999999999998,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "0b22f7ee-ec7b-4623-8e6d-c2d21c85b604"
+      ],
+      "R": [
+        "9a00e970-36f5-4a6d-8139-7dc3622cec53"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
+        "TargetMode": 1,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "74162a77-44c3-47ad-8d02-f1007485e629",
+      "X": 576.8,
+      "Y": 352.0,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "65a9b03b-ea93-4abb-90a1-bb432b852b5b"
+      ],
+      "R": [
+        "51634f07-7fc1-415b-960a-c08c09776738"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsLowHealth, Site13Kernel",
+        "RevertBool": false,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "51634f07-7fc1-415b-960a-c08c09776738",
+      "X": 823.2,
+      "Y": 368.79999999999995,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "74162a77-44c3-47ad-8d02-f1007485e629"
+      ],
+      "R": [
+        "5b01a5f7-450e-4af2-961b-13821ac2361e"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
+        "TargetMode": 3,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "b9a1285f-9e68-43e5-ab36-7121777184a8",
+      "X": 631.9666666666666,
+      "Y": 202.42592592592595,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "bfa00574-e72b-493a-8f54-1197d06d1011"
+      ],
+      "R": [
+        "0b22f7ee-ec7b-4623-8e6d-c2d21c85b604"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.CheckBehaviorMode, Site13Kernel",
+        "TargetMode": 3,
+        "RevertBool": true,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "caa2fb34-13bf-48ad-8b5d-98694523178b",
+      "X": 568.8000000000001,
+      "Y": 492.0,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "0cbf1791-dd04-41ad-b6f3-298c394b1089"
+      ],
+      "R": [
+        "f02ebe6b-7d1b-45ca-8712-8eb6563efaaa"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsLowHealth, Site13Kernel",
+        "RevertBool": true,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "f02ebe6b-7d1b-45ca-8712-8eb6563efaaa",
+      "X": 768.0,
+      "Y": 502.4,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "caa2fb34-13bf-48ad-8b5d-98694523178b"
+      ],
+      "R": [
+        "384957f8-74ca-474e-b6b7-80e81e59a008"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
+        "TargetMode": 0,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "bfa00574-e72b-493a-8f54-1197d06d1011",
+      "X": 487.36,
+      "Y": 138.88000000000002,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "9c6d1527-3427-4edb-b830-21a238e45563"
+      ],
+      "R": [
+        "b9a1285f-9e68-43e5-ab36-7121777184a8"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
+        "Name": "Found Player",
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "65a9b03b-ea93-4abb-90a1-bb432b852b5b",
+      "X": 483.5199999999999,
+      "Y": 214.72,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "9c6d1527-3427-4edb-b830-21a238e45563"
+      ],
+      "R": [
+        "74162a77-44c3-47ad-8d02-f1007485e629"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
+        "Name": "Low Health Try Hide",
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "0cbf1791-dd04-41ad-b6f3-298c394b1089",
+      "X": 447.9999999999999,
+      "Y": 269.44000000000005,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "9c6d1527-3427-4edb-b830-21a238e45563"
+      ],
+      "R": [
+        "caa2fb34-13bf-48ad-8b5d-98694523178b"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
+        "Name": "Recover from injury",
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "9a00e970-36f5-4a6d-8139-7dc3622cec53",
+      "X": 1169.9199999999998,
+      "Y": 169.60000000000002,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "04d05752-a771-4676-b516-45633f51406c"
+      ],
+      "R": [],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "5b01a5f7-450e-4af2-961b-13821ac2361e",
+      "X": 1114.24,
+      "Y": 386.56000000000006,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "51634f07-7fc1-415b-960a-c08c09776738"
+      ],
+      "R": [],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "384957f8-74ca-474e-b6b7-80e81e59a008",
+      "X": 1072.96,
+      "Y": 482.55999999999995,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "f02ebe6b-7d1b-45ca-8712-8eb6563efaaa"
+      ],
+      "R": [],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "d0a0fa6a-410e-4862-97ad-35544e8cbf91",
+      "X": 194.40000000000003,
+      "Y": 336.2666666666666,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "ebeb587d-ce0a-49ca-a9f6-1ca2ce1db2c3"
+      ],
+      "R": [
+        "b52f956c-86be-4cdd-a115-cb680dd1cfc6"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsHit, Site13Kernel",
+        "RevertBool": false,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "b52f956c-86be-4cdd-a115-cb680dd1cfc6",
+      "X": 156.1333333333334,
+      "Y": 438.13333333333327,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "d0a0fa6a-410e-4862-97ad-35544e8cbf91"
+      ],
+      "R": [
+        "ce770dde-3b21-4136-a471-53dfc29e9417"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
+        "Name": "Get Hit",
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "ce770dde-3b21-4136-a471-53dfc29e9417",
+      "X": 314.39999999999986,
+      "Y": 423.7333333333333,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "b52f956c-86be-4cdd-a115-cb680dd1cfc6"
+      ],
+      "R": [
+        "0faa9c74-27c4-43c9-b555-f63cdaf5c2df"
+      ],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.PlayMotion, Site13Kernel",
+        "Trigger": "Hit",
+        "Layer": 0,
+        "NextNode": null
+      }
+    },
+    {
+      "$type": "Site13Kernel.GameLogic.BT.Serialization.SerializableNode, Site13Kernel",
+      "ID": "0faa9c74-27c4-43c9-b555-f63cdaf5c2df",
+      "X": 480.00000000000006,
+      "Y": 435.20000000000005,
+      "HaveL": true,
+      "HaveR": true,
+      "DisableDeletion": false,
+      "DisableDuplicate": false,
+      "L": [
+        "ce770dde-3b21-4136-a471-53dfc29e9417"
+      ],
+      "R": [],
+      "Contained": {
+        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+        "NextNode": null
+      }
+    }
+  ]
+}

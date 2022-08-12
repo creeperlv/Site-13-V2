@@ -6,7 +6,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Conditions
     [Serializable]
     [Catalog("Conditions")]
 
-    public class IsActionComplete : BTBaseNode
+    public class IsActionComplete : ConditionNode
     {
 
     }
