@@ -16,4 +16,11 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Generic
     {
 
     }
+    [Serializable]
+    [Catalog("Sequence")]
+
+    public class EditorSelector : BTBaseNode
+    {
+
+    }
 }

@@ -4,7 +4,6 @@ using Site13Project.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace BTNode.Core
 {
@@ -54,6 +53,26 @@ namespace BTNode.Core
             var __path = RtProj.MakeRelative(SourceFile);
             BuildItem.SourceFile = __path;
             BuildItem.TargetFile = RtProj.ObtainCurrentConfiguration().Query(__path, RtProj.MakeRelative(SourceFile));
+            if (!BuildItem.TargetFile.EndsWith(".JSON") && !BuildItem.TargetFile.EndsWith(".BYTES"))
+            {
+                var type = CommonProperties.Query(Property.TargetType, RtProj, "json");
+                
+                switch (type.ToUpper())
+                {
+                    case "JSON":
+                        {
+                            BuildItem.TargetFile += ".json";
+                        }
+                        break;
+                    case "BINARY":
+                        {
+                            BuildItem.TargetFile += ".bytes";
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
             return BuildItem;
         }
         public static List<BuildItem> Discover(LoadedProject Proj)
@@ -76,8 +95,15 @@ namespace BTNode.Core
 
             foreach (var item in D.EnumerateFiles())
             {
-                if (item.Name.ToUpper().EndsWith(".JSON"))
-                    buildItems.Add(ObtainItem(item, Proj));
+                switch (item.Extension.ToUpper())
+                {
+                    case ".JSON":
+                    case ".BT-GRAPH":
+                        buildItems.Add(ObtainItem(item, Proj));
+                        break;
+                    default:
+                        break;
+                }
             }
             foreach (var item in D.EnumerateDirectories())
             {

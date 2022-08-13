@@ -145,6 +145,7 @@ namespace BTNodeEditor
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filters = new List<FileDialogFilter>();
             saveFileDialog.Filters.Add(new FileDialogFilter() { Extensions = new List<string>() { "json" }, Name = "Json" });
+            saveFileDialog.Filters.Add(new FileDialogFilter() { Extensions = new List<string>() { "bt-graph" }, Name = "Behavior Tree Graph" });
             var f = await saveFileDialog.ShowAsync(this);
             if (f is not null)
             {

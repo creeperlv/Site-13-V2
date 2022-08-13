@@ -33,11 +33,11 @@ namespace Site13Kernel.GameLogic.AI.V2
             }
             var builder = new BehaviorTreeBuilder(gameObject);
             SetupNode(root, ref builder);
-            tree=builder.Build();
+            tree = builder.Build();
         }
         private void Update()
         {
-            tree.Tick();
+            //tree.Tick();
         }
         public void SetupNode(BTBaseNode node, ref BehaviorTreeBuilder builder)
         {
@@ -90,11 +90,27 @@ namespace Site13Kernel.GameLogic.AI.V2
                         });
                     }
                     break;
+                case IsHit c:
+                    {
+                        builder = builder.Condition("IsHit", () =>
+                        {
+                            return false;
+                        });
+                    }
+                    break;
                 case SetBehaviorMode c:
                     {
                         builder = builder.Do("SetBehaviorMode", () =>
                         {
                             agent.CurrentMode = c.TargetMode;
+                            return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
+                        });
+                    }
+                    break;
+                case PlayMotion c:
+                    {
+                        builder = builder.Do("PlayMotion", () =>
+                        {
                             return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
                         });
                     }
@@ -108,7 +124,6 @@ namespace Site13Kernel.GameLogic.AI.V2
             }
             else
             {
-                Debug.Log("Reach End at:"+node.GetType());
             }
         }
     }

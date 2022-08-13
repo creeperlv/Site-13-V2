@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 101394494}
   - component: {fileID: 101394492}
   - component: {fileID: 101394496}
+  - component: {fileID: 101394497}
   m_Layer: 0
   m_Name: BTAgent
   m_TagString: Untagged
@@ -194,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlledAnimatedCharacter: {fileID: 101394496}
-  ControlledEntity: {fileID: 0}
+  ControlledEntity: {fileID: 101394497}
   LowHealth: 0
   CurrentMode: 0
   BlockActionCountDown: 0
@@ -210,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8ce3b81689172428f9dbe6c9a47b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreeSource: {fileID: 4900000, guid: d9ea47093f32e184f8a6fe1274ee1225, type: 3}
+  TreeSource: {fileID: 4900000, guid: e85363a41fedfc9409244a657cc31151, type: 3}
   agent: {fileID: 101394494}
   isPrimitive: 1
 --- !u!114 &101394496
@@ -229,6 +230,53 @@ MonoBehaviour:
   Animator: {fileID: 0}
   MotionMap:
     PrefabDefinitions: []
+--- !u!114 &101394497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101394490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 585e70a90941ef94eaf837483c42ef09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  ProtoTypeID: 
+  MaxHP: 0
+  InitHP: 0
+  CurrentHP: 0
+  HitEffect: 0
+  CanBeBackstabed: 0
+  isInvincible: 0
+  TakeCollisionDamage: 1
+  deathBodyType: 0
+  DeathReplacements: []
+  DeathBodyReplacementID: -1
+  DeathBodyReplacementPrefab: {fileID: 0}
+  ControlledObject: {fileID: 0}
+  HitSound: {fileID: 0}
+  Controller: {fileID: 0}
+  TimeToSelfDestruction: -1
+  LowestKillPlane: -500
+  CombatRelationGroup: 0
+  MaxShield: 0
+  CurrentShield: 0
+  ShieldRecoverSpeed: 0
+  HPRecoverSpeed: 0
+  ShieldRecoverDelay: 0
+  HPRecoverDelay: 0
+  ShieldRecoverCountDown: 0
+  HPRecoverCountDown: 0
+  useShieldMat: 0
+  ShieldColor: {r: 0, g: 0, b: 0, a: 0}
+  Shields: []
+  Intensity: 0
+  useShieldDownObject: 0
+  ShieldObjects: []
+  useShieldRecoverObject: 0
+  ShieldRecoverObjects: []
 --- !u!1 &784966036
 GameObject:
   m_ObjectHideFlags: 0
