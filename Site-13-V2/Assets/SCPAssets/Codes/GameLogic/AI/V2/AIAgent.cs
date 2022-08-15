@@ -19,8 +19,12 @@ namespace Site13Kernel.GameLogic.AI.V2
         Vector3 Goal;
         NavMeshPath path;
         public float BlockActionCountDown = 0;
+        internal bool isHit = false;
         private void Awake()
         {
+            ControlledEntity.OnTakingDamage =(_, _, _, _, _) => {
+                isHit = true;
+            };
         }
         void Update()
         {

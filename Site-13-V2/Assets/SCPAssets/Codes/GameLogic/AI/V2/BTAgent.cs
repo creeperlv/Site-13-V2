@@ -94,7 +94,9 @@ namespace Site13Kernel.GameLogic.AI.V2
                     {
                         builder = builder.Condition("IsHit", () =>
                         {
-                            return false;
+                            var b = agent.isHit;
+                            agent.isHit = false;
+                            return b;
                         });
                     }
                     break;
@@ -111,6 +113,7 @@ namespace Site13Kernel.GameLogic.AI.V2
                     {
                         builder = builder.Do("PlayMotion", () =>
                         {
+                            //agent.ControlledAnimatedCharacter.Pla
                             return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
                         });
                     }

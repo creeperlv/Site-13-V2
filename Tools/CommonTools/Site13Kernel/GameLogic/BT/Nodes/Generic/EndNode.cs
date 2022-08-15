@@ -1,26 +1,23 @@
 ﻿using Site13Kernel.Data.Attributes;
-using Site13Kernel.GameLogic.BT.Attributes;
 using System;
 
 namespace Site13Kernel.GameLogic.BT.Nodes.Generic
 {
     [Serializable]
     [Catalog("Sequence")]
-    public class End: BTBaseNode
+    public class End : BTBaseNode
     {
     }
     [Serializable]
-    [HideInEditor]
     [Catalog("Sequence")]
-    public class Selector : BTBaseNode
+    public class Wait : BTBaseNode
     {
-
+        public int TickCount;
     }
     [Serializable]
     [Catalog("Sequence")]
-
-    public class EditorSelector : BTBaseNode
+    public class WaitTime : BTBaseNode
     {
-
+        public float Time;
     }
 }
