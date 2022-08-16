@@ -53,7 +53,15 @@ MonoBehaviour:
   Root: {fileID: 7374129845102796738}
   Animator: {fileID: 0}
   MotionMap:
-    PrefabDefinitions: []
+    PrefabDefinitions:
+    - Key: Idle
+      Value:
+        Layer: 0
+        Trigger: Idle
+    - Key: Move
+      Value:
+        Layer: 0
+        Trigger: Move
 --- !u!114 &7051675473316667015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +76,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ControlledAnimatedCharacter: {fileID: 7051675473316667014}
   ControlledEntity: {fileID: 7051675473316667012}
+  SightRange: 10
+  AttackRange: 1
   LowHealth: 0
+  RelationGroup: 100
   CurrentMode: 0
   BlockActionCountDown: 0
 --- !u!195 &7051675473316667034
@@ -129,8 +140,13 @@ MonoBehaviour:
   CanBeBackstabed: 0
   isInvincible: 0
   TakeCollisionDamage: 1
-  deathBodyType: 0
-  DeathReplacements: []
+  deathBodyType: 3
+  DeathReplacements:
+  - TargetPrefab:
+      useString: 1
+      Key: Leech-Death
+      ID: 0
+    BodyType: 3
   DeathBodyReplacementID: -1
   DeathBodyReplacementPrefab: {fileID: 0}
   ControlledObject: {fileID: 0}
@@ -138,7 +154,7 @@ MonoBehaviour:
   Controller: {fileID: 0}
   TimeToSelfDestruction: -1
   LowestKillPlane: -500
-  CombatRelationGroup: 0
+  CombatRelationGroup: 100
   MaxShield: 0
   CurrentShield: 0
   ShieldRecoverSpeed: 0
@@ -231,12 +247,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8016361181240136584, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8016361181240136584, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6402362363154115317, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6402362363154115317, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6089351448905978170, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1579875310823911278, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
       propertyPath: m_IsActive
@@ -245,6 +273,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
       propertyPath: m_Name
       value: Leech-Prototype
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196138216412401344, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9046295437805467959, guid: 8be2f4f373a3f4b4688b32ebdfcbebb3, type: 3}
       propertyPath: m_Materials.Array.data[0]

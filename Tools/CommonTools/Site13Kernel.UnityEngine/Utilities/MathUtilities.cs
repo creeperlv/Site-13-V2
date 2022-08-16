@@ -270,7 +270,41 @@ namespace Site13Kernel.Utilities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion SmoothClose(Quaternion Original, Quaternion Target, float DeltaTime)
         {
-            return Quaternion.RotateTowards(Original, Target, DeltaTime);
+            //if (Original.eulerAngles.y < -180)
+            //{
+            //    var r = Original.eulerAngles;
+            //    r.y += 360;
+            //    Original.eulerAngles = r;
+            //}
+            //else
+            //if (Original.eulerAngles.y > 180)
+            //{
+            //    var r = Original.eulerAngles;
+            //    r.y -= 360;
+            //    Original.eulerAngles = r;
+            //}
+            ////var d = Target.eulerAngles.y - Original.eulerAngles.y;
+            ////if (Math.Abs(d) > 180)
+            ////{
+            ////    if (d > 180)
+            ////    {
+            ////        var r = Original.eulerAngles;
+            ////        r.y += 360;
+            ////        Original.eulerAngles = r;
+            ////    }
+            ////    else if (d < -180)
+            ////    {
+            ////        var r = Original.eulerAngles;
+            ////        r.y -= 360;
+            ////        Original.eulerAngles = r;
+            ////    }
+            ////}
+            var q = new Quaternion(Original.x + (Target.x - Original.x) * DeltaTime,
+                Original.y + (Target.y - Original.y) * DeltaTime,
+                Original.z + (Target.z - Original.z) * DeltaTime,
+                Original.w + (Target.w - Original.w) * DeltaTime);
+            return q;
+            //            return Quaternion.RotateTowards(Original, Target, DeltaTime);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float SmoothClose(float Original, float Target, float DeltaTime)
@@ -283,9 +317,9 @@ namespace Site13Kernel.Utilities
             return Original + (Target - Original) * DeltaTime;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool WithInRange(Vector3 L,Vector3 R, float MaxDistance)
+        public static bool WithInRange(Vector3 L, Vector3 R, float MaxDistance)
         {
-            return (L-R).magnitude < MaxDistance;
+            return (L - R).magnitude < MaxDistance;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float InverseNegativeLerp(float L, float R, float V)

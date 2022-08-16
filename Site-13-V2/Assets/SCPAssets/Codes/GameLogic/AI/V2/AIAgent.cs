@@ -14,8 +14,11 @@ namespace Site13Kernel.GameLogic.AI.V2
         //public NavMeshAgent NMAgent;
         public AnimatedCharacter ControlledAnimatedCharacter;
         public BioEntity ControlledEntity;
+        public float SightRange;
+        public float AttackRange;
         public float LowHealth;
         public BehaviorMode CurrentMode = BehaviorMode.Goal;
+        
         Vector3 Goal;
         NavMeshPath path;
         public float BlockActionCountDown = 0;

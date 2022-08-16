@@ -354,5 +354,46 @@
     "EventTriggerID": "WARHEAD-LOCK",
     "TimeDelay": 7.05,
     "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.SpawnAIEvent, Site13Kernel",
+    "ID": "LEECH",
+    "State": 1,
+    "SpawnLocation": {
+      "$type": "Site13Kernel.Data.Serializables.SerializableLocation, Site13Kernel",
+      "UseSceneLookUp": true,
+      "LookUpName": "Pos0",
+      "Position": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableQuaternion, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0,
+        "W": 0.0
+      },
+      "Scale": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      }
+    },
+    "Routine": {
+      "$type": "Site13Kernel.Data.Serializables.SerializableRoutine, Site13Kernel",
+      "useSceneReference": true,
+      "Name": "ROUNT0",
+      "RandomNextStep": true,
+      "Steps": []
+    },
+    "UseEventTrigger": true,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "SPWN0",
+    "TimeDelay": 0.0,
+    "Repeatable": true
   }
 ]

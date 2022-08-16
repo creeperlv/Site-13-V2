@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Site13Kernel.Data.Serializables;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -67,7 +68,8 @@ namespace CampaignScriptEditor.Editors.Fields
         }
         void LoadList(Object obj)
         {
-            var P = Primitive!.GetProperties();
+            var P = Primitive!.
+                GetRuntimeMethods();
             foreach (var item in P)
             {
                 Trace.WriteLine(item.ToString());
@@ -82,7 +84,23 @@ namespace CampaignScriptEditor.Editors.Fields
             if(L is int Count)
             {
                 var E=typeof(System.Linq.Enumerable);
-                var ElementAt = E.GetMethod("ElementAt")!.MakeGenericMethod(Primitive.GenericTypeArguments[0]);
+                List<SerializableRoutineStep> LS;
+                //LS.ElementAt(9);
+                var mths = E.GetMethods();// !.MakeGenericMethod(Primitive.GenericTypeArguments[0]);
+                MethodInfo? ElementAt=null;
+                foreach (var item in mths)
+                {
+                    if (item.Name.StartsWith("ElementAt"))
+                    {
+                        foreach (var __p in item.GetParameters())
+                        {
+                            if(__p.ParameterType == typeof(int))
+                            {
+                                ElementAt = item.MakeGenericMethod(Primitive.GenericTypeArguments[0]);
+                            }
+                        }
+                    }
+                }
                 for(int i = 0; i < Count; i++)
                 {
                     var _obj = ElementAt.Invoke(null, new object[] {obj, i });

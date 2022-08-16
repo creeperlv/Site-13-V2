@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86;
 
 namespace Site13Kernel.GameLogic.Directors
 {
@@ -75,16 +76,29 @@ namespace Site13Kernel.GameLogic.Directors
                     }
                 }
             });
-            Actions.Add(typeof(IssueBroadcast), (e) => {
+            Actions.Add(typeof(IssueBroadcast), (e) =>
+            {
                 if (BroadcastRecord.Instance != null)
                 {
                     BroadcastRecord.Instance.IssueBroadCast((e as IssueBroadcast).BroadCast);
                 }
             });
-            Actions.Add(typeof(ToggleHUD), (e) => {
-                if(e is ToggleHUD hud)
+            Actions.Add(typeof(ToggleHUD), (e) =>
+            {
+                if (e is ToggleHUD hud)
                 {
                     HUDBase.Instance.Show = hud.TargetState;
+                }
+            });
+            Actions.Add(typeof(SpawnAIEvent), (e) =>
+            {
+                if (e is SpawnAIEvent ai)
+                {
+                    var __ENTITY_ID=ai.ID;
+
+                    var L = FromSerializableLocation(ai.SpawnLocation);
+                    var agent=AIController.CurrentController.SpawnV2(ai.ID, L.Position, L.Rotation.eulerAngles);
+                    //agent.agent.routin
                 }
             });
             Actions.Add(typeof(GiveWeaponEvent), (e) =>
