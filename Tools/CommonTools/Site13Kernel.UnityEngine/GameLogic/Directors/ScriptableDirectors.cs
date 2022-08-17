@@ -35,14 +35,16 @@ namespace Site13Kernel.GameLogic.Directors
         public KVList<string, Animator> ReferencedAnimators = new KVList<string, Animator>();
         public KVList<string, MonoBehaviour> ReferenceMonoBehaviours = new KVList<string, MonoBehaviour>();
         public KVList<string, Transform> ReferenceLocations = new KVList<string, Transform>();
-        public KVList<string, Goal> ReferenceRountines = new KVList<string, Goal>();
+        public KVList<string, Routine> ReferenceRountines = new KVList<string, Routine>();
+        public KVList<string, Goal> ReferenceGoals = new KVList<string, Goal>();
         public Dictionary<string, SimpleTrigger> __SimpleTriggers = new Dictionary<string, SimpleTrigger>();
         public Dictionary<string, EventTrigger> __EventTriggers = new Dictionary<string, EventTrigger>();
         public Dictionary<string, GameObject> __ReferencedObjects = new Dictionary<string, GameObject>();
         public Dictionary<string, Animator> __ReferencedAnimators = new Dictionary<string, Animator>();
         public Dictionary<string, MonoBehaviour> __ReferenceMonoBehaviours = new Dictionary<string, MonoBehaviour>();
         public Dictionary<string, Transform> __ReferenceLocations = new Dictionary<string, Transform>();
-        public Dictionary<string, Goal> __ReferenceRountines = new Dictionary<string, Goal>();
+        public Dictionary<string, Routine> __ReferenceRountines = new Dictionary<string, Routine>();
+        public Dictionary<string, Goal> __ReferenceGoals = new Dictionary<string, Goal>();
         public Dictionary<Type, Action<EventBase>> Actions = new Dictionary<Type, Action<EventBase>>();
         public List<PackagedEventBase> _events = new List<PackagedEventBase>();
         public Dictionary<string, List<PackagedEventBase>> Symbols = new Dictionary<string, List<PackagedEventBase>>();
@@ -55,6 +57,7 @@ namespace Site13Kernel.GameLogic.Directors
             __ReferenceMonoBehaviours = ReferenceMonoBehaviours.ObtainMap();
             __ReferenceLocations = ReferenceLocations.ObtainMap();
             __ReferenceRountines = ReferenceRountines.ObtainMap();
+            __ReferenceGoals = ReferenceGoals.ObtainMap();
         }
         public virtual void SetupActions()
         {

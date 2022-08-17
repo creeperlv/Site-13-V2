@@ -1,0 +1,90 @@
+[
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.SpawnPlayerEvent, Site13Kernel",
+    "PlayerID": "PLAYER",
+    "Location": {
+      "$type": "Site13Kernel.Data.Serializables.SerializableLocation, Site13Kernel",
+      "UseSceneLookUp": true,
+      "LookUpName": "PLAYER0",
+      "Position": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableQuaternion, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0,
+        "W": 0.0
+      },
+      "Scale": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      }
+    },
+    "UseEventTrigger": false,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": "",
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.IssueMission, Site13Kernel",
+    "MissionText": {
+      "$type": "CLUNL.Localization.LocalizedString, CLUNL.Localization",
+      "arguments": [],
+      "ID": "DEV.0",
+      "Fallback": "DEVELOPMENT PLAYGROUND"
+    },
+    "UseEventTrigger": false,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": null,
+    "TimeDelay": 0.0,
+    "Repeatable": false
+  },
+  {
+    "$type": "Site13Kernel.GameLogic.Directors.SpawnAIEvent, Site13Kernel",
+    "ID": "LEECH",
+    "State": 1,
+    "SpawnLocation": {
+      "$type": "Site13Kernel.Data.Serializables.SerializableLocation, Site13Kernel",
+      "UseSceneLookUp": true,
+      "LookUpName": "SPWN0",
+      "Position": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableQuaternion, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0,
+        "W": 0.0
+      },
+      "Scale": {
+        "$type": "Site13Kernel.Data.Serializables.SerializableVector3, Site13Kernel",
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      }
+    },
+    "Routine": {
+      "$type": "Site13Kernel.Data.Serializables.SerializableRoutine, Site13Kernel",
+      "useSceneReference": true,
+      "Name": "ROUNTINE0",
+      "RandomNextStep": false,
+      "Steps": []
+    },
+    "UseEventTrigger": false,
+    "UseSymbolInsteadOfEventTrigger": false,
+    "EventTriggerID": null,
+    "TimeDelay": 2.0,
+    "Repeatable": false
+  }
+]

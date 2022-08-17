@@ -14,23 +14,23 @@ namespace Site13Kernel
 {
     public class AIController : BehaviorController
     {
-        public List<List<BTAgent>> Agents;
+        public List<List<BTAgent>> Agents=new List<List<BTAgent>>();
         public int Slices = 2;
         int AddIndicator=0;
         int RuntimeIndicator = 0;
         public static AIController CurrentController;
         void Start()
         {
-            for (int i = 0; i < Slices; i++)
-            {
-                Agents.Add(new List<BTAgent>());
-            }
             CurrentController = this;
             if (CrossScene)
             {
                 DontDestroyOnLoad(base.gameObject);
             }
 
+            for (int i = 0; i < Slices; i++)
+            {
+                Agents.Add(new List<BTAgent>());
+            }
             SerializeAll();
             foreach (IControllable item in _OnInit)
             {
@@ -64,11 +64,15 @@ namespace Site13Kernel
         {
             float DeltaTime = Time.deltaTime;
             float UnscaledDeltaTime = Time.unscaledDeltaTime;
-            int ___i = RuntimeIndicator % (Slices + 1);
+            int ___i = RuntimeIndicator % (Slices);
+            UnityEngine.Debug.Log("Try:"+___i);
             var L = Agents[___i];
             for (int num = L.Count-1; num >=0; num--)
             {
-                L[num].Refresh(DeltaTime, UnscaledDeltaTime);
+                var agent = L[num];
+                if (agent != null)
+                    agent.Refresh(DeltaTime, UnscaledDeltaTime);
+                else L.RemoveAt(num);
             }
             RuntimeIndicator++;
             if (RuntimeIndicator == Slices)
@@ -89,6 +93,10 @@ namespace Site13Kernel
                         {
                             Debugger.CurrentDebugger.Log(obj, LogLevel.Error);
                         }
+                    else
+                    {
+                        _OnRefresh.RemoveAt(num);
+                    }
                 }
             }
         }
@@ -109,13 +117,15 @@ namespace Site13Kernel
             var OBJ = GlobalBioController.CurrentGlobalBioController.Spawn(ID, pos, rot);
             var ai = OBJ.GetComponent<BTAgent>();
             ai.isPrimitive = false;
-            int ___i = AddIndicator% (Slices + 1);
+            int ___i = AddIndicator% (Slices);
+            ai.ListSlot = ___i;
             Agents[___i].Add(ai);
             AddIndicator++;
             return ai;
         }
         public void DestoryAllCharacters()
         {
+
             for (int i = this._OnRefresh.Count - 1; i >= 0; i--)
             {
                 var item = this._OnRefresh[i] as AICharacter;
@@ -128,6 +138,12 @@ namespace Site13Kernel
                     DestoryAICharacter(item);
                 }
             }
+        }
+        public void DestoryBTAgent(BTAgent agent)
+        {
+            var L=Agents[agent.ListSlot];
+            L.Remove(agent);
+            agent.agent.ControlledEntity.Controller.DestroyEntity(agent.agent.ControlledEntity);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DestoryAICharacter(AICharacter character)

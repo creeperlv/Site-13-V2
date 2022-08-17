@@ -9,6 +9,7 @@ namespace Site13Kernel.GameLogic.AI
 {
     public class BioCollector : MonoBehaviour
     {
+        public Transform Parent;
         public BioEntity BioEntity;
         public float LastClosestFoeDistance;
         public BioEntity LastClosestFoe;
@@ -19,7 +20,7 @@ namespace Site13Kernel.GameLogic.AI
             var BIO = other.GetComponentInChildren<BioEntity>();
             if (BIO != null)
             {
-                float Dis = (transform.position - BIO.transform.position).magnitude;
+                float Dis = (Parent.position - BIO.transform.position).magnitude;
                 if (GlobalBioController.CurrentGlobalBioController.isFoe(BIO.CombatRelationGroup, BioEntity.CombatRelationGroup))
                 {
                     if (LastClosestFoeDistance > Dis || LastClosestFoe == null)

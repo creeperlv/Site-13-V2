@@ -19,6 +19,7 @@ namespace Site13Kernel.GameLogic.AI.V2
         [SerializeField]
         public BehaviorTree tree;
         public bool isPrimitive = true;
+        internal int ListSlot;
         private void Awake()
         {
             var useBinaryData = TreeSource.name.ToUpper().EndsWith(".BYTES");
@@ -38,6 +39,11 @@ namespace Site13Kernel.GameLogic.AI.V2
         private void Update()
         {
             //tree.Tick();
+        }
+        public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
+        {
+            if(!isPrimitive)
+            tree.Tick();
         }
         public void SetupNode(BTBaseNode node, ref BehaviorTreeBuilder builder)
         {
@@ -86,7 +92,8 @@ namespace Site13Kernel.GameLogic.AI.V2
                     {
                         builder = builder.Condition("IsSpottedEnemy", () =>
                         {
-                            return false;
+                            agent.CheckEnemies();
+                            return agent.isAwareOfEnemy;
                         });
                     }
                     break;
@@ -114,6 +121,22 @@ namespace Site13Kernel.GameLogic.AI.V2
                         builder = builder.Do("PlayMotion", () =>
                         {
                             //agent.ControlledAnimatedCharacter.Pla
+                            return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
+                        });
+                    }
+                    break;
+                case SelfDestruct c:
+                    {
+                        builder = builder.Do("Self Destruct", () => {
+                            agent.ControlledEntity.Die();
+                            return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
+                        });
+                    }
+                    break;
+                case StartAction c:
+                    {
+                        builder = builder.Do("StartAction", () => {
+                            agent.BlockActionCountDown = c.ActionLength;
                             return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
                         });
                     }

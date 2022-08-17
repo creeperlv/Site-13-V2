@@ -13,6 +13,14 @@ namespace Site13Kernel.Utilities
 {
     public static class ObjectGenerator
     {
+        public static GameObject GetPrefab(this PrefabReference pr)
+        {
+            if (pr.useString)
+            {
+                return ResourceBuilder.ObtainGameObject(pr.Key);
+            }
+            else return ResourceBuilder.ObtainGameObject(pr.ID);
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(string ID)
         {

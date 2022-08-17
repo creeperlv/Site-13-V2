@@ -318,6 +318,7 @@ namespace CampaignScriptEditor
             FieldEditorPool.FieldEditors.Add(typeof(string), typeof(StringField));
             FieldEditorPool.FieldEditors.Add(typeof(bool), typeof(BoolField));
             FieldEditorPool.FieldEditors.Add(typeof(float), typeof(FloatField));
+            FieldEditorPool.FieldEditors.Add(typeof(int), typeof(IntField));
             //FieldEditorPool.FieldEditors.Add(typeof(SerializableLocation), typeof(SerializableLocationField));
             FieldEditorPool.FieldEditors.Add(typeof(SerializableVector3), typeof(Vector3Field));
             FieldEditorPool.FieldEditors.Add(typeof(SerializableQuaternion), typeof(QuaternionField));

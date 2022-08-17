@@ -17,7 +17,7 @@ namespace Site13Kernel.GameLogic.AI
         {
             if (data is GoalData d)
             {
-                var _ref = Directors.ScriptableDirector.Instance.__ReferenceRountines[d.ReferenceID];
+                var _ref = Directors.ScriptableDirector.Instance.__ReferenceGoals[d.ReferenceID];
                 ReferenceID = d.ReferenceID;
                 Target = _ref.Target;
                 Range = d.Range;

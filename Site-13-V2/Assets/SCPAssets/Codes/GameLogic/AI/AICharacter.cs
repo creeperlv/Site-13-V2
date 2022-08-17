@@ -144,32 +144,32 @@ namespace Site13Kernel.GameLogic.AI
                 case AIState.Walk:
                     {
                         if (GoalRoutine == null) return;
-                        if (GoalRoutine.CurrentExecutingGoals.Count == 0) return;
+                        if (GoalRoutine.Steps.Count == 0) return;
 
                         if (LastState != CurrentState)
                         {
-                            SetGoal(GoalRoutine.CurrentExecutingGoals[GoalRoutine.Step], WalkSpeed);
+                            SetGoal(GoalRoutine.Steps[GoalRoutine.CurrentStep], WalkSpeed);
                             LastState = CurrentState;
                         }
                         if (ControlledCharacterAnimator.CurrentClip != Walk_HASH)
                             ControlledCharacterAnimator.SetAnimation(Walk_HASH);
 
-                        if (Detect(GoalRoutine.CurrentExecutingGoals[GoalRoutine.Step]))
+                        if (Detect(GoalRoutine.Steps[GoalRoutine.CurrentStep]))
                         {
-                            if (GoalRoutine.isRandomNextGoal)
+                            if (GoalRoutine.RandomizeNextHop)
                             {
-                                var (goal,index)=Maths.ObtainOneWithIndex(GoalRoutine.CurrentExecutingGoals);
-                                GoalRoutine.Step = index;
+                                var (goal,index)=Maths.ObtainOneWithIndex(GoalRoutine.Steps);
+                                GoalRoutine.CurrentStep = index;
                                 SetGoal(goal, WalkSpeed);
                             }
                             else
                             {
-                                GoalRoutine.Step++;
-                                if (GoalRoutine.Step >= GoalRoutine.CurrentExecutingGoals.Count)
+                                GoalRoutine.CurrentStep++;
+                                if (GoalRoutine.CurrentStep >= GoalRoutine.Steps.Count)
                                 {
-                                    if (GoalRoutine.isLoop)
+                                    if (GoalRoutine.Loop)
                                     {
-                                        GoalRoutine.Step = 0;
+                                        GoalRoutine.CurrentStep = 0;
 
                                     }
                                     else
@@ -177,9 +177,9 @@ namespace Site13Kernel.GameLogic.AI
                                         CurrentState = AIState.Idle;
                                     }
                                 }
-                                if (GoalRoutine.Step < GoalRoutine.CurrentExecutingGoals.Count)
+                                if (GoalRoutine.CurrentStep < GoalRoutine.Steps.Count)
                                 {
-                                    SetGoal(GoalRoutine.CurrentExecutingGoals[GoalRoutine.Step], WalkSpeed);
+                                    SetGoal(GoalRoutine.Steps[GoalRoutine.CurrentStep], WalkSpeed);
                                 }
                             }
                             //ControlledCharacterAnimator.SetAnimation(Walk_HASH);
@@ -388,11 +388,11 @@ namespace Site13Kernel.GameLogic.AI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetRoutine(Routine r)
         {
-            GoalRoutine = r.Duplicate();
-            if (r.CurrentExecutingGoals != null)
-                if (r.CurrentExecutingGoals.Count > 0)
-                    SetGoal(r.CurrentExecutingGoals[0], CurrentState == AIState.Walk ? WalkSpeed : 1);
-            r.Step = 0;
+            GoalRoutine = r.Duplicate() as Routine;
+            if (r.Steps != null)
+                if (r.Steps.Count > 0)
+                    SetGoal(r.Steps[0], CurrentState == AIState.Walk ? WalkSpeed : 1);
+            r.CurrentStep = 0;
         }
     }
     [Serializable]
@@ -402,18 +402,18 @@ namespace Site13Kernel.GameLogic.AI
         public PrefabReference ItemID;
         public float Probability = 1;
     }
-    [Serializable]
-    public class Routine
-    {
-        public bool isLoop;
-        public bool isRandomNextGoal=false;
-        public int Step;
-        public List<Goal> CurrentExecutingGoals;
-        public Routine Duplicate()
-        {
-            return new Routine { isLoop = isLoop, Step = Step,isRandomNextGoal= isRandomNextGoal, CurrentExecutingGoals = CurrentExecutingGoals };
-        }
-    }
+    //[Serializable]
+    //public class Routine
+    //{
+    //    public bool isLoop;
+    //    public bool isRandomNextGoal=false;
+    //    public int Step;
+    //    public List<Goal> CurrentExecutingGoals;
+    //    public Routine Duplicate()
+    //    {
+    //        return new Routine { isLoop = isLoop, Step = Step,isRandomNextGoal= isRandomNextGoal, CurrentExecutingGoals = CurrentExecutingGoals };
+    //    }
+    //}
     [Serializable]
     public class SpeechCollection
     {

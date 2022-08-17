@@ -18,7 +18,7 @@ namespace Site13Kernel.GameLogic.AI.V2
         public float AttackRange;
         public float LowHealth;
         public BehaviorMode CurrentMode = BehaviorMode.Goal;
-        
+        public BioCollector Collector;
         Vector3 Goal;
         NavMeshPath path;
         public float BlockActionCountDown = 0;
@@ -29,9 +29,21 @@ namespace Site13Kernel.GameLogic.AI.V2
                 isHit = true;
             };
         }
-        void Update()
+        public bool isAwareOfEnemy;
+        public void CheckEnemies()
         {
-            //NMAgent.
+            if (Collector.LastClosestFoe != null)
+            {
+                float Dis = (Collector.LastClosestFoe.transform.position - ControlledEntity.transform.position).magnitude;
+                if (Dis < SightRange)
+                {
+                    isAwareOfEnemy = true;
+                }
+                else
+                {
+                    isAwareOfEnemy = false;
+                }
+            }
         }
         bool willCrouch = false;
         private void OnTriggerStay(Collider other)
