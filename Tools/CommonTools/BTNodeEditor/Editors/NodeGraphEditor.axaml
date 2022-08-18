@@ -21,20 +21,20 @@
 					</ScrollViewer.Background>
 					<paz:ZoomBorder  Name="ZoomBorder" ClipToBounds="True" PanButton="Middle" EnableGestureZoom="True"
 									 EnablePan="True" EnableConstrains="True" EnableGestureRotation="False" >
-						<Panel>
+						<Panel Name="ZoomBase">
 							<Canvas Name="AdornerCanvas" Margin="-100"	Background="Transparent"
 							IsHitTestVisible="True">
-								<Canvas.Background>
-									<VisualBrush TileMode="Tile" SourceRect="0,0,24,24" Stretch="None"  DestinationRect="0,0,24,24">
-										<VisualBrush.Visual>
-											<Rectangle Width="25" Height="25" Stroke="#8888" StrokeThickness="1"></Rectangle>
-										</VisualBrush.Visual>
-									</VisualBrush>
-								</Canvas.Background>
+								<Canvas.ContextMenu>
+									<ContextMenu>
+										<CheckBox Content="Show Grid" Name="ShowGrid"/>
+									
+									</ContextMenu>
+								</Canvas.ContextMenu>
 							</Canvas>
 						</Panel>
 					</paz:ZoomBorder>
 				</ScrollViewer>
 		</Border>
+		<Grid Name="ReferencePos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,100"></Grid>
 	</Grid>
 </UserControl>

@@ -31,8 +31,8 @@ namespace Site13Kernel.GameLogic.Firefight
         {
             foreach (var item in ControlledSpawner)
             {
-                item.InitialRoutine = routine[Random.Range(0, routine.Count)].Duplicate();
-                item.InitialRoutine.Step= Random.Range(0, item.InitialRoutine.CurrentExecutingGoals.Count);
+                item.InitialRoutine = routine[Random.Range(0, routine.Count)].Duplicate() as Routine;
+                item.InitialRoutine.CurrentStep= Random.Range(0, item.InitialRoutine.Steps.Count);
             }
         }
     }

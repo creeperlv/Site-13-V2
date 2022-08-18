@@ -395,13 +395,6 @@ namespace Site13Kernel.GameLogic.AI
             r.CurrentStep = 0;
         }
     }
-    [Serializable]
-    public class DeathDropItem
-    {
-        public bool isWeapon = true;
-        public PrefabReference ItemID;
-        public float Probability = 1;
-    }
     //[Serializable]
     //public class Routine
     //{

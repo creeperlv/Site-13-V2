@@ -30,6 +30,15 @@ namespace BTNodeEditor.Editors
                     }
                 });
             });
+            ShowGrid.Unchecked += (_, _) =>
+            {
+                AdornerCanvas.Background = new SolidColorBrush(Colors.Transparent);
+            };
+            ShowGrid.Checked += (_, _) =>
+            {
+                AdornerCanvas.Background = TileGrid;
+            };
+            //AdornerCanvas.Background = TileGrid;
             AdornerCanvas.PointerPressed += (_, _) =>
             {
                 if (__is_operating_NC)
@@ -75,6 +84,20 @@ namespace BTNodeEditor.Editors
                 DisableDuplicate = true
             });
         }
+        static VisualBrush TileGrid = new VisualBrush()
+        {
+            Visual = new Rectangle()
+            {
+                Width = 25,
+                Height = 25,
+                Stroke = new SolidColorBrush(Color.FromArgb(128, 128, 128, 128)),
+                StrokeThickness = 1
+            },
+            BitmapInterpolationMode= Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.LowQuality,
+            TileMode = TileMode.Tile,
+            Stretch = Stretch.None,
+            DestinationRect = new RelativeRect(0, 0, 24, 24, RelativeUnit.Absolute)
+        };
         public Dictionary<string, GraphNode> ID_Node_Map = new();
         public List<GraphNode> Nodes = new();
         public void DeleteNode(GraphNode GN)
@@ -117,8 +140,14 @@ namespace BTNodeEditor.Editors
             ManagedConnections.Remove(NC);
             AdornerCanvas.Children.Remove(NC.GetPath());
         }
-        public GraphNode AddNode(SerializableNode SN)
+        public GraphNode AddNode(SerializableNode SN,bool resetPos=false)
         {
+            if (resetPos == true) {
+                
+                var p=new Point(200- ZoomBorder.OffsetX, 200- ZoomBorder.OffsetY);
+                SN.X = p.X;
+                SN.Y = p.Y;
+            }
             var GN = GraphNode.FromSerializableNode(SN, this);
             Nodes.Add(GN);
             GN.Margin = new Thickness(SN.X, SN.Y);

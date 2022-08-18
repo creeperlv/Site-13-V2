@@ -211,7 +211,13 @@ namespace BTNodeEditor
                         };
                         button.Click += (_, _) =>
                         {
-                            CentralEditor.AddNode(new SerializableNode() { X = 150, Y = 150, ID = Guid.NewGuid().ToString(), Contained = (BTBaseNode)Activator.CreateInstance(item)! }); ;
+                            CentralEditor.AddNode(new SerializableNode()
+                            {
+                                X = 150,
+                                Y = 150,
+                                ID = Guid.NewGuid().ToString(),
+                                Contained = (BTBaseNode)Activator.CreateInstance(item)!
+                            }, true); ;
                         };
                         CurrentContainer!.Children.Add(button);
                     }

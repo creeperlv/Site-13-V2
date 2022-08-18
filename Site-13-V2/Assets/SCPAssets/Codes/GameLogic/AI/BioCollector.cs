@@ -29,6 +29,10 @@ namespace Site13Kernel.GameLogic.AI
                         LastClosestFoe = BIO;
                     }
                 }
+                else
+                {
+                    Debug.Log($"{BIO.name} is not foe.");
+                }
             }
         }
         //private void OnCollisionStay(Collision other)

@@ -65,7 +65,6 @@ namespace Site13Kernel
             float DeltaTime = Time.deltaTime;
             float UnscaledDeltaTime = Time.unscaledDeltaTime;
             int ___i = RuntimeIndicator % (Slices);
-            UnityEngine.Debug.Log("Try:"+___i);
             var L = Agents[___i];
             for (int num = L.Count-1; num >=0; num--)
             {
