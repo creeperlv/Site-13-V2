@@ -42,8 +42,9 @@ namespace Site13Kernel.GameLogic.AI.V2
         }
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
-            if(!isPrimitive)
-            tree.Tick();
+            if (!isPrimitive)
+                tree.Tick();
+            agent.OnFrame(DeltaTime);
         }
         public void SetupNode(BTBaseNode node, ref BehaviorTreeBuilder builder)
         {
@@ -107,12 +108,17 @@ namespace Site13Kernel.GameLogic.AI.V2
                         });
                     }
                     break;
+                case WaitTime c:
+                    {
+                        builder = builder.WaitTime("Wait Time",c.Time);
+                    }
+                    break;
                 case SetBehaviorMode c:
                     {
                         builder = builder.Do("SetBehaviorMode", () =>
                         {
                             agent.CurrentMode = c.TargetMode;
-                            return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
+                                return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
                         });
                     }
                     break;
@@ -120,24 +126,40 @@ namespace Site13Kernel.GameLogic.AI.V2
                     {
                         builder = builder.Do("PlayMotion", () =>
                         {
-                            //agent.ControlledAnimatedCharacter.Pla
-                            return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
+                            agent.ControlledAnimatedCharacter.PlayMotion(c.Trigger, c.Layer);
+                                return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
                         });
                     }
                     break;
                 case SelfDestruct c:
                     {
-                        builder = builder.Do("Self Destruct", () => {
+                        builder = builder.Do("Self Destruct", () =>
+                        {
                             agent.ControlledEntity.Die();
-                            return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
+                                return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
                         });
                     }
                     break;
                 case StartAction c:
                     {
-                        builder = builder.Do("StartAction", () => {
+                        builder = builder.Do("StartAction", () =>
+                        {
                             agent.BlockActionCountDown = c.ActionLength;
                             return CleverCrow.Fluid.BTs.Tasks.TaskStatus.Success;
+                        });
+                    }
+                    break;
+                case FoeInAttackRange c:
+                    {
+                        builder = builder.Condition("FoeInAttackRange", () =>
+                        {
+                            if (agent.Collector.LastClosestFoe == null)
+                                return false;
+                            if ((agent.Collector.LastClosestFoe.transform.position - agent.transform.position).magnitude < agent.AttackRange)
+                            {
+                                return true;
+                            }
+                            return false;
                         });
                     }
                     break;

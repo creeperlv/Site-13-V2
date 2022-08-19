@@ -10,6 +10,8 @@ namespace Site13Kernel.GameLogic.Directors
     {
         public string ID;
         public AIState State;
+        public string CombatGroupID;
+        public float RandomDistance = 0;
         public SerializableLocation SpawnLocation;
         public SerializableRoutine Routine;
         public List<DeathDropItem> OverrideDeathDropItems=new List<DeathDropItem>();

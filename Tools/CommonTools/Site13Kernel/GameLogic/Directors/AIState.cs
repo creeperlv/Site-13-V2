@@ -2,6 +2,7 @@
 {
     public enum AIState
     {
-        None,Idle,Walk,Chase,Combat
+        None, Idle,
+        Walk, Chase, Combat, Goal
     }
 }

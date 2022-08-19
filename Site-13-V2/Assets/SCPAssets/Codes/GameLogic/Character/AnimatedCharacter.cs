@@ -1,5 +1,6 @@
 using Site13Kernel.Core.TagSystem;
 using Site13Kernel.Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,5 +13,10 @@ namespace Site13Kernel.GameLogic.Character
         public Animator Animator;
         public KVList<string, BipedMotion> MotionMap;
         public Dictionary<string, BipedMotion> _MotionMap;
+
+        public void PlayMotion(string trigger, int layer)
+        {
+            Animator.SetTrigger(trigger);
+        }
     }
 }

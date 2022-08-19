@@ -16,4 +16,10 @@ namespace Site13Kernel.GameLogic.BT.Nodes
     {
         public bool RevertBool;
     }
+    [Serializable]
+    [HideInEditor]
+    public class ActionNode : BTBaseNode
+    {
+        //public bool StopContinue;
+    }
 }

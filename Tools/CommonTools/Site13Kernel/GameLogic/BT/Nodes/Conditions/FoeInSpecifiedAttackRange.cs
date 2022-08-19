@@ -4,9 +4,9 @@ using System;
 namespace Site13Kernel.GameLogic.BT.Nodes.Conditions
 {
     [Serializable]
-    [Catalog("Conditions")]
-    public class IsSpottedEnemy : ConditionNode
+    [Catalog("Conditions>Combat")]
+    public class FoeInSpecifiedAttackRange : ConditionNode
     {
-
+        public float Range;
     }
 }

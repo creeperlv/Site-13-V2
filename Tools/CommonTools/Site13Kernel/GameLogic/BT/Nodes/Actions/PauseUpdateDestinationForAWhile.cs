@@ -5,7 +5,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
 {
     [Serializable]
     [Catalog("Actions>Logic")]
-    public class PauseUpdateDestinationForAWhile : BTBaseNode
+    public class PauseUpdateDestinationForAWhile : ActionNode
     {
         public float Time;
     }

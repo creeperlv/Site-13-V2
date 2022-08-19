@@ -5,8 +5,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Conditions
 {
     [Serializable]
     [Catalog("Conditions")]
-    public class IsSpottedEnemy : ConditionNode
+    public class GoalInPrimaryRange : ConditionNode
     {
-
     }
 }

@@ -6,7 +6,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
     [Serializable]
     [Catalog("Actions>Combat")]
 
-    public class FireWeapon : BTBaseNode
+    public class FireWeapon : ActionNode
     {
 
     }

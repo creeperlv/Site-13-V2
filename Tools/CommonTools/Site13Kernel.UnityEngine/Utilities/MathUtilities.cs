@@ -299,12 +299,12 @@ namespace Site13Kernel.Utilities
             ////        Original.eulerAngles = r;
             ////    }
             ////}
-            var q = new Quaternion(Original.x + (Target.x - Original.x) * DeltaTime,
-                Original.y + (Target.y - Original.y) * DeltaTime,
-                Original.z + (Target.z - Original.z) * DeltaTime,
-                Original.w + (Target.w - Original.w) * DeltaTime);
-            return q;
-            //            return Quaternion.RotateTowards(Original, Target, DeltaTime);
+            //var q = new Quaternion(Original.x + (Target.x - Original.x) * DeltaTime,
+            //    Original.y + (Target.y - Original.y) * DeltaTime,
+            //    Original.z + (Target.z - Original.z) * DeltaTime,
+            //    Original.w + (Target.w - Original.w) * DeltaTime);
+            //return q;
+            return Quaternion.RotateTowards(Original, Target, Quaternion.Angle(Original, Target) * DeltaTime);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float SmoothClose(float Original, float Target, float DeltaTime)

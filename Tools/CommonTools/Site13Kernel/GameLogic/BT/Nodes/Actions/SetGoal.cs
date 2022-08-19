@@ -5,7 +5,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
 {
     [Serializable]
     [Catalog("Actions>Basic Logic")]
-    public class SetGoal : BTBaseNode
+    public class SetGoal : ActionNode
     {
         public LogicGoal TargetGoal;
     }

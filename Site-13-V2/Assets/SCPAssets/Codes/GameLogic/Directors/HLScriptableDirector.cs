@@ -3,6 +3,7 @@ using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.UI.HUD;
+using Site13Kernel.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -97,7 +98,12 @@ namespace Site13Kernel.GameLogic.Directors
                     var __ENTITY_ID=ai.ID;
 
                     var L = FromSerializableLocation(ai.SpawnLocation);
-                    var agent=AIController.CurrentController.SpawnV2(ai.ID, L.Position, L.Rotation.eulerAngles);
+                    var R=UnityEngine.Random.Range(0, ai.RandomDistance);
+                    var Phi=UnityEngine.Random.Range(0, 2 * Mathf.PI);
+                    var Pos = L.Position;
+                    Pos.x += R * Mathf.Cos(Phi);
+                    Pos.z += R * Mathf.Sin(Phi);
+                    var agent=AIController.CurrentController.SpawnV2(ai.ID, Pos, L.Rotation.eulerAngles);
                     //agent.agent.routin
                 }
             });

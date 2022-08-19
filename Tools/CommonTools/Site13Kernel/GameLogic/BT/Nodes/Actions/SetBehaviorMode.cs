@@ -5,7 +5,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
 {
     [Serializable]
     [Catalog("Actions>Basic Logic")]
-    public class SetBehaviorMode : BTBaseNode
+    public class SetBehaviorMode : ActionNode
     {
         public BehaviorMode TargetMode;
     }

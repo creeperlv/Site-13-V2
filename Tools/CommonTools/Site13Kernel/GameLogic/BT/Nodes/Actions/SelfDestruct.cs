@@ -5,7 +5,7 @@ namespace Site13Kernel.GameLogic.BT.Nodes.Actions
 {
     [Serializable]
     [Catalog("Actions>BioEntity")]
-    public class SelfDestruct : BTBaseNode
+    public class SelfDestruct : ActionNode
     {
     }
 

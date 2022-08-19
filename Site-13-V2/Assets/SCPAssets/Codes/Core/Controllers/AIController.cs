@@ -15,6 +15,7 @@ namespace Site13Kernel
     public class AIController : BehaviorController
     {
         public List<List<BTAgent>> Agents=new List<List<BTAgent>>();
+        public List<float> DeltaTs = new List<float>();
         public int Slices = 2;
         int AddIndicator=0;
         int RuntimeIndicator = 0;
@@ -26,7 +27,10 @@ namespace Site13Kernel
             {
                 DontDestroyOnLoad(base.gameObject);
             }
-
+            for(int i=0; i < Slices; i++)
+            {
+                DeltaTs.Add(0);
+            }
             for (int i = 0; i < Slices; i++)
             {
                 Agents.Add(new List<BTAgent>());
@@ -66,13 +70,18 @@ namespace Site13Kernel
             float UnscaledDeltaTime = Time.unscaledDeltaTime;
             int ___i = RuntimeIndicator % (Slices);
             var L = Agents[___i];
+            for (int i = 0; i < DeltaTs.Count; i++)
+            {
+                DeltaTs[i] += DeltaTime;
+            }
             for (int num = L.Count-1; num >=0; num--)
             {
                 var agent = L[num];
                 if (agent != null)
-                    agent.Refresh(DeltaTime, UnscaledDeltaTime);
+                    agent.Refresh(DeltaTs[___i], UnscaledDeltaTime);
                 else L.RemoveAt(num);
             }
+            DeltaTs[___i] = 0;
             RuntimeIndicator++;
             if (RuntimeIndicator == Slices)
             {

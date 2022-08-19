@@ -28,59 +28,84 @@
                       "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
                       "Name": "Found Player",
                       "NextNode": {
-                        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsSpottedEnemy, Site13Kernel",
-                        "RevertBool": false,
+                        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.CheckBehaviorMode, Site13Kernel",
+                        "TargetMode": 1,
+                        "RevertBool": true,
                         "NextNode": {
-                          "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
-                          "TargetMode": 1,
+                          "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsSpottedEnemy, Site13Kernel",
+                          "RevertBool": false,
                           "NextNode": {
-                            "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+                            "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
+                            "TargetMode": 1,
                             "NextNode": {
-                              "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
-                              "Name": "Low Health Try Hide",
+                              "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
                               "NextNode": {
-                                "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsLowHealth, Site13Kernel",
-                                "RevertBool": false,
+                                "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
+                                "Name": "Low Health Try Hide",
                                 "NextNode": {
-                                  "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
-                                  "TargetMode": 3,
+                                  "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsLowHealth, Site13Kernel",
+                                  "RevertBool": false,
                                   "NextNode": {
-                                    "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+                                    "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
+                                    "TargetMode": 3,
                                     "NextNode": {
-                                      "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
-                                      "Name": "Recover from injury",
+                                      "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
                                       "NextNode": {
-                                        "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.CheckBehaviorMode, Site13Kernel",
-                                        "TargetMode": 3,
-                                        "RevertBool": false,
+                                        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
+                                        "Name": "Recover from injury",
                                         "NextNode": {
-                                          "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsLowHealth, Site13Kernel",
-                                          "RevertBool": true,
+                                          "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.CheckBehaviorMode, Site13Kernel",
+                                          "TargetMode": 3,
+                                          "RevertBool": false,
                                           "NextNode": {
-                                            "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
-                                            "TargetMode": 0,
+                                            "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsLowHealth, Site13Kernel",
+                                            "RevertBool": true,
                                             "NextNode": {
-                                              "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+                                              "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
+                                              "TargetMode": 0,
                                               "NextNode": {
-                                                "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
-                                                "Name": "Attack Player",
+                                                "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
                                                 "NextNode": {
-                                                  "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.GoalInPrimaryRange, Site13Kernel",
-                                                  "RevertBool": false,
+                                                  "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
+                                                  "Name": "Attack Player",
                                                   "NextNode": {
-                                                    "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.PlayMotion, Site13Kernel",
-                                                    "Trigger": "Attack",
-                                                    "Layer": 0,
+                                                    "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.FoeInAttackRange, Site13Kernel",
+                                                    "RevertBool": false,
                                                     "NextNode": {
-                                                      "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.WaitTime, Site13Kernel",
-                                                      "Time": 1.0,
+                                                      "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.PlayMotion, Site13Kernel",
+                                                      "Trigger": "Attack",
+                                                      "Layer": 0,
                                                       "NextNode": {
-                                                        "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SelfDestruct, Site13Kernel",
+                                                        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.WaitTime, Site13Kernel",
+                                                        "Time": 0.5,
                                                         "NextNode": {
-                                                          "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+                                                          "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SelfDestruct, Site13Kernel",
                                                           "NextNode": {
                                                             "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
-                                                            "NextNode": null
+                                                            "NextNode": {
+                                                              "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.Sequence, Site13Kernel",
+                                                              "Name": "Lost Player",
+                                                              "NextNode": {
+                                                                "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.CheckBehaviorMode, Site13Kernel",
+                                                                "TargetMode": 1,
+                                                                "RevertBool": false,
+                                                                "NextNode": {
+                                                                  "$type": "Site13Kernel.GameLogic.BT.Nodes.Conditions.IsSpottedEnemy, Site13Kernel",
+                                                                  "RevertBool": false,
+                                                                  "NextNode": {
+                                                                    "$type": "Site13Kernel.GameLogic.BT.Nodes.Actions.SetBehaviorMode, Site13Kernel",
+                                                                    "TargetMode": 0,
+                                                                    "NextNode": {
+                                                                      "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+                                                                      "NextNode": {
+                                                                        "$type": "Site13Kernel.GameLogic.BT.Nodes.Generic.End, Site13Kernel",
+                                                                        "NextNode": null
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
                                                           }
                                                         }
                                                       }
