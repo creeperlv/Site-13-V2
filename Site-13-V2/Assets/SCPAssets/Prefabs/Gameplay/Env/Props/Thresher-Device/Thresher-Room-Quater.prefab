@@ -104,6 +104,8 @@ Transform:
   - {fileID: 7383034449948293648}
   - {fileID: 5459398549722101148}
   - {fileID: 2926015251093419220}
+  - {fileID: 2471374308619751796}
+  - {fileID: 415263657124113810}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -327,14 +329,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thresher-Room-Pillar-1-End.005
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983316552810063637, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3560043127457438579}
   m_SourcePrefab: {fileID: 100100000, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
 --- !u!4 &424639930061062649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 175120012632253970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1058151748336409411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 175120012632253970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3560043127457438579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058151748336409411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beeb856febc86eb498b0a66305c383b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlledRenderer: {fileID: 1850239194236435147}
+--- !u!23 &1850239194236435147 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7222797402624336679, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
   m_PrefabInstance: {fileID: 175120012632253970}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &298898114794524329
@@ -1083,11 +1119,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thresher-Room-Pillar-1-End
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983316552810063637, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3596850102695922703}
   m_SourcePrefab: {fileID: 100100000, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+--- !u!23 &509474298896118176 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7222797402624336679, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 2076577428059368825}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1157449271077736488 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 2076577428059368825}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3596850102695922703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157449271077736488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beeb856febc86eb498b0a66305c383b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlledRenderer: {fileID: 509474298896118176}
 --- !u!4 &1971386236449835666 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
@@ -3719,14 +3789,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thresher-Room-Pillar-1-End.004
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983316552810063637, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8547931574190374829}
   m_SourcePrefab: {fileID: 100100000, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
 --- !u!4 &4999555221301696848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 4822024247828184763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5632363009076839402 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 4822024247828184763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8547931574190374829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5632363009076839402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beeb856febc86eb498b0a66305c383b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlledRenderer: {fileID: 6424452516693942882}
+--- !u!23 &6424452516693942882 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7222797402624336679, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
   m_PrefabInstance: {fileID: 4822024247828184763}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4854678973681127108
@@ -3993,6 +4097,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d1f07b0f4586b554d9a63383dca8c500, type: 3}
   m_PrefabInstance: {fileID: 5496950603773547127}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5531797798050338625
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2474032434985884198}
+    m_Modifications:
+    - target: {fileID: 2951537339674720779, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_Name
+      value: Console-Type-0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+--- !u!4 &415263657124113810 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+  m_PrefabInstance: {fileID: 5531797798050338625}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5558680835078265300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4065,14 +4235,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thresher-Room-Pillar-1-End.001
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983316552810063637, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6878008271376462461}
   m_SourcePrefab: {fileID: 100100000, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+--- !u!1 &4748217966453171333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 5558680835078265300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6878008271376462461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4748217966453171333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beeb856febc86eb498b0a66305c383b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlledRenderer: {fileID: 6262007631652242701}
 --- !u!4 &5381484593841045055 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 5558680835078265300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6262007631652242701 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7222797402624336679, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
   m_PrefabInstance: {fileID: 5558680835078265300}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5899813114813363715
@@ -4899,6 +5103,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d1f07b0f4586b554d9a63383dca8c500, type: 3}
   m_PrefabInstance: {fileID: 7713129674363544599}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7731450239119895463
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2474032434985884198}
+    m_Modifications:
+    - target: {fileID: 2951537339674720779, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_Name
+      value: Console-Type-0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.250004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+--- !u!4 &2471374308619751796 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5262373501244226259, guid: 4a139874cc9d460429c217383e932f3f, type: 3}
+  m_PrefabInstance: {fileID: 7731450239119895463}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7958182107923063957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4971,14 +5241,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thresher-Room-Pillar-1-End.002
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983316552810063637, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 304151474868420699}
   m_SourcePrefab: {fileID: 100100000, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+--- !u!1 &7111269192960219588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 7958182107923063957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &304151474868420699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7111269192960219588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beeb856febc86eb498b0a66305c383b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlledRenderer: {fileID: 8480942689824143436}
 --- !u!4 &7636870267970700158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 7958182107923063957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8480942689824143436 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7222797402624336679, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
   m_PrefabInstance: {fileID: 7958182107923063957}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8234931539994872456
@@ -5497,11 +5801,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thresher-Room-Pillar-1-End.003
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983316552810063637, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7674448610684656942}
   m_SourcePrefab: {fileID: 100100000, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+--- !u!23 &7284069029770554176 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7222797402624336679, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 9139297018510030745}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8220239091759745736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
+  m_PrefabInstance: {fileID: 9139297018510030745}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7674448610684656942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8220239091759745736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beeb856febc86eb498b0a66305c383b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlledRenderer: {fileID: 7284069029770554176}
 --- !u!4 &8745980899175092338 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3821c199a6896b44eab1b65a2ff0f8c3, type: 3}
