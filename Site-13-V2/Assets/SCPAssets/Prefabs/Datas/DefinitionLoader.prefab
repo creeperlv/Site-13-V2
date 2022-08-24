@@ -63,6 +63,11 @@ MonoBehaviour:
       DispFallback: Anchor
       DescFallback: Stop the nuke, resume the Space and Time Anchor.
       ImageName: Campaign_001
+    - TargetScript: Alternation
+      NameID: Mission.03
+      DispFallback: Alternation
+      DescFallback: Warhead will not work, but there's another way.
+      ImageName: Campaign_003
   sprites:
   - Name: Campaign_000
     Path: Campaign_Snap/image_001_0000
@@ -72,6 +77,10 @@ MonoBehaviour:
     Path: Campaign_Snap/PreBreach
     WorkMode: 0
     LoadedSprite: {fileID: 21300000, guid: aa1a40eb26d344c458c27716c608b2ec, type: 3}
+  - Name: Campaign_003
+    Path: Campaign_Snap/PreBreach
+    WorkMode: 0
+    LoadedSprite: {fileID: 21300000, guid: e59fcc9650424014fb5183be6b1a746b, type: 3}
   textures: []
   Scripts:
   - Name: Overture
@@ -80,4 +89,6 @@ MonoBehaviour:
     Asset: {fileID: 4900000, guid: 0f084118d2aeff4409b7a037dfd4d86f, type: 3}
   - Name: Anchor
     Asset: {fileID: 4900000, guid: 909be354529ecb040b666aa22670a2ee, type: 3}
+  - Name: Alternation
+    Asset: {fileID: 4900000, guid: c28a046a9fb8e544baaa8c60a9c10d35, type: 3}
   MainMenuSceneID: 2
