@@ -12,6 +12,10 @@ Some assets are collected from some Third-party website, there must be some copy
 
 Main development activity of Site-13 is on this branch.
 
+## Third-Party Assets
+
+Some assets are from Unity Asset Store, in order to avoid legal problem they are removed from the repository, please look afer [Assets.md](./Assets.md)
+
 ## Third-Party Libraries
 
 Any UI Tool in CommonTools uses AvaloniaUI.
@@ -23,6 +27,8 @@ Newtonsoft.JSON were used as a dependency of CLUNL.
 ## Licensing
 
 ### Art and story content
+
+Art here means original art assets in SCPAssets folder.
 
 CC BY-SA 3.0 ![CC BY-SA](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg)
 
