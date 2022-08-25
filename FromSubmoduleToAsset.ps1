@@ -1,0 +1,1 @@
+cp -Path .\AssetStoreAssets\* -Destination ./Site-13-V2/Assets/Third-Party/AssetStore-Assets/ -Recurse -Force
