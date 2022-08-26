@@ -74,7 +74,15 @@ namespace Site13Kernel.GameLogic.Directors
             {
                 foreach (var item in L)
                 {
-                    ExecuteEvent(item, item.RawEvent.TimeDelay);
+                    if (item.Executed && !item.RawEvent.Repeatable) continue;
+                    item.Symbols[v.Key] = v.Value;
+                    bool ___s = true;
+                    foreach (var s in item.Symbols.Values)
+                    {
+                        if (!s) { ___s = false; break; }
+                    }
+                    if (___s)
+                        ExecuteEvent(item, item.RawEvent.TimeDelay);
                 }
             }
         }
@@ -92,9 +100,14 @@ namespace Site13Kernel.GameLogic.Directors
                 {
                     if (item.UseSymbolInsteadOfEventTrigger)
                     {
-                        if (!Symbols.ContainsKey(item.EventTriggerID))
-                            Symbols.Add(item.EventTriggerID, new List<PackagedEventBase>());
-                        Symbols[item.EventTriggerID].Add(__e);
+                        var symbols = item.EventTriggerID.Split(',');
+                        foreach (var symbol in symbols)
+                        {
+                            __e.Symbols.Add(symbol, false);
+                            if (!Symbols.ContainsKey(symbol))
+                                Symbols.Add(symbol, new List<PackagedEventBase>());
+                            Symbols[symbol].Add(__e);
+                        }
                     }
                     else
                     {

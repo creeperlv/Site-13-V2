@@ -8,6 +8,7 @@ namespace Site13Kernel.GameLogic.Directors
     public class PackagedEventBase
     {
         public EventBase RawEvent;
+        public Dictionary<string, bool> Symbols;
         public bool isIgnored;
         public bool Executed;
         public float TimeD;
