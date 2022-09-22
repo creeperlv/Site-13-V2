@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Controls
 {
-    public class Vehicle : ControlledBehavior
+    public class Vehicle : BasicController
     {
         public List<Transform> Wheels;
         public float F_B_Motivation;
