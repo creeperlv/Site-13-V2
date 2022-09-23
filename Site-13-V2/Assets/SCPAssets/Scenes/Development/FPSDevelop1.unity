@@ -11374,6 +11374,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceeb4ae7ac4168d40b8a8e7c08b69309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HorizontalTransform: {fileID: 0}
+  VerticalTransform: {fileID: 0}
+  MovingTransform: {fileID: 0}
   Wheels:
   - {fileID: 2132301210}
   - {fileID: 434858316}
@@ -21126,6 +21129,105 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ControlledEntities: []
   entityItems: []
+--- !u!1001 &1829716040
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1254707407588466292, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_Name
+      value: Generic-Female-Soldier-Armored-Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934806506074071943, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1254707407588466292, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1829716042}
+  m_SourcePrefab: {fileID: 100100000, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+--- !u!1 &1829716041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1254707407588466292, guid: 3a57bb0c890212e4ea62ef5c15ca1e9f, type: 3}
+  m_PrefabInstance: {fileID: 1829716040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1829716042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829716041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b037adaca17d80449c19e9964beec32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HorizontalTransform: {fileID: 0}
+  VerticalTransform: {fileID: 0}
+  MovingTransform: {fileID: 0}
+  Entity: {fileID: 0}
+  ShieldedRenderers: []
+  ControlledAnimator: {fileID: 0}
+  AnimationCollections:
+  - Name: FSR-S3
+    MappedAnimations:
+      PrefabDefinitions:
+      - Key: Idle
+        Value:
+        - FSR-S3-Idle
+      - Key: Fire
+        Value:
+        - FSR-S3-Fire
+  WeaponHand: {fileID: 0}
+  Weapon1: {fileID: 0}
 --- !u!1 &1846046596
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,10 @@ namespace Site13Kernel.GameLogic.Controls
 {
     public class BasicController : ControlledBehavior
     {
+
+        public Transform HorizontalTransform;
+        public Transform VerticalTransform;
+        public Transform MovingTransform;
         public virtual void HorizontalRotation(float Angle)
         {
 
@@ -13,9 +17,9 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
-        public virtual void Move(Vector2 Movement)
+        public virtual void Move(Vector2 Movement,float DeltaTime)
         {
-
+            MovingTransform.Translate(Movement * DeltaTime);
         }
     }
 }
