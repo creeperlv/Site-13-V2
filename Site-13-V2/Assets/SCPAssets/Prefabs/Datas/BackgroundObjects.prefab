@@ -1882,6 +1882,53 @@ MonoBehaviour:
       Fallback: Complete PreBreach
     Icon: {fileID: 0}
   Completion: []
+--- !u!1 &3415910881315752994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 971907407797248077}
+  - component: {fileID: 546026604071453372}
+  m_Layer: 0
+  m_Name: GenericInputControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &971907407797248077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415910881315752994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6467622268903063982}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546026604071453372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415910881315752994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a52bafebfa08e48bc556800b1b5202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUIControl: 0
+  UseInputProcessor: 0
+  ControlledBehaviorWorkflow: 0
 --- !u!1 &3611489012313320154
 GameObject:
   m_ObjectHideFlags: 0
@@ -4676,6 +4723,7 @@ Transform:
   - {fileID: 3814508012326377020}
   - {fileID: 2192576657320855508}
   - {fileID: 6759718547544104813}
+  - {fileID: 971907407797248077}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4694,6 +4742,7 @@ MonoBehaviour:
   OnInit_Interface: []
   OnInit:
   - {fileID: 3029035979979359514}
+  - {fileID: 546026604071453372}
   - {fileID: 7915070253215208821}
   - {fileID: 2456962496648931563}
   - {fileID: 6467622267793754568}
@@ -9238,7 +9287,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3db8e3728a37ec441897f577592c0218, type: 3}
+  m_Script: {fileID: 149101520, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &3029035979979359515 stripped

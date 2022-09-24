@@ -21,7 +21,7 @@
 			<Grid ClipToBounds="False">
 				<Button Name="LRect" Classes="BlueBtn" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Left"/>
 				<TextBlock Margin="20,0" Foreground="#8FFF" Text="=" HorizontalAlignment="Left" VerticalAlignment="Center" IsHitTestVisible="True"/>
-				<ToggleButton Margin="45,0,15,0" Name="TitleButton" IsChecked="True" FontSize="18" HorizontalAlignment="Stretch" Content="Title"/>
+				<ToggleButton Margin="45,0,15,0" Name="TitleButton" IsChecked="True"  HorizontalAlignment="Stretch" Content="Title"/>
 				<Button Name="RRect" Classes="GreenBtn" Width="10" Height="10" Margin="-5,0" HorizontalAlignment="Right"/>
 			</Grid>
 			<Grid Grid.Row="1" IsVisible="{Binding IsChecked,ElementName=TitleButton}">

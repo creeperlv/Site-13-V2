@@ -1,4 +1,4 @@
-using Site13Kernel.Core;
+﻿using Site13Kernel.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -307,7 +307,7 @@ namespace Site13Kernel.Core.CustomizedInput
             }
             if (cancel != null)
             {
-                if (CancelInput!= "")
+                if (CancelInput != "")
                 {
                     if (GetInputDown(CancelInput)) cancel();
                 }
