@@ -45,6 +45,14 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
+        public virtual void Aim()
+        {
+
+        }
+        public virtual void CancelAim()
+        {
+
+        }
         public virtual void Crouch()
         {
 
@@ -63,11 +71,11 @@ namespace Site13Kernel.GameLogic.Controls
         }
         public virtual void StartFire()
         {
-            
+
         }
         public virtual void CancelFire()
         {
-            
+
         }
         public virtual void Interact()
         {
