@@ -13,6 +13,10 @@ namespace Site13Kernel
             Instance = this;
             ThisTransform = transform;
         }
-
+        private void OnEnable()
+        {
+            Instance = this;
+            ThisTransform = transform;
+        }
     }
 }
