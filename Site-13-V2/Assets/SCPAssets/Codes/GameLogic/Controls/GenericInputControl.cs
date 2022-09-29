@@ -1,4 +1,5 @@
 ﻿using Site13Kernel.Core;
+using Site13Kernel.Core.CustomizedInput;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -53,9 +54,15 @@ namespace Site13Kernel.GameLogic.Controls
         }
         public void GenericControllerControl(float deltaTime, float unscaledDeltaTime)
         {
+            var controller = BasicController.Instance;
+            if (controller == null) return;
             if (UseInputProcessor)
             {
-
+                if (controller.ControllerFunctions.Movement)
+                {
+                    var H=InputProcessor.GetAxis("Horizontal");
+                    var V=InputProcessor.GetAxis("Vertical");
+                }
             }
         }
     }

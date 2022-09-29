@@ -6,6 +6,7 @@ namespace Site13Kernel.GameLogic.Controls
     public class BasicController : ControlledBehavior
     {
         public static BasicController Instance;
+        public ControllerFunctions ControllerFunctions;
         public bool InputControllable;
         public Transform HorizontalTransform;
         public Transform VerticalTransform;
