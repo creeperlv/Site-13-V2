@@ -54,14 +54,27 @@ namespace Site13Kernel.GameLogic.Controls
         }
         public void GenericControllerControl(float deltaTime, float unscaledDeltaTime)
         {
+            if(Cursor.lockState != CursorLockMode.Locked)
+            {
+                Cursor.lockState=CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
             var controller = BasicController.Instance;
             if (controller == null) return;
             if (UseInputProcessor)
             {
                 if (controller.ControllerFunctions.Movement)
                 {
-                    var H=InputProcessor.GetAxis("Horizontal");
-                    var V=InputProcessor.GetAxis("Vertical");
+                    var H = InputProcessor.GetAxis("MoveHorizontal");
+                    var V = InputProcessor.GetAxis("MoveVertical");
+                    BasicController.Instance.Move(new Vector2(V,H), deltaTime);
+                }
+                if (controller.ControllerFunctions.ViewportRotation)
+                {
+                    var H = InputProcessor.GetAxis("MouseH");
+                    var V = InputProcessor.GetAxis("MouseV");
+                    BasicController.Instance.HorizontalRotation(H);
+                    BasicController.Instance.VerticalRotation(V);
                 }
             }
         }

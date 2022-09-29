@@ -1,10 +1,14 @@
 using Site13Kernel.Core;
+using Site13Kernel.Core.Controllers;
+using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.GameLogic.FPS;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Site13Kernel.GameLogic.Character
 {
@@ -23,17 +27,30 @@ namespace Site13Kernel.GameLogic.Character
         public ActionLock CombatLock = new ActionLock();
         public int FireID = 100;
         public int MeleeID = 101;
+        public float RunningJumpHeight = 1f;
+        public float MouseVerticalIntensity = 1f;
+        public float MouseHoriztonalIntensity = 1f;
+        public float MaxV = 50;
+        public float MinV = -50;
+        public float WalkSpeed = 5f;
+        public float MoveFriction = 9.8f;
+        float MH;
+        float MV;
+        float VR;
+        float HR;
+        Vector3 _MOVE;
         public override void Move(Vector2 Movement, float DeltaTime)
         {
-             
+            MV = Movement.x;
+            MH = Movement.y;
         }
         public override void HorizontalRotation(float Angle)
         {
-
+            HR = Angle;
         }
         public override void VerticalRotation(float Angle)
         {
-
+            VR = Angle;
         }
         public override void Melee()
         {
@@ -69,7 +86,7 @@ namespace Site13Kernel.GameLogic.Character
         }
         public void Update()
         {
-            if(UseControlledBehaviorWorkflow)
+            if (UseControlledBehaviorWorkflow)
             {
                 return;
             }
@@ -86,9 +103,46 @@ namespace Site13Kernel.GameLogic.Character
                 OnFrame(DeltaTime, UnscaledDeltaTime);
             }
         }
-        public void OnFrame(float DT,float UDT)
+        void Rotation(float DT)
         {
 
+            HorizontalTransform.Rotate(new Vector3(0, HR* MouseHoriztonalIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly, 0));
+            var Head_V = VR * MouseHoriztonalIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly;
+            var ea = VerticalTransform.localEulerAngles;
+            ea.x += Head_V;
+            if (ea.x < 180)
+            {
+                ea.x = Mathf.Clamp(ea.x, MinV, MaxV);
+            }
+            else
+            {
+                ea.x = Mathf.Clamp(ea.x, 360 + MinV, 360);
+
+            }
+            VerticalTransform.localEulerAngles = ea;
+        }
+        void Move(float DT)
+        {
+            if (MV == 0 && MH == 0)
+            {
+                _MOVE -= _MOVE * MoveFriction * DT;
+                if (_MOVE.magnitude <= 0.03f)
+                {
+                    _MOVE = Vector3.zero;
+                }
+            }
+            else
+            {
+                _MOVE = CC.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + CC.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f));
+            }
+            CC.Move(_MOVE * DT);
+        }
+        public void OnFrame(float DT, float UDT)
+        {
+            {
+                Rotation(DT);
+                Move(DT);
+            }
         }
     }
 
