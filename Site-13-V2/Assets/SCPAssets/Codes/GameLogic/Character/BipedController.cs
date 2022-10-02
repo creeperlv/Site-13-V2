@@ -34,6 +34,8 @@ namespace Site13Kernel.GameLogic.Character
         public float MinV = -50;
         public float WalkSpeed = 5f;
         public float MoveFriction = 9.8f;
+        public float SprintMultiplyer=1.5f;
+        public float SpeedMultiplyer =1;
         float MH;
         float MV;
         float VR;
@@ -66,11 +68,14 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Run()
         {
-
+            ControlledAnimator.SetTrigger("FSMR-SM2");
+            ControlledAnimator.SetTrigger("Run");
+            SpeedMultiplyer = SprintMultiplyer;
         }
         public override void CancelRun()
         {
-
+            ControlledAnimator.SetTrigger("Idle");
+            SpeedMultiplyer = 1;
         }
         public override void StartFire()
         {
@@ -134,6 +139,8 @@ namespace Site13Kernel.GameLogic.Character
             else
             {
                 _MOVE = CC.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + CC.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f));
+                _MOVE *= WalkSpeed;
+                _MOVE *= SpeedMultiplyer;
             }
             CC.Move(_MOVE * DT);
         }

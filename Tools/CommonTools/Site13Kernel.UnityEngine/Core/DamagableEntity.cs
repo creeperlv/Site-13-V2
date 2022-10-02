@@ -104,7 +104,7 @@ namespace Site13Kernel.Core
         /// Kills the entity no matter how much the current health is.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Die()
+        public virtual void Die()
         {
             if (Died) return;
             Died = true;

@@ -67,7 +67,17 @@ namespace Site13Kernel.GameLogic.Controls
                 {
                     var H = InputProcessor.GetAxis("MoveHorizontal");
                     var V = InputProcessor.GetAxis("MoveVertical");
-                    BasicController.Instance.Move(new Vector2(V,H), deltaTime);
+                    BasicController.Instance.Move(new Vector2(V, H), deltaTime);
+                }
+                if (controller.ControllerFunctions.Sprint)
+                {
+                    if (InputProcessor.GetInputDown("Run"))
+                    {
+                        BasicController.Instance.Run();
+                    }else if (InputProcessor.GetInputUp("Run"))
+                    {
+                        BasicController.Instance.CancelRun();
+                    }
                 }
                 if (controller.ControllerFunctions.ViewportRotation)
                 {
