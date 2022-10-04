@@ -1,4 +1,5 @@
 ﻿using Site13Kernel.Core;
+using System;
 using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Controls
@@ -87,5 +88,21 @@ namespace Site13Kernel.GameLogic.Controls
             MovingTransform.Translate(Movement * DeltaTime);
         }
     }
-
+    [Serializable]
+    public class WrappedAnimator
+    {
+        public Animator ControlledAnimator;
+        public string LastTrigger;
+        public void SetTrigger(string TriggerName)
+        {
+            if (LastTrigger == TriggerName) return;
+            ControlledAnimator.SetTrigger(TriggerName);
+            LastTrigger = TriggerName;
+        }
+        public void ForceSetTrigger(string TriggerName)
+        {
+            ControlledAnimator.SetTrigger(TriggerName);
+            LastTrigger = TriggerName;
+        }
+    }
 }

@@ -4,6 +4,7 @@ using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.GameLogic.FPS;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -14,17 +15,17 @@ namespace Site13Kernel.GameLogic.Character
 {
     public class BipedController : BasicController
     {
-        public BioEntity Entity;
+        public BipedEntity Entity;
         public bool UseControlledBehaviorWorkflow;
         public CharacterController CC;
-        public Bag CurrentBag;
         public List<Renderer> ShieldedRenderers = new List<Renderer>();
-        public Animator ControlledAnimator;
+        public WrappedAnimator ControlledAnimator;
         public List<AnimationCollection> AnimationCollections = new List<AnimationCollection>();
         public Transform WeaponHand;
         public Transform Weapon1;
         public ActionLock MovementLock = new ActionLock();
         public ActionLock CombatLock = new ActionLock();
+        public MoveState MoveState = MoveState.Walk;
         public int FireID = 100;
         public int MeleeID = 101;
         public float RunningJumpHeight = 1f;
@@ -68,22 +69,22 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Run()
         {
-            ControlledAnimator.SetTrigger("FSMR-SM2");
-            ControlledAnimator.SetTrigger("Run");
+            //ControlledAnimator.SetTrigger("FSMR-SM2");
+            //ControlledAnimator.SetTrigger("Run");
             SpeedMultiplyer = SprintMultiplyer;
         }
         public override void CancelRun()
         {
-            ControlledAnimator.SetTrigger("Idle");
+            //ControlledAnimator.SetTrigger("Idle");
             SpeedMultiplyer = 1;
         }
         public override void StartFire()
         {
-            CurrentBag.Weapons[CurrentBag.CurrentWeapon].Fire();
+            Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Fire();
         }
         public override void CancelFire()
         {
-            CurrentBag.Weapons[CurrentBag.CurrentWeapon].Unfire();
+            Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Unfire();
         }
         public override void Interact()
         {
@@ -143,6 +144,42 @@ namespace Site13Kernel.GameLogic.Character
                 _MOVE *= SpeedMultiplyer;
             }
             CC.Move(_MOVE * DT);
+            if (CC.velocity.sqrMagnitude > 0.1f)
+            {
+                switch (ControlledAnimator.LastTrigger)
+                {
+                    case "Run":
+                    case "Walk":
+                    case "Idle":
+                    case "":
+                        {
+                            if (SpeedMultiplyer == SprintMultiplyer)
+                            {
+                                //Running.
+                                ControlledAnimator.SetTrigger("Run");
+                            }
+                            else
+                            {
+                                ControlledAnimator.SetTrigger("Walk");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (ControlledAnimator.LastTrigger)
+                {
+                    case "Run":
+                    case "Walk":
+                        ControlledAnimator.SetTrigger("Idle");
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         public void OnFrame(float DT, float UDT)
         {
@@ -152,12 +189,19 @@ namespace Site13Kernel.GameLogic.Character
             }
         }
     }
-
+    [Serializable]
     public class Bag
     {
         public List<BasicWeapon> Weapons = new List<BasicWeapon>();
         public int CurrentWeapon;
         public List<GrenadeItem> Grenades = new List<GrenadeItem>();
         public int CurrentGrenade;
+        public Site13Event OnUseWeapon = new Site13Event();
+        public void UseWeeapon(int Weapon)
+        {
+            if (CurrentWeapon == Weapon) return;
+            CurrentWeapon = Weapon;
+            OnUseWeapon.Invoke();
+        }
     }
 }

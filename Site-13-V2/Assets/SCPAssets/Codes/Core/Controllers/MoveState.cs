@@ -2,6 +2,6 @@
 {
     public enum MoveState
     {
-        Walk,Run,Crouch
+        Walk,Run,Crouch,Idle
     }
 }
