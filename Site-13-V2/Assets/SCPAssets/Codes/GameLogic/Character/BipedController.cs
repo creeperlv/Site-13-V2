@@ -192,7 +192,7 @@ namespace Site13Kernel.GameLogic.Character
     [Serializable]
     public class Bag
     {
-        public List<BasicWeapon> Weapons = new List<BasicWeapon>();
+        public List<GenericWeapon> Weapons = new List<GenericWeapon>();
         public int CurrentWeapon;
         public List<GrenadeItem> Grenades = new List<GrenadeItem>();
         public int CurrentGrenade;
