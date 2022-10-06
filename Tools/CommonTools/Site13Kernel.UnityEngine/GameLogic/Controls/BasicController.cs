@@ -83,6 +83,10 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
+        public virtual void Jump()
+        {
+
+        }
         public virtual void Move(Vector2 Movement, float DeltaTime)
         {
             MovingTransform.Translate(Movement * DeltaTime);

@@ -35,8 +35,11 @@ namespace Site13Kernel.GameLogic.Character
         public float MinV = -50;
         public float WalkSpeed = 5f;
         public float MoveFriction = 9.8f;
-        public float SprintMultiplyer=1.5f;
-        public float SpeedMultiplyer =1;
+        public float SprintMultiplyer = 1.5f;
+        public float SpeedMultiplyer = 1;
+        public float Gravity = 9.8f;
+        public float JumpForce = 10f;
+        public float RunningJumpForce = 15f;
         float MH;
         float MV;
         float VR;
@@ -58,6 +61,11 @@ namespace Site13Kernel.GameLogic.Character
         public override void Melee()
         {
 
+        }
+        bool __try_jump = false;
+        public override void Jump()
+        {
+            __try_jump = true;
         }
         public override void UseEquipment()
         {
@@ -112,7 +120,7 @@ namespace Site13Kernel.GameLogic.Character
         void Rotation(float DT)
         {
 
-            HorizontalTransform.Rotate(new Vector3(0, HR* MouseHoriztonalIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly, 0));
+            HorizontalTransform.Rotate(new Vector3(0, HR * MouseHoriztonalIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly, 0));
             var Head_V = VR * MouseHoriztonalIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly;
             var ea = VerticalTransform.localEulerAngles;
             ea.x += Head_V;
@@ -129,22 +137,37 @@ namespace Site13Kernel.GameLogic.Character
         }
         void Move(float DT)
         {
-            if (MV == 0 && MH == 0)
+            if (CC.isGrounded)
             {
-                _MOVE -= _MOVE * MoveFriction * DT;
-                if (_MOVE.magnitude <= 0.03f)
+                if (MV == 0 && MH == 0)
                 {
-                    _MOVE = Vector3.zero;
+                    _MOVE -= _MOVE * MoveFriction * DT;
+                    if (_MOVE.magnitude <= 0.03f)
+                    {
+                        _MOVE = Vector3.zero;
+                    }
+                }
+                else
+                {
+                    var m = (CC.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + CC.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f)));
+                    m *= WalkSpeed;
+                    m *= SpeedMultiplyer;
+                    m.y = _MOVE.y;
+                    _MOVE = m;
+                }
+                if (__try_jump)
+                {
+                    _MOVE.y = (SpeedMultiplyer == SprintMultiplyer?RunningJumpForce:JumpForce);
+                    __try_jump = false;
                 }
             }
             else
             {
-                _MOVE = CC.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + CC.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f));
-                _MOVE *= WalkSpeed;
-                _MOVE *= SpeedMultiplyer;
+                _MOVE.y -= Gravity *DT;
+                __try_jump = false;
             }
             CC.Move(_MOVE * DT);
-            if (CC.velocity.sqrMagnitude > 0.1f)
+            if ((new Vector2(CC.velocity.x, CC.velocity.z)).sqrMagnitude > 0.1f)
             {
                 switch (ControlledAnimator.LastTrigger)
                 {

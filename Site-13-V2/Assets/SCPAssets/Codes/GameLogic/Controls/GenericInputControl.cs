@@ -79,6 +79,13 @@ namespace Site13Kernel.GameLogic.Controls
                         BasicController.Instance.CancelRun();
                     }
                 }
+                if (controller.ControllerFunctions.Jump)
+                {
+                    if (InputProcessor.GetInputDown("Jump"))
+                    {
+                        BasicController.Instance.Jump();
+                    }
+                }
                 if (controller.ControllerFunctions.ViewportRotation)
                 {
                     var H = InputProcessor.GetAxis("MouseH");
