@@ -157,13 +157,13 @@ namespace Site13Kernel.GameLogic.Character
                 }
                 if (__try_jump)
                 {
-                    _MOVE.y = (SpeedMultiplyer == SprintMultiplyer?RunningJumpForce:JumpForce);
+                    _MOVE.y = (SpeedMultiplyer == SprintMultiplyer ? RunningJumpForce : JumpForce);
                     __try_jump = false;
                 }
             }
             else
             {
-                _MOVE.y -= Gravity *DT;
+                _MOVE.y -= Gravity * DT;
                 __try_jump = false;
             }
             CC.Move(_MOVE * DT);
@@ -220,6 +220,12 @@ namespace Site13Kernel.GameLogic.Character
         public List<GrenadeItem> Grenades = new List<GrenadeItem>();
         public int CurrentGrenade;
         public Site13Event OnUseWeapon = new Site13Event();
+        public Site13Event<GenericWeapon> OnObtainWeapon = new Site13Event<GenericWeapon>();
+        public Site13Event<GenericWeapon> OnDropWeapon = new Site13Event<GenericWeapon>();
+        public void TryObatinWeapon(GenericWeapon GW)
+        {
+
+        }
         public void UseWeeapon(int Weapon)
         {
             if (CurrentWeapon == Weapon) return;

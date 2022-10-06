@@ -13,7 +13,8 @@ namespace Site13Kernel
             var cam = this.gameObject.GetComponent<UniversalAdditionalCameraData>();
             if (cam != null)
             {
-                cam.renderShadows = Settings.CurrentSettings.RenderShadow;
+                if (Settings.CurrentSettings != null)
+                    cam.renderShadows = Settings.CurrentSettings.RenderShadow;
             }
         }
     }

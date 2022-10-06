@@ -28,6 +28,7 @@ namespace Site13Kernel.GameLogic.FPS
         public GameObject ControlledEntity;
         public Action OnPickup = null;
         public bool AmmoSupplyOnly = false;
+        public bool UseNewBipedSystem = false;
         public AmmoDisp AmmoDispType = AmmoDisp.None;
         public List<Renderer> AmmoRenderers;
         public List<Text> AmmoDispTexts;
@@ -63,8 +64,24 @@ namespace Site13Kernel.GameLogic.FPS
         {
             NotifyWeaponAmmo();
         }
+        void OperateV2(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
+        {
+            if(Operator is BipedEntity biped)
+            {
+                
+            }
+            else
+            {
+                Debug.Log("This weapon can only be given to BipedEntity!");
+            }
+        }
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
+            if(UseNewBipedSystem)
+            {
+                OperateV2(DeltaTime, UnscaledDeltaTime, Operator);
+                return;
+            }
             if (AmmoSupplyOnly) return;
             {
                 var Holder = Operator.GetComponent<BagHolder>();
