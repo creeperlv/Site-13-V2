@@ -14717,9 +14717,11 @@ MonoBehaviour:
   MoveFriction: 9.8
   SprintMultiplyer: 2.5
   SpeedMultiplyer: 1
-  Gravity: 24
+  Gravity: 20
   JumpForce: 5
-  RunningJumpForce: 7
+  RunningJumpForce: 6
+  DropThreshold: 1
+  DropTime: 0
 --- !u!4 &1162646139
 Transform:
   m_ObjectHideFlags: 0
@@ -15913,7 +15915,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180062389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23268,6 +23270,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.139
       objectReference: {fileID: 0}
+    - target: {fileID: 3994628022102069005, guid: ee980e204af32a544b7db36b97b5f81c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7364094
+      objectReference: {fileID: 0}
     - target: {fileID: 4118761590089672413, guid: ee980e204af32a544b7db36b97b5f81c, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -24124,7 +24130,7 @@ PositionConstraint:
   serializedVersion: 2
   m_Weight: 1
   m_TranslationAtRest: {x: 0, y: 0.14386816, z: 0.0000000018626451}
-  m_TranslationOffset: {x: -0.04307639, y: -0.028565466, z: -0.016092863}
+  m_TranslationOffset: {x: -0.02539872, y: -0.027606308, z: -0.03374449}
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
   m_AffectTranslationZ: 1
@@ -24169,7 +24175,7 @@ Animator:
   m_GameObject: {fileID: 1820123921}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5275c110557eff04fbee10af0eb88479, type: 2}
+  m_Controller: {fileID: 9100000, guid: d60158a81df49594ea4e721f8e4ce831, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

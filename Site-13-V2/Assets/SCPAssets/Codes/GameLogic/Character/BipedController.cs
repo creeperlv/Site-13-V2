@@ -40,6 +40,7 @@ namespace Site13Kernel.GameLogic.Character
         public float Gravity = 9.8f;
         public float JumpForce = 10f;
         public float RunningJumpForce = 15f;
+        public float DropThreshold = 0.5f;
         float MH;
         float MV;
         float VR;
@@ -135,6 +136,7 @@ namespace Site13Kernel.GameLogic.Character
             }
             VerticalTransform.localEulerAngles = ea;
         }
+        public float DropTime= 0;
         void Move(float DT)
         {
             if (CC.isGrounded)
@@ -145,6 +147,8 @@ namespace Site13Kernel.GameLogic.Character
                     if (_MOVE.magnitude <= 0.03f)
                     {
                         _MOVE = Vector3.zero;
+
+                        _MOVE.y = -Gravity;
                     }
                 }
                 else
@@ -152,6 +156,7 @@ namespace Site13Kernel.GameLogic.Character
                     var m = (CC.transform.right * (MH * math.sqrt(1 - (MV * MV) * .5f)) + CC.transform.forward * (MV * math.sqrt(1 - (MH * MH) * .5f)));
                     m *= WalkSpeed;
                     m *= SpeedMultiplyer;
+                    //_MOVE.y = -Gravity;
                     m.y = _MOVE.y;
                     _MOVE = m;
                 }
@@ -160,36 +165,64 @@ namespace Site13Kernel.GameLogic.Character
                     _MOVE.y = (SpeedMultiplyer == SprintMultiplyer ? RunningJumpForce : JumpForce);
                     __try_jump = false;
                 }
+                else
+                {
+
+                }
             }
             else
             {
+                
                 _MOVE.y -= Gravity * DT;
                 __try_jump = false;
             }
+
+            if (CC.isGrounded)
+            {
+                if (DropTime >= DropThreshold)
+                {
+                    {
+                        ControlledAnimator.SetTrigger("HeavyLand");
+                    }
+                }
+                DropTime = 0;
+            }
+            else
+            {
+                if (DropTime >=0.1f)
+                {
+                    ControlledAnimator.SetTrigger("Idle");
+                }
+                DropTime += DT;
+            }
             CC.Move(_MOVE * DT);
+
             if ((new Vector2(CC.velocity.x, CC.velocity.z)).sqrMagnitude > 0.1f)
             {
-                switch (ControlledAnimator.LastTrigger)
-                {
-                    case "Run":
-                    case "Walk":
-                    case "Idle":
-                    case "":
-                        {
-                            if (SpeedMultiplyer == SprintMultiplyer)
+                if (CC.isGrounded)
+                if (MH!=0||MV!=0)
+                    switch (ControlledAnimator.LastTrigger)
+                    {
+                        case "Run":
+                        case "Walk":
+                        case "Idle":
+                        case "HeavyLand":
+                        case "":
                             {
-                                //Running.
-                                ControlledAnimator.SetTrigger("Run");
+                                if (SpeedMultiplyer == SprintMultiplyer)
+                                {
+                                    //Running.
+                                    ControlledAnimator.SetTrigger("Run");
+                                }
+                                else
+                                {
+                                    ControlledAnimator.SetTrigger("Walk");
+                                }
                             }
-                            else
-                            {
-                                ControlledAnimator.SetTrigger("Walk");
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                            break;
+                        default:
+                            break;
+                    }
             }
             else
             {
