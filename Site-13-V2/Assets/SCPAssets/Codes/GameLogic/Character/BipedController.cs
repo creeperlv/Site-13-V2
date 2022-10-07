@@ -15,6 +15,7 @@ namespace Site13Kernel.GameLogic.Character
 {
     public class BipedController : BasicController
     {
+        public string BipedID;
         public BipedEntity Entity;
         public bool UseControlledBehaviorWorkflow;
         public CharacterController CC;
@@ -46,6 +47,11 @@ namespace Site13Kernel.GameLogic.Character
         float VR;
         float HR;
         Vector3 _MOVE;
+        public AnimationCollection CurrentCollection;
+        void __init()
+        {
+            //CurrentCollection=
+        }
         public override void Move(Vector2 Movement, float DeltaTime)
         {
             MV = Movement.x;
