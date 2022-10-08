@@ -8,11 +8,30 @@ namespace Site13Kernel.Animations
     {
         public Animator ControlledAnimator;
         public string LastTrigger;
-        public void SetTrigger(string TriggerName)
+        public AnimationCollection CurrentCollection;
+        public void UseAnimationCollection(AnimationCollection collection)
         {
-            if (LastTrigger == TriggerName) return;
+            CurrentCollection = collection;
+            ControlledAnimator.runtimeAnimatorController = CurrentCollection.ControllerToUse;
+            ControlledAnimator.SetTrigger(LastTrigger);
+        }
+        public Site13AnimationClip SetTrigger(string TriggerName)
+        {
+            if (LastTrigger == TriggerName) return null;
+            if (CurrentCollection != null)
+            {
+                var __t = CurrentCollection.ObtainAnimationTrigger(TriggerName);
+                LastTrigger = __t.Trigger;
+                ControlledAnimator.SetTrigger(LastTrigger);
+                return __t;
+            }
             ControlledAnimator.SetTrigger(TriggerName);
             LastTrigger = TriggerName;
+            return new Site13AnimationClip
+            {
+                Trigger = LastTrigger,
+                Length = -1
+            };
         }
         public void ForceSetTrigger(string TriggerName)
         {

@@ -5,9 +5,13 @@ using System.Text;
 
 namespace Site13Kernel.Utilities
 {
-    public class RandomTool
+    public static class RandomTool
     {
-        static Random random;
+        static Random random=null;
+        static RandomTool()
+        {
+            random = new Random();
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Init()
         {
