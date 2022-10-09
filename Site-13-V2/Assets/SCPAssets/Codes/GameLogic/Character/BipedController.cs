@@ -5,11 +5,13 @@ using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.GameLogic.Level;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
 
 namespace Site13Kernel.GameLogic.Character
@@ -20,13 +22,23 @@ namespace Site13Kernel.GameLogic.Character
         public BipedEntity Entity;
         public bool UseControlledBehaviorWorkflow;
         public CharacterController CC;
-        public List<Renderer> ShieldedRenderers = new List<Renderer>();
         public WrappedAnimator ControlledAnimator;
-        public List<AnimationCollection> AnimationCollections = new List<AnimationCollection>();
         public Transform WeaponHand;
         public Transform Weapon1;
+        public float WalkFootStepMultiplier = 0.5f;
+        public float SprintFootStepMultiplier = 0.75f;
+        public float CrouchFootStepMultiplier = 0.15f;
+        public float LandFootStepMultiplier = 0.85f;
+        public float HeavyLandFootStepMultiplier = 0.9f;
+        public float CurrentFootStepMultiplier = 0.5f;
+        public AudioSource FootStepSoundSource;
         public ActionLock MovementLock = new ActionLock();
         public ActionLock CombatLock = new ActionLock();
+        public float NormalCharacterHeight = 1.5f;
+        public float NormalCharacterOffset_Y = 0.75f;
+        public float CrouchCharacterHeight = 0.75f;
+        public float CrouchCharacterOffset_Y = 0.325f;
+        public float CharacterHeightChangeSpeed = 2f;
         public MoveState MoveState = MoveState.Walk;
         public int FireID = 100;
         public int MeleeID = 101;
@@ -38,6 +50,7 @@ namespace Site13Kernel.GameLogic.Character
         public float WalkSpeed = 5f;
         public float MoveFriction = 9.8f;
         public float SprintMultiplyer = 1.5f;
+        public float CrouchMultiplyer = 1.5f;
         public float SpeedMultiplyer = 1;
         public float Gravity = 9.8f;
         public float JumpForce = 10f;
@@ -66,6 +79,27 @@ namespace Site13Kernel.GameLogic.Character
         {
             VR = Angle;
         }
+        public int CurrentStandingMaterial = 0;
+        float VolumeMultiplier = 1;
+        public void PlayFootstep()
+        {
+            if (Physics.Raycast(CC.transform.position, Vector3.down, out RaycastHit hit, 4, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
+            {
+                var SM = hit.collider.GetComponent<StandMaterial>();
+                if (SM != null)
+                {
+                    CurrentStandingMaterial = SM.MaterialID;
+                    VolumeMultiplier = SoundResources.FindMultiplier(CurrentStandingMaterial);
+                }
+            }
+            if (FootStepSoundSource != null)
+            {
+                FootStepSoundSource.Stop();
+                FootStepSoundSource.volume = VolumeMultiplier * CurrentFootStepMultiplier;
+                FootStepSoundSource.clip = SoundResources.ObtainOneClip(CurrentStandingMaterial);
+                FootStepSoundSource.Play();
+            }
+        }
         public override void Melee()
         {
 
@@ -92,6 +126,14 @@ namespace Site13Kernel.GameLogic.Character
         public override void CancelRun()
         {
             //ControlledAnimator.SetTrigger("Idle");
+            SpeedMultiplyer = 1;
+        }
+        public override void Crouch()
+        {
+            SpeedMultiplyer = CrouchMultiplyer;
+        }
+        public override void CancelCrouch()
+        {
             SpeedMultiplyer = 1;
         }
         public override void StartFire()
@@ -143,7 +185,11 @@ namespace Site13Kernel.GameLogic.Character
             }
             VerticalTransform.localEulerAngles = ea;
         }
-        public float DropTime= 0;
+        public float DropTime = 0;
+        public float ActiveMovementTime;
+        public float WalkInteval;
+        public float RunInteval;
+        public float CrouchInteval;
         void Move(float DT)
         {
             if (CC.isGrounded)
@@ -179,7 +225,7 @@ namespace Site13Kernel.GameLogic.Character
             }
             else
             {
-                
+
                 _MOVE.y -= Gravity * DT;
                 __try_jump = false;
             }
@@ -189,14 +235,21 @@ namespace Site13Kernel.GameLogic.Character
                 if (DropTime >= DropThreshold)
                 {
                     {
+                        CurrentFootStepMultiplier = HeavyLandFootStepMultiplier;
+                        PlayFootstep();
                         ControlledAnimator.SetTrigger("HeavyLand");
                     }
+                }
+                else if (DropTime >= 0.1f)
+                {
+                    CurrentFootStepMultiplier = LandFootStepMultiplier;
+                    PlayFootstep();
                 }
                 DropTime = 0;
             }
             else
             {
-                if (DropTime >=0.1f)
+                if (DropTime >= 0.1f)
                 {
                     ControlledAnimator.SetTrigger("Idle");
                 }
@@ -207,28 +260,67 @@ namespace Site13Kernel.GameLogic.Character
             if ((new Vector2(CC.velocity.x, CC.velocity.z)).sqrMagnitude > 0.1f)
             {
                 if (CC.isGrounded)
-                if (MH!=0||MV!=0)
-                    switch (ControlledAnimator.LastTrigger)
+                    if (MH != 0 || MV != 0)
                     {
-                        case "Run":
-                        case "Walk":
-                        case "Idle":
-                        case "HeavyLand":
-                        case "":
+                        ActiveMovementTime += DT;
+
+                        if (SpeedMultiplyer == SprintMultiplyer)
+                        {
+                            if (ActiveMovementTime >= RunInteval)
                             {
-                                if (SpeedMultiplyer == SprintMultiplyer)
-                                {
-                                    //Running.
-                                    ControlledAnimator.SetTrigger("Run");
-                                }
-                                else
-                                {
-                                    ControlledAnimator.SetTrigger("Walk");
-                                }
+                                CurrentFootStepMultiplier = SprintFootStepMultiplier;
+                                ActiveMovementTime = 0;
+                                PlayFootstep();
                             }
-                            break;
-                        default:
-                            break;
+                        }
+                        else
+                                    if (SpeedMultiplyer == 1)
+                        {
+                            if (ActiveMovementTime >= WalkInteval)
+                            {
+                                CurrentFootStepMultiplier = WalkFootStepMultiplier;
+                                ActiveMovementTime = 0;
+                                PlayFootstep();
+                            }
+                        }
+                        else
+                        {
+                            if (ActiveMovementTime >= CrouchInteval)
+                            {
+                                CurrentFootStepMultiplier = CrouchFootStepMultiplier;
+                                ActiveMovementTime = 0;
+                                PlayFootstep();
+                            }
+                        }
+                        switch (ControlledAnimator.LastTrigger)
+                        {
+                            case "Run":
+                            case "Walk":
+                            case "Idle":
+                            case "Crouch":
+                            case "HeavyLand":
+                            case "":
+                                {
+                                    if (SpeedMultiplyer == SprintMultiplyer)
+                                    {
+                                        //Running.
+                                        ControlledAnimator.SetTrigger("Run");
+                                    }
+                                    else
+                                    if (SpeedMultiplyer == 1)
+                                    {
+                                        //Running.
+                                        ControlledAnimator.SetTrigger("Walk");
+                                    }
+                                    else
+                                    {
+                                        ControlledAnimator.SetTrigger("Crouch");
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
                     }
             }
             else
@@ -236,6 +328,7 @@ namespace Site13Kernel.GameLogic.Character
                 switch (ControlledAnimator.LastTrigger)
                 {
                     case "Run":
+                    case "Crouch":
                     case "Walk":
                         ControlledAnimator.SetTrigger("Idle");
                         break;
@@ -244,9 +337,39 @@ namespace Site13Kernel.GameLogic.Character
                 }
             }
         }
+        void _Crouch(float DT)
+        {
+            if (SpeedMultiplyer == CrouchMultiplyer)
+            {
+                if (CC.height > CrouchCharacterHeight)
+                {
+                    CC.height += (CrouchCharacterHeight-CC.height) * CharacterHeightChangeSpeed * DT;
+                }
+                if (CC.center.y != CrouchCharacterOffset_Y)
+                {
+                    var c = CC.center;
+                    c.y += (CrouchCharacterOffset_Y - c.y) * CharacterHeightChangeSpeed * DT;
+                    CC.center = c;
+                }
+            }
+            else
+            {
+                if (CC.height < NormalCharacterHeight)
+                {
+                    CC.height += (NormalCharacterHeight - CC.height) * CharacterHeightChangeSpeed * DT;
+                }
+                if (CC.center.y != NormalCharacterOffset_Y)
+                {
+                    var c = CC.center;
+                    c.y += (NormalCharacterOffset_Y - c.y) * CharacterHeightChangeSpeed * DT;
+                    CC.center = c;
+                }
+            }
+        }
         public void OnFrame(float DT, float UDT)
         {
             {
+                _Crouch(DT);
                 Rotation(DT);
                 Move(DT);
             }
