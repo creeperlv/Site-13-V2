@@ -98,7 +98,6 @@ namespace Site13Kernel.GameLogic.FPS
         }
         public void Zoom()
         {
-
         }
         public void Unzoom()
         {
