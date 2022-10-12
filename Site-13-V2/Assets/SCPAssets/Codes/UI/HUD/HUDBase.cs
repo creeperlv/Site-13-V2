@@ -1,6 +1,9 @@
 using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
+using Site13Kernel.GameLogic;
+using Site13Kernel.GameLogic.Character;
+using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
 using System.Collections;
@@ -13,6 +16,7 @@ namespace Site13Kernel.UI.HUD
     public class HUDBase : ControlledBehavior
     {
         public static HUDBase Instance;
+        public bool UseBipedEntity = false;
         public ProgressBar HP;
         public List<ProgressBar> Shield;
 
@@ -24,6 +28,8 @@ namespace Site13Kernel.UI.HUD
         public Dictionary<int, GrenadeHUD> __GrenadeHUD;
         public GrenadeHUD G_HUD0;
         public GrenadeHUD G_HUD1;
+
+        public Dictionary<int, CrosshairContainer> Crosshairs = new Dictionary<int, CrosshairContainer>();
 
         public Vector2 W_HUD_PrimaryPosition;
         public Vector3 W_HUD_PrimaryScale;
@@ -70,16 +76,27 @@ namespace Site13Kernel.UI.HUD
                 }
             }
             {
-
-                if (FPSController.Instance != null)
+                BioEntity entity = null;
+                if (UseBipedEntity)
                 {
-
+                    if (BasicController.Instance is BipedController bc)
+                        entity = bc.Entity;
+                }
+                else
+                {
+                    if (FPSController.Instance != null)
+                    {
+                        entity = FPSController.Instance.CurrentEntity;
+                    }
+                }
+                if(entity!=null)
+                {
                     if (HP != null)
                     {
-                        HP.Value = FPSController.Instance.CurrentEntity.CurrentHP;
-                        HP.MaxValue = FPSController.Instance.CurrentEntity.MaxHP;
+                        HP.Value = entity.CurrentHP;
+                        HP.MaxValue = entity.MaxHP;
                     }
-                    if (FPSController.Instance.CurrentEntity.CurrentShield == 0 && FPSController.Instance.CurrentEntity.MaxShield != 0)
+                    if (entity.CurrentShield == 0 && entity.MaxShield != 0)
                     {
                         if (OnShieldDown != null)
                         {
@@ -104,11 +121,49 @@ namespace Site13Kernel.UI.HUD
                     {
                         foreach (var item in Shield)
                         {
-                            item.Value = FPSController.Instance.CurrentEntity.CurrentShield;
-                            item.MaxValue = FPSController.Instance.CurrentEntity.MaxShield;
+                            item.Value = entity.CurrentShield;
+                            item.MaxValue = entity.MaxShield;
                         }
                     }
                 }
+                //if (FPSController.Instance != null)
+                //{
+
+                //    if (HP != null)
+                //    {
+                //        HP.Value = FPSController.Instance.CurrentEntity.CurrentHP;
+                //        HP.MaxValue = FPSController.Instance.CurrentEntity.MaxHP;
+                //    }
+                //    if (FPSController.Instance.CurrentEntity.CurrentShield == 0 && FPSController.Instance.CurrentEntity.MaxShield != 0)
+                //    {
+                //        if (OnShieldDown != null)
+                //        {
+                //            if (!OnShieldDown.gameObject.activeSelf)
+                //            {
+                //                OnShieldDown.gameObject.SetActive(true);
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        if (OnShieldDown != null)
+                //        {
+                //            if (OnShieldDown.gameObject.activeSelf)
+                //            {
+                //                OnShieldDown.gameObject.SetActive(false);
+                //            }
+
+                //        }
+                //    }
+                //    if (Shield.Count > 0)
+                //    {
+                //        foreach (var item in Shield)
+                //        {
+                //            item.Value = FPSController.Instance.CurrentEntity.CurrentShield;
+                //            item.MaxValue = FPSController.Instance.CurrentEntity.MaxShield;
+                //        }
+                //    }
+                //}
                 W_HUD0.Refresh(DT, UDT);
                 W_HUD1.Refresh(DT, UDT);
                 G_HUD0.Refresh(DT, UDT);

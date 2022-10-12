@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
+using Site13Kernel.Data;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.UI.HUD;
@@ -19,6 +20,8 @@ namespace Site13Kernel.UI.Combat
         public bool isPercentage;
         public bool isPrimary;
         public ControlledWeapon ListeningWeapon;
+        public GenericWeapon _ListeningWeapon;
+        public bool UseV4;
         public FPSController Holder;
         public float HUDMoveSpeed;
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
@@ -28,28 +31,40 @@ namespace Site13Kernel.UI.Combat
 
                 if (!this.gameObject.activeSelf)
                     this.gameObject.SetActive(true);
-                if (!isPercentage)
+                Weapon data = null;
+                if (UseV4)
                 {
-                    DisplayText.text = $"{ListeningWeapon.Weapon.Base.CurrentMagazine}|{ListeningWeapon.Weapon.Base.CurrentBackup}";
-                    if (!DisplayText.gameObject.activeSelf)
-                    {
-                        DisplayText.gameObject.SetActive(true);
-                    }
-                    if (ProgressBar.gameObject.activeSelf)
-                    {
-                        ProgressBar.gameObject.SetActive(false); 
-                    }
+                    data = _ListeningWeapon.WeaponData;
                 }
                 else
                 {
-                    ProgressBar.Value= ListeningWeapon.Weapon.Base.CurrentMagazine/ ListeningWeapon.Weapon.Base.MagazineCapacity; 
-                    if (DisplayText.gameObject.activeSelf)
+                    data = ListeningWeapon.Weapon.Base;
+                }
+                if(data != null)
+                {
+                    if (!isPercentage)
                     {
-                        DisplayText.gameObject.SetActive(false);
+                        DisplayText.text = $"{data.CurrentMagazine}|{data.CurrentBackup}";
+                        if (!DisplayText.gameObject.activeSelf)
+                        {
+                            DisplayText.gameObject.SetActive(true);
+                        }
+                        if (ProgressBar.gameObject.activeSelf)
+                        {
+                            ProgressBar.gameObject.SetActive(false);
+                        }
                     }
-                    if (!ProgressBar.gameObject.activeSelf)
+                    else
                     {
-                        ProgressBar.gameObject.SetActive(true);
+                        ProgressBar.Value = data.CurrentMagazine / data.MagazineCapacity;
+                        if (DisplayText.gameObject.activeSelf)
+                        {
+                            DisplayText.gameObject.SetActive(false);
+                        }
+                        if (!ProgressBar.gameObject.activeSelf)
+                        {
+                            ProgressBar.gameObject.SetActive(true);
+                        }
                     }
                 }
             }
