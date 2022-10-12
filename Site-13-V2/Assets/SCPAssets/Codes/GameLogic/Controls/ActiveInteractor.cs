@@ -1,6 +1,8 @@
 using CLUNL.Localization;
 using Site13Kernel.Core.Interactives;
+using Site13Kernel.Core.Profiles;
 using Site13Kernel.GameLogic.FPS;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -10,6 +12,11 @@ namespace Site13Kernel.GameLogic.Controls
 {
     public class ActiveInteractor : MonoBehaviour
     {
+#if UNITY_EDITOR
+        public string ID;
+        public Profile Profile;
+#endif
+        public Guid PlayerID;
         public static ActiveInteractor Instance;
         public bool InteractorEnabled = true;
         public bool InputControlled = false;
@@ -17,7 +24,11 @@ namespace Site13Kernel.GameLogic.Controls
         {
             if (InputControlled)
                 Instance = this;
+#if UNITY_EDITOR
+            ID = PlayerID.ToString();
+#endif
         }
+        
         public void ActiveInteract()
         {
 

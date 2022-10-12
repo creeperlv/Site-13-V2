@@ -1,4 +1,8 @@
+using Site13Kernel.Core.Profiles;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic.Character;
+using Site13Kernel.GameLogic.Controls;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +13,7 @@ namespace Site13Kernel.Core.Controllers
     public class DebugBehaviorController : BehaviorController
     {
 #if DEBUG
+        public bool GenerateProfile;
         void Start()
         {
             GameRuntime.CurrentLocals = new GameLocals();
@@ -16,6 +21,7 @@ namespace Site13Kernel.Core.Controllers
             {
                 DontDestroyOnLoad(this.gameObject);
             }
+            StartCoroutine(InitProfile());
             SerializeAll();
             foreach (var item in _OnInit)
             {
@@ -39,6 +45,23 @@ namespace Site13Kernel.Core.Controllers
                 {
                     Debug.LogError(e);
                 }
+            }
+        }
+        IEnumerator InitProfile()
+        {
+            yield return null;
+            yield return null;
+            if (GenerateProfile)
+            {
+                Profile profile = new Profile { PlayerID = Guid.NewGuid(), PlayerName = "DEBUG PLAYER" };
+                ProfileSystem.AddProfile(profile.Duplicate());
+                ProfileSystem.SetActiveProfile(profile);
+                yield return null;
+                yield return null;
+                yield return null;
+                BipedController.Instance.GetComponent<ActiveInteractor>().PlayerID = profile.PlayerID;
+                BipedController.Instance.GetComponent<ActiveInteractor>().Profile = profile.Duplicate();
+                BipedController.Instance.GetComponent<ActiveInteractor>().ID = profile.PlayerID.ToString();
             }
         }
         void Update()

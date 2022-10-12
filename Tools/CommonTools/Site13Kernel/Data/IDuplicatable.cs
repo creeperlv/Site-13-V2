@@ -4,4 +4,8 @@
     {
         IDuplicatable Duplicate();
     }
+    public interface IDuplicatable<T>
+    {
+        T Duplicate();
+    }
 }

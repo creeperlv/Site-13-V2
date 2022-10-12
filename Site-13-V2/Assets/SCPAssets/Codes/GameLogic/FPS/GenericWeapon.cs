@@ -17,6 +17,7 @@ namespace Site13Kernel.GameLogic.FPS
     public class GenericWeapon : ControlledBehavior
     {
         public Weapon WeaponData;
+        public int CrossHairID;
         public WrappedAnimator WeaponAnimation;
         public string Trigger_Idle;
         public string Trigger_Fire;

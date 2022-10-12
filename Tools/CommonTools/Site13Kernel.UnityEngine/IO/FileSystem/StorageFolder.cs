@@ -30,7 +30,7 @@ namespace Site13Kernel.IO.FileSystem
             _NetworkResource = isNetworkResource;
             _VirtualResource = isVirtualResource;
             _Parent = Parent;
-            if (isNetworkResource)
+            if (!isNetworkResource)
             {
                 DI = new DirectoryInfo(AbsolutePath);
             }
@@ -60,7 +60,8 @@ namespace Site13Kernel.IO.FileSystem
             set => throw new System.NotImplementedException();
         }
 
-        public bool VirtualResource =>_VirtualResource;
+        public bool VirtualResource => _VirtualResource;
+
 
         public virtual void Delete()
         {
@@ -115,6 +116,7 @@ namespace Site13Kernel.IO.FileSystem
                 yield break;
         }
 
+
         public virtual bool TryGetItem(string Name, out IStorageItem item)
         {
             if (!_NetworkResource && !_VirtualResource)
@@ -141,6 +143,94 @@ namespace Site13Kernel.IO.FileSystem
                 item = null;
                 return false;
             }
+        }
+        public StorageFolder CreateOrOpenFolder(string Name)
+        {
+            if (TryOpenFolder(Name, out var F))
+            {
+                return F;
+            }
+            else if (TryCreateFolder(Name, out var F2))
+            {
+                return F2;
+            }
+            return null;
+        }
+        public bool TryCreateFolder(string Name, out StorageFolder folder)
+        {
+            if (!_NetworkResource && !_VirtualResource)
+            {
+                var __PATH = Path.Combine(DI.FullName, Name);
+                try
+                {
+                    Directory.CreateDirectory(__PATH);
+                    folder = new StorageFolder(__PATH, _NetworkResource, _VirtualResource, this);
+                    return true;
+                }
+                catch (System.Exception)
+                {
+                }
+            }
+            folder = null;
+            return false;
+        }
+        public bool TryOpenFolder(string Name, out StorageFolder folder)
+        {
+            if (!_NetworkResource && !_VirtualResource)
+            {
+                var __PATH = Path.Combine(DI.FullName, Name);
+                if (Directory.Exists(__PATH))
+                {
+                    folder = new StorageFolder(__PATH, _NetworkResource, _VirtualResource, this);
+                    return true;
+                }
+            }
+            folder = null;
+            return false;
+        }
+        public StorageFile CreateOrOpenFile(string Name)
+        {
+            if (TryOpenFile(Name, out var F))
+            {
+                return F;
+            }
+            else if (TryCreateFile(Name, out var F2))
+            {
+                return F2;
+            }
+            return null;
+        }
+        public bool TryCreateFile(string Name, out StorageFile file)
+        {
+            if (!_NetworkResource && !_VirtualResource)
+            {
+                var __PATH = Path.Combine(DI.FullName, Name);
+                try
+                {
+                    File.Create(__PATH).Close();
+                    file = new StorageFile(__PATH, _NetworkResource, _VirtualResource, this);
+                    return true;
+                }
+                catch (System.Exception)
+                {
+                }
+            }
+            file = null;
+            return false;
+        }
+        public bool TryOpenFile(string Name, out StorageFile file)
+        {
+            if (!_NetworkResource && !_VirtualResource)
+            {
+                var __PATH = Path.Combine(DI.FullName, Name);
+                if (File.Exists(__PATH))
+                {
+                    file = new StorageFile(__PATH, _NetworkResource, _VirtualResource, this);
+                    return true;
+                }
+            }
+            file = null;
+            return false;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator StorageFolder(DirectoryInfo di)

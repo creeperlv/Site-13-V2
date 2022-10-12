@@ -7,6 +7,10 @@ namespace Site13Kernel.IO.FileSystem
     {
         public static StorageFolder LocalFolder;
         public static VirtualFolder BaseFolder;
+        static ApplicationData()
+        {
+            Init();
+        }
         public static bool GetItem(string Path, out IStorageItem Item)
         {
             Path = Path.Replace("\\", "/");
