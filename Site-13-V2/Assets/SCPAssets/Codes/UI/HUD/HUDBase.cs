@@ -29,6 +29,7 @@ namespace Site13Kernel.UI.HUD
         public GrenadeHUD G_HUD0;
         public GrenadeHUD G_HUD1;
 
+        public KVList<int, CrosshairContainer> _Crosshairs = new KVList<int, CrosshairContainer>();
         public Dictionary<int, CrosshairContainer> Crosshairs = new Dictionary<int, CrosshairContainer>();
 
         public Vector2 W_HUD_PrimaryPosition;
@@ -47,6 +48,7 @@ namespace Site13Kernel.UI.HUD
         public override void Init()
         {
             Instance = this;
+            Crosshairs = _Crosshairs.ObtainMap();
             __GrenadeHUD = GrenadeHUD.ObtainMap();
         }
         public override void Refresh(float DT, float UDT)
@@ -79,8 +81,8 @@ namespace Site13Kernel.UI.HUD
                 BioEntity entity = null;
                 if (UseBipedEntity)
                 {
-                    if (BasicController.Instance is BipedController bc)
-                        entity = bc.Entity;
+                    
+                        entity = TakeControl.Instance.entity;
                 }
                 else
                 {

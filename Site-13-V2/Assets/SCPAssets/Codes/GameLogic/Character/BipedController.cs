@@ -56,6 +56,8 @@ namespace Site13Kernel.GameLogic.Character
         public float JumpForce = 10f;
         public float RunningJumpForce = 15f;
         public float DropThreshold = 0.5f;
+        public CamPosTarget CamPosTarget;
+        public bool SmoothCamFollow = false;
         float MH;
         float MV;
         float VR;

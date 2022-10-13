@@ -1,5 +1,6 @@
 ﻿using Site13Kernel.Core;
 using Site13Kernel.Core.CustomizedInput;
+using Site13Kernel.GameLogic.Character;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -54,12 +55,12 @@ namespace Site13Kernel.GameLogic.Controls
         }
         public void GenericControllerControl(float deltaTime, float unscaledDeltaTime)
         {
-            if(Cursor.lockState != CursorLockMode.Locked)
+            if (Cursor.lockState != CursorLockMode.Locked)
             {
-                Cursor.lockState=CursorLockMode.Locked;
+                Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
-            var controller = BasicController.Instance;
+            var controller = TakeControl.Instance.controller;
             if (controller == null) return;
             if (UseInputProcessor)
             {
@@ -67,42 +68,43 @@ namespace Site13Kernel.GameLogic.Controls
                 {
                     var H = InputProcessor.GetAxis("MoveHorizontal");
                     var V = InputProcessor.GetAxis("MoveVertical");
-                    BasicController.Instance.Move(new Vector2(V, H), deltaTime);
+                    controller.Move(new Vector2(V, H), deltaTime);
                 }
                 if (controller.ControllerFunctions.Sprint)
                 {
                     if (InputProcessor.GetInputDown("Run"))
                     {
-                        BasicController.Instance.Run();
-                    }else if (InputProcessor.GetInputUp("Run"))
+                        controller.Run();
+                    }
+                    else if (InputProcessor.GetInputUp("Run"))
                     {
-                        BasicController.Instance.CancelRun();
+                        controller.CancelRun();
                     }
                 }
                 if (controller.ControllerFunctions.Jump)
                 {
                     if (InputProcessor.GetInputDown("Jump"))
                     {
-                        BasicController.Instance.Jump();
+                        controller.Jump();
                     }
                 }
                 if (controller.ControllerFunctions.Crouch)
                 {
                     if (InputProcessor.GetInputDown("Crouch"))
                     {
-                        BasicController.Instance.Crouch();
+                        controller.Crouch();
                     }
                     else if (InputProcessor.GetInputUp("Crouch"))
                     {
-                        BasicController.Instance.CancelCrouch();
+                        controller.CancelCrouch();
                     }
                 }
                 if (controller.ControllerFunctions.ViewportRotation)
                 {
                     var H = InputProcessor.GetAxis("MouseH");
                     var V = InputProcessor.GetAxis("MouseV");
-                    BasicController.Instance.HorizontalRotation(H);
-                    BasicController.Instance.VerticalRotation(V);
+                    controller.HorizontalRotation(H);
+                    controller.VerticalRotation(V);
                 }
             }
         }

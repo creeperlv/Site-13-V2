@@ -152,6 +152,42 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.75
+--- !u!1 &1325229795741094685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4127698297390930255}
+  m_Layer: 5
+  m_Name: CrosshairContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4127698297390930255
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325229795741094685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 112616016687780960}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1350124657189905595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,6 +1247,8 @@ MonoBehaviour:
   isPercentage: 0
   isPrimary: 0
   ListeningWeapon: {fileID: 0}
+  _ListeningWeapon: {fileID: 0}
+  UseV4: 0
   Holder: {fileID: 0}
   HUDMoveSpeed: 5
 --- !u!1 &2718502896354481752
@@ -1944,6 +1982,8 @@ MonoBehaviour:
   isPercentage: 0
   isPrimary: 0
   ListeningWeapon: {fileID: 0}
+  _ListeningWeapon: {fileID: 0}
+  UseV4: 0
   Holder: {fileID: 0}
   HUDMoveSpeed: 5
 --- !u!1 &2718502897090720474
@@ -2552,6 +2592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94cc622b178e31b469eb9d5a9c18fe60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseBipedEntity: 0
   HP: {fileID: 2718502897555399154}
   Shield:
   - {fileID: 2718502896290730295}
@@ -2566,6 +2607,8 @@ MonoBehaviour:
       Value: {fileID: 0}
   G_HUD0: {fileID: 2718502896482049969}
   G_HUD1: {fileID: 2718502897119556719}
+  _Crosshairs:
+    PrefabDefinitions: []
   W_HUD_PrimaryPosition: {x: -212, y: 775}
   W_HUD_PrimaryScale: {x: 1, y: 1, z: 1}
   W_HUD_SecondaryPosition: {x: -212, y: 880}
@@ -3820,6 +3863,7 @@ RectTransform:
   m_Children:
   - {fileID: 2718502896354481755}
   - {fileID: 2718502896576452537}
+  - {fileID: 4127698297390930255}
   m_Father: {fileID: 2718502895989208971}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
