@@ -20,6 +20,7 @@ namespace Site13Kernel.GameLogic.Controls
         public static ActiveInteractor Instance;
         public bool InteractorEnabled = true;
         public bool InputControlled = false;
+        public LocalizedString Hint;
         public void OnEnable()
         {
             if (InputControlled)

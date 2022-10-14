@@ -40,6 +40,8 @@ namespace Site13Kernel.UI.HUD
         public Image E_HUD_ICON;
         public Text E_HUD_COUNT;
 
+        public Text IteractHint;
+
         public CanvasGroup TotalHUD;
         public bool Show;
         public float ShowSpeed = 1;
