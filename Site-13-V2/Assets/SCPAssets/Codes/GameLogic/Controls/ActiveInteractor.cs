@@ -17,6 +17,7 @@ namespace Site13Kernel.GameLogic.Controls
         public Profile Profile;
 #endif
         public Guid PlayerID;
+        public bool AllowPickupAmmo;
         public static ActiveInteractor Instance;
         public bool InteractorEnabled = true;
         public bool InputControlled = false;

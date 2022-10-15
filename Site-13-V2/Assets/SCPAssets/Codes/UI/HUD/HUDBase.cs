@@ -47,10 +47,16 @@ namespace Site13Kernel.UI.HUD
         public float ShowSpeed = 1;
         public float ShowThreshold = 0.01f;
         public float ToggleScale = 0.5f;
+
+        int LastWeaponID = -1;
         public override void Init()
         {
             Instance = this;
             Crosshairs = _Crosshairs.ObtainMap();
+            foreach (var item in Crosshairs)
+            {
+                item.Value.Init();
+            }
             __GrenadeHUD = GrenadeHUD.ObtainMap();
         }
         public override void Refresh(float DT, float UDT)
@@ -129,50 +135,44 @@ namespace Site13Kernel.UI.HUD
                             item.MaxValue = entity.MaxShield;
                         }
                     }
+                    {
+                        if (UseBipedEntity)
+                        {
+
+                            var _entity = TakeControl.Instance.entity;
+                            int TargetWeapon=0;
+                            if (_entity.EntityBag.Weapons.Count > 0)
+                            {
+                                TargetWeapon = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon].CrossHairID;
+                            }
+                            else
+                            {
+                                TargetWeapon = 0;
+                            }
+                            var Weapon = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon];
+                            var cc = Crosshairs[TargetWeapon];
+                            if (LastWeaponID != TargetWeapon)
+                            {
+                                ShowCrosshair(TargetWeapon);
+                                LastWeaponID = TargetWeapon;
+                            }
+                            cc.UpdateCrosshair(Weapon.Recoil);
+                        }
+                    }
                 }
-                //if (FPSController.Instance != null)
-                //{
-
-                //    if (HP != null)
-                //    {
-                //        HP.Value = FPSController.Instance.CurrentEntity.CurrentHP;
-                //        HP.MaxValue = FPSController.Instance.CurrentEntity.MaxHP;
-                //    }
-                //    if (FPSController.Instance.CurrentEntity.CurrentShield == 0 && FPSController.Instance.CurrentEntity.MaxShield != 0)
-                //    {
-                //        if (OnShieldDown != null)
-                //        {
-                //            if (!OnShieldDown.gameObject.activeSelf)
-                //            {
-                //                OnShieldDown.gameObject.SetActive(true);
-                //            }
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (OnShieldDown != null)
-                //        {
-                //            if (OnShieldDown.gameObject.activeSelf)
-                //            {
-                //                OnShieldDown.gameObject.SetActive(false);
-                //            }
-
-                //        }
-                //    }
-                //    if (Shield.Count > 0)
-                //    {
-                //        foreach (var item in Shield)
-                //        {
-                //            item.Value = FPSController.Instance.CurrentEntity.CurrentShield;
-                //            item.MaxValue = FPSController.Instance.CurrentEntity.MaxShield;
-                //        }
-                //    }
-                //}
                 W_HUD0.Refresh(DT, UDT);
                 W_HUD1.Refresh(DT, UDT);
                 G_HUD0.Refresh(DT, UDT);
                 G_HUD1.Refresh(DT, UDT);
             }
+        }
+        public void ShowCrosshair(int index)
+        {
+            foreach (var item in Crosshairs)
+            {
+                item.Value.Hide();
+            }
+            Crosshairs[index].Show();
         }
     }
 }
