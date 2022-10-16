@@ -14608,6 +14608,7 @@ GameObject:
   - component: {fileID: 1162646140}
   - component: {fileID: 1162646141}
   - component: {fileID: 1162646143}
+  - component: {fileID: 1162646144}
   m_Layer: 11
   m_Name: Guard-FPS-V4
   m_TagString: Untagged
@@ -14760,8 +14761,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   ProtoTypeID: 
-  MaxHP: 0
-  InitHP: 0
+  MaxHP: 100
+  InitHP: 100
   CurrentHP: 0
   HitEffect: 0
   CanBeBackstabed: 0
@@ -14777,7 +14778,7 @@ MonoBehaviour:
   TimeToSelfDestruction: -1
   LowestKillPlane: -500
   CombatRelationGroup: 0
-  MaxShield: 0
+  MaxShield: 100
   CurrentShield: 0
   ShieldRecoverSpeed: 0
   HPRecoverSpeed: 0
@@ -14793,7 +14794,7 @@ MonoBehaviour:
   ShieldObjects: []
   useShieldRecoverObject: 0
   ShieldRecoverObjects: []
-  isPlayer: 0
+  isPlayer: 1
   EntityBag:
     Weapons: []
     CurrentWeapon: 0
@@ -14826,8 +14827,13 @@ MonoBehaviour:
   ID: 
   Profile:
     PlayerName: 
+  AllowPickupAmmo: 0
   InteractorEnabled: 1
   InputControlled: 0
+  Hint:
+    ID: 
+    Fallback: 
+  __hint: 0
 --- !u!114 &1162646143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14841,7 +14847,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  Interactor: {fileID: 0}
   entity: {fileID: 0}
+--- !u!136 &1162646144
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162646135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.15
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1 &1165507603
 GameObject:
   m_ObjectHideFlags: 0
@@ -16686,7 +16716,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1228621801}
   - component: {fileID: 1228621804}
-  - component: {fileID: 1228621803}
   - component: {fileID: 1228621802}
   - component: {fileID: 1228621805}
   m_Layer: 0
@@ -16749,14 +16778,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1228621803
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228621800}
-  m_Enabled: 1
 --- !u!20 &1228621804
 Camera:
   m_ObjectHideFlags: 0
@@ -26868,6 +26889,10 @@ PrefabInstance:
     - target: {fileID: 2718502897523479720, guid: c9e01e111062f8449b0e45c0bbe3d64f, type: 3}
       propertyPath: m_Name
       value: HUD-Foundation-Guard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2718502897523479722, guid: c9e01e111062f8449b0e45c0bbe3d64f, type: 3}
+      propertyPath: UseBipedEntity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2718502897523479723, guid: c9e01e111062f8449b0e45c0bbe3d64f, type: 3}
       propertyPath: m_RootOrder

@@ -22,6 +22,7 @@ namespace Site13Kernel.GameLogic.Controls
         public bool InteractorEnabled = true;
         public bool InputControlled = false;
         public LocalizedString Hint;
+        public bool __hint = false;
         public void OnEnable()
         {
             if (InputControlled)
@@ -30,7 +31,7 @@ namespace Site13Kernel.GameLogic.Controls
             ID = PlayerID.ToString();
 #endif
         }
-        
+
         public void ActiveInteract()
         {
 
@@ -67,6 +68,8 @@ namespace Site13Kernel.GameLogic.Controls
             Interactive = _Interactive;
             if (Interactive != null)
             {
+                __hint = true;
+                Hint = new LocalizedString(Interactive.OperateHint, Interactive.OperateHintFallBack);
                 //if (InteractHint != null)
                 //{
                 //    InteractHint.Visibility = true;
@@ -75,10 +78,8 @@ namespace Site13Kernel.GameLogic.Controls
             }
             else
             {
-                //if (InteractHint != null)
-                //{
-                //    InteractHint.Visibility = false;
-                //}
+                __hint = true;
+                Hint = new LocalizedString(string.Empty, string.Empty);
             }
         }
         private void OnTriggerEnter(Collider other)
@@ -88,6 +89,7 @@ namespace Site13Kernel.GameLogic.Controls
             {
                 interactive.isCollision = true;
                 SwapInteractive(interactive);
+
                 if (interactive is Pickupable p)
                 {
                     //p.ObtainRemaining(BagHolder);

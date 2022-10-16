@@ -89,8 +89,8 @@ namespace Site13Kernel.UI.HUD
                 BioEntity entity = null;
                 if (UseBipedEntity)
                 {
-                    
-                        entity = TakeControl.Instance.entity;
+
+                    entity = TakeControl.Instance.entity;
                 }
                 else
                 {
@@ -99,7 +99,7 @@ namespace Site13Kernel.UI.HUD
                         entity = FPSController.Instance.CurrentEntity;
                     }
                 }
-                if(entity!=null)
+                if (entity != null)
                 {
                     if (HP != null)
                     {
@@ -138,25 +138,43 @@ namespace Site13Kernel.UI.HUD
                     {
                         if (UseBipedEntity)
                         {
+                            {
+                                // HUD Hint.
+                                var interactor = TakeControl.Instance.Interactor;
+                                if (interactor.__hint)
+                                {
+                                    IteractHint.text = interactor.Hint;
+                                    interactor.__hint = false;
+                                }
+                            }
+                            {
+                                // Crosshair
+                                var _entity = TakeControl.Instance.entity;
+                                int TargetCrosshair;
+                                if (_entity.EntityBag.Weapons.Count > 0)
+                                {
+                                    TargetCrosshair = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon].CrossHairID;
+                                }
+                                else
+                                {
+                                    TargetCrosshair = 0;
+                                }
+                                var cc = Crosshairs[TargetCrosshair];
+                                if (_entity.EntityBag.Weapons.Count > 0)
+                                {
+                                    var Weapon = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon];
+                                    cc.UpdateCrosshair(Weapon.Recoil);
+                                }
+                                else
+                                {
 
-                            var _entity = TakeControl.Instance.entity;
-                            int TargetWeapon=0;
-                            if (_entity.EntityBag.Weapons.Count > 0)
-                            {
-                                TargetWeapon = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon].CrossHairID;
+                                }
+                                if (LastWeaponID != TargetCrosshair)
+                                {
+                                    ShowCrosshair(TargetCrosshair);
+                                    LastWeaponID = TargetCrosshair;
+                                }
                             }
-                            else
-                            {
-                                TargetWeapon = 0;
-                            }
-                            var Weapon = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon];
-                            var cc = Crosshairs[TargetWeapon];
-                            if (LastWeaponID != TargetWeapon)
-                            {
-                                ShowCrosshair(TargetWeapon);
-                                LastWeaponID = TargetWeapon;
-                            }
-                            cc.UpdateCrosshair(Weapon.Recoil);
                         }
                     }
                 }
