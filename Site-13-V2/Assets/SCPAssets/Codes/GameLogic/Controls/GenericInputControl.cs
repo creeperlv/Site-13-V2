@@ -12,6 +12,8 @@ namespace Site13Kernel.GameLogic.Controls
         public bool isUIControl;
         public bool UseInputProcessor;
         public bool ControlledBehaviorWorkflow;
+        float AccumulativeInvokeTime = 0;
+        public float InvokeMinTime = 0.2f;
         public void Start()
         {
             Instance = this;
@@ -97,6 +99,24 @@ namespace Site13Kernel.GameLogic.Controls
                     else if (InputProcessor.GetInputUp("Crouch"))
                     {
                         controller.CancelCrouch();
+                    }
+                }
+                if (controller.ControllerFunctions.Interact)
+                {
+
+                    if (InputProcessor.GetInput("Interact"))
+                    {
+                        AccumulativeInvokeTime += deltaTime;
+                        if (AccumulativeInvokeTime > InvokeMinTime)
+                        {
+                            AccumulativeInvokeTime = 0;
+                            controller.Interact();
+                        }
+                    }
+                    else
+                    {
+                        AccumulativeInvokeTime = 0;
+                        controller.CancelInteract();
                     }
                 }
                 if (controller.ControllerFunctions.ViewportRotation)

@@ -32,6 +32,7 @@ namespace Site13Kernel.GameLogic.FPS
         public AmmoDisp AmmoDispType = AmmoDisp.None;
         public List<Renderer> AmmoRenderers;
         public List<Text> AmmoDispTexts;
+        public GenericWeapon AssociatedGenericWeapon;
         public void NotifyWeaponAmmo()
         {
             switch (AmmoDispType)
@@ -68,7 +69,8 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if(Operator is BipedEntity biped)
             {
-                
+                Debug.Log("Try to give weapon...");
+                biped.EntityBag.TryObatinWeapon(AssociatedGenericWeapon);
             }
             else
             {

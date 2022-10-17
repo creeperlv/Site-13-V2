@@ -1,4 +1,5 @@
 using CLUNL.Localization;
+using Site13Kernel.Core;
 using Site13Kernel.Core.Interactives;
 using Site13Kernel.Core.Profiles;
 using Site13Kernel.GameLogic.FPS;
@@ -20,8 +21,10 @@ namespace Site13Kernel.GameLogic.Controls
         public bool AllowPickupAmmo;
         public static ActiveInteractor Instance;
         public bool InteractorEnabled = true;
+        public InteractiveBase Interactive = null;
         public bool InputControlled = false;
         public LocalizedString Hint;
+        public BipedEntity CurrentEntity;
         public bool __hint = false;
         public void OnEnable()
         {
@@ -37,7 +40,6 @@ namespace Site13Kernel.GameLogic.Controls
 
         }
         float InteractTime;
-        InteractiveBase Interactive = null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void UnInvoke(InteractiveBase Interactive)
@@ -46,6 +48,38 @@ namespace Site13Kernel.GameLogic.Controls
                 Interactive.UnOperate();
             Interactive.isOperating = false;
 
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void UnInteract()
+        {
+            if (Interactive != null)
+                UnInvoke(Interactive);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Interact()
+        {
+            IInvoke(Interactive, 0, 0);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void IInvoke(InteractiveBase Interactive, float DeltaTime, float UnscaledDeltaTime)
+        {
+            if (Interactive.OperationMode == OperationMode.SingleFrame)
+            {
+                if (Interactive.isOperating != true)
+                {
+                    Interactive.Operate(DeltaTime, UnscaledDeltaTime, CurrentEntity);
+                    Interactive.isOperating = true;
+                }
+            }
+            else
+            {
+
+                Interactive.Operate(DeltaTime, UnscaledDeltaTime, CurrentEntity);
+                if (Interactive.isOperating != true)
+                {
+                    Interactive.isOperating = true;
+                }
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SwapInteractive(InteractiveBase _Interactive)
@@ -82,6 +116,7 @@ namespace Site13Kernel.GameLogic.Controls
                 Hint = new LocalizedString(string.Empty, string.Empty);
             }
         }
+
         private void OnTriggerEnter(Collider other)
         {
             var interactive = other.gameObject.GetComponent<InteractiveBase>();

@@ -19,12 +19,11 @@ namespace Site13Kernel.GameLogic.Character
     public class BipedController : BasicController
     {
         public string BipedID;
+        public ActiveInteractor Interactor;
         public BipedEntity Entity;
         public bool UseControlledBehaviorWorkflow;
         public CharacterController CC;
         public WrappedAnimator ControlledAnimator;
-        public Transform WeaponHand;
-        public Transform Weapon1;
         public float WalkFootStepMultiplier = 0.5f;
         public float SprintFootStepMultiplier = 0.75f;
         public float CrouchFootStepMultiplier = 0.15f;
@@ -148,7 +147,11 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Interact()
         {
-
+            Interactor.Interact();
+        }
+        public override void CancelInteract()
+        {
+            Interactor.UnInteract();
         }
         public void Update()
         {
@@ -345,7 +348,7 @@ namespace Site13Kernel.GameLogic.Character
             {
                 if (CC.height > CrouchCharacterHeight)
                 {
-                    CC.height += (CrouchCharacterHeight-CC.height) * CharacterHeightChangeSpeed * DT;
+                    CC.height += (CrouchCharacterHeight - CC.height) * CharacterHeightChangeSpeed * DT;
                 }
                 if (CC.center.y != CrouchCharacterOffset_Y)
                 {
@@ -389,7 +392,11 @@ namespace Site13Kernel.GameLogic.Character
         public Site13Event<GenericWeapon> OnDropWeapon = new Site13Event<GenericWeapon>();
         public void TryObatinWeapon(GenericWeapon GW)
         {
-
+            OnObtainWeapon.Invoke(GW);
+        }
+        public void DropWeapon(GenericWeapon GW)
+        {
+            OnDropWeapon.Invoke(GW);
         }
         public void UseWeeapon(int Weapon)
         {

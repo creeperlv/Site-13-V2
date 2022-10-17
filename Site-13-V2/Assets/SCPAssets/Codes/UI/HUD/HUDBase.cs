@@ -8,6 +8,7 @@ using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,7 +41,7 @@ namespace Site13Kernel.UI.HUD
         public Image E_HUD_ICON;
         public Text E_HUD_COUNT;
 
-        public Text IteractHint;
+        public TextMeshProUGUI IteractHint;
 
         public CanvasGroup TotalHUD;
         public bool Show;

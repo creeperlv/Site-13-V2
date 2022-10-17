@@ -83,6 +83,10 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
+        public virtual void CancelInteract()
+        {
+
+        }
         public virtual void Jump()
         {
 
