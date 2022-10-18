@@ -1,4 +1,7 @@
-﻿using Site13Kernel.GameLogic.Character;
+﻿using Site13Kernel.Data;
+using Site13Kernel.GameLogic.Character;
+using Site13Kernel.GameLogic.Firefight;
+using Site13Kernel.Utilities;
 using UnityEngine;
 
 namespace Site13Kernel.Core
@@ -10,9 +13,25 @@ namespace Site13Kernel.Core
         public Transform WeaponHand;
         public Transform Weapon1;
         public Transform Weapon2;
+        public bool OverrideFirePoint;
+        public Transform FirePoint;
         #endregion
         public Bag EntityBag;
         public Site13Event OnSwapWeapon = new Site13Event();
+        public bool SelfRun = false;
+        public void Start()
+        {
+            if (SelfRun) { Init(); }
+        }
+        public void Update()
+        {
+            if (SelfRun)
+            {
+                var d = Time.deltaTime;
+                var ud = Time.unscaledDeltaTime;
+                Refresh(d, ud);
+            }
+        }
         //    public override 
         public override void Init()
         {
@@ -21,10 +40,35 @@ namespace Site13Kernel.Core
             {
                 if (EntityBag.Weapons.Count < 2)
                 {
-                    EntityBag.CurrentWeapon++;
+                    if (EntityBag.Weapons.Count == 1)
+                        EntityBag.CurrentWeapon = 1;
                 }
-
+                else
+                {
+                    EntityBag.DropWeapon(EntityBag.Weapons[EntityBag.CurrentWeapon]);
+                }
+                EntityBag.Weapons.Add(w);
+                if (OverrideFirePoint)
+                {
+                    w.CurrentFirePoint = FirePoint;
+                }
+                else
+                {
+                    w.CurrentFirePoint = w.FirePoint;
+                }
                 w.gameObject.transform.SetParent(WeaponHand);
+
+                w.gameObject.transform.localPosition = Vector3.zero;
+
+                w.gameObject.transform.localRotation = Quaternion.identity;
+
+                w.gameObject.transform.localScale = Vector3.one;
+                ObjectGenerator.SetLayerForChildren(w.gameObject, WeaponHand.gameObject.layer);
+                OnSwapWeapon.Invoke();
+            });
+            EntityBag.OnDropWeapon.Add((w) =>
+            {
+                w.gameObject.transform.SetParent(WeaponPool.CurrentPool.transform);
             });
         }
     }

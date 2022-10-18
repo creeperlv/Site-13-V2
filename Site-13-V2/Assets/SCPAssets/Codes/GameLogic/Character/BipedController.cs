@@ -63,9 +63,40 @@ namespace Site13Kernel.GameLogic.Character
         float HR;
         Vector3 _MOVE;
         public AnimationCollection CurrentCollection;
+        public void Start()
+        {
+            if (UseControlledBehaviorWorkflow) return;
+            __init();
+        }
+        public override void Init()
+        {
+            if (!UseControlledBehaviorWorkflow) return;
+            __init();
+        }
         void __init()
         {
-            //CurrentCollection=
+            Entity.OnSwapWeapon.Add(() =>
+            {
+                ApplyWeapon();
+            });
+        }
+        void ApplyWeapon()
+        {
+            GenericWeapon CurrentMain = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon];
+            GenericWeapon Side = null;
+            if (Entity.EntityBag.Weapons.Count > 1)
+            {
+                Side = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon == 1 ? 0 : 1];
+            }
+            ControlledAnimator.UseAnimationCollection(RuntimeAnimationResource.CachedResources[BipedID].Animations[CurrentMain.AnimationCollectionName]);
+            CurrentMain.transform.SetParent(Entity.WeaponHand); 
+            CurrentMain.transform.localPosition= Vector3.zero;
+            CurrentMain.transform.localRotation= Quaternion.identity;
+            CurrentMain.transform.localScale=Vector3.one;
+            if (Side != null)
+            {
+                Side.transform.SetParent(Entity.Weapon1);
+            }
         }
         public override void Move(Vector2 Movement, float DeltaTime)
         {
