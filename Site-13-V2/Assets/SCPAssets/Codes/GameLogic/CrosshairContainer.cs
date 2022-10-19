@@ -40,6 +40,7 @@ namespace Site13Kernel.GameLogic
                 this.gameObject.SetActive(false);
             }
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void UpdateCrosshair(float Recoil)
         {
             foreach (var crosshair in Children)

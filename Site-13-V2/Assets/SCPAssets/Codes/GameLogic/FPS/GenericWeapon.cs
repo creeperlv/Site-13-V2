@@ -51,10 +51,10 @@ namespace Site13Kernel.GameLogic.FPS
         public Transform EffectPoint;
         public Transform CurrentEffectPoint;
         public Transform EjectionPoint;
-        public Transform ActualHolder;
         public int FireSoundSetID;
         public float EjectionForce = 1;
         public List<AudioSource> GunSFXSources;
+        public float NonAutoCap = 1;//3 for BR55/75-Like weapon
         [Header("Pickupable Definition")]
         public Pickupable Pickup;
         public List<BoxCollider> AttachedColliders;
@@ -74,14 +74,15 @@ namespace Site13Kernel.GameLogic.FPS
         public float CamShakeSpeed = 50f;
         public float CameraShakeIntensity = 0.3f;
         public bool CreateBullet = true;
+        public BipedEntity Holder;
         public Site13Event OnSingleFire = new Site13Event();
         public Site13Event OnRealProjetileFire = new Site13Event();
         public Site13Event OnOverheat = new Site13Event();
         public Site13Event OnHit = new Site13Event();
         bool FIRE0;
-        int FIRE1;
-        bool FIRE2;
-        bool FIRE3;
+        public bool FIRE3 = false;
+        public byte FIRE1 = 0;
+        public byte FIRE2 = 0; //Semi Auto Use
         /// <summary>
         /// 
         /// </summary>
@@ -130,7 +131,7 @@ namespace Site13Kernel.GameLogic.FPS
                     {
                         this.WeaponData.CurrentMagazine--;
                         NotifyWeaponAmmo();
-                        ActualHolder.GetComponentInChildren<CameraShakeEffect>().SetShake(1f, true, CamShakeDecay, true, CamShakeSpeed, CameraShakeIntensity, CameraShakeIntensity);
+                        Holder.GetComponentInChildren<CameraShakeEffect>().SetShake(1f, true, CamShakeDecay, true, CamShakeSpeed, CameraShakeIntensity, CameraShakeIntensity);
                     }
                     //if (OnCurrentMagChanged != null)
                     //{
@@ -143,6 +144,7 @@ namespace Site13Kernel.GameLogic.FPS
 
                     if (WeaponAnimation != null)
                         WeaponAnimation.SetTrigger("Fire");
+                    WeaponAnimation.LastTrigger = "";
                     WeaponData.CurrentHeat += WeaponData.HeatPerShot;
                     if (WeaponData.CurrentHeat > WeaponData.MaxHeat)
                     {
@@ -170,7 +172,7 @@ namespace Site13Kernel.GameLogic.FPS
                     }
                     if (EffectPrefab != null)
                     {
-                        var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, this.transform.rotation, Vector3.one, CurrentEffectPoint);
+                        var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, CurrentEffectPoint.rotation, Vector3.one, CurrentEffectPoint);
                         GO.layer = this.gameObject.layer;
                     }
                     if (BulletFireType == BulletFireType.HitScan)
@@ -246,7 +248,7 @@ namespace Site13Kernel.GameLogic.FPS
                                 //else
                                 {
 
-                                    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(Bullet, CurrentEffectPoint.position, Rotation, ActualHolder.gameObject);
+                                    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(Bullet, CurrentEffectPoint.position, Rotation, Holder.gameObject);
                                 }
                             }
                         }
@@ -260,7 +262,7 @@ namespace Site13Kernel.GameLogic.FPS
                             //    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
                             //else
                             {
-                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(Bullet, EffectPoint.position, Rotation, ActualHolder.gameObject);
+                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(Bullet, EffectPoint.position, Rotation, Holder.gameObject);
                             }
                         }
                     }
@@ -286,9 +288,103 @@ namespace Site13Kernel.GameLogic.FPS
             }
             Entity.Damage(Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
         }
+        float CountDown;
+        float SemiCountDown;
         void __frame(float DeltaT)
         {
+            {
 
+                if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
+                {
+                    //Fire.
+                    if (FIRE0)
+                    {
+                        //Determine will be able to fire.
+                        switch (FireType)
+                        {
+                            case WeaponFireType.FullAuto:
+                                {
+                                    if (CountDown <= 0)
+                                    {
+                                        FIRE1 = 1;
+                                    }
+                                }
+                                break;
+                            case WeaponFireType.SemiAuto:
+                                {
+                                    if (FIRE3)
+                                        if (FIRE1 == 0)
+                                            if (CountDown <= 0)
+                                            {
+                                                //CountDown = FireInterval;
+                                                SemiCountDown = NonAutoCap;
+                                                FIRE1 = 1;
+                                                FIRE2 = 1;
+                                            }
+                                }
+                                break;
+                            case WeaponFireType.Heat:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    CountDown -= DeltaT;
+                    {
+                        switch (FireType)
+                        {
+                            case WeaponFireType.FullAuto:
+                                {
+                                    if (FIRE1 == 1)
+                                    {
+                                        SingleFire();
+                                        CountDown = FireInterval;
+                                        FIRE1 = 0;
+                                    }
+                                }
+                                break;
+                            case WeaponFireType.SemiAuto:
+                                if (FIRE2 == 1)
+                                {
+                                    SemiFireProgress(DeltaT);
+                                }
+                                break;
+                            case WeaponFireType.Heat:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+                if (Recoil > 0)
+                {
+                    Recoil -= RecoilRecoverSpeed * DeltaT;
+                }
+                else if (Recoil != 0)
+                {
+                    Recoil = 0;
+                }
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SemiFireProgress(float DeltaTime)
+        {
+            if (SemiCountDown > 0)
+            {
+
+                CountDown -= DeltaTime;
+                if (CountDown <= 0)
+                {
+                        SingleFire();
+                    CountDown = FireInterval;
+                    SemiCountDown--;
+                }
+            }
+            else
+            {
+                FIRE2 = 0;
+            }
         }
         private void Update()
         {

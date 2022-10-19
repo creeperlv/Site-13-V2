@@ -15,6 +15,7 @@ namespace Site13Kernel.Animations
             var c=new BipedAnimationCollection { };
             foreach (var animationCollection in animationCollections)
             {
+                animationCollection.Convert();
                 c.Animations.Add(animationCollection.Name, animationCollection);
             }
             return c;

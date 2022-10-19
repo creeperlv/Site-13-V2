@@ -26,7 +26,24 @@ namespace Site13Kernel.UI.Combat
         public float HUDMoveSpeed;
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
-            if (ListeningWeapon != null)
+            if (UseV4)
+            {
+                if (_ListeningWeapon == null)
+                {
+                    if (this.gameObject.activeSelf)
+                        this.gameObject.SetActive(false);
+                    return;
+                }
+            }
+            else
+            {
+                if (ListeningWeapon == null)
+                {
+                    if (this.gameObject.activeSelf)
+                        this.gameObject.SetActive(false);
+                    return;
+                }
+            }
             {
 
                 if (!this.gameObject.activeSelf)
@@ -67,11 +84,6 @@ namespace Site13Kernel.UI.Combat
                         }
                     }
                 }
-            }
-            else
-            {
-                if (this.gameObject.activeSelf)
-                    this.gameObject.SetActive(false);
             }
             var t = (transform as RectTransform);
             if (isPrimary)

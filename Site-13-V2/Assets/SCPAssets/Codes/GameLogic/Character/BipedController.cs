@@ -57,6 +57,7 @@ namespace Site13Kernel.GameLogic.Character
         public float DropThreshold = 0.5f;
         public CamPosTarget CamPosTarget;
         public bool SmoothCamFollow = false;
+        public bool isPlayer;
         float MH;
         float MV;
         float VR;
@@ -75,10 +76,25 @@ namespace Site13Kernel.GameLogic.Character
         }
         void __init()
         {
+            Entity.EntityBag.OnObtainWeapon.Add((w) =>
+            {
+                w.OnSingleFire.Add(() => {
+                    Debug.Log("Weapon Fire Callback");
+                    ControlledAnimator.SetTrigger("Fire");
+                    ControlledAnimator.LastTrigger = "";
+                });
+                w.isHoldByPlayer = isPlayer;
+                StartCoroutine(PlayPickup());
+            });
             Entity.OnSwapWeapon.Add(() =>
             {
                 ApplyWeapon();
             });
+        }
+        IEnumerator PlayPickup()
+        {
+            yield return new WaitForSeconds(0.05f);
+            ControlledAnimator.SetTrigger("Pickup");
         }
         void ApplyWeapon()
         {
@@ -88,11 +104,11 @@ namespace Site13Kernel.GameLogic.Character
             {
                 Side = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon == 1 ? 0 : 1];
             }
-            ControlledAnimator.UseAnimationCollection(RuntimeAnimationResource.CachedResources[BipedID].Animations[CurrentMain.AnimationCollectionName]);
-            CurrentMain.transform.SetParent(Entity.WeaponHand); 
-            CurrentMain.transform.localPosition= Vector3.zero;
-            CurrentMain.transform.localRotation= Quaternion.identity;
-            CurrentMain.transform.localScale=Vector3.one;
+            ControlledAnimator.UseAnimationCollection(RuntimeAnimationResource.CachedResources[BipedID].Animations[CurrentMain.AnimationCollectionName], false);
+            CurrentMain.transform.SetParent(Entity.WeaponHand);
+            CurrentMain.transform.localPosition = Vector3.zero;
+            CurrentMain.transform.localRotation = Quaternion.identity;
+            CurrentMain.transform.localScale = Vector3.one;
             if (Side != null)
             {
                 Side.transform.SetParent(Entity.Weapon1);
@@ -168,13 +184,26 @@ namespace Site13Kernel.GameLogic.Character
         {
             SpeedMultiplyer = 1;
         }
+        public bool Fire = false;
         public override void StartFire()
         {
-            Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Fire();
+            if (!Fire)
+            {
+                Debug.Log("Fire");
+                if (Entity.EntityBag.Weapons.Count >= Entity.EntityBag.CurrentWeapon + 1)
+                    Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Fire();
+                Fire = true;
+            }
         }
         public override void CancelFire()
         {
-            Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Unfire();
+            if (Fire)
+            {
+                Debug.Log("No Fire");
+                if (Entity.EntityBag.Weapons.Count >= Entity.EntityBag.CurrentWeapon + 1)
+                    Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Unfire();
+                Fire = false;
+            }
         }
         public override void Interact()
         {
@@ -335,6 +364,7 @@ namespace Site13Kernel.GameLogic.Character
                             case "Idle":
                             case "Crouch":
                             case "HeavyLand":
+                            case "Pickup":
                             case "":
                                 {
                                     if (SpeedMultiplyer == SprintMultiplyer)
@@ -408,6 +438,9 @@ namespace Site13Kernel.GameLogic.Character
                 _Crouch(DT);
                 Rotation(DT);
                 Move(DT);
+            }
+            {
+                ControlledAnimator.AccumulativeTrigger(DT);
             }
         }
     }

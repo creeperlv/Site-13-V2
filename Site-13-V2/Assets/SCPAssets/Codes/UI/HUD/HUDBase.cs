@@ -148,9 +148,9 @@ namespace Site13Kernel.UI.HUD
                                     interactor.__hint = false;
                                 }
                             }
+                            var _entity = TakeControl.Instance.entity;
                             {
                                 // Crosshair
-                                var _entity = TakeControl.Instance.entity;
                                 int TargetCrosshair;
                                 if (_entity.EntityBag.Weapons.Count > 0)
                                 {
@@ -175,6 +175,17 @@ namespace Site13Kernel.UI.HUD
                                     ShowCrosshair(TargetCrosshair);
                                     LastWeaponID = TargetCrosshair;
                                 }
+                            }
+                            {
+                                //Weapon Binding
+                                if (_entity.EntityBag.Weapons.Count >= 1)
+                                    W_HUD0._ListeningWeapon = _entity.EntityBag.Weapons[0];
+                                else W_HUD0._ListeningWeapon = null;
+                                W_HUD0.isPrimary = 0 == _entity.EntityBag.CurrentWeapon;
+                                if (_entity.EntityBag.Weapons.Count >= 2)
+                                    W_HUD1._ListeningWeapon = _entity.EntityBag.Weapons[1];
+                                else W_HUD1._ListeningWeapon = null;
+                                W_HUD1.isPrimary = 1 == _entity.EntityBag.CurrentWeapon;
                             }
                         }
                     }

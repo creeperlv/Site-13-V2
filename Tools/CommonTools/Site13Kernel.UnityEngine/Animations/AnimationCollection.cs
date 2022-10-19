@@ -14,6 +14,11 @@ namespace Site13Kernel.Animations
         public RuntimeAnimatorController ControllerToUse;
         public KVList<string, List<Site13AnimationClip>> MappedAnimations = new KVList<string, List<Site13AnimationClip>>();
         public Dictionary<string, List<Site13AnimationClip>> __mapped_animations = new Dictionary<string, List<Site13AnimationClip>>();
+        internal void Convert()
+        {
+            __mapped_animations = MappedAnimations.ObtainMap();
+            MappedAnimations = null;
+        }
         public Site13AnimationClip ObtainAnimationTrigger(string Trigger)
         {
             if (__mapped_animations.ContainsKey(Trigger))
@@ -25,7 +30,8 @@ namespace Site13Kernel.Animations
             return new Site13AnimationClip
             {
                 Trigger = Trigger,
-                Length = -1
+                Length = -1, 
+                WaitUntilDone=false
             };
         }
         public override int GetHashCode()

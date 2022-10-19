@@ -79,7 +79,7 @@ MonoBehaviour:
     CurrentHeat: 0
     HeatPerShot: 0.1
     Cooldown: 0.05
-    WeaponFireType0: 0
+    WeaponFireType0: 1
     WeaponFireType1: 0
   AnimationCollectionName: FSMR-SM2
   CrossHairID: 2
@@ -91,6 +91,15 @@ MonoBehaviour:
       ControllerToUse: {fileID: 0}
       MappedAnimations:
         PrefabDefinitions: []
+    AccumulativeTime: 0
+    CurrentClip:
+      Trigger: 
+      Length: 0
+      WaitUntilDone: 0
+    NextClip:
+      Trigger: 
+      Length: 0
+      WaitUntilDone: 0
   Trigger_Idle: Idle
   Trigger_Fire: Fire
   Trigger_Overheat: Overheat
@@ -108,7 +117,7 @@ MonoBehaviour:
   Bullet:
     useString: 0
     Key: 
-    ID: 0
+    ID: 500
   EffectPrefab:
     useString: 0
     Key: 
@@ -126,19 +135,19 @@ MonoBehaviour:
   EffectPoint: {fileID: 309752315697463051}
   CurrentEffectPoint: {fileID: 309752315697463051}
   EjectionPoint: {fileID: 0}
-  ActualHolder: {fileID: 0}
   FireSoundSetID: 0
   EjectionForce: 1
   GunSFXSources: []
+  NonAutoCap: 1
   Pickup: {fileID: 674880142452035859}
   AttachedColliders:
   - {fileID: 827866368417335763}
   - {fileID: 4950656035733649937}
   FireInterval: 0.075
-  Recoil: 1
+  Recoil: 0
   SingleFireRecoil: 0.1
   MaxRecoil: 1
-  RecoilRecoverSpeed: 5
+  RecoilRecoverSpeed: 1
   MaxScatterAngle: 0
   MaxScatterAngleAimMode: 0
   ControlledBehaviorWorkflow: 0
@@ -148,6 +157,10 @@ MonoBehaviour:
   CamShakeSpeed: 50
   CameraShakeIntensity: 0.3
   CreateBullet: 1
+  Holder: {fileID: 0}
+  FIRE3: 0
+  FIRE1: 0
+  FIRE2: 0
   WeaponMode: 1
 --- !u!1 &7718847232646218928
 GameObject:
@@ -175,14 +188,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7718847232646218928}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.70710576, y: -0, z: -0, w: 0.7071079}
   m_LocalPosition: {x: 0, y: 1.056, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4506459706651024699}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &1501430410787452462
 MeshFilter:
   m_ObjectHideFlags: 0

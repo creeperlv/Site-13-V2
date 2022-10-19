@@ -57,4 +57,9 @@ MonoBehaviour:
       - Name: FSMR-SM2
         ControllerToUse: {fileID: 9100000, guid: d60158a81df49594ea4e721f8e4ce831, type: 2}
         MappedAnimations:
-          PrefabDefinitions: []
+          PrefabDefinitions:
+          - Key: Pickup
+            Value:
+            - Trigger: Pickup
+              Length: 1
+              WaitUntilDone: 1

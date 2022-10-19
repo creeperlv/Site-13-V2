@@ -57,7 +57,7 @@ namespace Site13Kernel.Core
                     w.CurrentFirePoint = w.FirePoint;
                 }
                 w.gameObject.transform.SetParent(WeaponHand);
-
+                w.Holder = this;
                 w.gameObject.transform.localPosition = Vector3.zero;
 
                 w.gameObject.transform.localRotation = Quaternion.identity;
@@ -68,6 +68,9 @@ namespace Site13Kernel.Core
             });
             EntityBag.OnDropWeapon.Add((w) =>
             {
+                w.Holder = null;
+                w.isHoldByPlayer = false;
+                w.OnSingleFire.Clear();
                 w.gameObject.transform.SetParent(WeaponPool.CurrentPool.transform);
             });
         }

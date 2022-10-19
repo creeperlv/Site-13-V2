@@ -1,5 +1,6 @@
 ﻿using Site13Kernel.Core;
 using Site13Kernel.Core.CustomizedInput;
+using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Character;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -118,6 +119,15 @@ namespace Site13Kernel.GameLogic.Controls
                         AccumulativeInvokeTime = 0;
                         controller.CancelInteract();
                     }
+                }
+                if (controller.ControllerFunctions.Fire)
+                {
+                    if (InputProcessor.GetAxis("Fire") > 0.5f)
+                    {
+                        controller.StartFire();
+                    }
+                    else
+                        controller.CancelFire();
                 }
                 if (controller.ControllerFunctions.ViewportRotation)
                 {

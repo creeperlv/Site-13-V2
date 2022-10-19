@@ -7,5 +7,6 @@ namespace Site13Kernel.Animations
     {
         public string Trigger;
         public float Length;
+        public bool WaitUntilDone;
     }
 }
