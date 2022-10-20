@@ -58,6 +58,7 @@ namespace Site13Kernel.GameLogic.Character
         public CamPosTarget CamPosTarget;
         public bool SmoothCamFollow = false;
         public bool isPlayer;
+        public bool IsFPSBiped;
         float MH;
         float MV;
         float VR;
@@ -99,7 +100,8 @@ namespace Site13Kernel.GameLogic.Character
         IEnumerator PlayPickup()
         {
             ALLOW_FIRE_FLAG_1 = false;
-            yield return new WaitForSeconds(0.05f);
+            yield return null;
+            yield return null;
             ControlledAnimator.SetTrigger("Pickup");
             ALLOW_FIRE_FLAG_1 = true;
         }
@@ -183,6 +185,24 @@ namespace Site13Kernel.GameLogic.Character
         public override void ThrowGrenade()
         {
 
+        }
+        public override void Zoom()
+        {
+            if (Entity.EntityBag.Weapons.Count > 0)
+            {
+                Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].AimingMode = 1;
+            }
+            if (IsFPSBiped) return;
+            ControlledAnimator.SetTrigger("Zoom");
+        }
+        public override void CancelZoom()
+        {
+            if (Entity.EntityBag.Weapons.Count > 0)
+            {
+                Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].AimingMode = 0;
+            }
+            if (IsFPSBiped) return;
+            ControlledAnimator.SetTrigger("CancelZoom");
         }
         public override void Run()
         {
@@ -481,6 +501,12 @@ namespace Site13Kernel.GameLogic.Character
         public Site13Event<GenericWeapon> OnDropWeapon = new Site13Event<GenericWeapon>();
         public void TryObatinWeapon(GenericWeapon GW)
         {
+            foreach (var weapon in Weapons)
+            {
+                if (weapon.WeaponData.WeaponID == GW.WeaponData.WeaponID) {
+                    return;
+                }
+            }
             OnObtainWeapon.Invoke(GW);
         }
         public void DropWeapon(GenericWeapon GW)

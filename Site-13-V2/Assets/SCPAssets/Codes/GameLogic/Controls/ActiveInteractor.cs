@@ -127,6 +127,7 @@ namespace Site13Kernel.GameLogic.Controls
 
                 if (interactive is Pickupable p)
                 {
+                    p.ObtainRemaining(this.CurrentEntity);
                     //p.ObtainRemaining(BagHolder);
                 }
             }

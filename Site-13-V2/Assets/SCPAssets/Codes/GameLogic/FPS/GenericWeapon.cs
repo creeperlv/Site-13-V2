@@ -282,6 +282,14 @@ namespace Site13Kernel.GameLogic.FPS
             {
             }
         }
+        public void SelfDestruction()
+        {
+            if (ControlledBehaviorWorkflow)
+            {
+                this.Parent.UnregisterRefresh(this);
+            }
+            Destroy(this.gameObject);
+        }
         private void CauseDamage(DamagableEntity Entity)
         {
             if (OnHit != null)
@@ -439,6 +447,7 @@ namespace Site13Kernel.GameLogic.FPS
         }
         public void ApplyObjectStatus(bool isPickupable = false)
         {
+            Pickup.enabled = isPickupable;
             if (isPickupable)
             {
                 foreach (var item in AttachedColliders)

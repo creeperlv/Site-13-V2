@@ -31,7 +31,9 @@ namespace Site13Kernel.UI.HUD
         public GrenadeHUD G_HUD1;
 
         public KVList<int, CrosshairContainer> _Crosshairs = new KVList<int, CrosshairContainer>();
+        public KVList<int, CrosshairContainer> _ZoomOverlays = new KVList<int, CrosshairContainer>();
         public Dictionary<int, CrosshairContainer> Crosshairs = new Dictionary<int, CrosshairContainer>();
+        public Dictionary<int, CrosshairContainer> ZoomOverlays = new Dictionary<int, CrosshairContainer>();
 
         public Vector2 W_HUD_PrimaryPosition;
         public Vector3 W_HUD_PrimaryScale;
@@ -54,6 +56,7 @@ namespace Site13Kernel.UI.HUD
         {
             Instance = this;
             Crosshairs = _Crosshairs.ObtainMap();
+            ZoomOverlays = _ZoomOverlays.ObtainMap();
             foreach (var item in Crosshairs)
             {
                 item.Value.Init();

@@ -3,6 +3,7 @@ using Site13Kernel.Core.Interactives;
 using Site13Kernel.Data;
 using Site13Kernel.Data.IO;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic.Character;
 using Site13Kernel.GameLogic.Customization;
 using Site13Kernel.GameLogic.Level;
 using Site13Kernel.Utilities;
@@ -67,9 +68,8 @@ namespace Site13Kernel.GameLogic.FPS
         }
         void OperateV2(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
-            if(Operator is BipedEntity biped)
+            if (Operator is BipedEntity biped)
             {
-                Debug.Log("Try to give weapon...");
                 biped.EntityBag.TryObatinWeapon(AssociatedGenericWeapon);
             }
             else
@@ -79,7 +79,7 @@ namespace Site13Kernel.GameLogic.FPS
         }
         public override void Operate(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
-            if(UseNewBipedSystem)
+            if (UseNewBipedSystem)
             {
                 OperateV2(DeltaTime, UnscaledDeltaTime, Operator);
                 return;
@@ -337,7 +337,47 @@ namespace Site13Kernel.GameLogic.FPS
         public void Load(IData data)
         {
         }
+        internal void ____ObtainRemaining(GenericWeapon GW)
+        {
+            var PW = GW.WeaponData;
+            var DELTA = PW.MaxCapacity - PW.CurrentBackup;
+            if (DELTA > 0)
+            {
+                var Weapon = AssociatedGenericWeapon.WeaponData;   
+                var ADDUP0 = Mathf.Min(DELTA, Weapon.CurrentBackup);
+                Weapon.CurrentBackup -= ADDUP0;
 
+                var ADDUP1 = Mathf.Min(DELTA - ADDUP0, Weapon.CurrentMagazine);
+
+                Weapon.CurrentMagazine -= ADDUP1;
+                PW.CurrentBackup += ADDUP0 + ADDUP1;
+
+                if (Weapon.CurrentMagazine == 0 && Weapon.CurrentBackup == 0)
+                {
+
+                    if (OnPickup != null) OnPickup();
+                    AssociatedGenericWeapon.SelfDestruction();
+                }
+            }
+        }
+        public void ObtainRemaining(BipedEntity Biped)
+        {
+            if (ItemType == PickupItem.Weapon)
+            {
+                foreach (var item in Biped.EntityBag.Weapons)
+                {
+                ____ObtainRemaining(item);
+
+                }
+            }
+            else if (ItemType == PickupItem.Grenade)
+            {
+            }
+            else
+            {
+
+            }
+        }
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("ITEMTYPE", ItemType, typeof(PickupItem));
