@@ -19,9 +19,12 @@ namespace Site13Kernel
         }
         private void OnEnable()
         {
-            var t = FPSController.Instance.MainCam.transform;
-            this.transform.position = t.position;
-            this.transform.rotation = t.rotation;
+            if (FPSController.Instance != null)
+            {
+                var t = FPSController.Instance.MainCam.transform;
+                this.transform.position = t.position;
+                this.transform.rotation = t.rotation;
+            }
             //            Quaternion.
             //            Debug.Log((this.transform.rotation - FollowingTarget.rotation))
         }

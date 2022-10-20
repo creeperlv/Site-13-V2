@@ -129,6 +129,18 @@ namespace Site13Kernel.GameLogic.Controls
                     else
                         controller.CancelFire();
                 }
+                if (controller.ControllerFunctions.Melee)
+                {
+
+                    if (InputProcessor.GetInputDown("Combat"))
+                    {
+                        controller.Melee();
+                    }
+                }
+                if (controller.ControllerFunctions.Zoom)
+                {
+
+                }
                 if (controller.ControllerFunctions.ViewportRotation)
                 {
                     var H = InputProcessor.GetAxis("MouseH");

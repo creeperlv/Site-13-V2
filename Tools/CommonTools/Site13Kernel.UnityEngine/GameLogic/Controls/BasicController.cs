@@ -31,6 +31,10 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
+        public virtual void Reload()
+        {
+
+        }
         public virtual void UseEquipment()
         {
 

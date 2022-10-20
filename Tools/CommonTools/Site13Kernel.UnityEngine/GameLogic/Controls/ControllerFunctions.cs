@@ -9,6 +9,7 @@ namespace Site13Kernel.GameLogic.Controls
         public bool ViewportRotation;
         public bool Fire;
         public bool Melee;
+        public bool Reload;
         public bool Grenade;
         public bool Zoom;
         public bool Interact;

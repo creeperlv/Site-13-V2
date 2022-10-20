@@ -62,6 +62,10 @@ namespace Site13Kernel.GameLogic.Character
         float MV;
         float VR;
         float HR;
+        public bool ALLOW_FIRE_FLAG_0 = true;   //SPRINT RUN LOCK
+        public bool ALLOW_FIRE_FLAG_1 = true;  // PICK UP ACTION LOCK
+        public bool ALLOW_FIRE_FLAG_2 = true;  // MELEE ACTION LOCK
+        public bool ALLOW_FIRE_FLAG_3 = true;  // RELOAD LOCK
         Vector3 _MOVE;
         public AnimationCollection CurrentCollection;
         public void Start()
@@ -78,7 +82,8 @@ namespace Site13Kernel.GameLogic.Character
         {
             Entity.EntityBag.OnObtainWeapon.Add((w) =>
             {
-                w.OnSingleFire.Add(() => {
+                w.OnSingleFire.Add(() =>
+                {
                     Debug.Log("Weapon Fire Callback");
                     ControlledAnimator.SetTrigger("Fire");
                     ControlledAnimator.LastTrigger = "";
@@ -93,8 +98,10 @@ namespace Site13Kernel.GameLogic.Character
         }
         IEnumerator PlayPickup()
         {
+            ALLOW_FIRE_FLAG_1 = false;
             yield return new WaitForSeconds(0.05f);
             ControlledAnimator.SetTrigger("Pickup");
+            ALLOW_FIRE_FLAG_1 = true;
         }
         void ApplyWeapon()
         {
@@ -150,7 +157,19 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Melee()
         {
-
+            if (SpeedMultiplyer == SprintMultiplyer)
+                CancelRun();
+            if (!ALLOW_FIRE_FLAG_1) return;
+            if (!ALLOW_FIRE_FLAG_2) return;
+            var Clip = this.ControlledAnimator.SetTrigger("Melee");
+            StartCoroutine(MeleeProcess(Clip));
+        }
+        public IEnumerator MeleeProcess(Site13AnimationClip clip)
+        {
+            ALLOW_FIRE_FLAG_2 = false;
+            yield return new WaitForSeconds(clip.Length);
+            ControlledAnimator.LastTrigger = "";
+            ALLOW_FIRE_FLAG_2 = true;
         }
         bool __try_jump = false;
         public override void Jump()
@@ -170,10 +189,12 @@ namespace Site13Kernel.GameLogic.Character
             //ControlledAnimator.SetTrigger("FSMR-SM2");
             //ControlledAnimator.SetTrigger("Run");
             SpeedMultiplyer = SprintMultiplyer;
+            ALLOW_FIRE_FLAG_0 = false;
         }
         public override void CancelRun()
         {
             //ControlledAnimator.SetTrigger("Idle");
+            ALLOW_FIRE_FLAG_0 = true;
             SpeedMultiplyer = 1;
         }
         public override void Crouch()
@@ -187,6 +208,10 @@ namespace Site13Kernel.GameLogic.Character
         public bool Fire = false;
         public override void StartFire()
         {
+            if (!ALLOW_FIRE_FLAG_0) return;
+            if (!ALLOW_FIRE_FLAG_1) return;
+            if (!ALLOW_FIRE_FLAG_2) return;
+            if (!ALLOW_FIRE_FLAG_3) return;
             if (!Fire)
             {
                 Debug.Log("Fire");

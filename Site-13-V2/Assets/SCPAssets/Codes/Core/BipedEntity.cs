@@ -61,7 +61,7 @@ namespace Site13Kernel.Core
                 w.gameObject.transform.localPosition = Vector3.zero;
 
                 w.gameObject.transform.localRotation = Quaternion.identity;
-
+                w.ApplyObjectStatus(false);
                 w.gameObject.transform.localScale = Vector3.one;
                 ObjectGenerator.SetLayerForChildren(w.gameObject, WeaponHand.gameObject.layer);
                 OnSwapWeapon.Invoke();
@@ -69,6 +69,7 @@ namespace Site13Kernel.Core
             EntityBag.OnDropWeapon.Add((w) =>
             {
                 w.Holder = null;
+                w.ApplyObjectStatus(true);
                 w.isHoldByPlayer = false;
                 w.OnSingleFire.Clear();
                 w.gameObject.transform.SetParent(WeaponPool.CurrentPool.transform);

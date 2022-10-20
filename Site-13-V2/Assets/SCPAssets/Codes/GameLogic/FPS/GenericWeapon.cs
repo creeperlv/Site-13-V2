@@ -93,6 +93,7 @@ namespace Site13Kernel.GameLogic.FPS
         public void Fire()
         {
             FIRE0 = true;
+            FIRE3 = true;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Press()
@@ -177,14 +178,14 @@ namespace Site13Kernel.GameLogic.FPS
                     }
                     if (BulletFireType == BulletFireType.HitScan)
                     {
-                        Vector3 _Rotation = FirePoint.forward;
+                        Vector3 _Rotation = CurrentFirePoint.forward;
                         {
-                            _Rotation += FirePoint.TransformDirection(RecoilAngle2);
+                            _Rotation += CurrentFirePoint.TransformDirection(RecoilAngle2);
                         }
                         RaycastHit info;
                         if (!isHoldByPlayer)
-                            Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludeAirBlock, QueryTriggerInteraction.Ignore);
-                        else Physics.Raycast(FirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Ignore);
+                            Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludeAirBlock, QueryTriggerInteraction.Ignore);
+                        else Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Ignore);
                         if (info.collider != null)
                         {
                             if (info.collider.attachedRigidbody != null)
@@ -213,6 +214,7 @@ namespace Site13Kernel.GameLogic.FPS
                                 {
                                     var f = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(BulletHitEffect, info.point, quaternion, Vector3.one);
                                     f.transform.parent = info.collider.transform;
+                                    f.layer = info.collider.gameObject.layer;
                                     //f.transform.localScale = new Vector3(1f / f.transform.lossyScale.x, 1f / f.transform.lossyScale.y, 1f / f.transform.lossyScale.z);
                                 }
                                 var Entity = info.collider.GetComponent<DamagableEntity>();
@@ -365,6 +367,14 @@ namespace Site13Kernel.GameLogic.FPS
                 {
                     Recoil = 0;
                 }
+                if (WeaponData.CurrentHeat > 0)
+                {
+                    WeaponData.CurrentHeat -= WeaponData.Cooldown * DeltaT;
+                }
+                else if (WeaponData.CurrentHeat != 0)
+                {
+                    WeaponData.CurrentHeat = 0;
+                }
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -376,7 +386,7 @@ namespace Site13Kernel.GameLogic.FPS
                 CountDown -= DeltaTime;
                 if (CountDown <= 0)
                 {
-                        SingleFire();
+                    SingleFire();
                     CountDown = FireInterval;
                     SemiCountDown--;
                 }
@@ -425,6 +435,26 @@ namespace Site13Kernel.GameLogic.FPS
                     break;
                 default:
                     break;
+            }
+        }
+        public void ApplyObjectStatus(bool isPickupable = false)
+        {
+            if (isPickupable)
+            {
+                foreach (var item in AttachedColliders)
+                {
+                    item.enabled = true;
+                }
+                this.gameObject.AddComponent<Rigidbody>();
+            }
+            else
+            {
+
+                foreach (var item in AttachedColliders)
+                {
+                    item.enabled = false;
+                }
+                GameObject.Destroy(this.GetComponent<Rigidbody>());
             }
         }
     }
