@@ -176,7 +176,8 @@ namespace Site13Kernel.GameLogic.FPS
                     if (EffectPrefab != null)
                     {
                         var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, CurrentEffectPoint.rotation, Vector3.one, CurrentEffectPoint);
-                        GO.layer = this.gameObject.layer;
+                        GO.layer = CurrentEffectPoint.gameObject.layer;
+                        ObjectGenerator.SetLayerForChildren(GO,CurrentEffectPoint.gameObject.layer);
                     }
                     if (BulletFireType == BulletFireType.HitScan)
                     {

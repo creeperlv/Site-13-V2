@@ -259,11 +259,20 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void SwitchWeapon()
         {
-            if(Entity.EntityBag.Weapons.Count>1)
-                Entity.EntityBag.CurrentWeapon =(Entity.EntityBag.CurrentWeapon==1?0:1);
+            if (Entity.EntityBag.Weapons.Count > 1)
+                Entity.EntityBag.CurrentWeapon = (Entity.EntityBag.CurrentWeapon == 1 ? 0 : 1);
             Entity.OnSwapWeapon.Invoke();
-            ControlledAnimator.SetTrigger("Takeout");
+            StartCoroutine(__TakeoutAnimation());
+        }
+        IEnumerator __TakeoutAnimation()
+        {
+            ALLOW_FIRE_FLAG_1 = false;
+            yield return null;
+            var clip = ControlledAnimator.SetTrigger("Takeout");
+            yield return new WaitForSeconds(clip.Length);
             ControlledAnimator.LastTrigger = "";
+            ALLOW_FIRE_FLAG_1 = true;
+
         }
         public override void Run()
         {
@@ -297,9 +306,9 @@ namespace Site13Kernel.GameLogic.Character
             if (!ALLOW_FIRE_FLAG_3) return;
             if (!Fire)
             {
-                Debug.Log("Fire");
                 if (Entity.EntityBag.Weapons.Count >= Entity.EntityBag.CurrentWeapon + 1)
-                    Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Fire();
+                    if (Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.CurrentMagazine > 0)
+                        Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Fire();
                 Fire = true;
             }
         }
@@ -307,7 +316,6 @@ namespace Site13Kernel.GameLogic.Character
         {
             if (Fire)
             {
-                Debug.Log("No Fire");
                 if (Entity.EntityBag.Weapons.Count >= Entity.EntityBag.CurrentWeapon + 1)
                     Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Unfire();
                 Fire = false;
