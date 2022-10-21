@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4622462085536497106}
   - component: {fileID: 4950656035733649937}
   - component: {fileID: 6863894111300944271}
+  - component: {fileID: 8503873139619232031}
   m_Layer: 13
   m_Name: FSMR-SM2
   m_TagString: Untagged
@@ -86,6 +87,8 @@ MonoBehaviour:
     WeaponFireType1: 0
   AnimationCollectionName: FSMR-SM2
   CrossHairID: 2
+  ZoomID: 2
+  ZoomScale: 3
   WeaponAnimation:
     ControlledAnimator: {fileID: 7813062738302517352}
     LastTrigger: 
@@ -168,6 +171,33 @@ MonoBehaviour:
   FIRE1: 0
   FIRE2: 0
   WeaponMode: 1
+--- !u!54 &8503873139619232031
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125323898626131191}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7104976139808658936
 GameObject:
   m_ObjectHideFlags: 0

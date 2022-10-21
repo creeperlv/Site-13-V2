@@ -19,6 +19,8 @@ namespace Site13Kernel.GameLogic.FPS
         public Weapon WeaponData;
         public string AnimationCollectionName;
         public int CrossHairID;
+        public int ZoomID;
+        public float ZoomScale=1;
         public WrappedAnimator WeaponAnimation;
         public string Trigger_Idle;
         public string Trigger_Fire;
@@ -300,6 +302,22 @@ namespace Site13Kernel.GameLogic.FPS
         }
         float CountDown;
         float SemiCountDown;
+        public void Reload()
+        {
+
+            var TOTAL = WeaponData.CurrentBackup + WeaponData.CurrentMagazine;
+            if (TOTAL > WeaponData.MagazineCapacity)
+            {
+                WeaponData.CurrentMagazine = WeaponData.MagazineCapacity;
+                WeaponData.CurrentBackup = TOTAL - WeaponData.MagazineCapacity;
+            }
+            else
+            {
+                WeaponData.CurrentMagazine = TOTAL;
+                WeaponData.CurrentBackup = 0;
+            }
+            NotifyWeaponAmmo();
+        }
         void __frame(float DeltaT)
         {
             {

@@ -42,16 +42,18 @@ namespace Site13Kernel.UI.HUD
 
         public Image E_HUD_ICON;
         public Text E_HUD_COUNT;
-
+        public ProgressBar HeadIndicator;
         public TextMeshProUGUI IteractHint;
 
         public CanvasGroup TotalHUD;
         public bool Show;
         public float ShowSpeed = 1;
+        public float ZoomOverlaySpeed= 1;
         public float ShowThreshold = 0.01f;
         public float ToggleScale = 0.5f;
 
         int LastWeaponID = -1;
+        int LastZoomID = -1;
         public override void Init()
         {
             Instance = this;
@@ -153,30 +155,64 @@ namespace Site13Kernel.UI.HUD
                             }
                             var _entity = TakeControl.Instance.entity;
                             {
-                                // Crosshair
+                                // Crosshair , Zoom and Heat
                                 int TargetCrosshair;
+                                int TargetZoom;
                                 if (_entity.EntityBag.Weapons.Count > 0)
                                 {
                                     TargetCrosshair = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon].CrossHairID;
+                                    TargetZoom = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon].ZoomID;
                                 }
                                 else
                                 {
                                     TargetCrosshair = 0;
+                                    TargetZoom = 0;
                                 }
                                 var cc = Crosshairs[TargetCrosshair];
+                                var zoom = ZoomOverlays[TargetZoom];
                                 if (_entity.EntityBag.Weapons.Count > 0)
                                 {
                                     var Weapon = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon];
                                     cc.UpdateCrosshair(Weapon.Recoil);
+                                    if (TargetZoom != 0)
+                                        zoom.UpdateCrosshair(Weapon.Recoil);
+                                    if (Weapon.AimingMode==1)
+                                    {
+                                        if (zoom.canvas.alpha != 1)
+                                        {
+                                            zoom.canvas.alpha = MathUtilities.SmoothClose(zoom.canvas.alpha, 1, DT * ShowSpeed);
+                                            if (1 - TotalHUD.alpha < ShowThreshold)
+                                            {
+                                                TotalHUD.alpha = 1;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (zoom.canvas.alpha != 0)
+                                        {
+                                            zoom.canvas.alpha = MathUtilities.SmoothClose(zoom.canvas.alpha, 0, DT * ShowSpeed);
+                                            if (zoom.canvas.alpha < ShowThreshold)
+                                            {
+                                                zoom.canvas.alpha = 0;
+                                            }
+                                        }
+                                    }
                                 }
                                 else
                                 {
 
                                 }
+                                
                                 if (LastWeaponID != TargetCrosshair)
                                 {
                                     ShowCrosshair(TargetCrosshair);
                                     LastWeaponID = TargetCrosshair;
+                                }
+                                if (LastZoomID != TargetZoom)
+                                {
+                                    ShowZoom(TargetZoom);
+                                    LastZoomID = TargetZoom;
                                 }
                             }
                             {
@@ -198,6 +234,14 @@ namespace Site13Kernel.UI.HUD
                 G_HUD0.Refresh(DT, UDT);
                 G_HUD1.Refresh(DT, UDT);
             }
+        }
+        public void ShowZoom(int index)
+        {
+            foreach (var item in ZoomOverlays)
+            {
+                item.Value.Hide();
+            }
+            ZoomOverlays[index].Show();
         }
         public void ShowCrosshair(int index)
         {

@@ -19,6 +19,7 @@ namespace Site13Kernel.Data
         public float MouseSensibly = 1;
         public float SFX = 1;
         public float UI_SFX = 1;
+        public float FOV = 70;
         public float BGM = 1;
         public float UI_BGM = 1;
         public int WINDOW_W = -1;

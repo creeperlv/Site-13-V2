@@ -11800,6 +11800,9 @@ MonoBehaviour:
     Zoom: 0
     Interact: 0
     Equipments: 0
+    SwitchWeapon: 0
+    SwitchGrenade: 0
+    SwitchEquipment: 0
     Crouch: 0
     Jump: 0
     Sprint: 0
@@ -14798,11 +14801,14 @@ MonoBehaviour:
     ViewportRotation: 1
     Fire: 1
     Melee: 1
-    Reload: 0
+    Reload: 1
     Grenade: 1
     Zoom: 1
     Interact: 1
     Equipments: 1
+    SwitchWeapon: 1
+    SwitchGrenade: 1
+    SwitchEquipment: 1
     Crouch: 1
     Jump: 1
     Sprint: 1
@@ -14868,6 +14874,7 @@ MonoBehaviour:
   CamPosTarget: {fileID: 0}
   SmoothCamFollow: 0
   isPlayer: 1
+  IsFPSBiped: 1
   ALLOW_FIRE_FLAG_0: 1
   ALLOW_FIRE_FLAG_1: 1
   ALLOW_FIRE_FLAG_2: 1
@@ -14951,7 +14958,7 @@ MonoBehaviour:
   isPlayer: 1
   WeaponHand: {fileID: 987836761}
   Weapon1: {fileID: 1963310242}
-  Weapon2: {fileID: 0}
+  Weapon2: {fileID: 1963310242}
   OverrideFirePoint: 1
   FirePoint: {fileID: 1040297054}
   EntityBag:
@@ -16560,6 +16567,7 @@ GameObject:
   - component: {fileID: 1208227434}
   - component: {fileID: 1208227437}
   - component: {fileID: 1208227435}
+  - component: {fileID: 1208227438}
   m_Layer: 0
   m_Name: Camera.001
   m_TagString: Untagged
@@ -16669,6 +16677,23 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1208227438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208227433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1834750006, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RealCamera: {fileID: 1208227437}
+  MinFOV: 40
+  MaxFOV: 55
+  MainCamFOVL: 60
+  MainCamFOVR: 120
 --- !u!1 &1211619302
 GameObject:
   m_ObjectHideFlags: 0
@@ -16775,6 +16800,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211619302}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1214379262
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2125323898626131191, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_Name
+      value: FSMR-SM2.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_RootOrder
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.8000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622462085536497106, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6863894111300944271, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: WeaponData.WeaponID
+      value: FSMR-SM2(Copy)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6863894111300944271, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
+      propertyPath: WeaponData.HeatPerShot
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9dee2301eae8c3447b76b64e1cb9c5e1, type: 3}
 --- !u!1 &1217054212
 GameObject:
   m_ObjectHideFlags: 0
@@ -16872,6 +16966,7 @@ GameObject:
   - component: {fileID: 1228621802}
   - component: {fileID: 1228621805}
   - component: {fileID: 1228621806}
+  - component: {fileID: 1228621807}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -17005,6 +17100,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228621800}
   m_Enabled: 1
+--- !u!114 &1228621807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228621800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1961556580, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RealCamera: {fileID: 1228621804}
+  CurrentScale: 1
+  TargetScale: 1
+  Speed: 10
 --- !u!1 &1230960630
 GameObject:
   m_ObjectHideFlags: 8
@@ -24465,7 +24576,7 @@ Animator:
   m_GameObject: {fileID: 1820123921}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5275c110557eff04fbee10af0eb88479, type: 2}
+  m_Controller: {fileID: 9100000, guid: d60158a81df49594ea4e721f8e4ce831, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

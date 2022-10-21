@@ -7,6 +7,7 @@ namespace Site13Kernel.GameLogic
 {
     public class CrosshairContainer : ControlledBehavior
     {
+        public CanvasGroup canvas;
         public GameObject Contaienr;
         public List<ControlledCrosshair> Children = new List<ControlledCrosshair>();
         public override void Init()

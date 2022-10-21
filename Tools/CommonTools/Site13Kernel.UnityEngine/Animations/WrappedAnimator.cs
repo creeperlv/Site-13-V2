@@ -47,6 +47,17 @@ namespace Site13Kernel.Animations
             LastTrigger = clip.Trigger;
             ControlledAnimator.SetTrigger(LastTrigger);
         }
+
+        public void ReTrigger()
+        {
+            if (CurrentCollection != null)
+            {
+                var __t = CurrentCollection.ObtainAnimationTrigger(LastTrigger);
+                SetClip(__t);
+            
+            }
+            ControlledAnimator.SetTrigger(LastTrigger);
+        }
         public Site13AnimationClip SetTrigger(string TriggerName)
         {
             if (LastTrigger == TriggerName) return null;

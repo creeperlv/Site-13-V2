@@ -15,6 +15,7 @@ namespace Site13Kernel.GameLogic.Controls
         public bool ControlledBehaviorWorkflow;
         float AccumulativeInvokeTime = 0;
         public float InvokeMinTime = 0.2f;
+        bool ZOOM_FLG_0 = false;
         public void Start()
         {
             Instance = this;
@@ -137,9 +138,41 @@ namespace Site13Kernel.GameLogic.Controls
                         controller.Melee();
                     }
                 }
+                if (controller.ControllerFunctions.SwitchWeapon)
+                {
+
+                    if (InputProcessor.GetInputDown("SwitchWeapon"))
+                    {
+                        controller.SwitchWeapon();
+                    }
+                }
+                if (controller.ControllerFunctions.Reload)
+                {
+
+                    if (InputProcessor.GetInputDown("Reload"))
+                    {
+                        controller.Reload();
+                    }
+                }
                 if (controller.ControllerFunctions.Zoom)
                 {
 
+                    if (InputProcessor.GetInputDown("Zoom"))
+                    {
+                        if (ZOOM_FLG_0 == false)
+                        {
+                            controller.Zoom();
+                            ZOOM_FLG_0 = true;
+                        }
+                    }
+                    else if (InputProcessor.GetInputUp("Zoom"))
+                    {
+                        if (ZOOM_FLG_0 == true)
+                        {
+                            controller.CancelZoom();
+                            ZOOM_FLG_0 = false;
+                        }
+                    }
                 }
                 if (controller.ControllerFunctions.ViewportRotation)
                 {

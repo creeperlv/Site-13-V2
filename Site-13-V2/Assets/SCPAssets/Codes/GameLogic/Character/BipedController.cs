@@ -81,16 +81,17 @@ namespace Site13Kernel.GameLogic.Character
         }
         void __init()
         {
+            ControlledAnimator.ControlledAnimator.keepAnimatorControllerStateOnDisable = true;
             Entity.EntityBag.OnObtainWeapon.Add((w) =>
             {
                 w.OnSingleFire.Add(() =>
                 {
-                    Debug.Log("Weapon Fire Callback");
                     ControlledAnimator.SetTrigger("Fire");
                     ControlledAnimator.LastTrigger = "";
                 });
                 w.isHoldByPlayer = isPlayer;
                 StartCoroutine(PlayPickup());
+                ApplyWeapon();
             });
             Entity.OnSwapWeapon.Add(() =>
             {
@@ -107,6 +108,12 @@ namespace Site13Kernel.GameLogic.Character
         }
         void ApplyWeapon()
         {
+            StartCoroutine(DelayedApplyWeapon());
+        }
+        IEnumerator DelayedApplyWeapon()
+        {
+            yield return null;
+
             GenericWeapon CurrentMain = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon];
             GenericWeapon Side = null;
             if (Entity.EntityBag.Weapons.Count > 1)
@@ -121,6 +128,9 @@ namespace Site13Kernel.GameLogic.Character
             if (Side != null)
             {
                 Side.transform.SetParent(Entity.Weapon1);
+                Side.transform.localPosition = Vector3.zero;
+                Side.transform.localRotation = Quaternion.identity;
+                Side.transform.localScale = Vector3.one;
             }
         }
         public override void Move(Vector2 Movement, float DeltaTime)
@@ -131,6 +141,31 @@ namespace Site13Kernel.GameLogic.Character
         public override void HorizontalRotation(float Angle)
         {
             HR = Angle;
+        }
+        public override void Reload()
+        {
+            CancelRun();
+            if (!ALLOW_FIRE_FLAG_0) return;
+            if (!ALLOW_FIRE_FLAG_1) return;
+            if (!ALLOW_FIRE_FLAG_2) return;
+            if (!ALLOW_FIRE_FLAG_3) return;
+            StartCoroutine(ReloadProcess());
+        }
+        IEnumerator ReloadProcess()
+        {
+            if (Entity.EntityBag.Weapons.Count == 0)
+            {
+                yield break;
+            }
+            if (Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.CurrentBackup <= 0) yield break;
+            if (Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.CurrentMagazine >=
+                Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.MagazineCapacity) yield break;
+            ALLOW_FIRE_FLAG_3 = false;
+            var clip = ControlledAnimator.SetTrigger("Reload");
+            yield return new WaitForSeconds(clip.Length);
+            ControlledAnimator.LastTrigger = "";
+            Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Reload();
+            ALLOW_FIRE_FLAG_3 = true;
         }
         public override void VerticalRotation(float Angle)
         {
@@ -188,11 +223,23 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Zoom()
         {
+            if (SpeedMultiplyer == SprintMultiplyer)
+                CancelRun();
+            if (!ALLOW_FIRE_FLAG_1) return;
+            if (!ALLOW_FIRE_FLAG_2) return;
+            if (!ALLOW_FIRE_FLAG_0) return;
+            if (!ALLOW_FIRE_FLAG_3) return;
             if (Entity.EntityBag.Weapons.Count > 0)
             {
                 Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].AimingMode = 1;
+                MainCamera.Instance.TargetScale = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].ZoomScale;
             }
-            if (IsFPSBiped) return;
+            if (IsFPSBiped)
+            {
+                if (WeaponLayerCamera.Instance.RealCamera.enabled == true)
+                    WeaponLayerCamera.Instance.RealCamera.enabled = false;
+                return;
+            }
             ControlledAnimator.SetTrigger("Zoom");
         }
         public override void CancelZoom()
@@ -200,9 +247,23 @@ namespace Site13Kernel.GameLogic.Character
             if (Entity.EntityBag.Weapons.Count > 0)
             {
                 Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].AimingMode = 0;
+                MainCamera.Instance.TargetScale = 1;
             }
-            if (IsFPSBiped) return;
+            if (IsFPSBiped)
+            {
+                if (WeaponLayerCamera.Instance.RealCamera.enabled == false)
+                    WeaponLayerCamera.Instance.RealCamera.enabled = true;
+                return;
+            }
             ControlledAnimator.SetTrigger("CancelZoom");
+        }
+        public override void SwitchWeapon()
+        {
+            if(Entity.EntityBag.Weapons.Count>1)
+                Entity.EntityBag.CurrentWeapon =(Entity.EntityBag.CurrentWeapon==1?0:1);
+            Entity.OnSwapWeapon.Invoke();
+            ControlledAnimator.SetTrigger("Takeout");
+            ControlledAnimator.LastTrigger = "";
         }
         public override void Run()
         {
@@ -215,7 +276,8 @@ namespace Site13Kernel.GameLogic.Character
         {
             //ControlledAnimator.SetTrigger("Idle");
             ALLOW_FIRE_FLAG_0 = true;
-            SpeedMultiplyer = 1;
+            if (SpeedMultiplyer == SprintMultiplyer)
+                SpeedMultiplyer = 1;
         }
         public override void Crouch()
         {
@@ -228,6 +290,7 @@ namespace Site13Kernel.GameLogic.Character
         public bool Fire = false;
         public override void StartFire()
         {
+            CancelRun();
             if (!ALLOW_FIRE_FLAG_0) return;
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;
@@ -503,7 +566,8 @@ namespace Site13Kernel.GameLogic.Character
         {
             foreach (var weapon in Weapons)
             {
-                if (weapon.WeaponData.WeaponID == GW.WeaponData.WeaponID) {
+                if (weapon.WeaponData.WeaponID == GW.WeaponData.WeaponID)
+                {
                     return;
                 }
             }

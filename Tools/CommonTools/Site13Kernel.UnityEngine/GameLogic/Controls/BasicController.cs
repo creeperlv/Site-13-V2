@@ -95,6 +95,9 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
+        public virtual void SwitchWeapon() { }
+        public virtual void SwitchGrenade() { }
+        public virtual void SwitchEquipment() { }
         public virtual void Move(Vector2 Movement, float DeltaTime)
         {
             MovingTransform.Translate(Movement * DeltaTime);

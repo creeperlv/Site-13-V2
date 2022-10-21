@@ -66,14 +66,17 @@ namespace Site13Kernel.Core
                 ObjectGenerator.SetLayerForChildren(w.gameObject, WeaponHand.gameObject.layer);
                 OnSwapWeapon.Invoke();
             });
-            EntityBag.OnDropWeapon.Add((w) =>
+            OnSwapWeapon.Add(() =>
             {
-                w.Holder = null;
-                w.ApplyObjectStatus(true);
-                w.isHoldByPlayer = false;
-                w.OnSingleFire.Clear();
-                w.gameObject.transform.SetParent(WeaponPool.CurrentPool.transform);
             });
+            EntityBag.OnDropWeapon.Add((w) =>
+                        {
+                            w.Holder = null;
+                            w.ApplyObjectStatus(true);
+                            w.isHoldByPlayer = false;
+                            w.OnSingleFire.Clear();
+                            w.gameObject.transform.SetParent(WeaponPool.CurrentPool.transform);
+                        });
         }
     }
 }
