@@ -7386,6 +7386,7 @@ GameObject:
   - component: {fileID: 585993397}
   - component: {fileID: 585993396}
   - component: {fileID: 585993395}
+  - component: {fileID: 585993398}
   m_Layer: 0
   m_Name: Ground_004
   m_TagString: Untagged
@@ -7480,6 +7481,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585993393}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &585993398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585993393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4051aed4350124140957e6e4c2318f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaterialID: 0
 --- !u!1 &587244646
 GameObject:
   m_ObjectHideFlags: 0
@@ -14842,7 +14856,7 @@ CharacterController:
   m_Radius: 0.15
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.015
+  m_SkinWidth: 0.025
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!114 &1162646138
@@ -14882,6 +14896,8 @@ MonoBehaviour:
   Entity: {fileID: 1162646140}
   UseControlledBehaviorWorkflow: 0
   CC: {fileID: 1162646136}
+  NormalSkinWidth: 0.08
+  CrouchSkinWidth: 0.005
   ControlledAnimator:
     ControlledAnimator: {fileID: 1820123927}
     LastTrigger: 
@@ -14914,7 +14930,7 @@ MonoBehaviour:
   NormalCharacterOffset_Y: 0.85
   CrouchCharacterHeight: 0.5
   CrouchCharacterOffset_Y: 1.15
-  CharacterHeightChangeSpeed: 5
+  CharacterHeightChangeSpeed: 8
   MoveState: 0
   FireID: 100
   MeleeID: 101

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.ProBuilder;
 using UnityEngine.UIElements;
 
 namespace Site13Kernel.GameLogic.Character
@@ -23,6 +24,8 @@ namespace Site13Kernel.GameLogic.Character
         public BipedEntity Entity;
         public bool UseControlledBehaviorWorkflow;
         public CharacterController CC;
+        public float NormalSkinWidth = 0.08f;
+        public float CrouchSkinWidth = 0.008f;
         public WrappedAnimator ControlledAnimator;
         public float WalkFootStepMultiplier = 0.5f;
         public float SprintFootStepMultiplier = 0.75f;
@@ -175,7 +178,7 @@ namespace Site13Kernel.GameLogic.Character
         float VolumeMultiplier = 1;
         public void PlayFootstep()
         {
-            if (Physics.Raycast(CC.transform.position, Vector3.down, out RaycastHit hit, 4, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
+            if (Physics.Raycast(CC.transform.position, Vector3.down, out RaycastHit hit, 5, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
             {
                 var SM = hit.collider.GetComponent<StandMaterial>();
                 if (SM != null)
@@ -525,7 +528,22 @@ namespace Site13Kernel.GameLogic.Character
             {
                 if (CC.height > CrouchCharacterHeight)
                 {
-                    CC.height += (CrouchCharacterHeight - CC.height) * CharacterHeightChangeSpeed * DT;
+                    if (CC.skinWidth != CrouchSkinWidth)
+                        CC.skinWidth = CrouchSkinWidth;
+
+                    float delta = (CrouchCharacterHeight - CC.height);
+                    if (Mathf.Abs(delta) <= 0.02f)
+                    {
+                        CC.height = CrouchCharacterHeight;
+                    }
+                    else
+                        CC.height += delta * CharacterHeightChangeSpeed * DT;
+                }
+                else
+                {
+                    if (CC.skinWidth != NormalSkinWidth)
+                        CC.skinWidth = NormalSkinWidth;
+
                 }
                 if (CC.center.y != CrouchCharacterOffset_Y)
                 {
@@ -538,7 +556,21 @@ namespace Site13Kernel.GameLogic.Character
             {
                 if (CC.height < NormalCharacterHeight)
                 {
-                    CC.height += (NormalCharacterHeight - CC.height) * CharacterHeightChangeSpeed * DT;
+                    if (CC.skinWidth != CrouchSkinWidth)
+                        CC.skinWidth = CrouchSkinWidth;
+                    float delta = (NormalCharacterHeight - CC.height);
+                    if (Mathf.Abs(delta) <= 0.02f)
+                    {
+                        CC.height = NormalCharacterHeight;
+                    }
+                    else
+                        CC.height += delta * CharacterHeightChangeSpeed * DT;
+                }
+                else
+                {
+                    if (CC.skinWidth != NormalSkinWidth)
+                        CC.skinWidth = NormalSkinWidth;
+
                 }
                 if (CC.center.y != NormalCharacterOffset_Y)
                 {
