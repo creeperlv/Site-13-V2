@@ -90,8 +90,8 @@ namespace Site13Kernel.GameLogic.Character
                     ControlledAnimator.LastTrigger = "";
                 });
                 w.isHoldByPlayer = isPlayer;
-                StartCoroutine(PlayPickup());
                 ApplyWeapon();
+                StartCoroutine(PlayPickup());
             });
             Entity.OnSwapWeapon.Add(() =>
             {
@@ -103,7 +103,10 @@ namespace Site13Kernel.GameLogic.Character
             ALLOW_FIRE_FLAG_1 = false;
             yield return null;
             yield return null;
-            ControlledAnimator.SetTrigger("Pickup");
+            var col=ControlledAnimator.SetTrigger("Pickup");
+            if (col.Length >= 0)
+                yield return new WaitForSeconds(col.Length);
+            else yield return null;
             ALLOW_FIRE_FLAG_1 = true;
         }
         void ApplyWeapon()
@@ -323,7 +326,8 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Interact()
         {
-            Interactor.Interact();
+            if (ALLOW_FIRE_FLAG_1)
+                Interactor.Interact();
         }
         public override void CancelInteract()
         {
