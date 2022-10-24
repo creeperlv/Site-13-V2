@@ -20,7 +20,7 @@ namespace Site13Kernel.GameLogic.FPS
         public string AnimationCollectionName;
         public int CrossHairID;
         public int ZoomID;
-        public float ZoomScale=1;
+        public float ZoomScale = 1;
         public WrappedAnimator WeaponAnimation;
         public string Trigger_Idle;
         public string Trigger_Fire;
@@ -177,7 +177,7 @@ namespace Site13Kernel.GameLogic.FPS
                     {
                         var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EffectPrefab, CurrentEffectPoint.position, CurrentEffectPoint.rotation, Vector3.one, CurrentEffectPoint);
                         GO.layer = CurrentEffectPoint.gameObject.layer;
-                        ObjectGenerator.SetLayerForChildren(GO,CurrentEffectPoint.gameObject.layer);
+                        ObjectGenerator.SetLayerForChildren(GO, CurrentEffectPoint.gameObject.layer);
                     }
                     if (BulletFireType == BulletFireType.HitScan)
                     {
@@ -474,6 +474,8 @@ namespace Site13Kernel.GameLogic.FPS
                     item.enabled = true;
                 }
                 this.gameObject.AddComponent<Rigidbody>();
+                ObjectGenerator.SetLayerForChildren(this.gameObject, GameRuntime.CurrentGlobals.PickupableLayer);
+                this.Pickup.gameObject.layer = GameRuntime.CurrentGlobals.PickupableTriggerLayer;
             }
             else
             {

@@ -30,6 +30,9 @@ namespace Site13Kernel.Core
         public int LayerExcludePlayerAndAirBlock;
         public int LayerExcludePlayerAndAirBlockAndEventTrigger;
         public int LayerExcludeAirBlock;
+
+        public int PickupableLayer;
+        public int PickupableTriggerLayer;
         public Dictionary<string, TextAsset> Scripts = new Dictionary<string, TextAsset>();
         public UniversalRenderPipelineAsset UsingAsset;
         public BulletSystem CurrentBulletSystem;

@@ -44,6 +44,8 @@ namespace Site13Kernel.UEFI
 
             GameRuntime.CurrentGlobals.Init();
             GameRuntime.CurrentGlobals.UsingAsset = TargetAsset;
+            GameRuntime.CurrentGlobals.PickupableLayer= LayerMask.NameToLayer("Pickupable-Item");
+            GameRuntime.CurrentGlobals.PickupableTriggerLayer = LayerMask.NameToLayer("Pickupable-Item-Trigger");
             TargetAsset.renderScale = Settings.CurrentSettings.RenderScale/100f;
             {
 

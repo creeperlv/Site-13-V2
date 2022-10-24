@@ -42,12 +42,13 @@ namespace Site13Kernel.Core
                 {
                     if (EntityBag.Weapons.Count == 1)
                         EntityBag.CurrentWeapon = 1;
+                    EntityBag.Weapons.Add(w);
                 }
                 else
                 {
-                    EntityBag.DropWeapon(EntityBag.Weapons[EntityBag.CurrentWeapon]);
+                    EntityBag.DropWeapon(EntityBag.Weapons[EntityBag.CurrentWeapon],false);
+                    EntityBag.Weapons[EntityBag.CurrentWeapon] = w;
                 }
-                EntityBag.Weapons.Add(w);
                 if (OverrideFirePoint)
                 {
                     w.CurrentFirePoint = FirePoint;
@@ -76,6 +77,8 @@ namespace Site13Kernel.Core
                             w.isHoldByPlayer = false;
                             w.OnSingleFire.Clear();
                             w.gameObject.transform.SetParent(WeaponPool.CurrentPool.transform);
+                            w.transform.localScale = Vector3.one;
+
                         });
         }
     }
