@@ -3,6 +3,7 @@ using Site13Kernel.Core;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Effects;
 using Site13Kernel.GameLogic.Level;
+using Site13Kernel.UI.HUD;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections.Generic;
@@ -300,6 +301,10 @@ namespace Site13Kernel.GameLogic.FPS
                 OnHit.Invoke();
             }
             Entity.Damage(Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
+            if (this.Holder.isTookControl)
+            {
+                HUDBase.Instance.TryIndicateAHit();
+            }
         }
         float CountDown;
         float SemiCountDown;

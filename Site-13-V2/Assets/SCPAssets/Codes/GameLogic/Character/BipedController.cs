@@ -69,6 +69,7 @@ namespace Site13Kernel.GameLogic.Character
         public bool ALLOW_FIRE_FLAG_3 = true;  // RELOAD LOCK
         Vector3 _MOVE;
         public AnimationCollection CurrentCollection;
+        public AuxiliaryBipedControls ABC;
         public void Start()
         {
             if (UseControlledBehaviorWorkflow) return;
@@ -193,6 +194,13 @@ namespace Site13Kernel.GameLogic.Character
                 FootStepSoundSource.volume = VolumeMultiplier * CurrentFootStepMultiplier;
                 FootStepSoundSource.clip = SoundResources.ObtainOneClip(CurrentStandingMaterial);
                 FootStepSoundSource.Play();
+            }
+            if (Entity.isTookControl)
+            {
+                if (SpeedMultiplyer == SprintMultiplyer)
+                    ABC.ShakeCamRunStep();
+                if (SpeedMultiplyer == 1)
+                    ABC.ShakeCamWalkStep();
             }
         }
         public override void Melee()

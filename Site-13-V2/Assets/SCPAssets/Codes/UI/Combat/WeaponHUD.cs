@@ -13,6 +13,7 @@ namespace Site13Kernel.UI.Combat
 {
     public class WeaponHUD : ControlledBehavior
     {
+        public int IndexInStack;
         public Image IconImg;
         public Text DisplayText;
         public Text DisplayTextTitle;
@@ -94,6 +95,7 @@ namespace Site13Kernel.UI.Combat
             {
                 Move(t, HUDBase.Instance.W_HUD_SecondaryPosition, HUDBase.Instance.W_HUD_SecondaryScale, DeltaTime);
             }
+
         }
         public void Move(RectTransform t, Vector2 TargetPosition, Vector3 TargetScale, float DT)
         {

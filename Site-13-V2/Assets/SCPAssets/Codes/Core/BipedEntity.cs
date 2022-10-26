@@ -9,6 +9,7 @@ namespace Site13Kernel.Core
     public class BipedEntity : BioEntity
     {
         public bool isPlayer = false;
+        public bool isTookControl;
         #region Weapon Stack
         public Transform WeaponHand;
         public Transform Weapon1;

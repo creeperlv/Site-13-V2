@@ -4,6 +4,7 @@ using Site13Kernel.Data;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.Character;
 using Site13Kernel.GameLogic.Controls;
+using Site13Kernel.GameLogic.Level;
 using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
 using System.Collections;
@@ -35,6 +36,8 @@ namespace Site13Kernel.UI.HUD
         public Dictionary<int, CrosshairContainer> Crosshairs = new Dictionary<int, CrosshairContainer>();
         public Dictionary<int, CrosshairContainer> ZoomOverlays = new Dictionary<int, CrosshairContainer>();
 
+        public List<WeaponHUD> WeaponHUDs = new List<WeaponHUD>();
+
         public Vector2 W_HUD_PrimaryPosition;
         public Vector3 W_HUD_PrimaryScale;
         public Vector2 W_HUD_SecondaryPosition;
@@ -51,7 +54,8 @@ namespace Site13Kernel.UI.HUD
         public float ZoomOverlaySpeed= 1;
         public float ShowThreshold = 0.01f;
         public float ToggleScale = 0.5f;
-
+        public Transform IndicatorHolder;
+        public PrefabReference Indicator;
         int LastWeaponID = -1;
         int LastZoomID = -1;
         public override void Init()
@@ -63,7 +67,27 @@ namespace Site13Kernel.UI.HUD
             {
                 item.Value.Init();
             }
+            for (int i = 0; i < WeaponHUDs.Count; i++)
+            {
+                var item = WeaponHUDs[i];
+                item.IndexInStack = i;
+            }
             __GrenadeHUD = GrenadeHUD.ObtainMap();
+        }
+        public void TryIndicateAHit()
+        {
+            var PREFAB = ResourceBuilder.ObtainGameObject(Indicator.ID);
+            if (PREFAB != null)
+            {
+                var effect = EffectController.CurrentEffectController.Spawn(Indicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
+                var RT = effect.transform as RectTransform;
+                RT.anchoredPosition3D = Vector3.zero;
+                RT.localRotation = Quaternion.identity;
+
+            }
+            else
+            {
+            }
         }
         public override void Refresh(float DT, float UDT)
         {
@@ -226,11 +250,29 @@ namespace Site13Kernel.UI.HUD
                                 else W_HUD1._ListeningWeapon = null;
                                 W_HUD1.isPrimary = 1 == _entity.EntityBag.CurrentWeapon;
                             }
+                            foreach (var item in WeaponHUDs)
+                            {
+                                if(item.IndexInStack == _entity.EntityBag.CurrentWeapon|| (_entity.EntityBag.CurrentWeapon != _entity.EntityBag.Weapons.Count - 1 & item.IndexInStack + 1 == _entity.EntityBag.CurrentWeapon) || (_entity.EntityBag.CurrentWeapon == _entity.EntityBag.Weapons.Count - 1 & item.IndexInStack == 0))
+                                {
+                                    if (item.gameObject.activeSelf == false)
+                                        item.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    if (item.gameObject.activeSelf == true)
+                                        item.gameObject.SetActive(false);
+                                }
+                                item.Refresh(DT, UDT);
+                            }
+                        }
+                        else
+                        {
+
+                            W_HUD0.Refresh(DT, UDT);
+                            W_HUD1.Refresh(DT, UDT);
                         }
                     }
                 }
-                W_HUD0.Refresh(DT, UDT);
-                W_HUD1.Refresh(DT, UDT);
                 G_HUD0.Refresh(DT, UDT);
                 G_HUD1.Refresh(DT, UDT);
             }
