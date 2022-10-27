@@ -225,12 +225,13 @@ namespace Site13Kernel.GameLogic.FPS
                                 var WeakPoint = info.collider.GetComponent<WeakPoint>();
                                 if (WeakPoint != null)
                                 {
-                                    OnHit.Invoke();
-                                    WeakPoint.AttachedBioEntity.Damage(Bullet.GetPrefab().GetComponent<BaseBullet>().WeakPointDamage);
+                                    //OnHit.Invoke();
+                                    CauseDamage(WeakPoint.AttachedBioEntity, Bullet.GetPrefab().GetComponent<BaseBullet>().WeakPointDamage);
+                                    //WeakPoint.AttachedBioEntity.Damage(Bullet.GetPrefab().GetComponent<BaseBullet>().WeakPointDamage);
                                 }
                                 else if (Entity != null)
                                 {
-                                    CauseDamage(Entity);
+                                    CauseDamage(Entity, Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
                                 }
                                 else
                                 {
@@ -238,7 +239,7 @@ namespace Site13Kernel.GameLogic.FPS
                                     if (Ref != null)
                                     {
                                         Entity = Ref.Reference;
-                                        CauseDamage(Entity);
+                                        CauseDamage(Entity, Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
                                     }
                                 }
 
@@ -294,13 +295,13 @@ namespace Site13Kernel.GameLogic.FPS
             }
             Destroy(this.gameObject);
         }
-        private void CauseDamage(DamagableEntity Entity)
+        private void CauseDamage(DamagableEntity Entity,float Damage)
         {
             if (OnHit != null)
             {
                 OnHit.Invoke();
             }
-            Entity.Damage(Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
+            Entity.Damage(Damage);
             if (this.Holder.isTookControl)
             {
                 HUDBase.Instance.TryIndicateAHit();
