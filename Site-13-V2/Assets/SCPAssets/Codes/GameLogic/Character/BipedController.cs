@@ -149,6 +149,7 @@ namespace Site13Kernel.GameLogic.Character
         public override void Reload()
         {
             CancelRun();
+            CancelZoom();
             if (!ALLOW_FIRE_FLAG_0) return;
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;
@@ -207,6 +208,7 @@ namespace Site13Kernel.GameLogic.Character
         {
             if (SpeedMultiplyer == SprintMultiplyer)
                 CancelRun();
+            CancelZoom();
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;
             var Clip = this.ControlledAnimator.SetTrigger("Melee");
@@ -270,9 +272,13 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void SwitchWeapon()
         {
+            CancelRun();
+            if (Entity.EntityBag.Weapons.Count == 1)
+                return;
             if (Entity.EntityBag.Weapons.Count > 1)
                 Entity.EntityBag.CurrentWeapon = (Entity.EntityBag.CurrentWeapon == 1 ? 0 : 1);
             Entity.OnSwapWeapon.Invoke();
+            CancelZoom();
             StartCoroutine(__TakeoutAnimation());
         }
         IEnumerator __TakeoutAnimation()

@@ -1,5 +1,7 @@
 ﻿using Site13Kernel.GameLogic.Effects;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Character
@@ -27,6 +29,15 @@ namespace Site13Kernel.GameLogic.Character
         public float CSE_Walk_V= 1;
         public float CSE_Walk_R = 25;
         public float CSE_Walk_DimIntensity = 2;
+
+        public List<AudioSource> MeleeSource;
+        public List<AudioClip> MeleeClip;
+        public void PlayMeleeSFX()
+        {
+            var source = ListOperations.ObtainOne(MeleeSource);
+            source.clip=ListOperations.ObtainOne(MeleeClip);
+            source.Play();
+        }
         public void MeleeStart()
         {
             meleeArea.StartDetection();
