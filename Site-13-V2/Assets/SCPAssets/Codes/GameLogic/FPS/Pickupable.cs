@@ -14,6 +14,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.WSA;
 using static Site13Kernel.GameLogic.FPS.BasicWeapon;
 using Debug = Site13Kernel.Diagnostics.Debug;
 
@@ -340,10 +341,14 @@ namespace Site13Kernel.GameLogic.FPS
         internal void ____ObtainRemaining(GenericWeapon GW)
         {
             var PW = GW.WeaponData;
+            if (PW.WeaponID != GW.WeaponData.WeaponID)
+            {
+                return;
+            }
             var DELTA = PW.MaxCapacity - PW.CurrentBackup;
             if (DELTA > 0)
             {
-                var Weapon = AssociatedGenericWeapon.WeaponData;   
+                var Weapon = AssociatedGenericWeapon.WeaponData;
                 var ADDUP0 = Mathf.Min(DELTA, Weapon.CurrentBackup);
                 Weapon.CurrentBackup -= ADDUP0;
 
@@ -366,12 +371,26 @@ namespace Site13Kernel.GameLogic.FPS
             {
                 foreach (var item in Biped.EntityBag.Weapons)
                 {
-                ____ObtainRemaining(item);
+                    ____ObtainRemaining(item);
 
                 }
             }
             else if (ItemType == PickupItem.Grenade)
             {
+                if (Biped.EntityBag.Grenades.TryGetValue(GrenadeID, out var pg))
+                {
+                    __ObtainRemaining(pg);
+                }
+                else
+                {
+                    Biped.EntityBag.Grenades.Add(GrenadeID, new ProcessedGrenade()
+                    {
+                        GrenadeHashCode = GrenadeID,
+                        MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
+                        RemainingCount = 1
+                    });
+                    Destroy(ControlledEntity);
+                }
             }
             else
             {

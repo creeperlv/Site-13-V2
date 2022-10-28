@@ -2,10 +2,14 @@ using Site13Kernel.Animations;
 using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Core.CustomizedInput;
+using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.GameLogic.Level;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -59,14 +63,32 @@ namespace Site13Kernel.GameLogic.Character
         public bool SmoothCamFollow = false;
         public bool isPlayer;
         public bool IsFPSBiped;
+        public KVList<int,GameObject> Grenades=new KVList<int,GameObject>();
+        public Dictionary<int, GameObject> _Grenades;
         float MH;
         float MV;
         float VR;
         float HR;
+        /// <summary>
+        /// Sprint Lock
+        /// </summary>
         public bool ALLOW_FIRE_FLAG_0 = true;   //SPRINT RUN LOCK
+        /// <summary>
+        /// Pick-up and Take-out
+        /// </summary>
         public bool ALLOW_FIRE_FLAG_1 = true;  // PICK UP ACTION LOCK
+        /// <summary>
+        /// Melee Action
+        /// </summary>
         public bool ALLOW_FIRE_FLAG_2 = true;  // MELEE ACTION LOCK
+        /// <summary>
+        /// Reload Lock
+        /// </summary>
         public bool ALLOW_FIRE_FLAG_3 = true;  // RELOAD LOCK
+        /// <summary>
+        /// Grenade Lock
+        /// </summary>
+        public bool ALLOW_FIRE_FLAG_4 = true;  // GRENADE LOCK
         Vector3 _MOVE;
         public AnimationCollection CurrentCollection;
         public AuxiliaryBipedControls ABC;
@@ -82,6 +104,7 @@ namespace Site13Kernel.GameLogic.Character
         }
         void __init()
         {
+            _Grenades = Grenades.ObtainMap();  
             ControlledAnimator.ControlledAnimator.keepAnimatorControllerStateOnDisable = true;
             Entity.EntityBag.OnObtainWeapon.Add((w) =>
             {
@@ -104,7 +127,7 @@ namespace Site13Kernel.GameLogic.Character
             ALLOW_FIRE_FLAG_1 = false;
             yield return null;
             yield return null;
-            var col=ControlledAnimator.SetTrigger("Pickup");
+            var col = ControlledAnimator.SetTrigger("Pickup");
             if (col.Length >= 0)
                 yield return new WaitForSeconds(col.Length);
             else yield return null;
@@ -180,7 +203,7 @@ namespace Site13Kernel.GameLogic.Character
         float VolumeMultiplier = 1;
         public void PlayFootstep()
         {
-            if (Physics.Raycast(CC.transform.position, Vector3.down, out RaycastHit hit, 5, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
+            if (Physics.Raycast(CC.transform.position + new Vector3(0, (SpeedMultiplyer == CrouchMultiplyer ? CrouchCharacterOffset_Y : NormalCharacterOffset_Y), 0), Vector3.down, out RaycastHit hit, 5, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
             {
                 var SM = hit.collider.GetComponent<StandMaterial>();
                 if (SM != null)
@@ -232,6 +255,33 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void ThrowGrenade()
         {
+            CancelRun();
+            CancelZoom();
+            if ((ALLOW_FIRE_FLAG_1 && ALLOW_FIRE_FLAG_2 && ALLOW_FIRE_FLAG_3 && ALLOW_FIRE_FLAG_4) == false)
+            {
+                return;
+            }
+            if (Entity.EntityBag.Grenades[Entity.EntityBag.CurrentGrenade].RemainingCount > 0)
+                StartCoroutine(TG_Animation());
+        }
+        IEnumerator TG_Animation()
+        {
+            foreach (var item in _Grenades)
+            {
+                if (item.Key == Entity.EntityBag.CurrentGrenade)
+                {
+                    item.Value.SetActive(true);
+                }
+                else
+                {
+                    item.Value.SetActive(false);
+                }
+            }
+            ALLOW_FIRE_FLAG_4 = false;
+            var c = ControlledAnimator.SetTrigger("Throw-Grenade");
+            yield return new WaitForSeconds(c.Length);
+            ControlledAnimator.LastTrigger = "";
+            ALLOW_FIRE_FLAG_4 = true;
 
         }
         public override void Zoom()
@@ -293,6 +343,11 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Run()
         {
+            CancelZoom();
+            if (ALLOW_FIRE_FLAG_1 == false) return;
+            if (ALLOW_FIRE_FLAG_2 == false) return;
+            if (ALLOW_FIRE_FLAG_3 == false) return;
+            if (ALLOW_FIRE_FLAG_4 == false) return;
             //ControlledAnimator.SetTrigger("FSMR-SM2");
             //ControlledAnimator.SetTrigger("Run");
             SpeedMultiplyer = SprintMultiplyer;
@@ -307,6 +362,7 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Crouch()
         {
+            //CancelRun();
             SpeedMultiplyer = CrouchMultiplyer;
         }
         public override void CancelCrouch()
@@ -359,6 +415,22 @@ namespace Site13Kernel.GameLogic.Character
                 OnFrame(DT, UDT);
             }
         }
+        public override void SwitchGrenade()
+        {
+            if (ALLOW_FIRE_FLAG_4 == false) return;
+
+            var K = Entity.EntityBag.Grenades.Keys.ToList();
+            var i = K.IndexOf(Entity.EntityBag.CurrentGrenade);
+            if (i + 1 < K.Count)
+            {
+                Entity.EntityBag.CurrentGrenade = K[i + 1];
+            }
+            else
+            {
+                Entity.EntityBag.CurrentGrenade = K[0];
+            }
+        }
+
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
         {
             if (UseControlledBehaviorWorkflow)

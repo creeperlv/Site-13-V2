@@ -51,7 +51,7 @@ namespace Site13Kernel.UI.HUD
         public CanvasGroup TotalHUD;
         public bool Show;
         public float ShowSpeed = 1;
-        public float ZoomOverlaySpeed= 1;
+        public float ZoomOverlaySpeed = 1;
         public float ShowThreshold = 0.01f;
         public float ToggleScale = 0.5f;
         public Transform IndicatorHolder;
@@ -200,7 +200,7 @@ namespace Site13Kernel.UI.HUD
                                     cc.UpdateCrosshair(Weapon.Recoil);
                                     if (TargetZoom != 0)
                                         zoom.UpdateCrosshair(Weapon.Recoil);
-                                    if (Weapon.AimingMode==1)
+                                    if (Weapon.AimingMode == 1)
                                     {
                                         if (zoom.canvas.alpha != 1)
                                         {
@@ -227,7 +227,7 @@ namespace Site13Kernel.UI.HUD
                                 {
 
                                 }
-                                
+
                                 if (LastWeaponID != TargetCrosshair)
                                 {
                                     ShowCrosshair(TargetCrosshair);
@@ -252,7 +252,7 @@ namespace Site13Kernel.UI.HUD
                             }
                             foreach (var item in WeaponHUDs)
                             {
-                                if(item.IndexInStack == _entity.EntityBag.CurrentWeapon|| (_entity.EntityBag.CurrentWeapon != _entity.EntityBag.Weapons.Count - 1 & item.IndexInStack + 1 == _entity.EntityBag.CurrentWeapon) || (_entity.EntityBag.CurrentWeapon == _entity.EntityBag.Weapons.Count - 1 & item.IndexInStack == 0))
+                                if (item.IndexInStack == _entity.EntityBag.CurrentWeapon || (_entity.EntityBag.CurrentWeapon != _entity.EntityBag.Weapons.Count - 1 & item.IndexInStack + 1 == _entity.EntityBag.CurrentWeapon) || (_entity.EntityBag.CurrentWeapon == _entity.EntityBag.Weapons.Count - 1 & item.IndexInStack == 0))
                                 {
                                     if (item.gameObject.activeSelf == false)
                                         item.gameObject.SetActive(true);
@@ -264,6 +264,19 @@ namespace Site13Kernel.UI.HUD
                                 }
                                 item.Refresh(DT, UDT);
                             }
+                            foreach (var item in __GrenadeHUD)
+                            {
+                                if (_entity.EntityBag.Grenades.TryGetValue(item.Key, out var g))
+                                {
+                                    item.Value.UpdateValue(g, item.Key == _entity.EntityBag.CurrentWeapon);
+                                }
+                                else
+                                    item.Value.UpdateValue(null, item.Key == _entity.EntityBag.CurrentWeapon);
+                            }
+                            //foreach (var item in _entity.EntityBag.Grenades)
+                            //{
+                            //    __GrenadeHUD[item.Key].UpdateValue(item.Value, item.Key == _entity.EntityBag.CurrentGrenade);
+                            //}
                         }
                         else
                         {

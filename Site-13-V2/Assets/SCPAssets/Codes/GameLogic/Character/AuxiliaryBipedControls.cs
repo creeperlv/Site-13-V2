@@ -1,4 +1,6 @@
-﻿using Site13Kernel.GameLogic.Effects;
+﻿using Site13Kernel.Core;
+using Site13Kernel.Data;
+using Site13Kernel.GameLogic.Effects;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.Utilities;
 using System.Collections.Generic;
@@ -9,6 +11,8 @@ namespace Site13Kernel.GameLogic.Character
     public class AuxiliaryBipedControls : MonoBehaviour
     {
         public MeleeArea meleeArea;
+        public BipedEntity BindedEntity;
+        public BipedController BindedController;
         public CameraShakeEffect CSE;
         public float CSE_Run_Intensity = 1;
         public float CSE_Run_H = 1;
@@ -25,28 +29,42 @@ namespace Site13Kernel.GameLogic.Character
         public bool CSE_Melee_isR = false;
 
         public float CSE_Walk_Intensity = 1;
-        public float CSE_Walk_H= 1;
-        public float CSE_Walk_V= 1;
+        public float CSE_Walk_H = 1;
+        public float CSE_Walk_V = 1;
         public float CSE_Walk_R = 25;
         public float CSE_Walk_DimIntensity = 2;
+
+        public float GrenadeThrowForce = 10;
 
         public List<AudioSource> MeleeSource;
         public List<AudioClip> MeleeClip;
         public void PlayMeleeSFX()
         {
             var source = ListOperations.ObtainOne(MeleeSource);
-            source.clip=ListOperations.ObtainOne(MeleeClip);
+            source.clip = ListOperations.ObtainOne(MeleeClip);
             source.Play();
         }
         public void MeleeStart()
         {
             meleeArea.StartDetection();
         }
+        public void ThrowAGrenade()
+        {
+            {
+                BindedController._Grenades[BindedEntity.EntityBag.CurrentGrenade].SetActive(false);
+            }
+            GrenadeController.CurrentController.Instantiate(
+                GrenadePool.CurrentPool.GrenadeItemMap[BindedEntity.EntityBag.CurrentGrenade].GamePlayPrefab,
+                BindedEntity.GrenadeEmissionPoint.position,
+                BindedEntity.GrenadeEmissionPoint.rotation,
+                BindedEntity.GrenadeEmissionPoint.forward * GrenadeThrowForce, ForceMode.Impulse);
+            BindedEntity.EntityBag.Grenades[BindedEntity.EntityBag.CurrentGrenade].RemainingCount--;
+        }
         public void ShakeCamRunStep()
         {
-            
-            CSE.SetShake(Intensity: CSE_Run_Intensity, willDiminish: true, DiminishIntensity: CSE_Run_DimIntensity, true, 
-                RotationShakeSpeed: CSE_Run_R,HorizontalBaseIntensity:CSE_Run_H,VerticalBaseIntensity:CSE_Run_V);
+
+            CSE.SetShake(Intensity: CSE_Run_Intensity, willDiminish: true, DiminishIntensity: CSE_Run_DimIntensity, true,
+                RotationShakeSpeed: CSE_Run_R, HorizontalBaseIntensity: CSE_Run_H, VerticalBaseIntensity: CSE_Run_V);
         }
         public void ShakeCamWalkStep()
         {

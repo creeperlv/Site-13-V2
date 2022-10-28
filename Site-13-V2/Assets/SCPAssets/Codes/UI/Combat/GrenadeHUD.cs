@@ -28,6 +28,37 @@ namespace Site13Kernel.UI.Combat
                 }
             }
         }
+        public void UpdateValue(ProcessedGrenade PG, bool isSelected)
+        {
+
+            if (PG != null)
+            {
+                if (PG.GrenadeHashCode != LastGrenadeID)
+                {
+                    LastGrenadeID = PG.GrenadeHashCode;
+                    if (this.gameObject.activeSelf == false)
+                        this.gameObject.SetActive(true);
+                    if (GrenadePool.CurrentPool.GrenadeItemMap.ContainsKey(LastGrenadeID))
+                    {
+                        IconImg.sprite = GrenadePool.CurrentPool.GrenadeItemMap[LastGrenadeID].Icon;
+                    }
+                }
+                NumberDisp.text = PG.RemainingCount.ToString();
+                if (isSelected)
+                {
+                    if (!SelectionBorder.activeSelf) SelectionBorder.SetActive(true);
+                }
+                else
+                    if (SelectionBorder.activeSelf) SelectionBorder.SetActive(false);
+            }
+            else
+            {
+                if (this.gameObject.activeSelf)
+                    this.gameObject.SetActive(false);
+
+            }
+
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ApplyGrenade(ProcessedGrenade GEN)
         {

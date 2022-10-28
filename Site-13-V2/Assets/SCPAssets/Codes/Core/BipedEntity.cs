@@ -17,6 +17,7 @@ namespace Site13Kernel.Core
         public bool OverrideFirePoint;
         public Transform FirePoint;
         #endregion
+        public Transform GrenadeEmissionPoint;
         public Bag EntityBag;
         public Site13Event OnSwapWeapon = new Site13Event();
         public bool SelfRun = false;

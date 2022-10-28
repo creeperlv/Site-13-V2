@@ -16,6 +16,7 @@ namespace Site13Kernel.GameLogic.Controls
         float AccumulativeInvokeTime = 0;
         public float InvokeMinTime = 0.2f;
         bool ZOOM_FLG_0 = false;
+        bool GRENAGE_FLAG = false;
         public void Start()
         {
             Instance = this;
@@ -172,6 +173,31 @@ namespace Site13Kernel.GameLogic.Controls
                             controller.CancelZoom();
                             ZOOM_FLG_0 = false;
                         }
+                    }
+                }
+                if (controller.ControllerFunctions.Grenade)
+                {
+                    if (InputProcessor.GetAxis("ThrowGrenade") > 0.4f)
+                    {
+                        if (GRENAGE_FLAG == false)
+                        {
+                            GRENAGE_FLAG = true;
+                        controller.ThrowGrenade();
+                        }
+                    }
+                    else
+                    {
+                        if (GRENAGE_FLAG)
+                        {
+                            GRENAGE_FLAG = false;
+                        }
+                    }
+                }
+                if (controller.ControllerFunctions.SwitchGrenade)
+                {
+                    if (InputProcessor.GetInputDown("SwitchGrenade"))
+                    {
+                        controller.SwitchGrenade();
                     }
                 }
                 if (controller.ControllerFunctions.ViewportRotation)
