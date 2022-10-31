@@ -460,8 +460,8 @@ MonoBehaviour:
       Trigger: 
       Length: 0
       WaitUntilDone: 0
-  Trigger_Idle: 
-  Trigger_Fire: 
+  Trigger_Idle: Idle
+  Trigger_Fire: Fire
   Trigger_Overheat: 
   Trigger_Vent: 
   AmmoDispType: 0
@@ -561,6 +561,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 142659927682665285}
     m_Modifications:
+    - target: {fileID: 1066181282311842289, guid: 41eb97ae74a304e4e96699bb17254bef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066181282311842289, guid: 41eb97ae74a304e4e96699bb17254bef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.195
+      objectReference: {fileID: 0}
     - target: {fileID: 2567602893295291657, guid: 41eb97ae74a304e4e96699bb17254bef, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -672,7 +680,7 @@ Animator:
   m_GameObject: {fileID: 6097048542337338571}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc6f4ad26c00d224fb7385f8acdb2912, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

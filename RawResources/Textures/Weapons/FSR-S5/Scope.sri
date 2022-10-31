@@ -1,0 +1,72 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="NOR" Value="False"/>
+	<Define Name="MAIN" Value="True"/>
+	<Define Name="EMI" Value="False"/>
+	<Define Name="MTL" Value="False"/>
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="White">
+		<Group Visible="NOR">
+		
+				<Dot X="0.2125" Y="0.661" Size="0.008" Color="#222222"/>
+				<Dot X="0.3875" Y="0.661" Size="0.008" Color="#222222"/>
+				<Dot X="0.2125" Y="0.35" Size="0.008" Color="#222222"/>
+				<Dot X="0.3875" Y="0.35" Size="0.008" Color="#222222"/>
+				<Dot X="0.285" Y="0.45" Size="0.0035" Color="#999999"/>
+				<Dot X="0.315" Y="0.45" Size="0.0035" Color="#999999"/>
+				<Dot X="0.285" Y="0.45" Size="0.003" Color="#AAAAAA"/>
+				<Dot X="0.315" Y="0.45" Size="0.003" Color="#AAAAAA"/>
+			<SubImage X="0.0" Y="0.0" Width="1" Height="1" ScaledWidthRatio="1" Name="Details" ScaledHeightRatio="1" Rotation="0"  Background="Transparent">
+				<Dot X="0.45" Y="0.08" Size="0.008" Color="#222222"/>
+				<Dot X="0.45" Y="0.15" Size="0.008" Color="#222222"/>
+			</SubImage>
+			<SubImage  X="1.4" Y="0.19" Width="1" Height="1" ScaledWidthRatio="-1" ScaledHeightRatio="1" Rotation="0"  Background="Transparent">
+				<Dot X="0.45" Y="0.08" Size="0.008" Color="#222222"/>
+				<Dot X="0.45" Y="0.15" Size="0.008" Color="#222222"/>
+			</SubImage>
+		</Group>
+		<Group Visible="MAIN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="../../RefTextures/Metal027_4K_Color.png" />
+			<!--
+			
+				<Rectangle X="0.51" Y="0.355" Width="0.019" Height="0.01" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.51" Y="0.36" Width="0.019" Height="0.005" Size="0.0002" Fill="True"  Color="#F0A010"/>
+			-->
+			<!--<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#80000000"/>-->
+			
+				<Triangle Point1="0.715,0.700" Point2="0.725,0.700" Point3="0.72,0.695" Size="0" Fill="True" Color="#FF0000"/>
+			<SubImage X="0.45" Y="-0.025" Width="1" Height="1" ScaledWidthRatio="1" ScaledHeightRatio="1" Name="Texts" Rotation="0" Background="Transparent">
+				
+				<Rectangle X="0.22" Y="0.12" Width="0.07" Height="0.02" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.22" Y="0.14" Width="0.07" Height="0.02" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.22" Y="0.14" Width="0.07" Height="0.02" Size="0.0002" Fill="True"  Color="#F0A010"/>
+				<Text Content="SCOPE" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".007"
+					X="0.22" Y="0.12" Width="0.07" Height="0.02" Align="Center" VerticalAlign="Center" Color="#F0A010"/>
+				<Text Content="AS3E" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".007"
+				X="0.22" Y="0.14" Width="0.07" Height="0.02" Align="Center" VerticalAlign="Center" Color="Black"/>
+			</SubImage>
+				<Dot X="0.2125" Y="0.661" Size="0.008" Color="#CCCCCC"/>
+				<Dot X="0.3875" Y="0.661" Size="0.008" Color="#CCCCCC"/>
+				<Dot X="0.2125" Y="0.35" Size="0.008" Color="#CCCCCC"/>
+				<Dot X="0.3875" Y="0.35" Size="0.008" Color="#CCCCCC"/>
+				<Dot X="0.285" Y="0.45" Size="0.003" Color="#666666"/>
+				<Dot X="0.315" Y="0.45" Size="0.003" Color="#666666"/>
+			<SubImage X="0.0" Y="0.0" Width="1" Height="1" ScaledWidthRatio="1" Name="Details" ScaledHeightRatio="1" Rotation="0"  Background="Transparent">
+				<Dot X="0.45" Y="0.08" Size="0.008" Color="#CCCCCC"/>
+				<Dot X="0.45" Y="0.15" Size="0.008" Color="#CCCCCC"/>
+			</SubImage>
+			<SubImage  X="1.4" Y="0.19" Width="1" Height="1" ScaledWidthRatio="-1" ScaledHeightRatio="1" Rotation="0"  Background="Transparent">
+				<Dot X="0.45" Y="0.08" Size="0.008" Color="#CCCCCC"/>
+				<Dot X="0.45" Y="0.15" Size="0.008" Color="#CCCCCC"/>
+			</SubImage>
+		</Group>
+		<Group Visible="EMI">
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#000000"/>
+				<Dot X="0.285" Y="0.45" Size="0.003" Color="#CCCCCC"/>
+				<Dot X="0.315" Y="0.45" Size="0.003" Color="#CCCCCC"/>
+		</Group>
+		<Group Visible="MTL">
+		</Group>
+		<Group Visible="DESIGN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="FSR-S5-Scope-UV.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>

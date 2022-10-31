@@ -1,0 +1,53 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="NOR" Value="True"/>
+	<Define Name="MAIN" Value="False"/>
+	<Define Name="EMI" Value="False"/>
+	<Define Name="MTL" Value="False"/>
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="White">
+		<Group Visible="NOR">
+		
+				<Dot X="0.5" Y="0.205" Size="0.01" Color="#222222"/>
+				<Dot X="0.75" Y="0.21" Size="0.01" Color="#222222"/>
+				<Dot X="0.87" Y="0.21" Size="0.01" Color="#222222"/>
+				<Dot X="0.87" Y="0.39" Size="0.01" Color="#222222"/>
+				<Dot X="0.75" Y="0.39" Size="0.01" Color="#222222"/>
+		</Group>
+		<Group Visible="MAIN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="../../RefTextures/Metal027_4K_Color.png" />
+			<!--
+			
+				<Rectangle X="0.51" Y="0.355" Width="0.019" Height="0.01" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.51" Y="0.36" Width="0.019" Height="0.005" Size="0.0002" Fill="True"  Color="#F0A010"/>
+			-->
+			<!--<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#80000000"/>-->
+			<Path Size="0" Fill="True" Color="#A0FFFFFF">
+				<PathNode X="0.45" Y="0.195" Type="Line" />
+				<PathNode X="0.8755" Y="0.2" Type="Line" />
+				<PathNode X="0.8755" Y="0.44" Type="Line" />
+				<PathNode X="0.45" Y="0.44" Type="Line" />
+			</Path>
+			<Rectangle X="0.45" Y="0.52" Width="0.31" Height="0.4" Size="0" Fill="True" Color="#A0FFFFFF"/>
+			<Rectangle X="0.15" Y="0.2" Width="0.2" Height="0.62" Size="0" Fill="True" Color="#A0FFFFFF"/>
+			<Rectangle X="0.375" Y="0.45" Width="0.075" Height="0.5" Size="0" Fill="True" Color="#A0FFFFFF"/>
+		</Group>
+		<Group Visible="EMI">
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#000000"/>
+				<Dot X="0.74" Y="0.87" Size="0.02" Color="#FFFFFF"/>
+		</Group>
+		<Group Visible="MTL">
+			<Rectangle X="-0.5" Y="-0.5" Width="2" Height="2" Size="0" Fill="True" Color="#88888888"/>
+			<Path Size="0" Fill="True" Color="#FFFFFF">
+				<PathNode X="0.45" Y="0.195" Type="Line" />
+				<PathNode X="0.8755" Y="0.2" Type="Line" />
+				<PathNode X="0.8755" Y="0.44" Type="Line" />
+				<PathNode X="0.45" Y="0.44" Type="Line" />
+			</Path>
+			<Rectangle X="0.45" Y="0.52" Width="0.31" Height="0.4" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Rectangle X="0.15" Y="0.2" Width="0.2" Height="0.62" Size="0" Fill="True" Color="#FFFFFF"/>
+			<Rectangle X="0.375" Y="0.45" Width="0.075" Height="0.5" Size="0" Fill="True" Color="#FFFFFF"/>
+		</Group>
+		<Group Visible="DESIGN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="FSR-S5-Butt-UV.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>

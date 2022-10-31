@@ -1,0 +1,86 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="NOR" Value="False"/>
+	<Define Name="MAIN" Value="True"/>
+	<Define Name="EMI" Value="False"/>
+	<Define Name="MTL" Value="False"/>
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="White">
+		<Group Visible="NOR">
+		
+				<Dot X="0.71" Y="0.71" Size="0.01" Color="#222222"/>
+				<Dot X="0.71" Y="0.89" Size="0.01" Color="#222222"/>
+				<Dot X="0.89" Y="0.71" Size="0.01" Color="#222222"/>
+				<Dot X="0.89" Y="0.89" Size="0.01" Color="#222222"/>
+			<SubImage X="0.0" Y="0.0" Width="1" Height="1" ScaledWidthRatio="1" Name="NDetails" ScaledHeightRatio="1" Rotation="0"  Background="Transparent">
+				<Dot X="0.68" Y="0.265" Size="0.01" Color="#222222"/>
+				<Dot X="0.79" Y="0.375" Size="0.01" Color="#222222"/>
+				<Dot X="0.82" Y="0.265" Size="0.01" Color="#222222"/>
+				<Dot X="0.93" Y="0.375" Size="0.01" Color="#222222"/>
+			</SubImage>
+			<RefImage X="0" Y="0.19975" Width="1" Height="1" ScaledWidthRatio="1" ScaledHeightRatio="1" Source="Ref:NDetails" Background="Transparent"/>
+		</Group>
+		<Group Visible="MAIN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="../../RefTextures/Metal027_4K_Color.png" />
+			<!--
+			
+				<Rectangle X="0.51" Y="0.355" Width="0.019" Height="0.01" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.51" Y="0.36" Width="0.019" Height="0.005" Size="0.0002" Fill="True"  Color="#F0A010"/>
+			-->
+			<!--<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#80000000"/>-->
+			<SubImage X="0.55" Y="0.175" Width="1" Height="1" ScaledWidthRatio="1" ScaledHeightRatio="1" Name="Texts" Rotation="0" Background="Transparent">
+				
+				<Rectangle X="0.22" Y="0.12" Width="0.07" Height="0.02" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.22" Y="0.14" Width="0.07" Height="0.02" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.22" Y="0.14" Width="0.07" Height="0.02" Size="0.0002" Fill="True"  Color="#F0A010"/>
+				<Text Content="COMPUTER" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".007"
+					X="0.22" Y="0.12" Width="0.07" Height="0.02" Align="Center" VerticalAlign="Center" Color="#F0A010"/>
+				<Text Content="WI800D" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".007"
+				X="0.22" Y="0.14" Width="0.07" Height="0.02" Align="Center" VerticalAlign="Center" Color="Black"/>
+			</SubImage>
+			<SubImage X="1.06" Y="0.3025" Width="1" Height="1" ScaledWidthRatio="-1" ScaledHeightRatio="1" Rotation="0" Background="Transparent">
+			
+				<Rectangle X="0.22" Y="0.12" Width="0.07" Height="0.02" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.22" Y="0.14" Width="0.07" Height="0.02" Size="0.0002" Fill="False"  Color="#F0A010"/>
+				<Rectangle X="0.22" Y="0.14" Width="0.07" Height="0.02" Size="0.0002" Fill="True"  Color="#F0A010"/>
+				<Text Content="COMPUTER" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".007"
+					X="0.22" Y="0.12" Width="0.07" Height="0.02" Align="Center" VerticalAlign="Center" Color="#F0A010"/>
+				<Text Content="WI800E" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size=".007"
+				X="0.22" Y="0.14" Width="0.07" Height="0.02" Align="Center" VerticalAlign="Center" Color="Black"/>
+			</SubImage>
+				<Dot X="0.71" Y="0.71" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.71" Y="0.89" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.89" Y="0.71" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.89" Y="0.89" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.74" Y="0.87" Size="0.02" Color="#CCCCCC"/>
+			<SubImage X="0.0" Y="0.0" Width="1" Height="1" ScaledWidthRatio="1" Name="Details" ScaledHeightRatio="1" Rotation="0"  Background="Transparent">
+				<Dot X="0.68" Y="0.265" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.79" Y="0.375" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.82" Y="0.265" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.93" Y="0.375" Size="0.01" Color="#CCCCCC"/>
+				
+			</SubImage>
+			<RefImage X="0" Y="0.13" Width="1" Height="1" ScaledWidthRatio="1" ScaledHeightRatio="1" Source="Ref:Details" Background="Transparent"/>
+		</Group>
+		<Group Visible="EMI">
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#000000"/>
+				<Dot X="0.74" Y="0.87" Size="0.02" Color="#FFFFFF"/>
+		</Group>
+		<Group Visible="MTL">
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#808080"/>
+				<Dot X="0.71" Y="0.71" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.71" Y="0.89" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.89" Y="0.71" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.89" Y="0.89" Size="0.01" Color="#CCCCCC"/>
+			<SubImage X="0.0" Y="0.0" Width="1" Height="1" ScaledWidthRatio="1" Name="Details" ScaledHeightRatio="1" Rotation="0"  Background="Transparent">
+				<Dot X="0.68" Y="0.265" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.79" Y="0.375" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.82" Y="0.265" Size="0.01" Color="#CCCCCC"/>
+				<Dot X="0.93" Y="0.375" Size="0.01" Color="#CCCCCC"/>
+				
+			</SubImage>
+			<RefImage X="0" Y="0.13" Width="1" Height="1" ScaledWidthRatio="1" ScaledHeightRatio="1" Source="Ref:Details" Background="Transparent"/>
+		</Group>
+		<Group Visible="DESIGN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="FSR-S5-AC-UV.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>

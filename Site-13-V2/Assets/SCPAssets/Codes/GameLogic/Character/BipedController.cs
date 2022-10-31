@@ -63,7 +63,7 @@ namespace Site13Kernel.GameLogic.Character
         public bool SmoothCamFollow = false;
         public bool isPlayer;
         public bool IsFPSBiped;
-        public KVList<int,GameObject> Grenades=new KVList<int,GameObject>();
+        public KVList<int, GameObject> Grenades = new KVList<int, GameObject>();
         public Dictionary<int, GameObject> _Grenades;
         float MH;
         float MV;
@@ -104,7 +104,7 @@ namespace Site13Kernel.GameLogic.Character
         }
         void __init()
         {
-            _Grenades = Grenades.ObtainMap();  
+            _Grenades = Grenades.ObtainMap();
             ControlledAnimator.ControlledAnimator.keepAnimatorControllerStateOnDisable = true;
             Entity.EntityBag.OnObtainWeapon.Add((w) =>
             {
@@ -128,9 +128,14 @@ namespace Site13Kernel.GameLogic.Character
             yield return null;
             yield return null;
             var col = ControlledAnimator.SetTrigger("Pickup");
-            if (col.Length >= 0)
-                yield return new WaitForSeconds(col.Length);
+            if (col != null)
+            {
+                if (col.Length >= 0)
+                    yield return new WaitForSeconds(col.Length);
+                else yield return null;
+            }
             else yield return null;
+            ControlledAnimator.LastTrigger = "";
             ALLOW_FIRE_FLAG_1 = true;
         }
         void ApplyWeapon()
