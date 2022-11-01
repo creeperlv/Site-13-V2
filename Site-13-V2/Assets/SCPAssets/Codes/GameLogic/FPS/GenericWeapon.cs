@@ -6,6 +6,7 @@ using Site13Kernel.GameLogic.Level;
 using Site13Kernel.UI.HUD;
 using Site13Kernel.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -22,11 +23,17 @@ namespace Site13Kernel.GameLogic.FPS
         public int CrossHairID;
         public int ZoomID;
         public float ZoomScale = 1;
+        [Header("Animations")]
         public WrappedAnimator WeaponAnimation;
         public string Trigger_Idle;
         public string Trigger_Fire;
+        public float Trigger_Fire_Length = 0.166666f;
         public string Trigger_Overheat;
         public string Trigger_Vent;
+        public string Trigger_Empty;
+        public string Trigger_Chambering;
+        public float Trigger_Chambering_Length = 0.25f;
+        public string Trigger_ChamberingFromEmpty;
         public AmmoDisp AmmoDispType = AmmoDisp.None;
         public List<Renderer> AmmoRenderers;
         public List<Text> AmmoDispTexts;
@@ -124,10 +131,10 @@ namespace Site13Kernel.GameLogic.FPS
         }
         public void SingleFire()
         {
-            OnSingleFire.Invoke();
 
             if ((WeaponData.CurrentMagazine > 0 && WeaponData.CurrentHeat < WeaponData.MaxHeat) || isHoldByPlayer == false)
             {
+                OnSingleFire.Invoke();
                 if (FireType == WeaponFireType.FullAuto || FireType == WeaponFireType.SemiAuto)
                 {
 
@@ -147,7 +154,7 @@ namespace Site13Kernel.GameLogic.FPS
                     //Debug.Log(RecoilAngle);
 
                     if (WeaponAnimation != null)
-                        WeaponAnimation.SetTrigger("Fire");
+                        WeaponAnimation.SetTrigger(Trigger_Fire,Trigger_Fire_Length,true);
                     WeaponAnimation.LastTrigger = "";
                     WeaponData.CurrentHeat += WeaponData.HeatPerShot;
                     if (WeaponData.CurrentHeat > WeaponData.MaxHeat)
@@ -287,6 +294,14 @@ namespace Site13Kernel.GameLogic.FPS
             {
             }
         }
+        public void PlayWeaponChamberingAnimation()
+        {
+            this.WeaponAnimation.SetTrigger(Trigger_Chambering, Trigger_Chambering_Length,true);
+        }
+        public void PlayWeaponChamberingFromEmptyAnimation()
+        {
+            this.WeaponAnimation.SetTrigger(Trigger_ChamberingFromEmpty);
+        }
         public void SelfDestruction()
         {
             if (ControlledBehaviorWorkflow)
@@ -295,7 +310,7 @@ namespace Site13Kernel.GameLogic.FPS
             }
             Destroy(this.gameObject);
         }
-        private void CauseDamage(DamagableEntity Entity,float Damage)
+        private void CauseDamage(DamagableEntity Entity, float Damage)
         {
             if (OnHit != null)
             {
@@ -327,6 +342,7 @@ namespace Site13Kernel.GameLogic.FPS
         }
         void __frame(float DeltaT)
         {
+            WeaponAnimation.AccumulativeTrigger(DeltaT);
             {
 
                 if (WeaponMode == WeaponConstants.WEAPON_MODE_NORMAL)
@@ -468,6 +484,19 @@ namespace Site13Kernel.GameLogic.FPS
                     break;
                 default:
                     break;
+            }
+            StartCoroutine(SetStateTrigger());
+        }
+        IEnumerator SetStateTrigger()
+        {
+            yield return null;
+            if (WeaponData.CurrentMagazine == 0)
+            {
+                this.WeaponAnimation.SetTrigger(Trigger_Empty);
+            }
+            else
+            {
+                this.WeaponAnimation.SetTrigger(Trigger_Idle);
             }
         }
         public void ApplyObjectStatus(bool isPickupable = false)

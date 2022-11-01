@@ -165,6 +165,16 @@ namespace Site13Kernel.GameLogic.Character
                 Side.transform.localScale = Vector3.one;
             }
         }
+        public void PlayWeaponChamberingAnimation()
+        {
+            if (Entity.EntityBag.Weapons.Count > Entity.EntityBag.CurrentWeapon)
+                Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].PlayWeaponChamberingAnimation();
+        }
+        public void PlayWeaponChamberingFromEmptyAnimation()
+        {
+            if (Entity.EntityBag.Weapons.Count > Entity.EntityBag.CurrentWeapon)
+                Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].PlayWeaponChamberingFromEmptyAnimation();
+        }
         public override void Move(Vector2 Movement, float DeltaTime)
         {
             MV = Movement.x;
@@ -194,7 +204,11 @@ namespace Site13Kernel.GameLogic.Character
             if (Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.CurrentMagazine >=
                 Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.MagazineCapacity) yield break;
             ALLOW_FIRE_FLAG_3 = false;
-            var clip = ControlledAnimator.SetTrigger("Reload");
+            Site13AnimationClip clip;
+            if(Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.CurrentMagazine==0)
+                clip = ControlledAnimator.SetTrigger("Reload-Empty");
+            else
+                clip = ControlledAnimator.SetTrigger("Reload");
             yield return new WaitForSeconds(clip.Length);
             ControlledAnimator.LastTrigger = "";
             Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].Reload();

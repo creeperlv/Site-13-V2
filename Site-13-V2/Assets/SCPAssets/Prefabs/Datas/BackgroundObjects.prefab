@@ -513,6 +513,19 @@ MonoBehaviour:
       ID: 0
     WeaponIcon: {fileID: 21300000, guid: c65f0923aa55d2d41b01ead5194215ea, type: 3}
     WeaponMaterial: {fileID: 2100000, guid: 845a665888367bf4794d5a77c027e466, type: 2}
+  - Name: FSR-S5
+    NameFallback: FSR-S5
+    FPSPrefab:
+      useString: 1
+      Key: FSP-S6-FPS
+      ID: 0
+    NPCPrefab: {fileID: 0}
+    PickablePrefab:
+      useString: 1
+      Key: FSP-S6-PICKUPABLE
+      ID: 0
+    WeaponIcon: {fileID: 21300000, guid: f980204f905cf724da0b7b4346787eb1, type: 3}
+    WeaponMaterial: {fileID: 2100000, guid: b14ae7127b0d3b8409b8f7b5f416162e, type: 2}
   - Name: FSR-S3-AUTO
     NameFallback: FSR-S3-I7 (Auto)
     FPSPrefab:
@@ -1929,6 +1942,7 @@ MonoBehaviour:
   isUIControl: 0
   UseInputProcessor: 1
   ControlledBehaviorWorkflow: 1
+  InvokeMinTime: 0.2
 --- !u!1 &3611489012313320154
 GameObject:
   m_ObjectHideFlags: 0

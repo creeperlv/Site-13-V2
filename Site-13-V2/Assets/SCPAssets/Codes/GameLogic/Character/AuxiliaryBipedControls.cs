@@ -48,6 +48,14 @@ namespace Site13Kernel.GameLogic.Character
         {
             meleeArea.StartDetection();
         }
+        public void PlayWeaponChamberingAnimation()
+        {
+            BindedController.PlayWeaponChamberingAnimation();
+        }
+        public void PlayWeaponChamberingFromEmptyAnimation()
+        {
+            BindedController.PlayWeaponChamberingFromEmptyAnimation();
+        }
         public void ThrowAGrenade()
         {
             {

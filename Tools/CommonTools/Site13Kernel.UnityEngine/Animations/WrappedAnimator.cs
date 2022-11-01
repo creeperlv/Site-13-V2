@@ -58,6 +58,16 @@ namespace Site13Kernel.Animations
             }
             ControlledAnimator.SetTrigger(LastTrigger);
         }
+        public void SetTrigger(Site13AnimationClip site13AnimationClip)
+        {
+            SetClip(site13AnimationClip);
+        }
+        public Site13AnimationClip SetTrigger(string TriggerName,float Length, bool WaitUntilDone)
+        {
+            var clip=new Site13AnimationClip { Trigger=TriggerName,Length= Length ,WaitUntilDone   =WaitUntilDone};
+            SetClip(clip);
+            return clip;
+        }
         public Site13AnimationClip SetTrigger(string TriggerName)
         {
             if (LastTrigger == TriggerName) return null;

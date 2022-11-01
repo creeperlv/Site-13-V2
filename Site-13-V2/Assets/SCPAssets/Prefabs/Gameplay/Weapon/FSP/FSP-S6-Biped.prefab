@@ -440,7 +440,7 @@ MonoBehaviour:
     WeaponFireType0: 1
     WeaponFireType1: 1
   AnimationCollectionName: FSP-S6
-  CrossHairID: 2
+  CrossHairID: 5
   ZoomID: 2
   ZoomScale: 1.25
   WeaponAnimation:
@@ -462,8 +462,13 @@ MonoBehaviour:
       WaitUntilDone: 0
   Trigger_Idle: Idle
   Trigger_Fire: Fire
+  Trigger_Fire_Length: 0.166666
   Trigger_Overheat: 
   Trigger_Vent: 
+  Trigger_Empty: Empty
+  Trigger_Chambering: Chambering
+  Trigger_Chambering_Length: 0.25
+  Trigger_ChamberingFromEmpty: 
   AmmoDispType: 0
   AmmoRenderers: []
   AmmoDispTexts: []
@@ -502,11 +507,11 @@ MonoBehaviour:
   AttachedColliders:
   - {fileID: 5377773661466558276}
   - {fileID: 389807500031184006}
-  FireInterval: 0.05
+  FireInterval: 0.06
   Recoil: 0
-  SingleFireRecoil: 0.2
+  SingleFireRecoil: 0.1
   MaxRecoil: 1
-  RecoilRecoverSpeed: 5
+  RecoilRecoverSpeed: 0.5
   MaxScatterAngle: 2
   MaxScatterAngleAimMode: 3
   ControlledBehaviorWorkflow: 0
