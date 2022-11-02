@@ -45,7 +45,7 @@ namespace Site13Kernel.UI.HUD
 
         public Image E_HUD_ICON;
         public Text E_HUD_COUNT;
-        public ProgressBar HeadIndicator;
+        public ProgressBar HeatIndicator;
         public TextMeshProUGUI IteractHint;
 
         public CanvasGroup TotalHUD;

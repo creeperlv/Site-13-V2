@@ -48,6 +48,14 @@ namespace Site13Kernel.GameLogic.Character
         {
             meleeArea.StartDetection();
         }
+        public void PlayWeaponReloadSound()
+        {
+            BindedController.PlayWeaponReloadSound();
+        }
+        public void PlayWeaponReloadSoundWithEmpty()
+        {
+            BindedController.PlayWeaponReloadSoundWithEmpty();
+        }
         public void PlayWeaponChamberingAnimation()
         {
             BindedController.PlayWeaponChamberingAnimation();

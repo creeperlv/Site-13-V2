@@ -165,6 +165,16 @@ namespace Site13Kernel.GameLogic.Character
                 Side.transform.localScale = Vector3.one;
             }
         }
+        public void PlayWeaponReloadSound()
+        {
+            if (Entity.EntityBag.Weapons.Count > Entity.EntityBag.CurrentWeapon)
+                Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].PlayReloadSound();
+        }
+        public void PlayWeaponReloadSoundWithEmpty()
+        {
+            if (Entity.EntityBag.Weapons.Count > Entity.EntityBag.CurrentWeapon)
+                Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].PlayReloadSoundWithEmpty();
+        }
         public void PlayWeaponChamberingAnimation()
         {
             if (Entity.EntityBag.Weapons.Count > Entity.EntityBag.CurrentWeapon)

@@ -55,6 +55,9 @@ namespace Site13Kernel.GameLogic.FPS
         public PrefabReference EffectPrefab;
         public PrefabReference BulletHitEffect;
         public PrefabReference EjectionPrefab;
+        [Header("Sound Effects")]
+        public AudioSource ReloadSFX;
+        public AudioSource ReloadFromEmptySFX;
         [Header("Effects")]
         public Transform FirePoint;
         public Transform CurrentFirePoint;
@@ -154,7 +157,7 @@ namespace Site13Kernel.GameLogic.FPS
                     //Debug.Log(RecoilAngle);
 
                     if (WeaponAnimation != null)
-                        WeaponAnimation.SetTrigger(Trigger_Fire,Trigger_Fire_Length,true);
+                        WeaponAnimation.SetTrigger(Trigger_Fire, Trigger_Fire_Length, true);
                     WeaponAnimation.LastTrigger = "";
                     WeaponData.CurrentHeat += WeaponData.HeatPerShot;
                     if (WeaponData.CurrentHeat > WeaponData.MaxHeat)
@@ -296,7 +299,7 @@ namespace Site13Kernel.GameLogic.FPS
         }
         public void PlayWeaponChamberingAnimation()
         {
-            this.WeaponAnimation.SetTrigger(Trigger_Chambering, Trigger_Chambering_Length,true);
+            this.WeaponAnimation.SetTrigger(Trigger_Chambering, Trigger_Chambering_Length, true);
         }
         public void PlayWeaponChamberingFromEmptyAnimation()
         {
@@ -324,6 +327,16 @@ namespace Site13Kernel.GameLogic.FPS
         }
         float CountDown;
         float SemiCountDown;
+        public void PlayReloadSound()
+        {
+            if (ReloadSFX != null)
+                ReloadSFX.Play();
+        }
+        public void PlayReloadSoundWithEmpty()
+        {
+            if (ReloadFromEmptySFX != null)
+                ReloadFromEmptySFX.Play();
+        }
         public void Reload()
         {
 

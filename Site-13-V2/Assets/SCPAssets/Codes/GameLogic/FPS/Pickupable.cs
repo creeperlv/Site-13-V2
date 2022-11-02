@@ -341,14 +341,14 @@ namespace Site13Kernel.GameLogic.FPS
         internal void ____ObtainRemaining(GenericWeapon GW)
         {
             var PW = GW.WeaponData;
-            if (PW.WeaponID != GW.WeaponData.WeaponID)
+            var Weapon = AssociatedGenericWeapon.WeaponData;
+            if (Weapon.WeaponID != GW.WeaponData.WeaponID)
             {
                 return;
             }
             var DELTA = PW.MaxCapacity - PW.CurrentBackup;
             if (DELTA > 0)
             {
-                var Weapon = AssociatedGenericWeapon.WeaponData;
                 var ADDUP0 = Mathf.Min(DELTA, Weapon.CurrentBackup);
                 Weapon.CurrentBackup -= ADDUP0;
 
