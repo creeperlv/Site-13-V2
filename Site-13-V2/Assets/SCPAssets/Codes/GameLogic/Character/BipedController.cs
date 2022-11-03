@@ -467,6 +467,19 @@ namespace Site13Kernel.GameLogic.Character
                 OnFrame(DeltaTime, UnscaledDeltaTime);
             }
         }
+        public override void SwitchEquipment()
+        {
+            var K = EquipmentManifest.Instance.EqupimentMap.Keys.ToList();
+            var i = K.IndexOf(Entity.EntityBag.CurrentEquipment);
+            if (i + 1 < K.Count)
+            {
+                Entity.EntityBag.CurrentEquipment = K[i + 1];
+            }
+            else
+            {
+                Entity.EntityBag.CurrentEquipment = K[0];
+            }
+        }
         void Rotation(float DT)
         {
 

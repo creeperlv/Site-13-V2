@@ -305,9 +305,9 @@ MonoBehaviour:
   DistanceMode: 1
   isOperating: 0
   isCollision: 0
-  OperateHint: 
-  OperateHintFallBack: Press <sprite=1 tint=1> to pick up Foundation Standard Rifle
-    Series 3
+  UseNewHint: 1
+  OperateHint: Operations.Pickup
+  OperateHintFallBack: Press <sprite=1 tint=1> to pick up {0}
   ItemType: 0
   Weapon:
     WeaponID: FSSR-SM7
@@ -596,8 +596,13 @@ MonoBehaviour:
       WaitUntilDone: 0
   Trigger_Idle: 
   Trigger_Fire: 
+  Trigger_Fire_Length: 0.166666
   Trigger_Overheat: 
   Trigger_Vent: 
+  Trigger_Empty: 
+  Trigger_Chambering: 
+  Trigger_Chambering_Length: 0.25
+  Trigger_ChamberingFromEmpty: 
   AmmoDispType: 1
   AmmoRenderers:
   - {fileID: 569944197466538776}
@@ -624,6 +629,8 @@ MonoBehaviour:
     useString: 0
     Key: 
     ID: 0
+  ReloadSFX: {fileID: 0}
+  ReloadFromEmptySFX: {fileID: 0}
   FirePoint: {fileID: 2634940716645646431}
   CurrentFirePoint: {fileID: 2634940716645646431}
   EffectPoint: {fileID: 2634940716645646431}

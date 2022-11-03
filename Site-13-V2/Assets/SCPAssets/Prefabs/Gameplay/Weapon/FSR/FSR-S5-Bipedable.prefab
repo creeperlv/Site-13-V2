@@ -141,6 +141,8 @@ MonoBehaviour:
     useString: 0
     Key: 
     ID: 0
+  ReloadSFX: {fileID: 0}
+  ReloadFromEmptySFX: {fileID: 0}
   FirePoint: {fileID: 3544369606785307766}
   CurrentFirePoint: {fileID: 3544369606785307766}
   EffectPoint: {fileID: 3544369606785307766}
@@ -403,9 +405,9 @@ MonoBehaviour:
   DistanceMode: 1
   isOperating: 0
   isCollision: 0
-  OperateHint: 
-  OperateHintFallBack: Press <sprite=1 tint=1> to pick up Foundation Standard Rifle
-    Series 3
+  UseNewHint: 1
+  OperateHint: Operations.Pickup
+  OperateHintFallBack: Press <sprite=1 tint=1> to pick up {0}
   ItemType: 0
   Weapon:
     WeaponID: FSMR-SM2

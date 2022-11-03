@@ -6,6 +6,7 @@ using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.UI.HUD;
 using System;
+using UnityEditor;
 
 namespace Site13Kernel.GameLogic.Character
 {
@@ -31,6 +32,13 @@ namespace Site13Kernel.GameLogic.Character
         void InvokeWeaponChange(GenericWeapon gw)
         {
             WeaponChange();
+            if(Interactor.Interactive is Pickupable p)
+            {
+                if (p.AssociatedGenericWeapon == gw)
+                {
+                    Interactor.SwapInteractive(null);
+                }
+            }
             if (OnWeaponChange != null) { OnWeaponChange(); }
         }
         void WeaponChange()

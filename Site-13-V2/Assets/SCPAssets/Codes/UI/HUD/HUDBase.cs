@@ -56,8 +56,10 @@ namespace Site13Kernel.UI.HUD
         public float ToggleScale = 0.5f;
         public Transform IndicatorHolder;
         public PrefabReference Indicator;
+        public GameObject OnShow;
         int LastWeaponID = -1;
         int LastZoomID = -1;
+        bool __s;
         public override void Init()
         {
             Instance = this;
@@ -91,7 +93,26 @@ namespace Site13Kernel.UI.HUD
         }
         public override void Refresh(float DT, float UDT)
         {
-            if (Show)
+            bool _s = Show;
+            if (UseBipedEntity)
+            {
+                
+                _s = _s & TakeControl.Instance != null;
+            }
+            if (__s != _s)
+            {
+                __s = _s;
+                if (OnShow != null)
+                {
+                    if (__s)
+                    {
+                        OnShow.SetActive(true);
+                    }
+                    else
+                        OnShow.SetActive(false);
+                }
+            }
+            if (_s)
             {
                 if (TotalHUD.alpha != 1)
                 {
@@ -115,6 +136,7 @@ namespace Site13Kernel.UI.HUD
                     }
                 }
             }
+            if (TotalHUD.alpha == 0) return;
             {
                 BioEntity entity = null;
                 if (UseBipedEntity)

@@ -1,3 +1,4 @@
+using CLUNL.Localization;
 using Site13Kernel.Core;
 using Site13Kernel.Core.Interactives;
 using Site13Kernel.Data;
@@ -65,7 +66,7 @@ namespace Site13Kernel.GameLogic.FPS
         }
         private void OnEnable()
         {
-            NotifyWeaponAmmo();
+            //NotifyWeaponAmmo();
         }
         void OperateV2(float DeltaTime, float UnscaledDeltaTime, DamagableEntity Operator)
         {
@@ -337,6 +338,14 @@ namespace Site13Kernel.GameLogic.FPS
 
         public void Load(IData data)
         {
+        }
+        public override LocalizedString Hint
+        {
+            get {
+                return new LocalizedString(OperateHint, OperateHintFallBack, Language.Find(AssociatedGenericWeapon.WeaponData.WeaponID + ".DispName",
+                        WeaponPool.CurrentPool.WeaponItemMap[AssociatedGenericWeapon.WeaponData.WeaponID].NameFallback));
+            }
+            set => base.Hint = value;
         }
         internal void ____ObtainRemaining(GenericWeapon GW)
         {

@@ -58,6 +58,7 @@ namespace Site13Kernel.GameLogic.Controls
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Interact()
         {
+            if(Interactive!=null)
             IInvoke(Interactive, 0, 0);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -103,7 +104,13 @@ namespace Site13Kernel.GameLogic.Controls
             if (Interactive != null)
             {
                 __hint = true;
-                Hint = new LocalizedString(Interactive.OperateHint, Interactive.OperateHintFallBack);
+                if (Interactive.UseNewHint)
+                {
+                    Hint = Interactive.Hint;
+
+                }
+                else
+                    Hint = new LocalizedString(Interactive.OperateHint, Interactive.OperateHintFallBack);
                 //if (InteractHint != null)
                 //{
                 //    InteractHint.Visibility = true;

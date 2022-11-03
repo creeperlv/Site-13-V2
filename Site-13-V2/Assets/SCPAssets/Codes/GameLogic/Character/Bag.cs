@@ -13,6 +13,7 @@ namespace Site13Kernel.GameLogic.Character
         public int CurrentWeapon;
         public Dictionary<int,ProcessedGrenade> Grenades = new Dictionary<int, ProcessedGrenade>();
         public int CurrentGrenade;
+        public int CurrentEquipment;
         public Site13Event OnUseWeapon = new Site13Event();
         public Site13Event<GenericWeapon> OnObtainWeapon = new Site13Event<GenericWeapon>();
         public Site13Event<GenericWeapon> OnDropWeapon = new Site13Event<GenericWeapon>();
