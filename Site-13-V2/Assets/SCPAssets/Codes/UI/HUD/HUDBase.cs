@@ -208,6 +208,7 @@ namespace Site13Kernel.UI.HUD
                                 {
                                     TargetCrosshair = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon].CrossHairID;
                                     TargetZoom = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon].ZoomID;
+                                    HeatIndicator.Value = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon].WeaponData.CurrentHeat;
                                 }
                                 else
                                 {

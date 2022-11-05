@@ -45,7 +45,7 @@ namespace Site13Kernel.GameLogic.FPS
         public virtual void Hit(Collider collision)
         {
             var Hittable = collision.gameObject.GetComponent<IHittable>();
-
+            if (collision.gameObject.GetComponent<MeleeArea>() != null) return;
 
             if (Hittable != null)
             {

@@ -26,6 +26,7 @@ namespace Site13Kernel.GameLogic.FPS
         {
             var Hittable = collision.gameObject.GetComponent<IHittable>();
 
+            if (collision.gameObject.GetComponent<MeleeArea>() != null) return;
 
             if (Hittable != null)
             {
@@ -65,6 +66,7 @@ namespace Site13Kernel.GameLogic.FPS
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Hit(Collider collision)
         {
+            if (collision.gameObject.GetComponent<MeleeArea>() != null) return;
             if (CauseDamage)
                 AlteredHit(collision);
             else

@@ -19,10 +19,12 @@ namespace Site13Kernel.GameLogic.FPS
     public class GenericWeapon : ControlledBehavior
     {
         public Weapon WeaponData;
+        [Header("HUD Related")]
         public string AnimationCollectionName;
         public int CrossHairID;
         public int ZoomID;
         public float ZoomScale = 1;
+        public bool ShowWeaponCamInZoom;
         [Header("Animations")]
         public WrappedAnimator WeaponAnimation;
         public string Trigger_Idle;
@@ -151,7 +153,7 @@ namespace Site13Kernel.GameLogic.FPS
                     //{
                     //    OnCurrentMagChanged(WeaponData.CurrentMagazine);
                     //}
-                    Quaternion Rotation = this.transform.rotation;
+                    Quaternion Rotation = CurrentFirePoint.rotation;
                     Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode), Camera.main.fieldOfView);
                     Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
                     //Debug.Log(RecoilAngle);

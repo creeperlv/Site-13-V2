@@ -42,7 +42,7 @@ namespace Site13Kernel.Animations
                         return;
                     }
             AccumulativeTime = 0;
-            CurrentClip = clip;
+            CurrentClip = clip.Duplicate();
             NextClip = null;
             LastTrigger = clip.Trigger;
             ControlledAnimator.SetTrigger(LastTrigger);

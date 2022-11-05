@@ -215,7 +215,7 @@ namespace Site13Kernel.GameLogic.Character
                 Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.MagazineCapacity) yield break;
             ALLOW_FIRE_FLAG_3 = false;
             Site13AnimationClip clip;
-            if(Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.CurrentMagazine==0)
+            if (Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].WeaponData.CurrentMagazine == 0)
                 clip = ControlledAnimator.SetTrigger("Reload-Empty");
             else
                 clip = ControlledAnimator.SetTrigger("Reload");
@@ -325,12 +325,15 @@ namespace Site13Kernel.GameLogic.Character
             {
                 Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].AimingMode = 1;
                 MainCamera.Instance.TargetScale = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].ZoomScale;
-            }
-            if (IsFPSBiped)
-            {
-                if (WeaponLayerCamera.Instance.RealCamera.enabled == true)
-                    WeaponLayerCamera.Instance.RealCamera.enabled = false;
-                return;
+                WeaponLayerCamera.Instance.TargetScale = 2;
+                if (IsFPSBiped)
+                {
+                    if (!Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].ShowWeaponCamInZoom)
+
+                        if (WeaponLayerCamera.Instance.RealCamera.enabled == true)
+                            WeaponLayerCamera.Instance.RealCamera.enabled = false;
+                    return;
+                }
             }
             ControlledAnimator.SetTrigger("Zoom");
         }
@@ -340,6 +343,7 @@ namespace Site13Kernel.GameLogic.Character
             {
                 Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].AimingMode = 0;
                 MainCamera.Instance.TargetScale = 1;
+                WeaponLayerCamera.Instance.TargetScale = 1;
             }
             if (IsFPSBiped)
             {
@@ -358,6 +362,8 @@ namespace Site13Kernel.GameLogic.Character
                 Entity.EntityBag.CurrentWeapon = (Entity.EntityBag.CurrentWeapon == 1 ? 0 : 1);
             Entity.OnSwapWeapon.Invoke();
             CancelZoom();
+            ControlledAnimator.LastTrigger = "";
+            ControlledAnimator.CurrentClip.WaitUntilDone = false;
             StartCoroutine(__TakeoutAnimation());
         }
         IEnumerator __TakeoutAnimation()
@@ -365,6 +371,8 @@ namespace Site13Kernel.GameLogic.Character
             ALLOW_FIRE_FLAG_1 = false;
             yield return null;
             var clip = ControlledAnimator.SetTrigger("Takeout");
+            if (clip.Length > 0)
+                clip.WaitUntilDone = true;
             yield return new WaitForSeconds(clip.Length);
             ControlledAnimator.LastTrigger = "";
             ALLOW_FIRE_FLAG_1 = true;
