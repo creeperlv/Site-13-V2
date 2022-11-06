@@ -704,9 +704,66 @@ Transform:
   - {fileID: 19597395745989316}
   - {fileID: 19597396690800756}
   - {fileID: 19597395493684005}
+  - {fileID: 3757096488097926949}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &7175508253524578281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3757096488097926949}
+  - component: {fileID: 5807130073783031796}
+  m_Layer: 0
+  m_Name: Audio Reverb Zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3757096488097926949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175508253524578281}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 562711116695019091}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!167 &5807130073783031796
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175508253524578281}
+  m_Enabled: 1
+  m_MinDistance: 20
+  m_MaxDistance: 25.26
+  m_ReverbPreset: 14
+  m_Room: -1000
+  m_RoomHF: -237
+  m_DecayTime: 2.7
+  m_DecayHFRatio: 0.79
+  m_Reflections: -1214
+  m_ReflectionsDelay: 0.013
+  m_Reverb: 395
+  m_ReverbDelay: 0.02
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1001 &562711114634917791
 PrefabInstance:
   m_ObjectHideFlags: 0

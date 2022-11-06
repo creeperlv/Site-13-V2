@@ -20,6 +20,7 @@ namespace Site13Kernel.GameLogic.Controls
         public bool Crouch;
         public bool Jump;
         public bool Sprint;
+        public bool FlashLight;
 
     }
 

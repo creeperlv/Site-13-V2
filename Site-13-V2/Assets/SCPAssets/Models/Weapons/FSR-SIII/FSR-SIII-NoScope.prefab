@@ -50,7 +50,6 @@ GameObject:
   - component: {fileID: 4239683159497393550}
   - component: {fileID: 6690853898118614851}
   - component: {fileID: 1005369867662502856}
-  - component: {fileID: 6446421856655965280}
   m_Layer: 0
   m_Name: Quad_001
   m_TagString: Untagged
@@ -123,20 +122,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6446421856655965280
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139842769057157024}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2156159531381835763
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +153,7 @@ Transform:
   m_Children:
   - {fileID: 6922151595968157111}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2749638321735138733
 MonoBehaviour:
@@ -246,7 +231,6 @@ GameObject:
   - component: {fileID: 8366891810139495107}
   - component: {fileID: 4665439290244731001}
   - component: {fileID: 5200833523419285328}
-  - component: {fileID: 5319248286446437349}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -319,26 +303,12 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5319248286446437349
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8894874917280862085}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &189728020238008760
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6922151595968157111}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 65b7fe439e5dd0546aeeb17fc0931b67, type: 3}
@@ -394,6 +364,7 @@ PrefabInstance:
       value: FSR-SIII-Body
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65b7fe439e5dd0546aeeb17fc0931b67, type: 3}
       insertIndex: -1
@@ -401,6 +372,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65b7fe439e5dd0546aeeb17fc0931b67, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4239683159497393550}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65b7fe439e5dd0546aeeb17fc0931b67, type: 3}
 --- !u!4 &371746927576147539 stripped
 Transform:
@@ -417,7 +389,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6922151595968157111}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b41b9e65154cddd48b71014c649c4caa, type: 3}
@@ -469,7 +441,9 @@ PrefabInstance:
       value: FSR-SIII-Grip
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b41b9e65154cddd48b71014c649c4caa, type: 3}
 --- !u!4 &601587735852315132 stripped
 Transform:
@@ -486,7 +460,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6922151595968157111}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a2bb36443508e784a94f48e9daa50fa6, type: 3}
@@ -538,7 +512,9 @@ PrefabInstance:
       value: FSR-SIII-Trigger
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2bb36443508e784a94f48e9daa50fa6, type: 3}
 --- !u!4 &1671850830948595194 stripped
 Transform:
@@ -555,7 +531,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6922151595968157111}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 53db876368d456143ab6561d5d8ed534, type: 3}
@@ -607,7 +583,9 @@ PrefabInstance:
       value: FSR-SIII-Barrel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53db876368d456143ab6561d5d8ed534, type: 3}
 --- !u!4 &3079013620042848117 stripped
 Transform:
@@ -624,7 +602,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6922151595968157111}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 189b339807726a24d855370f637cbbd6, type: 3}
@@ -676,7 +654,9 @@ PrefabInstance:
       value: FSR-SIII-Buttstock
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 189b339807726a24d855370f637cbbd6, type: 3}
 --- !u!4 &3093616638048200358 stripped
 Transform:
@@ -693,7 +673,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6922151595968157111}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a826775b31cf07145af2adde0679a5c8, type: 3}
@@ -745,7 +725,9 @@ PrefabInstance:
       value: FSR-SIII-Sliencer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a826775b31cf07145af2adde0679a5c8, type: 3}
 --- !u!23 &1146614776797012870 stripped
 MeshRenderer:
@@ -762,7 +744,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6922151595968157111}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d714526e0129edc49b0b57923a65b8d6, type: 3}
@@ -814,7 +796,9 @@ PrefabInstance:
       value: FSR-SIII-Bolt
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d714526e0129edc49b0b57923a65b8d6, type: 3}
 --- !u!4 &6174801899846167066 stripped
 Transform:
@@ -831,7 +815,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6922151595968157111}
     m_Modifications:
     - target: {fileID: 4081237569085894837, guid: c5646010d0074c0448972e0dc661a8a5, type: 3}
@@ -883,7 +867,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5646010d0074c0448972e0dc661a8a5, type: 3}
 --- !u!4 &2668579678184068126 stripped
 Transform:

@@ -63,6 +63,7 @@ namespace Site13Kernel.GameLogic.Character
         public bool SmoothCamFollow = false;
         public bool isPlayer;
         public bool IsFPSBiped;
+        public GameObject FlashLightObject;
         public KVList<int, GameObject> Grenades = new KVList<int, GameObject>();
         public Dictionary<int, GameObject> _Grenades;
         float MH;
@@ -315,6 +316,8 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void Zoom()
         {
+            if (Zoomed) return;
+            Zoomed = true;
             if (SpeedMultiplyer == SprintMultiplyer)
                 CancelRun();
             if (!ALLOW_FIRE_FLAG_1) return;
@@ -337,8 +340,11 @@ namespace Site13Kernel.GameLogic.Character
             }
             ControlledAnimator.SetTrigger("Zoom");
         }
+        bool Zoomed = false;
         public override void CancelZoom()
         {
+            if(Zoomed== false) return;
+            Zoomed = false;
             if (Entity.EntityBag.Weapons.Count > 0)
             {
                 Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon].AimingMode = 0;
@@ -377,6 +383,10 @@ namespace Site13Kernel.GameLogic.Character
             ControlledAnimator.LastTrigger = "";
             ALLOW_FIRE_FLAG_1 = true;
 
+        }
+        public override void FlashLight()
+        {
+            FlashLightObject.SetActive(!FlashLightObject.activeSelf);
         }
         public override void Run()
         {

@@ -27,6 +27,10 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
+        public virtual void FlashLight()
+        {
+
+        }
         public virtual void Melee()
         {
 
