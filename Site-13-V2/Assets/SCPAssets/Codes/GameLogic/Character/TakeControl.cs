@@ -6,6 +6,7 @@ using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.UI.HUD;
 using System;
+using Unity.Burst.CompilerServices;
 using UnityEditor;
 
 namespace Site13Kernel.GameLogic.Character
@@ -17,13 +18,13 @@ namespace Site13Kernel.GameLogic.Character
         public BipedController controller;
         public ActiveInteractor Interactor;
         public BipedEntity entity;
-        public Action OnWeaponChange=null;
+        public Action OnWeaponChange = null;
         public void OnEnable()
         {
             Instance = this;
             controller = GetComponentInChildren<BipedController>();
             entity = GetComponentInChildren<BipedEntity>();
-            entity.isTookControl= true;
+            entity.isTookControl = true;
             entity.EntityBag.OnObtainWeapon.Add(InvokeWeaponChange);
             entity.EntityBag.OnDropWeapon.Add(InvokeWeaponChange);
             entity.OnSwapWeapon.Add(WeaponChange);
@@ -32,11 +33,15 @@ namespace Site13Kernel.GameLogic.Character
         void InvokeWeaponChange(GenericWeapon gw)
         {
             WeaponChange();
-            if(Interactor.Interactive is Pickupable p)
+            if (Interactor.Interactive is Pickupable p)
             {
-                if (p.AssociatedGenericWeapon == gw)
+                Debug.Log("Is same weapon?" + (p.AssociatedGenericWeapon.WeaponData.WeaponID == gw.WeaponData.WeaponID));
+                Debug.Log("INT:" + p.AssociatedGenericWeapon.WeaponData.WeaponID);
+                Debug.Log("GW:" + gw.WeaponData.WeaponID);
+                if (p.AssociatedGenericWeapon.WeaponData.WeaponID == gw.WeaponData.WeaponID)
                 {
-                    Interactor.SwapInteractive(null);
+                    Interactor.__hint = true;
+                    Interactor.Hint = new LocalizedString(string.Empty, string.Empty);
                 }
             }
             if (OnWeaponChange != null) { OnWeaponChange(); }
@@ -72,7 +77,7 @@ namespace Site13Kernel.GameLogic.Character
         }
         public void StopTakeControl()
         {
-            entity.isTookControl= false;
+            entity.isTookControl = false;
 
         }
     }

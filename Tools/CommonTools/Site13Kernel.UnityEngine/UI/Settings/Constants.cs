@@ -20,5 +20,7 @@ namespace Site13Kernel.UI.Settings
         public const string UseAlternativeSCPLogo= "Special.UseAlternativeSCPLogo";
         public const string Control_MouseSensitivity = "Control.MouseSensitivity";
         public const string Control_SwitchRun = "Control.SwitchRun";
+        public const string Control_SwitchCrouch = "Control.SwitchCrouch";
+        public const string Control_SwitchZoom = "Control.SwitchZoom";
     }
 }

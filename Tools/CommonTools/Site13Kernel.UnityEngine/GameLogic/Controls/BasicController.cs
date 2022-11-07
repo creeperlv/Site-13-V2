@@ -91,6 +91,9 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
+        public virtual bool isRunning => false;
+        public virtual bool isCrouching => false;
+        public virtual bool isAiming => false;
         public virtual void CancelInteract()
         {
 

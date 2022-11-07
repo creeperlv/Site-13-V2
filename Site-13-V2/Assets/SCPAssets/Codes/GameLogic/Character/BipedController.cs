@@ -314,6 +314,7 @@ namespace Site13Kernel.GameLogic.Character
             ALLOW_FIRE_FLAG_4 = true;
 
         }
+        public override bool isRunning => SpeedMultiplyer == SprintMultiplyer;
         public override void Zoom()
         {
             if (Zoomed) return;
@@ -341,9 +342,10 @@ namespace Site13Kernel.GameLogic.Character
             ControlledAnimator.SetTrigger("Zoom");
         }
         bool Zoomed = false;
+        public override bool isAiming => Zoomed;
         public override void CancelZoom()
         {
-            if(Zoomed== false) return;
+            if (Zoomed == false) return;
             Zoomed = false;
             if (Entity.EntityBag.Weapons.Count > 0)
             {
@@ -407,6 +409,8 @@ namespace Site13Kernel.GameLogic.Character
             if (SpeedMultiplyer == SprintMultiplyer)
                 SpeedMultiplyer = 1;
         }
+        public override bool isCrouching =>
+            SpeedMultiplyer == CrouchMultiplyer;
         public override void Crouch()
         {
             //CancelRun();

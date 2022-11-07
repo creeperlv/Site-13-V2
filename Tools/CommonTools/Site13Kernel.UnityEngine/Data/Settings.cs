@@ -28,6 +28,9 @@ namespace Site13Kernel.Data
         public bool SwitchRun = false;
         public string LanguageCode = "en-US";
         public bool useAlternativeFoundationLogo = false;
+        public bool ToggleSprint;
+        public bool ToggleCrouch;
+        public bool ToggleAim;
         internal static JsonSerializerSettings settings = new JsonSerializerSettings
         {
             NullValueHandling = NullValueHandling.Ignore,

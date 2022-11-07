@@ -11,12 +11,14 @@ namespace Site13Kernel.GameLogic.Controls
     {
         public static GenericInputControl Instance;
         public bool isUIControl;
+        public bool ToggleRun = true;
         public bool UseInputProcessor;
         public bool ControlledBehaviorWorkflow;
         float AccumulativeInvokeTime = 0;
         public float InvokeMinTime = 0.2f;
         bool ZOOM_FLG_0 = false;
         bool GRENAGE_FLAG = false;
+
         public void Start()
         {
             Instance = this;
@@ -57,6 +59,11 @@ namespace Site13Kernel.GameLogic.Controls
         public void UIControl(float deltaTime, float unscaledDeltaTime)
         {
 
+            if (Cursor.lockState != CursorLockMode.None)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
         public void GenericControllerControl(float deltaTime, float unscaledDeltaTime)
         {
@@ -77,13 +84,31 @@ namespace Site13Kernel.GameLogic.Controls
                 }
                 if (controller.ControllerFunctions.Sprint)
                 {
-                    if (InputProcessor.GetInputDown("Run"))
+                    if (Settings.CurrentSettings.ToggleSprint)
                     {
-                        controller.Run();
+
+                        if (InputProcessor.GetInputDown("Run"))
+                        {
+                            if (controller.isRunning)
+                            {
+                                controller.CancelRun();
+
+                            }
+                            else
+                                controller.Run();
+                        }
                     }
-                    else if (InputProcessor.GetInputUp("Run"))
+                    else
                     {
-                        controller.CancelRun();
+
+                        if (InputProcessor.GetInputDown("Run"))
+                        {
+                            controller.Run();
+                        }
+                        else if (InputProcessor.GetInputUp("Run"))
+                        {
+                            controller.CancelRun();
+                        }
                     }
                 }
                 if (controller.ControllerFunctions.Jump)
@@ -95,13 +120,28 @@ namespace Site13Kernel.GameLogic.Controls
                 }
                 if (controller.ControllerFunctions.Crouch)
                 {
-                    if (InputProcessor.GetInputDown("Crouch"))
+                    if (Settings.CurrentSettings.ToggleCrouch)
                     {
-                        controller.Crouch();
+                        if (InputProcessor.GetInputDown("Crouch"))
+                        {
+                            if (controller.isCrouching)
+                            {
+                                controller.CancelCrouch();
+                            }
+                            else
+                                controller.Crouch();
+                        }
                     }
-                    else if (InputProcessor.GetInputUp("Crouch"))
+                    else
                     {
-                        controller.CancelCrouch();
+                        if (InputProcessor.GetInputDown("Crouch"))
+                        {
+                            controller.Crouch();
+                        }
+                        else if (InputProcessor.GetInputUp("Crouch"))
+                        {
+                            controller.CancelCrouch();
+                        }
                     }
                 }
                 if (controller.ControllerFunctions.Interact)
@@ -157,21 +197,48 @@ namespace Site13Kernel.GameLogic.Controls
                 }
                 if (controller.ControllerFunctions.Zoom)
                 {
-
-                    if (InputProcessor.GetInputDown("Zoom"))
+                    if (Settings.CurrentSettings.ToggleAim)
                     {
-                        if (ZOOM_FLG_0 == false)
+                        if (InputProcessor.GetInputDown("Zoom"))
                         {
-                            controller.Zoom();
-                            ZOOM_FLG_0 = true;
+                            if (ZOOM_FLG_0 == false)
+                            {
+                                if (controller.isAiming)
+                                {
+                                    controller.CancelZoom();
+                                }
+                                else
+                                {
+                                    controller.Zoom();
+                                }
+                                ZOOM_FLG_0 = true;
+                            }
+                        }
+                        else if (InputProcessor.GetInputUp("Zoom"))
+                        {
+                            if (ZOOM_FLG_0 == true)
+                            {
+                                ZOOM_FLG_0 = false;
+                            }
                         }
                     }
-                    else if (InputProcessor.GetInputUp("Zoom"))
+                    else
                     {
-                        if (ZOOM_FLG_0 == true)
+                        if (InputProcessor.GetInputDown("Zoom"))
                         {
-                            controller.CancelZoom();
-                            ZOOM_FLG_0 = false;
+                            if (ZOOM_FLG_0 == false)
+                            {
+                                controller.Zoom();
+                                ZOOM_FLG_0 = true;
+                            }
+                        }
+                        else if (InputProcessor.GetInputUp("Zoom"))
+                        {
+                            if (ZOOM_FLG_0 == true)
+                            {
+                                controller.CancelZoom();
+                                ZOOM_FLG_0 = false;
+                            }
                         }
                     }
                 }
@@ -182,7 +249,7 @@ namespace Site13Kernel.GameLogic.Controls
                         if (GRENAGE_FLAG == false)
                         {
                             GRENAGE_FLAG = true;
-                        controller.ThrowGrenade();
+                            controller.ThrowGrenade();
                         }
                     }
                     else
@@ -200,7 +267,7 @@ namespace Site13Kernel.GameLogic.Controls
                         controller.SwitchGrenade();
                     }
                 }
-                if(controller.ControllerFunctions.FlashLight)
+                if (controller.ControllerFunctions.FlashLight)
                 {
                     if (InputProcessor.GetInputDown("FlashLight"))
                     {

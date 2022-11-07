@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic.Controls;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +20,10 @@ namespace Site13Kernel.GameLogic
         public override void Init()
         {
             CurrentDirector = this;
+            if(GenericInputControl.Instance!= null)
+            {
+                GenericInputControl.Instance.isUIControl=false;
+            }
             if (GameRuntime.CurrentGlobals.OneTimeScript != null)
             {
                 StartCoroutine(ExecuteScript(GameRuntime.CurrentGlobals.OneTimeScript));

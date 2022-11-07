@@ -243,6 +243,48 @@ namespace Site13Kernel.UI.Settings
                         }
                     }
                     break;
+                case Constants.Control_SwitchRun:
+                    {
+
+                        __edit.InitValue(Data.Settings.CurrentSettings.ToggleSprint);
+                        __edit.SetCallback((v) =>
+                        {
+                            if (v is bool b)
+                            {
+                                Data.Settings.CurrentSettings.ToggleSprint = b;
+                                Data.Settings.Save();
+                            }
+                        });
+                    }
+                    break;
+                case Constants.Control_SwitchCrouch:
+                    {
+
+                        __edit.InitValue(Data.Settings.CurrentSettings.ToggleCrouch);
+                        __edit.SetCallback((v) =>
+                        {
+                            if (v is bool b)
+                            {
+                                Data.Settings.CurrentSettings.ToggleCrouch = b;
+                                Data.Settings.Save();
+                            }
+                        });
+                    }
+                    break;
+                case Constants.Control_SwitchZoom:
+                    {
+
+                        __edit.InitValue(Data.Settings.CurrentSettings.ToggleAim);
+                        __edit.SetCallback((v) =>
+                        {
+                            if (v is bool b)
+                            {
+                                Data.Settings.CurrentSettings.ToggleAim = b;
+                                Data.Settings.Save();
+                            }
+                        });
+                    }
+                    break;
                 default:
                     break;
             }

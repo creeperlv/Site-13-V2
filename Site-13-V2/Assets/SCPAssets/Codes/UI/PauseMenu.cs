@@ -1,6 +1,7 @@
 using Site13Kernel.Core;
 using Site13Kernel.Core.CustomizedInput;
 using Site13Kernel.GameLogic;
+using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.UI.General;
 using Site13Kernel.UI.Settings;
 using System.Collections;
@@ -19,7 +20,8 @@ namespace Site13Kernel.UI
         public override void Init()
         {
             CurrentMenu = this;
-            SettingsButton.OnClick = () => {
+            SettingsButton.OnClick = () =>
+            {
                 StartCoroutine(WaitAndToSettings());
             };
             Continue.OnClick = () =>
@@ -44,9 +46,11 @@ namespace Site13Kernel.UI
             GlobalBlackCover.RequestShowCover(0.5f, 0.01f, 0.5f);
             yield return new WaitForSecondsRealtime(0.5f);
 
-            SettingsController.Instance.Show(() => {
+            SettingsController.Instance.Show(() =>
+            {
                 GlobalBlackCover.RequestShowCover(0.5f, 0.01f, 0.5f);
-            }, () => {
+            }, () =>
+            {
                 this.gameObject.SetActive(true);
             });
             this.gameObject.SetActive(false);
@@ -68,6 +72,7 @@ namespace Site13Kernel.UI
         public void Toggle(bool b)
         {
             GameRuntime.CurrentGlobals.isPaused = b;
+            GenericInputControl.Instance.isUIControl = b;
             if (b)
             {
                 Time.timeScale = 0;
