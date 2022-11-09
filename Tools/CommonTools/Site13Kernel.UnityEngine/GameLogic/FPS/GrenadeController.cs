@@ -20,13 +20,14 @@ namespace Site13Kernel.GameLogic.FPS
             Parent.RegisterRefresh(this);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Instantiate(PrefabReference gameObject, Vector3 Position, Quaternion Rotation, Vector3 ForceDirection, ForceMode forceMode)
+        public void Instantiate(PrefabReference gameObject, Vector3 Position, Quaternion Rotation, Vector3 ForceDirection, ForceMode forceMode,DamagableEntity Cause=null)
         {
             var GO = ObjectGenerator.Instantiate(gameObject);
             GO.transform.position = Position;
             GO.transform.rotation = Rotation;
             GO.GetComponent<Rigidbody>().AddForce(ForceDirection, forceMode);
             var GRE = GO.GetComponent<ControlledGrenade>();
+            GRE.Cause = Cause;
             GRE.ParentController = this;
             ControlledGrenades.Add(GRE);
         }

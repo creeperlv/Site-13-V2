@@ -10,6 +10,9 @@ namespace Site13Kernel.GameLogic.FPS
     public class ExplosionEffect : BaseEffect
     {
         public ExplosionDefinition explosionDefinition;
+        public DamagableEntity Cause;
+        public bool isGrenadeExplosion;
+        public int ExplosionID;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Init()
         {
@@ -47,7 +50,15 @@ namespace Site13Kernel.GameLogic.FPS
                 var hittable = hit.GetComponent<DamagableEntity>();
                 if (hittable != null)
                 {
-                    hittable.Damage(explosionDefinition.CentralDamage * (MathUtilities.InverseNegativeLerp(0, explosionDefinition.Radius, Distance)));
+                    if (Cause == null)
+                        hittable.Damage(explosionDefinition.CentralDamage * (MathUtilities.InverseNegativeLerp(0, explosionDefinition.Radius, Distance)));
+                    else hittable.Damage(explosionDefinition.CentralDamage * (MathUtilities.InverseNegativeLerp(0, explosionDefinition.Radius, Distance)),
+                        new DamageDescription
+                        {
+                            Origin = Cause,
+                            DamageOriginIntID = ExplosionID,
+                            Type = (isGrenadeExplosion ? DamageType.Grenade : DamageType.Explosion)
+                        });
                 }
             }
         }

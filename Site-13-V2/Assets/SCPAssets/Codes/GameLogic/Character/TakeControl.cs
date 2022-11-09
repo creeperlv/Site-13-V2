@@ -28,7 +28,15 @@ namespace Site13Kernel.GameLogic.Character
             entity.EntityBag.OnObtainWeapon.Add(InvokeWeaponChange);
             entity.EntityBag.OnDropWeapon.Add(InvokeWeaponChange);
             entity.OnSwapWeapon.Add(WeaponChange);
+            entity.OnCauseDamage.Add(CauseDamage);
             Interactor = GetComponent<ActiveInteractor>();
+        }
+        void CauseDamage(DamagableEntity de,bool isDied)
+        {
+            if (isDied)
+            {
+                MedalContainer.Instance.NewMedal(0, 100);
+            }
         }
         void InvokeWeaponChange(GenericWeapon gw)
         {

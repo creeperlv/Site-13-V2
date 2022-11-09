@@ -73,7 +73,7 @@ namespace Site13Kernel.GameLogic.Character
                 GrenadePool.CurrentPool.GrenadeItemMap[BindedEntity.EntityBag.CurrentGrenade].GamePlayPrefab,
                 BindedEntity.GrenadeEmissionPoint.position,
                 BindedEntity.GrenadeEmissionPoint.rotation,
-                BindedEntity.GrenadeEmissionPoint.forward * GrenadeThrowForce, ForceMode.Impulse);
+                BindedEntity.GrenadeEmissionPoint.forward * GrenadeThrowForce, ForceMode.Impulse,BindedEntity);
             BindedEntity.EntityBag.Grenades[BindedEntity.EntityBag.CurrentGrenade].RemainingCount--;
         }
         public void ShakeCamRunStep()

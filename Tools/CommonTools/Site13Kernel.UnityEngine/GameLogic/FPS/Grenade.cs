@@ -13,6 +13,7 @@ namespace Site13Kernel.GameLogic.FPS
         public BaseGrenade baseGrenade;
         public Rigidbody Rigidbody;
         public GrenadeController ParentController;
+        public DamagableEntity Cause;
         float TimeD;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Refresh(float DeltaTime, float UnscaledDeltaTime)
@@ -21,8 +22,10 @@ namespace Site13Kernel.GameLogic.FPS
             if (TimeD >= baseGrenade.DetonationDuration)
             {
                 var effect = EffectController.CurrentEffectController.Spawn(baseGrenade.EffectHashCode, this.transform.position, this.transform.rotation, EffectController.CurrentEffectController.transform);
-                effect.GetComponent<ExplosionEffect>().explosionDefinition = baseGrenade.Explosion;
-                effect.GetComponent<ExplosionEffect>().Explode();
+                var ee = effect.GetComponent<ExplosionEffect>();
+                ee.Cause = Cause;
+                ee.explosionDefinition = baseGrenade.Explosion;
+                ee.Explode();
                 ParentController.DestoryGrenade(this);
             }
         }

@@ -321,7 +321,13 @@ namespace Site13Kernel.GameLogic.FPS
             {
                 OnHit.Invoke();
             }
-            Entity.Damage(Damage);
+            var b = Entity.Damage(Damage, new DamageDescription
+            {
+                Origin = this.Holder,
+                Type = DamageType.GunFire,
+                DamageOriginID = this.WeaponData.WeaponID
+            });
+            //this.Holder.OnCauseDamage.Invoke(Entity,b);
             if (this.Holder.isTookControl)
             {
                 HUDBase.Instance.TryIndicateAHit();

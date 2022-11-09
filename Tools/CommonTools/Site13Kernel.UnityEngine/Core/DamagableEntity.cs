@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace Site13Kernel.Core
 {
-    public class DamagableEntity : AttachableComponent, ICheckpointData, IHittable,IContainsPureData
+    public class DamagableEntity : AttachableComponent, ICheckpointData, IHittable, IContainsPureData
     {
         public string Name;
 
@@ -46,7 +46,8 @@ namespace Site13Kernel.Core
         /// </summary>
         public Action<float, float, float, float, float> OnTakingDamage = null;
         public Action OnShieldDown = null;
-
+        public Site13Event<DamagableEntity, float> OnBeingDamage = new Site13Event<DamagableEntity, float>();
+        public Site13Event<DamagableEntity, bool> OnCauseDamage = new Site13Event<DamagableEntity, bool>();
         public float TimeToSelfDestruction = -1f;
         public float LowestKillPlane = -500f;
 
@@ -78,6 +79,7 @@ namespace Site13Kernel.Core
         {
             CurrentHP = InitHP;
         }
+        public DamageDescription LastCause = null;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual bool Damage(float V)
         {
@@ -87,12 +89,20 @@ namespace Site13Kernel.Core
             CurrentHP = math.max(0, CurrentHP - V);
             if (CurrentHP <= 0)
             {
-                Die();
+                Die(LastCause);
                 return true;
             }
             if (OnTakingDamage != null)
                 OnTakingDamage(V, 0, V, 0, CurrentHP);
             return false;
+        }
+        public virtual bool Damage(float V, DamageDescription Origin)
+        {
+            LastCause = Origin;
+            var v = Damage(V);
+            Origin.Origin.OnCauseDamage.Invoke(this, v);
+            OnBeingDamage.Invoke(Origin.Origin, V);
+            return v;
         }
 
         /// <summary>
@@ -104,7 +114,7 @@ namespace Site13Kernel.Core
         /// Kills the entity no matter how much the current health is.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual void Die()
+        public virtual void Die(DamageDescription Cause = null)
         {
             if (Died) return;
             Died = true;
@@ -118,12 +128,16 @@ namespace Site13Kernel.Core
                 {
                     foreach (var item in DeathReplacements)
                     {
-                        DeathBodyGen(item);
+                        DeathBodyGen(item, Cause);
                     }
                 }
                 else
                 {
-                    DeathBodyGen(new DeathReplacement { TargetPrefab = new PrefabReference { ID = DeathBodyReplacementID }, BodyType = deathBodyType });
+                    DeathBodyGen(new DeathReplacement
+                    {
+                        TargetPrefab = new PrefabReference { ID = DeathBodyReplacementID },
+                        BodyType = deathBodyType
+                    }, Cause);
                 }
             }
             catch (Exception e)
@@ -143,7 +157,7 @@ namespace Site13Kernel.Core
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void DeathBodyGen(DeathReplacement DR)
+        void DeathBodyGen(DeathReplacement DR, DamageDescription Cause = null)
         {
             var deathBodyType = DR.BodyType;
             var DeathBodyReplacementID = DR.TargetPrefab.ID;
@@ -200,6 +214,7 @@ namespace Site13Kernel.Core
                         }
                         else
                             effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
+                        effect.GetComponent<ExplosionEffect>().Cause = Cause.Origin;
                         effect.GetComponent<ExplosionEffect>().Explode();
                     }
                     break;
@@ -253,10 +268,21 @@ namespace Site13Kernel.Core
 
         public void ApplyData(IPureData data)
         {
-            if(data is SerializableDamagableEntity SDE)
+            if (data is SerializableDamagableEntity SDE)
             {
                 CurrentHP = SDE.CurrentHP;
             }
         }
+    }
+    public class DamageDescription {
+        public DamagableEntity Origin;
+        public bool isWeakPoint;
+        public DamageType Type;
+        public string DamageOriginID;
+        public int DamageOriginIntID;
+    }
+    public enum DamageType
+    {
+        GunFire,Grenade,Explosion
     }
 }
