@@ -324,8 +324,11 @@ namespace Site13Kernel.GameLogic.FPS
             var b = Entity.Damage(Damage, new DamageDescription
             {
                 Origin = this.Holder,
-                Type = DamageType.GunFire,
-                DamageOriginID = this.WeaponData.WeaponID
+                DamageInformation=new DamageInformation
+                {
+                    Type = DamageType.GunFire,
+                    DamageOriginID = this.WeaponData.WeaponID
+                }
             });
             //this.Holder.OnCauseDamage.Invoke(Entity,b);
             if (this.Holder.isTookControl)

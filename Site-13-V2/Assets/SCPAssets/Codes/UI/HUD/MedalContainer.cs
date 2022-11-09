@@ -12,11 +12,9 @@ namespace Site13Kernel.UI.HUD
     {
         public static MedalContainer Instance;
         public KVList<int, MedalItem> MedalDefinition;
-        public KVList<int, int> MedalScores;
         public KVList<int, LocalizedString> MedalNames;
         public Dictionary<int, MedalItem> _MedalDefinition;
         public Dictionary<int, LocalizedString> _MedalNames;
-        public Dictionary<int, int> _MedalScores;
         public Transform MedalContainerTranform;
         public List<MedalItem> ControlledItems;
         public Text MedalScore;
@@ -26,16 +24,17 @@ namespace Site13Kernel.UI.HUD
             Instance = this;
             _MedalDefinition = MedalDefinition.ObtainMap();
             _MedalNames = MedalNames.ObtainMap();
-            _MedalScores=MedalScores.ObtainMap();
         }
-        public void NewMedal(int id, int BaseScore = 0)
+        public void NewScoreAccount(int Score)
         {
-            if (_MedalScores.TryGetValue(id, out var v))
-            {
-                MedalScore.text = $"+{v + BaseScore}";
-            }
-            else
-                MedalScore.text = $"+{BaseScore}";
+            if (Score > 0)
+                MedalScore.text = $"+{Score}";
+            else if (Score < 0)
+                MedalScore.text = $"{Score}";
+            MedalScore_DT = 0;
+        }
+        public void NewMedal(int id)
+        {
             if (_MedalNames.TryGetValue(id, out var n))
             {
                 MedalName.text = n;
@@ -47,9 +46,10 @@ namespace Site13Kernel.UI.HUD
                 var __medal = GameObject.Instantiate(_MedalDefinition[id], MedalContainerTranform);
                 ControlledItems.Add(__medal.GetComponent<MedalItem>());
             }
-            MedalScore_DT = 0;
+            MedalName_DT = 0;
         }
         float MedalScore_DT;
+        float MedalName_DT;
         // Update is called once per frame
         void Update()
         {
@@ -60,15 +60,14 @@ namespace Site13Kernel.UI.HUD
                 var c = MedalScore.color;
                 c.a = lerpd;
                 MedalScore.color = c;
-                MedalName.color = c;
-            }else if (MedalScore_DT > 0.2f && MedalScore_DT < 3f)
+            }
+            else if (MedalScore_DT > 0.2f && MedalScore_DT < 3f)
             {
                 if (MedalScore.color.a != 1)
                 {
                     var c = MedalScore.color;
                     c.a = 1;
                     MedalScore.color = c;
-                    MedalName.color = c;
                 }
             }
             else if (MedalScore_DT > 3f && MedalScore_DT < 3.2f)
@@ -77,7 +76,6 @@ namespace Site13Kernel.UI.HUD
                 var c = MedalScore.color;
                 c.a = 1 - lerpd;
                 MedalScore.color = c;
-                MedalName.color = c;
             }
             else
             {
@@ -86,10 +84,42 @@ namespace Site13Kernel.UI.HUD
                     var c = MedalScore.color;
                     c.a = 0;
                     MedalScore.color = c;
+                }
+            }
+            if (MedalName_DT < 0.2f)
+            {
+                float lerpd = MedalName_DT * 5;
+                var c = MedalName.color;
+                c.a = lerpd;
+                MedalName.color = c;
+            }
+            else if (MedalName_DT > 0.2f && MedalName_DT < 3f)
+            {
+                if (MedalName.color.a != 1)
+                {
+                    var c = MedalName.color;
+                    c.a = 1;
+                    MedalName.color = c;
+                }
+            }
+            else if (MedalName_DT > 3f && MedalName_DT < 3.2f)
+            {
+                float lerpd = (MedalName_DT - 3) * 5;
+                var c = MedalName.color;
+                c.a = 1 - lerpd;
+                MedalName.color = c;
+            }
+            else
+            {
+                if (MedalName.color.a != 0)
+                {
+                    var c = MedalName.color;
+                    c.a = 0;
                     MedalName.color = c;
                 }
             }
             MedalScore_DT += t;
+            MedalName_DT += t;
             foreach (var item in ControlledItems)
             {
                 item.upd(t);

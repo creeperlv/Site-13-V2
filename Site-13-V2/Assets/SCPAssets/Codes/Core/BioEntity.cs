@@ -157,7 +157,7 @@ namespace Site13Kernel.Core
                 CurrentHP = math.max(0, CurrentHP - V2);
             if (CurrentHP <= 0)
             {
-                Die();
+                Die(LastCause);
                 return true;
             }
             ShieldRecoverCountDown = ShieldRecoverDelay;

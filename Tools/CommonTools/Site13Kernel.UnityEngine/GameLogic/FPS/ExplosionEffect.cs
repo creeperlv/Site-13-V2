@@ -56,8 +56,11 @@ namespace Site13Kernel.GameLogic.FPS
                         new DamageDescription
                         {
                             Origin = Cause,
-                            DamageOriginIntID = ExplosionID,
-                            Type = (isGrenadeExplosion ? DamageType.Grenade : DamageType.Explosion)
+                            DamageInformation=new DamageInformation
+                            {
+                                DamageOriginIntID = ExplosionID,
+                                Type = (isGrenadeExplosion ? DamageType.Grenade : DamageType.Explosion)
+                            }
                         });
                 }
             }

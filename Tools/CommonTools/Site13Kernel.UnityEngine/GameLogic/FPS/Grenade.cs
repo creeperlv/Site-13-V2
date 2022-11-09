@@ -25,6 +25,8 @@ namespace Site13Kernel.GameLogic.FPS
                 var ee = effect.GetComponent<ExplosionEffect>();
                 ee.Cause = Cause;
                 ee.explosionDefinition = baseGrenade.Explosion;
+                ee.ExplosionID = baseGrenade.GrenadeHashCode;
+                ee.isGrenadeExplosion = true;
                 ee.Explode();
                 ParentController.DestoryGrenade(this);
             }

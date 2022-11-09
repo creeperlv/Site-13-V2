@@ -47,7 +47,7 @@ namespace Site13Kernel.Core
         public Action<float, float, float, float, float> OnTakingDamage = null;
         public Action OnShieldDown = null;
         public Site13Event<DamagableEntity, float> OnBeingDamage = new Site13Event<DamagableEntity, float>();
-        public Site13Event<DamagableEntity, bool> OnCauseDamage = new Site13Event<DamagableEntity, bool>();
+        public Site13Event<DamagableEntity, DamageInformation, bool> OnCauseDamage = new Site13Event<DamagableEntity, DamageInformation, bool>();
         public float TimeToSelfDestruction = -1f;
         public float LowestKillPlane = -500f;
 
@@ -98,9 +98,18 @@ namespace Site13Kernel.Core
         }
         public virtual bool Damage(float V, DamageDescription Origin)
         {
-            LastCause = Origin;
+            if (Origin.Origin == this)
+            {
+                if (LastCause == null)
+                {
+                    LastCause = Origin;
+
+                }
+            }
+            else
+                LastCause = Origin;
             var v = Damage(V);
-            Origin.Origin.OnCauseDamage.Invoke(this, v);
+            Origin.Origin.OnCauseDamage.Invoke(this, Origin.DamageInformation, v);
             OnBeingDamage.Invoke(Origin.Origin, V);
             return v;
         }
@@ -274,15 +283,21 @@ namespace Site13Kernel.Core
             }
         }
     }
-    public class DamageDescription {
+    public class DamageDescription
+    {
         public DamagableEntity Origin;
+        public DamageInformation DamageInformation;
+    }
+    public class DamageInformation
+    {
         public bool isWeakPoint;
         public DamageType Type;
         public string DamageOriginID;
         public int DamageOriginIntID;
+        public float DamageAmount;
     }
     public enum DamageType
     {
-        GunFire,Grenade,Explosion
+        GunFire, Grenade, Explosion, Collision
     }
 }

@@ -8,6 +8,7 @@ using Site13Kernel.UI.HUD;
 using System;
 using Unity.Burst.CompilerServices;
 using UnityEditor;
+using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Character
 {
@@ -19,6 +20,7 @@ namespace Site13Kernel.GameLogic.Character
         public ActiveInteractor Interactor;
         public BipedEntity entity;
         public Action OnWeaponChange = null;
+        public float KillResetTime = 5;
         public void OnEnable()
         {
             Instance = this;
@@ -31,11 +33,38 @@ namespace Site13Kernel.GameLogic.Character
             entity.OnCauseDamage.Add(CauseDamage);
             Interactor = GetComponent<ActiveInteractor>();
         }
-        void CauseDamage(DamagableEntity de,bool isDied)
+        int KillAmount;
+        float KillCountReset = 0;
+        public void Update()
+        {
+            float UDT = Time.unscaledDeltaTime;
+            UPD(UDT);
+        }
+        public void UPD(float UDT)
+        {
+            if (KillCountReset < 0) return;
+            KillCountReset -= UDT;
+            if (KillCountReset < 0)
+            {
+                KillAmount = 0;
+            }
+        }
+        void CauseDamage(DamagableEntity de, DamageInformation Info, bool isDied)
         {
             if (isDied)
             {
-                MedalContainer.Instance.NewMedal(0, 100);
+                if (de == entity)
+                {
+                    MedalContainer.Instance.NewScoreAccount(-100);
+                    return;
+                }
+                MedalContainer.Instance.NewScoreAccount(100);
+                KillAmount++;
+                KillCountReset = KillResetTime;
+                if (KillAmount >= 2)
+                {
+                    MedalContainer.Instance.NewMedal(KillAmount - 1);
+                }
             }
         }
         void InvokeWeaponChange(GenericWeapon gw)
@@ -43,9 +72,6 @@ namespace Site13Kernel.GameLogic.Character
             WeaponChange();
             if (Interactor.Interactive is Pickupable p)
             {
-                Debug.Log("Is same weapon?" + (p.AssociatedGenericWeapon.WeaponData.WeaponID == gw.WeaponData.WeaponID));
-                Debug.Log("INT:" + p.AssociatedGenericWeapon.WeaponData.WeaponID);
-                Debug.Log("GW:" + gw.WeaponData.WeaponID);
                 if (p.AssociatedGenericWeapon.WeaponData.WeaponID == gw.WeaponData.WeaponID)
                 {
                     Interactor.__hint = true;
