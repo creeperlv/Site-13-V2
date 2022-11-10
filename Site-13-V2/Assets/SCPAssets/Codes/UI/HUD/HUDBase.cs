@@ -56,6 +56,7 @@ namespace Site13Kernel.UI.HUD
         public float ToggleScale = 0.5f;
         public Transform IndicatorHolder;
         public PrefabReference Indicator;
+        public PrefabReference KillIndicator;
         public GameObject OnShow;
         int LastWeaponID = -1;
         int LastZoomID = -1;
@@ -75,6 +76,21 @@ namespace Site13Kernel.UI.HUD
                 item.IndexInStack = i;
             }
             __GrenadeHUD = GrenadeHUD.ObtainMap();
+        }
+        public void TryIndicateAKill()
+        {
+            var PREFAB = ResourceBuilder.ObtainGameObject(KillIndicator.ID);
+            if (PREFAB != null)
+            {
+                var effect = EffectController.CurrentEffectController.Spawn(KillIndicator, Vector3.zero, Quaternion.identity, Vector3.one, IndicatorHolder);
+                var RT = effect.transform as RectTransform;
+                RT.anchoredPosition3D = Vector3.zero;
+                RT.localRotation = Quaternion.identity;
+
+            }
+            else
+            {
+            }
         }
         public void TryIndicateAHit()
         {

@@ -58,6 +58,7 @@ namespace Site13Kernel.GameLogic.Character
                     MedalContainer.Instance.NewScoreAccount(-100);
                     return;
                 }
+                HUDBase.Instance.TryIndicateAKill();
                 MedalContainer.Instance.NewScoreAccount(100);
                 KillAmount++;
                 KillCountReset = KillResetTime;
