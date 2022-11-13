@@ -307,10 +307,10 @@ namespace Site13Kernel.UI.HUD
                             {
                                 if (_entity.EntityBag.Grenades.TryGetValue(item.Key, out var g))
                                 {
-                                    item.Value.UpdateValue(g, item.Key == _entity.EntityBag.CurrentWeapon);
+                                    item.Value.UpdateValue(g, item.Key == _entity.EntityBag.CurrentGrenade);
                                 }
                                 else
-                                    item.Value.UpdateValue(null, item.Key == _entity.EntityBag.CurrentWeapon);
+                                    item.Value.UpdateValue(null, item.Key == _entity.EntityBag.CurrentGrenade);
                             }
                             //foreach (var item in _entity.EntityBag.Grenades)
                             //{

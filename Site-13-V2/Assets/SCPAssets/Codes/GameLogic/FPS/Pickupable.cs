@@ -398,6 +398,10 @@ namespace Site13Kernel.GameLogic.FPS
                         MaxCount = GrenadePool.CurrentPool.GrenadeItemMap[GrenadeID].Reference.MaxCount,
                         RemainingCount = 1
                     });
+                    if (!Biped.EntityBag.Grenades.ContainsKey(Biped.EntityBag.CurrentGrenade))
+                    {
+                        Biped.EntityBag.CurrentGrenade = GrenadeID;
+                    }
                     Destroy(ControlledEntity);
                 }
             }

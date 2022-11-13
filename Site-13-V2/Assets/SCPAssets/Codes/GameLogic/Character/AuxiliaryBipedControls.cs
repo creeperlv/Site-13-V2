@@ -2,6 +2,7 @@
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Effects;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.GameLogic.Physic;
 using Site13Kernel.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,12 +70,22 @@ namespace Site13Kernel.GameLogic.Character
             {
                 BindedController._Grenades[BindedEntity.EntityBag.CurrentGrenade].SetActive(false);
             }
-            GrenadeController.CurrentController.Instantiate(
+            var obj=GrenadeController.CurrentController.Instantiate(
                 GrenadePool.CurrentPool.GrenadeItemMap[BindedEntity.EntityBag.CurrentGrenade].GamePlayPrefab,
                 BindedEntity.GrenadeEmissionPoint.position,
                 BindedEntity.GrenadeEmissionPoint.rotation,
                 BindedEntity.GrenadeEmissionPoint.forward * GrenadeThrowForce, ForceMode.Impulse,BindedEntity);
             BindedEntity.EntityBag.Grenades[BindedEntity.EntityBag.CurrentGrenade].RemainingCount--;
+            var PO=obj.GetComponent<PhysicsObject>();
+            if(PO != null)
+            {
+                PO.Emitter = BindedEntity;
+            }
+            else
+            {
+                PO=obj.AddComponent<PhysicsObject>();
+                PO.Emitter = BindedEntity;
+            }
         }
         public void ShakeCamRunStep()
         {

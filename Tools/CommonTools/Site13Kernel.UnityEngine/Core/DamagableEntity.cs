@@ -6,6 +6,7 @@ using Site13Kernel.Data.IO;
 using Site13Kernel.Data.Serializables;
 using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.GameLogic.Physic;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,7 @@ namespace Site13Kernel.Core
             if (TakeCollisionDamage)
             {
                 if (collision.gameObject.GetComponent<DoNotCauseCollisionDamage>() != null) return;
+
                 if (collision.rigidbody != null)
                 {
                     var V = collision.relativeVelocity;
@@ -68,7 +70,23 @@ namespace Site13Kernel.Core
                     if (v > GameEnv.CollisionDamageSpeedThreshold)
                     {
                         var DELTA = v - GameEnv.CollisionDamageSpeedThreshold;
-                        Damage(DELTA * GameEnv.CollisionDamageIntensity);
+                        var DAM = DELTA * GameEnv.CollisionDamageIntensity;
+                        var obj = collision.collider.GetComponent<PhysicsObject>();
+                        if (obj != null)
+                        {
+                            Damage(DAM, new DamageDescription
+                            {
+                                Origin = obj.Emitter,
+                                DamageInformation = new DamageInformation
+                                {
+                                    Type = DamageType.Collision,
+                                    DamageAmount = DAM
+                                }
+                            });
+
+                        }
+                        else
+                            Damage(DAM);
                     }
                 }
             }
@@ -298,6 +316,6 @@ namespace Site13Kernel.Core
     }
     public enum DamageType
     {
-        GunFire, Grenade, Explosion, Collision
+        GunFire, Grenade, Explosion, Collision, Melee
     }
 }
