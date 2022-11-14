@@ -283,6 +283,13 @@ namespace Site13Kernel.GameLogic.Character
         {
 
         }
+        public override void Inspect()
+        {
+            CancelRun();
+            CancelAim();
+            CancelFire();
+            CancelZoom();
+        }
         public override void ThrowGrenade()
         {
             CancelRun();

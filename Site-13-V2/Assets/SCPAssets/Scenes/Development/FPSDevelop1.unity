@@ -7535,7 +7535,6 @@ Transform:
   - {fileID: 1274022978}
   - {fileID: 4864332971842266279}
   - {fileID: 7038147598593151799}
-  - {fileID: 609084593}
   - {fileID: 6826918851200651952}
   - {fileID: 101613436}
   - {fileID: 970040403}
@@ -8853,72 +8852,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608133249}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &609084592
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 514111614}
-    m_Modifications:
-    - target: {fileID: 1978580431676505306, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_Name
-      value: Type-1-Plasma-Grenade-Normal
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
---- !u!4 &609084593 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8515860672820802732, guid: 09579c75aeaf3a840bbaaf0f14644df7, type: 3}
-  m_PrefabInstance: {fileID: 609084592}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &616749414
 GameObject:
   m_ObjectHideFlags: 0
@@ -9042,6 +8975,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 78871768}
     m_Modifications:
+    - target: {fileID: 3830146378105586816, guid: cd1af7654a16de642afc8173dc6f84b1, type: 3}
+      propertyPath: isSub
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3830146378105586818, guid: cd1af7654a16de642afc8173dc6f84b1, type: 3}
       propertyPath: m_Name
       value: CommonResource-01
@@ -14670,6 +14607,7 @@ MonoBehaviour:
     Jump: 0
     Sprint: 0
     FlashLight: 0
+    Inspect: 0
   InputControllable: 0
   HorizontalTransform: {fileID: 0}
   VerticalTransform: {fileID: 0}
@@ -18090,6 +18028,7 @@ MonoBehaviour:
     Jump: 1
     Sprint: 1
     FlashLight: 1
+    Inspect: 0
   InputControllable: 1
   HorizontalTransform: {fileID: 1162646139}
   VerticalTransform: {fileID: 568285698}
@@ -18254,6 +18193,8 @@ MonoBehaviour:
   GrenadeEmissionPoint: {fileID: 1958166961}
   EntityBag:
     Weapons: []
+    IsHoldingObject: 0
+    HoldableObject: {fileID: 0}
     CurrentWeapon: 0
     CurrentGrenade: 0
     CurrentEquipment: 0

@@ -21,7 +21,7 @@ namespace Site13Kernel.GameLogic.Controls
         public bool Jump;
         public bool Sprint;
         public bool FlashLight;
-
+        public bool Inspect;
     }
 
 }

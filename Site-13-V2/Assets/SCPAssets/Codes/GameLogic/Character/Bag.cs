@@ -1,6 +1,7 @@
 ﻿using Site13Kernel.Core;
 using Site13Kernel.Data;
 using Site13Kernel.GameLogic.FPS;
+using Site13Kernel.GameLogic.Props;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,8 @@ namespace Site13Kernel.GameLogic.Character
     public class Bag
     {
         public List<GenericWeapon> Weapons = new List<GenericWeapon>();
+        public bool IsHoldingObject;
+        public HoldableObject HoldableObject;
         public int CurrentWeapon;
         public Dictionary<int,ProcessedGrenade> Grenades = new Dictionary<int, ProcessedGrenade>();
         public int CurrentGrenade;

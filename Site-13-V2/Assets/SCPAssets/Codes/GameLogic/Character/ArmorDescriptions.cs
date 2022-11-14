@@ -20,6 +20,7 @@ namespace Site13Kernel.GameLogic.Character
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArmorDescription QueryDescription(string Name)
         {
+            if (Instance == null) return new ArmorDescription() { ArmorPieces = new List<KVPair<string, PrefabReference>>() };
             if (Instance._PrimitiveArmorDescriptions.TryGetValue(Name, out ArmorDescription description))
             {
                 return description;

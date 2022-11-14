@@ -91,6 +91,10 @@ namespace Site13Kernel.GameLogic.Controls
         {
 
         }
+        public virtual void Inspect()
+        {
+
+        }
         public virtual bool isRunning => false;
         public virtual bool isCrouching => false;
         public virtual bool isAiming => false;

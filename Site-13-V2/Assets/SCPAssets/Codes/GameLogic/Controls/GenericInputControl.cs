@@ -274,6 +274,11 @@ namespace Site13Kernel.GameLogic.Controls
                         controller.FlashLight();
                     }
                 }
+                if(controller.ControllerFunctions.Inspect)
+                {
+                    if (InputProcessor.GetInputDown("Detail"))
+                        controller.Inspect();
+                }
                 if (controller.ControllerFunctions.ViewportRotation)
                 {
                     var H = InputProcessor.GetAxis("MouseH");
