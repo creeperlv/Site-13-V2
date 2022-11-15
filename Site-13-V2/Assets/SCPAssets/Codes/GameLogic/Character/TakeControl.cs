@@ -59,12 +59,15 @@ namespace Site13Kernel.GameLogic.Character
                     return;
                 }
                 HUDBase.Instance.TryIndicateAKill();
-                MedalContainer.Instance.NewScoreAccount(100);
-                KillAmount++;
-                KillCountReset = KillResetTime;
-                if (KillAmount >= 2)
+                if(de is BioEntity)
                 {
-                    MedalContainer.Instance.NewMedal(KillAmount - 1);
+                    MedalContainer.Instance.NewScoreAccount(100);
+                    KillAmount++;
+                    KillCountReset = KillResetTime;
+                    if (KillAmount >= 2)
+                    {
+                        MedalContainer.Instance.NewMedal(KillAmount - 1);
+                    }
                 }
             }
         }
