@@ -1,12 +1,15 @@
 using Site13Kernel.Core;
+using Site13Kernel.GameLogic.Physic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Site13Kernel.GameLogic
 {
-    public class StandMaterial : ControlledBehavior
+    /// <summary>
+    /// Backwards Compatibility
+    /// </summary>
+    public class StandMaterial : PhysicalMaterial
     {
-        public int MaterialID;
     }
 
 }

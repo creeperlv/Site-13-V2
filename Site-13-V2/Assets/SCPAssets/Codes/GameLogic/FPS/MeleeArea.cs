@@ -1,6 +1,7 @@
 
 using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
+using Site13Kernel.GameLogic.Physic;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -15,6 +16,7 @@ namespace Site13Kernel.GameLogic.FPS
         public float Force = 1;
         public bool AllowBackstabDetection;
         public GameObject Holder;
+        public BipedEntity OriginEntity;
         public bool isDetecting = false;
         public AudioSource HitNormal;
         public AudioSource HitDamagable;
@@ -51,15 +53,20 @@ namespace Site13Kernel.GameLogic.FPS
             {
                 byte __final_effect = 0;
                 var DE = collision.GetComponent<DamagableEntity>();
+                var PhyObj = collision.GetComponentInChildren<PhysicsObject>();
                 var DEREF = collision.GetComponent<DamagableEntityReference>();
-                if(DEREF != null)
+                if (PhyObj != null)
+                {
+                    PhyObj.Emitter = OriginEntity;
+                }
+                if (DEREF != null)
                 {
                     DE = DEREF.Reference;
                 }
                 var RIG = collision.GetComponent<Rigidbody>();
                 if (RIG == null)
                 {
-                    var CLD= collision.GetComponent<Collider>();
+                    var CLD = collision.GetComponent<Collider>();
                     if (CLD != null)
                     {
                         RIG = CLD.attachedRigidbody;
@@ -73,7 +80,7 @@ namespace Site13Kernel.GameLogic.FPS
                 }
                 if (DE == null)
                 {
-                    var REF=collision.GetComponent<DamagableEntityReference>();
+                    var REF = collision.GetComponent<DamagableEntityReference>();
                     if (REF != null)
                     {
                         DE = REF.Reference;
@@ -99,16 +106,46 @@ namespace Site13Kernel.GameLogic.FPS
                         Vector3 toOther = Holder.transform.position - DE.transform.position;
                         if (Vector3.Dot(forward, toOther) < 0)
                         {
-                            DE.Die();
+                            DE.Die(new DamageDescription
+                            {
+                                Origin = OriginEntity,
+                                DamageInformation = new DamageInformation
+                                {
+                                    DamageAmount = DE.CurrentHP,
+                                    Type = DamageType.Melee
+                                }
+                            });
                         }
                         else
                         {
-                            DE.Damage(BaseDamage);
+                            if (OriginEntity == null)
+                                DE.Damage(BaseDamage);
+                            else
+                                DE.Damage(BaseDamage, new DamageDescription
+                                {
+                                    Origin = OriginEntity,
+                                    DamageInformation = new DamageInformation
+                                    {
+                                        DamageAmount = BaseDamage,
+                                        Type = DamageType.Melee
+                                    }
+                                });
                         }
                     }
                     else
                     {
-                        DE.Damage(BaseDamage);
+                        if (OriginEntity == null)
+                            DE.Damage(BaseDamage);
+                        else
+                            DE.Damage(BaseDamage, new DamageDescription
+                            {
+                                Origin = OriginEntity,
+                                DamageInformation = new DamageInformation
+                                {
+                                    DamageAmount = BaseDamage,
+                                    Type = DamageType.Melee
+                                }
+                            });
                     }
                 }
                 switch (__final_effect)

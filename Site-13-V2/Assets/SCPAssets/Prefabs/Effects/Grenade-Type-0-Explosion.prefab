@@ -42,7 +42,7 @@ ParticleSystem:
   m_GameObject: {fileID: 446660714026608498}
   serializedVersion: 8
   lengthInSec: 3
-  simulationSpeed: 5
+  simulationSpeed: 8
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -4879,13 +4879,13 @@ MonoBehaviour:
   LifeTime: 1
   TimeD: 0
   explosionDefinition:
-    Radius: 0
-    Power: 0
-    ShakePower: 0
-    CentralDamage: 0
+    Radius: 4
+    Power: 25
+    ShakePower: 10
+    CentralDamage: 100
   Cause: {fileID: 0}
   isGrenadeExplosion: 0
-  ExplosionID: 0
+  ExplosionID: 12
 --- !u!1 &7199035331699445607
 GameObject:
   m_ObjectHideFlags: 0
@@ -4928,7 +4928,7 @@ ParticleSystem:
   m_GameObject: {fileID: 7199035331699445607}
   serializedVersion: 8
   lengthInSec: 3
-  simulationSpeed: 5
+  simulationSpeed: 7
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -9949,7 +9949,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

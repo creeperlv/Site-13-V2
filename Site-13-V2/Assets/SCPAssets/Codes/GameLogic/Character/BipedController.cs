@@ -6,6 +6,9 @@ using Site13Kernel.Data;
 using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.GameLogic.Level;
+using Site13Kernel.GameLogic.Physic;
+using Site13Kernel.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -93,6 +96,7 @@ namespace Site13Kernel.GameLogic.Character
         Vector3 _MOVE;
         public AnimationCollection CurrentCollection;
         public AuxiliaryBipedControls ABC;
+        public SimulatedRigidBodyOverCharacterController SRBoCC;
         public void Start()
         {
             if (UseControlledBehaviorWorkflow) return;
@@ -235,7 +239,7 @@ namespace Site13Kernel.GameLogic.Character
         {
             if (Physics.Raycast(CC.transform.position + new Vector3(0, (SpeedMultiplyer == CrouchMultiplyer ? CrouchCharacterOffset_Y : NormalCharacterOffset_Y), 0), Vector3.down, out RaycastHit hit, 5, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Collide))
             {
-                var SM = hit.collider.GetComponent<StandMaterial>();
+                var SM = hit.collider.GetComponent<PhysicalMaterial>();
                 if (SM != null)
                 {
                     CurrentStandingMaterial = SM.MaterialID;
@@ -511,9 +515,46 @@ namespace Site13Kernel.GameLogic.Character
         }
         void Rotation(float DT)
         {
+            float RotationIntensity = 1;
+            if (this.Entity.isTookControl)
+            {
+                var trans = this.Entity.FirePoint.transform;
+                if (Entity.EntityBag.Weapons.Count > 0)
+                {
+                    var WEAPON = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon];
+                    var D = WEAPON.AimAssistDistance;
+                    var P = trans.position;
+                    var A = (WEAPON.AimingMode == 0 ? WEAPON.MaxScatterAngle : WEAPON.MaxScatterAngleAimMode);
+                    var R = WEAPON.AimAssistRotationResistance;
+                    Vector3 V = trans.forward;
+                    for (int i = 0; i < 25; i++)
+                    {
+                        Vector3 RecoilAngle2 =
+                            MathUtilities.RandomDirectionAngleOnXYAndZ1(A);
 
-            HorizontalTransform.Rotate(new Vector3(0, HR * MouseHoriztonalIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly, 0));
-            var Head_V = VR * MouseHoriztonalIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly;
+                        var _V = V + trans.TransformDirection(RecoilAngle2);
+
+                        //float num = Mathf.Tan(MathF.PI / 180f * i);
+                        Debug.DrawRay(P, _V, Color.green, 1);
+                        var p = Physics.Raycast(P, _V, out var info, D, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlockAndEventTrigger, QueryTriggerInteraction.Ignore);
+                        if (p)
+                        {
+                            var ent = info.collider.GetComponentInChildren<BioEntity>();
+                            if (ent != null)
+                            {
+                                //if (ent != Entity)
+                                {
+                                    Debug.Log("Assist:"+ent.name);
+                                    RotationIntensity = R;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            HorizontalTransform.Rotate(new Vector3(0, HR * MouseHoriztonalIntensity * RotationIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly, 0));
+            var Head_V = VR * MouseHoriztonalIntensity * RotationIntensity * DT * Data.Settings.CurrentSettings.MouseSensibly;
             var ea = VerticalTransform.localEulerAngles;
             ea.x += Head_V;
             if (ea.x < 180)
@@ -744,6 +785,7 @@ namespace Site13Kernel.GameLogic.Character
                 _Crouch(DT);
                 Rotation(DT);
                 Move(DT);
+                SRBoCC.Refresh(DT, UDT);
             }
             {
                 ControlledAnimator.AccumulativeTrigger(DT);

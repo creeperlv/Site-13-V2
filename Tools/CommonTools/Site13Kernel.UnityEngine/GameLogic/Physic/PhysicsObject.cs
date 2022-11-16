@@ -6,8 +6,13 @@ using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Physic
 {
+    public class PhysicalMaterial:ControlledBehavior
+    {
+        public int MaterialID;
+    }
     public class PhysicsObject:MonoBehaviour
     {
+        public PhysicalMaterial ReferneceMaterial;
         public Rigidbody body;
         public DamagableEntity Emitter;
         public void OnCollisionEnter(Collision collision)

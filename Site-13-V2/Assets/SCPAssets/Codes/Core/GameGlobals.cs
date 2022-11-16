@@ -16,7 +16,7 @@ namespace Site13Kernel.Core
     public class GameGlobals
     {
         public string AppData;
-        public string OneTimeScript=null;
+        public string OneTimeScript = null;
         public bool isDebugFunctionEnabled = false;
         public bool isPaused = false;
 
@@ -57,12 +57,9 @@ namespace Site13Kernel.Core
             AppData = Application.persistentDataPath;
             CurrentGameDef = new GameDefinition();
             {
-                int _000 = 1 << 10;// Layer 10, Air Block Layer.
-                int _001 = 1 << 11;// Layer 11, Player Layer.
-                LayerExcludePlayerAndAirBlockAndEventTrigger = LayerMask.GetMask("Player", "Air block", "EventTrigger");
-                LayerExcludePlayerAndAirBlock = _000 | _001;
-                LayerExcludePlayerAndAirBlock = ~LayerExcludePlayerAndAirBlock;
-                LayerExcludeAirBlock = ~_000;
+                LayerExcludePlayerAndAirBlockAndEventTrigger = ~LayerMask.GetMask("Player", "Air block", "EventTrigger");
+                LayerExcludePlayerAndAirBlock = ~LayerMask.GetMask("Player", "Air block");
+                LayerExcludeAirBlock = ~LayerMask.GetMask("Air block");
             }
             //#if DEBUG
             isDebugFunctionEnabled = true;

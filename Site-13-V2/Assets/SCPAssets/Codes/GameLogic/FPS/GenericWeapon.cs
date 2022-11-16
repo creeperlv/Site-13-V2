@@ -89,6 +89,9 @@ namespace Site13Kernel.GameLogic.FPS
         public float CamShakeSpeed = 50f;
         public float CameraShakeIntensity = 0.3f;
         public bool CreateBullet = true;
+        [Header("AimAssist")]
+        public float AimAssistDistance = 30;
+        public float AimAssistRotationResistance = 0.25f;
         public BipedEntity Holder;
         public Site13Event OnSingleFire = new Site13Event();
         public Site13Event OnRealProjetileFire = new Site13Event();
@@ -201,7 +204,7 @@ namespace Site13Kernel.GameLogic.FPS
                         RaycastHit info;
                         if (!isHoldByPlayer)
                             Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludeAirBlock, QueryTriggerInteraction.Ignore);
-                        else Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlock, QueryTriggerInteraction.Ignore);
+                        else Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlockAndEventTrigger, QueryTriggerInteraction.Ignore);
                         if (info.collider != null)
                         {
                             if (info.collider.attachedRigidbody != null)
