@@ -540,6 +540,19 @@ namespace Site13Kernel.GameLogic.Character
                         if (p)
                         {
                             var ent = info.collider.GetComponentInChildren<BioEntity>();
+                            var weak = info.collider.GetComponentInChildren<WeakPoint>();
+                            var reference = info.collider.GetComponentInChildren<DamagableEntityReference>();
+                            if (reference != null)
+                            {
+                                if(reference.Reference is BioEntity e)
+                                {
+                                    ent = e;
+                                }
+                            }
+                            if(weak!=null)
+                            {
+                                ent = weak.AttachedBioEntity;
+                            }
                             if (ent != null)
                             {
                                 //if (ent != Entity)
