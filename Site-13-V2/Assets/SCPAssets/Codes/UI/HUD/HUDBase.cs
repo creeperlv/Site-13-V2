@@ -233,6 +233,16 @@ namespace Site13Kernel.UI.HUD
                                 }
                                 var cc = Crosshairs[TargetCrosshair];
                                 var zoom = ZoomOverlays[TargetZoom];
+                                {
+                                    if (TakeControl.Instance.controller.isInRange)
+                                    {
+                                        cc.SetColor(Color.red);
+                                    }
+                                    else
+                                    {
+                                        cc.SetColor(Color.white);
+                                    }
+                                }
                                 if (_entity.EntityBag.Weapons.Count > 0)
                                 {
                                     var Weapon = _entity.EntityBag.Weapons[_entity.EntityBag.CurrentWeapon];

@@ -375,12 +375,12 @@ namespace Site13Kernel.GameLogic.Character
         public override void SwitchWeapon()
         {
             CancelRun();
+            CancelZoom();
             if (Entity.EntityBag.Weapons.Count == 1)
                 return;
             if (Entity.EntityBag.Weapons.Count > 1)
                 Entity.EntityBag.CurrentWeapon = (Entity.EntityBag.CurrentWeapon == 1 ? 0 : 1);
             Entity.OnSwapWeapon.Invoke();
-            CancelZoom();
             ControlledAnimator.LastTrigger = "";
             ControlledAnimator.CurrentClip.WaitUntilDone = false;
             StartCoroutine(__TakeoutAnimation());
@@ -513,11 +513,13 @@ namespace Site13Kernel.GameLogic.Character
                 Entity.EntityBag.CurrentEquipment = K[0];
             }
         }
+        internal bool isInRange;
         void Rotation(float DT)
         {
             float RotationIntensity = 1;
             if (this.Entity.isTookControl)
             {
+                isInRange = false;
                 var trans = this.Entity.FirePoint.transform;
                 if (Entity.EntityBag.Weapons.Count > 0)
                 {
@@ -527,15 +529,12 @@ namespace Site13Kernel.GameLogic.Character
                     var A = (WEAPON.AimingMode == 0 ? WEAPON.MaxScatterAngle : WEAPON.MaxScatterAngleAimMode);
                     var R = WEAPON.AimAssistRotationResistance;
                     Vector3 V = trans.forward;
-                    for (int i = 0; i < 25; i++)
+                    for (int i = 0; i < 20; i++)
                     {
                         Vector3 RecoilAngle2 =
                             MathUtilities.RandomDirectionAngleOnXYAndZ1(A);
 
                         var _V = V + trans.TransformDirection(RecoilAngle2);
-
-                        //float num = Mathf.Tan(MathF.PI / 180f * i);
-                        Debug.DrawRay(P, _V, Color.green, 1);
                         var p = Physics.Raycast(P, _V, out var info, D, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlockAndEventTrigger, QueryTriggerInteraction.Ignore);
                         if (p)
                         {
@@ -544,23 +543,52 @@ namespace Site13Kernel.GameLogic.Character
                             var reference = info.collider.GetComponentInChildren<DamagableEntityReference>();
                             if (reference != null)
                             {
-                                if(reference.Reference is BioEntity e)
+                                if (reference.Reference is BioEntity e)
                                 {
                                     ent = e;
                                 }
                             }
-                            if(weak!=null)
+                            if (weak != null)
                             {
                                 ent = weak.AttachedBioEntity;
                             }
                             if (ent != null)
                             {
-                                //if (ent != Entity)
                                 {
-                                    Debug.Log("Assist:"+ent.name);
+                                    isInRange = true;
                                     RotationIntensity = R;
                                     break;
                                 }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var P = trans.position;
+                    Vector3 V = trans.forward;
+                    var p = Physics.Raycast(P, V, out var info, 50, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlockAndEventTrigger, QueryTriggerInteraction.Ignore);
+                    if (p)
+                    {
+                        var ent = info.collider.GetComponentInChildren<BioEntity>();
+                        var weak = info.collider.GetComponentInChildren<WeakPoint>();
+                        var reference = info.collider.GetComponentInChildren<DamagableEntityReference>();
+                        if (reference != null)
+                        {
+                            if (reference.Reference is BioEntity e)
+                            {
+                                ent = e;
+                            }
+                        }
+                        if (weak != null)
+                        {
+                            ent = weak.AttachedBioEntity;
+                        }
+                        if (ent != null)
+                        {
+                            {
+                                isInRange = true;
+                                RotationIntensity = 0.9f;
                             }
                         }
                     }

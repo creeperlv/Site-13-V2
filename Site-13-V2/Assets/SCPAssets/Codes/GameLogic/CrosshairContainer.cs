@@ -10,6 +10,16 @@ namespace Site13Kernel.GameLogic
         public CanvasGroup canvas;
         public GameObject Contaienr;
         public List<ControlledCrosshair> Children = new List<ControlledCrosshair>();
+        Color LastColor;
+        public void SetColor(Color c)
+        {
+            if(LastColor==c)return;
+            LastColor = c;
+            foreach (var item in Children)
+            {
+                item.SetColor(c);
+            }
+        }
         public override void Init()
         {
             foreach (var c in Children)
