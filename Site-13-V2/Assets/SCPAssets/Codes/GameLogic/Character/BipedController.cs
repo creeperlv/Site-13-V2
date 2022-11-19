@@ -376,6 +376,11 @@ namespace Site13Kernel.GameLogic.Character
         {
             CancelRun();
             CancelZoom();
+            if (Entity.EntityBag.IsHoldingObject)
+            {
+                Entity.OnDropHoldable.Invoke();
+                return;
+            }
             if (Entity.EntityBag.Weapons.Count == 1)
                 return;
             if (Entity.EntityBag.Weapons.Count > 1)

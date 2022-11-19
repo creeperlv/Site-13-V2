@@ -7,12 +7,14 @@ using Site13Kernel.Diagnostics;
 using Site13Kernel.GameLogic.Character;
 using Site13Kernel.GameLogic.Customization;
 using Site13Kernel.GameLogic.Level;
+using Site13Kernel.GameLogic.Props;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.WSA;
@@ -36,6 +38,7 @@ namespace Site13Kernel.GameLogic.FPS
         public List<Renderer> AmmoRenderers;
         public List<Text> AmmoDispTexts;
         public GenericWeapon AssociatedGenericWeapon;
+        public HoldableObject AssociatedHoldableObject;
         public void NotifyWeaponAmmo()
         {
             switch (AmmoDispType)
@@ -342,8 +345,13 @@ namespace Site13Kernel.GameLogic.FPS
         public override LocalizedString Hint
         {
             get {
+                if(ItemType== PickupItem.Weapon)
                 return new LocalizedString(OperateHint, OperateHintFallBack, Language.Find(AssociatedGenericWeapon.WeaponData.WeaponID + ".DispName",
                         WeaponPool.CurrentPool.WeaponItemMap[AssociatedGenericWeapon.WeaponData.WeaponID].NameFallback));
+                if(ItemType== PickupItem.Holdable) 
+                    return new LocalizedString(OperateHint, OperateHintFallBack, NameDefinition.Query(AssociatedHoldableObject.NameID));
+                return new LocalizedString(OperateHint, OperateHintFallBack);
+
             }
             set => base.Hint = value;
         }
@@ -419,6 +427,6 @@ namespace Site13Kernel.GameLogic.FPS
     }
     public enum PickupItem
     {
-        Weapon, Grenade, Equipment
+        Weapon, Grenade, Equipment, Holdable
     }
 }

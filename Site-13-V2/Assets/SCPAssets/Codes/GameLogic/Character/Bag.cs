@@ -19,6 +19,8 @@ namespace Site13Kernel.GameLogic.Character
         public int CurrentEquipment;
         public Site13Event OnUseWeapon = new Site13Event();
         public Site13Event<GenericWeapon> OnObtainWeapon = new Site13Event<GenericWeapon>();
+        public Site13Event<HoldableObject> OnObtainHoldable = new Site13Event<HoldableObject>();
+        public Site13Event<HoldableObject> OnDropHoldable = new Site13Event<HoldableObject>();
         public Site13Event<GenericWeapon> OnDropWeapon = new Site13Event<GenericWeapon>();
         public void TryObatinWeapon(GenericWeapon GW)
         {
@@ -30,6 +32,19 @@ namespace Site13Kernel.GameLogic.Character
                 }
             }
             OnObtainWeapon.Invoke(GW);
+        }
+        public void TryObtainHoldable(HoldableObject holdableObject)
+        {
+            OnObtainHoldable.Invoke(holdableObject);
+        }
+        public void DropHoldable(HoldableObject holdableObject, bool RemoveFromBag=true)
+        {
+            OnDropHoldable.Invoke(holdableObject);
+            if(RemoveFromBag)
+            {
+                HoldableObject=null;
+                IsHoldingObject = false;
+            }
         }
         public void DropWeapon(GenericWeapon GW,bool RemoveFromBag=true)
         {

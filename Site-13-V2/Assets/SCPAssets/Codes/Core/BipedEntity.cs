@@ -20,6 +20,7 @@ namespace Site13Kernel.Core
         public Transform GrenadeEmissionPoint;
         public Bag EntityBag;
         public Site13Event OnSwapWeapon = new Site13Event();
+        public Site13Event OnDropHoldable = new Site13Event();
         public bool SelfRun = false;
         public void Start()
         {
