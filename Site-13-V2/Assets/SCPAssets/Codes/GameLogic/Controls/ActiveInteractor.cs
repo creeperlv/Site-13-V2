@@ -40,7 +40,21 @@ namespace Site13Kernel.GameLogic.Controls
 
         }
         float InteractTime;
-
+        public void OnFrame()
+        {
+            if(Interactive != null)
+            {
+                if (!Interactive.isActiveAndEnabled)
+                {
+                    SwapInteractive(null);
+                }
+            }
+            else
+            {
+                __hint = true;
+                Hint = new LocalizedString("", "");
+            }
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void UnInvoke(InteractiveBase Interactive)
         {

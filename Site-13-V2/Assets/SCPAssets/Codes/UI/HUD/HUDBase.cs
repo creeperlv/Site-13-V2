@@ -211,7 +211,7 @@ namespace Site13Kernel.UI.HUD
                                 var interactor = TakeControl.Instance.Interactor;
                                 if (interactor.__hint)
                                 {
-                                    IteractHint.text = interactor.Hint;
+                                    IteractHint.text = interactor.Hint.ToString();
                                     interactor.__hint = false;
                                 }
                             }

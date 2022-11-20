@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8826623554671150993
 MonoBehaviour:
@@ -200,5 +200,29 @@ MonoBehaviour:
           - Key: Throw-Grenade
             Value:
             - Trigger: Throw-Grenade
+              Length: 1
+              WaitUntilDone: 1
+      - Name: Fusion-Coils
+        ControllerToUse: {fileID: 9100000, guid: 5330ab1d84a63d04e862068a7cff4bdb, type: 2}
+        MappedAnimations:
+          PrefabDefinitions:
+          - Key: Pickup
+            Value:
+            - Trigger: Pickup
+              Length: 0.5
+              WaitUntilDone: 1
+          - Key: Melee
+            Value:
+            - Trigger: Melee0
+              Length: 0.7166666
+              WaitUntilDone: 1
+          - Key: Throw-Grenade
+            Value:
+            - Trigger: Throw-Grenade
+              Length: 1
+              WaitUntilDone: 1
+          - Key: Throw-Out
+            Value:
+            - Trigger: Throw-Out
               Length: 1
               WaitUntilDone: 1

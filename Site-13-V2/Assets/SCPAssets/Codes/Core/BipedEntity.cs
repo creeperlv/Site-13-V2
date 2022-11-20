@@ -39,6 +39,11 @@ namespace Site13Kernel.Core
         public override void Init()
         {
             base.Init();
+            EntityBag.OnObtainHoldable.Add((o) =>
+            {
+                if (EntityBag.Weapons.Count > 0)
+                    EntityBag.Weapons[EntityBag.CurrentWeapon].gameObject.SetActive(false);
+            });
             EntityBag.OnObtainWeapon.Add((w) =>
             {
                 if (EntityBag.Weapons.Count < 2)
@@ -49,7 +54,7 @@ namespace Site13Kernel.Core
                 }
                 else
                 {
-                    EntityBag.DropWeapon(EntityBag.Weapons[EntityBag.CurrentWeapon],false);
+                    EntityBag.DropWeapon(EntityBag.Weapons[EntityBag.CurrentWeapon], false);
                     EntityBag.Weapons[EntityBag.CurrentWeapon] = w;
                 }
                 if (OverrideFirePoint)

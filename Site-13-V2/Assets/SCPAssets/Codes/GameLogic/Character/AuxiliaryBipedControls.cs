@@ -65,6 +65,10 @@ namespace Site13Kernel.GameLogic.Character
         {
             BindedController.PlayWeaponChamberingFromEmptyAnimation();
         }
+        public void ThrowOutHoldingObject()
+        {
+
+        }
         public void ThrowAGrenade()
         {
             {

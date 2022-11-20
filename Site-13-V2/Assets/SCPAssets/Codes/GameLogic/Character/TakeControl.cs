@@ -42,6 +42,7 @@ namespace Site13Kernel.GameLogic.Character
         }
         public void UPD(float UDT)
         {
+            Interactor.OnFrame();
             if (KillCountReset < 0) return;
             KillCountReset -= UDT;
             if (KillCountReset < 0)
