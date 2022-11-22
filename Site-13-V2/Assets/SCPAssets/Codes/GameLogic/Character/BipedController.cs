@@ -94,6 +94,10 @@ namespace Site13Kernel.GameLogic.Character
         /// </summary>
         public bool ALLOW_FIRE_FLAG_4 = true;  // GRENADE LOCK
         Vector3 _MOVE;
+        /// <summary>
+        /// Holding Object.
+        /// </summary>
+        public bool ALLOW_FIRE_FLAG_5=true;
         public AnimationCollection CurrentCollection;
         public AuxiliaryBipedControls ABC;
         public SimulatedRigidBodyOverCharacterController SRBoCC;
@@ -122,10 +126,35 @@ namespace Site13Kernel.GameLogic.Character
                 ApplyWeapon();
                 StartCoroutine(PlayPickup());
             });
+            Entity.EntityBag.OnObtainHoldable.Add((h) =>
+            {
+                //TODO
+                ALLOW_FIRE_FLAG_5 = false;
+                ApplyHoldable();
+                StartCoroutine(PlayPickup());
+            });
+            Entity.EntityBag.OnDropHoldable.Add((h) => {
+                ALLOW_FIRE_FLAG_5 = true;
+            });
             Entity.OnSwapWeapon.Add(() =>
             {
                 ApplyWeapon();
             });
+        }
+        void ApplyHoldable()
+        {
+            StartCoroutine(DAH());
+        }
+        IEnumerator DAH()
+        {
+            yield return null;
+            var CurrentMain = Entity.EntityBag.HoldableObject;
+            Debug.Log(CurrentMain==null);
+            ControlledAnimator.UseAnimationCollection(RuntimeAnimationResource.CachedResources[BipedID].Animations[CurrentMain.TargetAnimationSetID], false);
+            CurrentMain.transform.SetParent(Entity.WeaponHand);
+            CurrentMain.transform.localPosition = Vector3.zero;
+            CurrentMain.transform.localRotation = Quaternion.identity;
+            CurrentMain.transform.localScale = Vector3.one;
         }
         IEnumerator PlayPickup()
         {
@@ -203,6 +232,7 @@ namespace Site13Kernel.GameLogic.Character
         {
             CancelRun();
             CancelZoom();
+            if (!ALLOW_FIRE_FLAG_5) return;
             if (!ALLOW_FIRE_FLAG_0) return;
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;
@@ -332,6 +362,7 @@ namespace Site13Kernel.GameLogic.Character
             Zoomed = true;
             if (SpeedMultiplyer == SprintMultiplyer)
                 CancelRun();
+            if (!ALLOW_FIRE_FLAG_5) return;
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;
             if (!ALLOW_FIRE_FLAG_0) return;
@@ -409,6 +440,7 @@ namespace Site13Kernel.GameLogic.Character
         public override void Run()
         {
             CancelZoom();
+            if (!ALLOW_FIRE_FLAG_5) return;
             if (ALLOW_FIRE_FLAG_1 == false) return;
             if (ALLOW_FIRE_FLAG_2 == false) return;
             if (ALLOW_FIRE_FLAG_3 == false) return;
@@ -440,6 +472,7 @@ namespace Site13Kernel.GameLogic.Character
         public override void StartFire()
         {
             CancelRun();
+            if (!ALLOW_FIRE_FLAG_5) return;
             if (!ALLOW_FIRE_FLAG_0) return;
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;

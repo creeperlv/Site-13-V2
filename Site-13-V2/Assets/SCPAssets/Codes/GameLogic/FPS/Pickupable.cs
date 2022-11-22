@@ -75,7 +75,10 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (Operator is BipedEntity biped)
             {
+                if(ItemType== PickupItem.Weapon)
                 biped.EntityBag.TryObatinWeapon(AssociatedGenericWeapon);
+                if(ItemType== PickupItem.Holdable)
+                biped.EntityBag.TryObtainHoldable(AssociatedHoldableObject);
             }
             else
             {

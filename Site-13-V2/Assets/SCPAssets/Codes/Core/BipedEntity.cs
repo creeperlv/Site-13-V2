@@ -43,7 +43,8 @@ namespace Site13Kernel.Core
             {
                 if (EntityBag.Weapons.Count > 0)
                     EntityBag.Weapons[EntityBag.CurrentWeapon].gameObject.SetActive(false);
-
+                EntityBag.HoldableObject = o;
+                EntityBag.IsHoldingObject = true;
                 o.gameObject.transform.SetParent(WeaponHand);
                 o.Holder = this;
                 o.gameObject.transform.localPosition = Vector3.zero;
@@ -52,6 +53,13 @@ namespace Site13Kernel.Core
                 o.ApplyObjectStatus(false);
                 o.gameObject.transform.localScale = Vector3.one;
                 ObjectGenerator.SetLayerForChildren(o.gameObject, WeaponHand.gameObject.layer);
+            });
+            EntityBag.OnDropHoldable.Add((o) => {
+                if (EntityBag.Weapons.Count > 0)
+                    EntityBag.Weapons[EntityBag.CurrentWeapon].gameObject.SetActive(true);
+                o.ApplyObjectStatus(true);
+                o.Holder = null;
+
             });
             EntityBag.OnObtainWeapon.Add((w) =>
             {
