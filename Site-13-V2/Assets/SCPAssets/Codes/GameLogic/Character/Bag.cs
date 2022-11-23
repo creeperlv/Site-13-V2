@@ -35,6 +35,8 @@ namespace Site13Kernel.GameLogic.Character
         }
         public void TryObtainHoldable(HoldableObject holdableObject)
         {
+            if (IsHoldingObject) return;
+            holdableObject.OriginalLayer = holdableObject.gameObject.layer;
             OnObtainHoldable.Invoke(holdableObject);
         }
         public void DropHoldable(HoldableObject holdableObject, bool RemoveFromBag=true)

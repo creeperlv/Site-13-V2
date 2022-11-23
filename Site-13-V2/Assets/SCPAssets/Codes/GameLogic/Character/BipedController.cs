@@ -93,11 +93,12 @@ namespace Site13Kernel.GameLogic.Character
         /// Grenade Lock
         /// </summary>
         public bool ALLOW_FIRE_FLAG_4 = true;  // GRENADE LOCK
-        Vector3 _MOVE;
         /// <summary>
         /// Holding Object.
         /// </summary>
-        public bool ALLOW_FIRE_FLAG_5=true;
+        public bool ALLOW_FIRE_FLAG_5 = true;
+        public bool FLAG_IS_THROWING = false;
+        Vector3 _MOVE;
         public AnimationCollection CurrentCollection;
         public AuxiliaryBipedControls ABC;
         public SimulatedRigidBodyOverCharacterController SRBoCC;
@@ -133,8 +134,12 @@ namespace Site13Kernel.GameLogic.Character
                 ApplyHoldable();
                 StartCoroutine(PlayPickup());
             });
-            Entity.EntityBag.OnDropHoldable.Add((h) => {
+            Entity.EntityBag.OnDropHoldable.Add((h) =>
+            {
+                if (FLAG_IS_THROWING) return;
                 ALLOW_FIRE_FLAG_5 = true;
+                ApplyWeapon();
+                StartCoroutine(__TakeoutAnimation());
             });
             Entity.OnSwapWeapon.Add(() =>
             {
@@ -149,8 +154,8 @@ namespace Site13Kernel.GameLogic.Character
         {
             yield return null;
             var CurrentMain = Entity.EntityBag.HoldableObject;
-            Debug.Log(CurrentMain==null);
-            ControlledAnimator.UseAnimationCollection(RuntimeAnimationResource.CachedResources[BipedID].Animations[CurrentMain.TargetAnimationSetID], false);
+            ControlledAnimator.
+                UseAnimationCollection(RuntimeAnimationResource.CachedResources[BipedID].Animations[CurrentMain.TargetAnimationSetID], false);
             CurrentMain.transform.SetParent(Entity.WeaponHand);
             CurrentMain.transform.localPosition = Vector3.zero;
             CurrentMain.transform.localRotation = Quaternion.identity;
@@ -405,6 +410,11 @@ namespace Site13Kernel.GameLogic.Character
         }
         public override void SwitchWeapon()
         {
+            if (!ALLOW_FIRE_FLAG_5)
+            {
+                Entity.EntityBag.DropHoldable(Entity.EntityBag.HoldableObject, true);
+                return;
+            }
             CancelRun();
             CancelZoom();
             if (Entity.EntityBag.IsHoldingObject)
@@ -468,11 +478,32 @@ namespace Site13Kernel.GameLogic.Character
         {
             SpeedMultiplyer = 1;
         }
+        IEnumerator __ThrowOutAnimation()
+        {
+            FLAG_IS_THROWING= true;
+            Debug.Log("Throwing out...");
+            yield return null;
+            var c = ControlledAnimator.SetTrigger("Throw-Out");
+            yield return new WaitForSeconds(c.Length);
+            ALLOW_FIRE_FLAG_5 = true;
+            yield return null;
+            ApplyWeapon();
+            StartCoroutine(__TakeoutAnimation());
+            FLAG_IS_THROWING= false;
+        }
         public bool Fire = false;
         public override void StartFire()
         {
             CancelRun();
-            if (!ALLOW_FIRE_FLAG_5) return;
+            if (!ALLOW_FIRE_FLAG_5)
+            {
+                if (FLAG_IS_THROWING) return;
+                if (Entity.EntityBag.HoldableObject.CanThrowOut)
+                {
+                    StartCoroutine(__ThrowOutAnimation());
+                }
+                return;
+            }
             if (!ALLOW_FIRE_FLAG_0) return;
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;

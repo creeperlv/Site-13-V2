@@ -67,7 +67,25 @@ namespace Site13Kernel.GameLogic.Character
         }
         public void ThrowOutHoldingObject()
         {
-
+            Debug.Log("Trying throw object.");
+            var ho = this.BindedEntity.EntityBag.HoldableObject;
+            this.BindedEntity.EntityBag.DropHoldable(ho, true);
+            //ho.transform.SetParent(ho.OriginalParent);
+            //ho.transform.localScale = ho.OriginalScale;
+            ho.transform.position = BindedEntity.GrenadeEmissionPoint.position;
+            ho.transform.rotation = BindedEntity.GrenadeEmissionPoint.rotation;
+            var PO = ho.GetComponent<PhysicsObject>();
+            if (PO != null)
+            {
+                PO.Emitter = BindedEntity;
+            }
+            else
+            {
+                PO = ho.gameObject.AddComponent<PhysicsObject>();
+                PO.Emitter = BindedEntity;
+            }
+            var rb=ho.GetComponent<Rigidbody>();
+            rb.AddForce(BindedEntity.GrenadeEmissionPoint.forward * ho.ThrowOutForce, ForceMode.Impulse);
         }
         public void ThrowAGrenade()
         {

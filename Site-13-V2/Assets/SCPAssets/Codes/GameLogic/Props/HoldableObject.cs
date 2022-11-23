@@ -14,15 +14,19 @@ namespace Site13Kernel.GameLogic.Props
         public int IconID;
         public int NameID;
         public bool isHolded;
+        public Transform OriginalParent;
+        public Vector3 OriginalScale;
         //public LocalizedString ObjectName;
         public string TargetAnimationSetID;
+        public int OriginalLayer;
         public GameObject ContolledObject;
         public bool CanThrowOut;
+        public float ThrowOutForce = 10;
         public float MeleeDamage;
         public BipedEntity Holder;
         [Header("Pickupable Definition")]
         public Pickupable Pickup;
-        public List<BoxCollider> AttachedColliders;
+        public List<Collider> AttachedColliders;
         public void OnHold()
         {
             ApplyObjectStatus(false);
@@ -41,7 +45,7 @@ namespace Site13Kernel.GameLogic.Props
                     item.enabled = true;
                 }
                 this.gameObject.AddComponent<Rigidbody>();
-                ObjectGenerator.SetLayerForChildren(this.gameObject, GameRuntime.CurrentGlobals.PickupableLayer);
+                ObjectGenerator.SetLayerForChildren(this.gameObject, OriginalLayer);
                 this.Pickup.gameObject.layer = GameRuntime.CurrentGlobals.PickupableTriggerLayer;
             }
             else
