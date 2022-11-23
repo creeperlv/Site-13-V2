@@ -4,6 +4,7 @@ using Site13Kernel.Data;
 using Site13Kernel.GameLogic;
 using Site13Kernel.GameLogic.Character;
 using Site13Kernel.GameLogic.Controls;
+using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.GameLogic.Level;
 using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
@@ -112,7 +113,7 @@ namespace Site13Kernel.UI.HUD
             bool _s = Show;
             if (UseBipedEntity)
             {
-                
+
                 _s = _s & TakeControl.Instance != null;
             }
             if (__s != _s)
@@ -204,6 +205,9 @@ namespace Site13Kernel.UI.HUD
                         }
                     }
                     {
+                        /////////////////////////
+                        // Biped Implementation//
+                        /////////////////////////
                         if (UseBipedEntity)
                         {
                             {
@@ -216,6 +220,29 @@ namespace Site13Kernel.UI.HUD
                                 }
                             }
                             var _entity = TakeControl.Instance.entity;
+                            {
+                                //Equipments
+                                if (E_HUD_COUNT != null)
+                                {
+                                    if (_entity.EntityBag.Equipments.TryGetValue(_entity.EntityBag.CurrentEquipment, out var i))
+                                    {
+                                        E_HUD_COUNT.text = i.ToString();
+                                    }
+                                    else E_HUD_COUNT.text = "0";
+                                }
+                                if (E_HUD_ICON != null)
+                                {
+                                    if (_entity.EntityBag.LastSelectedEquipment != _entity.EntityBag.CurrentEquipment)
+                                    {
+                                        _entity.EntityBag.LastSelectedEquipment = _entity.EntityBag.CurrentEquipment;
+                                        if (EquipmentManifest.Instance.EqupimentMap.TryGetValue(_entity.EntityBag.CurrentEquipment, out var def))
+                                        {
+                                            E_HUD_ICON.sprite = def.Icon;
+                                            E_HUD_ICON.material = def.IconMat;
+                                        }
+                                    }
+                                }
+                            }
                             {
                                 // Crosshair , Zoom and Heat
                                 int TargetCrosshair;

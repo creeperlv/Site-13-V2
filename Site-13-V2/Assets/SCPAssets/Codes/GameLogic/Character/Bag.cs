@@ -10,6 +10,8 @@ namespace Site13Kernel.GameLogic.Character
     [Serializable]
     public class Bag
     {
+        public KVList<int, int> PreDefinedEquipments = new KVList<int, int>();
+        public Dictionary<int, int> Equipments = new Dictionary<int, int>();
         public List<GenericWeapon> Weapons = new List<GenericWeapon>();
         public bool IsHoldingObject;
         public HoldableObject HoldableObject;
@@ -17,6 +19,7 @@ namespace Site13Kernel.GameLogic.Character
         public Dictionary<int,ProcessedGrenade> Grenades = new Dictionary<int, ProcessedGrenade>();
         public int CurrentGrenade;
         public int CurrentEquipment;
+        public int LastSelectedEquipment;
         public Site13Event OnUseWeapon = new Site13Event();
         public Site13Event<GenericWeapon> OnObtainWeapon = new Site13Event<GenericWeapon>();
         public Site13Event<HoldableObject> OnObtainHoldable = new Site13Event<HoldableObject>();

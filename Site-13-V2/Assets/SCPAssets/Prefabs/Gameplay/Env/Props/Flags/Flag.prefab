@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7746042301164902266}
   - component: {fileID: 7746042301164902267}
   - component: {fileID: 1604663507045674160}
+  - component: {fileID: 1408807298296244882}
   m_Layer: 0
   m_Name: Flag
   m_TagString: Untagged
@@ -54,10 +55,11 @@ MonoBehaviour:
   isHolded: 0
   OriginalParent: {fileID: 0}
   OriginalScale: {x: 0, y: 0, z: 0}
-  TargetAnimationSetID: HCB
+  TargetAnimationSetID: Flag
   OriginalLayer: 0
   ContolledObject: {fileID: 7746042301164902264}
   CanThrowOut: 0
+  AllowRun: 1
   ThrowOutForce: 10
   MeleeDamage: 0
   Holder: {fileID: 0}
@@ -125,6 +127,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8c4a231c45aa914c830a8c26a7aa135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1408807298296244882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746042301164902264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 698659814, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7746042301489443845

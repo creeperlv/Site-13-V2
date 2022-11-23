@@ -416,9 +416,27 @@ namespace Site13Kernel.GameLogic.FPS
                     Destroy(ControlledEntity);
                 }
             }
-            else
+            else if (ItemType== PickupItem.Equipment)
             {
-
+                var holder = Biped.EntityBag;
+                if (holder.Equipments.TryGetValue(EquipmentID, out var i))
+                {
+                    int Max = int.MaxValue;
+                    if (EquipmentManifest.Instance.EqupimentMap.TryGetValue(EquipmentID, out var def))
+                    {
+                        Max = def.MaxCount;
+                    }
+                    holder.Equipments[EquipmentID] = Mathf.Min(Max, i + 1);
+                    if (holder.Equipments[EquipmentID] != i)
+                    {
+                        Destroy(ControlledEntity);
+                    }
+                }
+                else
+                {
+                    holder.Equipments.Add(EquipmentID, 1);
+                    Destroy(ControlledEntity);
+                }
             }
         }
         public void GetObjectData(SerializationInfo info, StreamingContext context)
