@@ -62,6 +62,7 @@ MonoBehaviour:
   CanBeBackstabed: 0
   isInvincible: 0
   TakeCollisionDamage: 1
+  TakeNonRigidBodyDamage: 1
   deathBodyType: 0
   DeathReplacements:
   - TargetPrefab:
@@ -69,6 +70,7 @@ MonoBehaviour:
       Key: 
       ID: 3001
     BodyType: 0
+    InheritOverflowDamage: 1
   DeathBodyReplacementID: -1
   DeathBodyReplacementPrefab: {fileID: 0}
   ControlledObject: {fileID: 5500545597853235129}
@@ -94,9 +96,10 @@ MonoBehaviour:
   OriginalParent: {fileID: 0}
   OriginalScale: {x: 0, y: 0, z: 0}
   TargetAnimationSetID: Fusion-Coils
+  OriginalLayer: 0
   ContolledObject: {fileID: 5500545597853235129}
   CanThrowOut: 1
-  ThrowOutForce: 25
+  ThrowOutForce: 45
   MeleeDamage: 0
   Holder: {fileID: 0}
   Pickup: {fileID: 2848558930988873492}

@@ -30,6 +30,7 @@ namespace Site13Kernel.Core
         public bool isInvincible;
 
         public bool TakeCollisionDamage = true;
+        public bool TakeNonRigidBodyDamage = false;
         public DeathBodyType deathBodyType = DeathBodyType.Entity;
         public List<DeathReplacement> DeathReplacements = new List<DeathReplacement>();
         public int DeathBodyReplacementID = -1;
@@ -56,8 +57,7 @@ namespace Site13Kernel.Core
         public void Load(List<object> data)
         {
         }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void OnCollisionEnter(Collision collision)
+        public virtual void OnProcessingCollisionEnter(Collision collision)
         {
             if (TakeCollisionDamage)
             {
@@ -89,7 +89,40 @@ namespace Site13Kernel.Core
                             Damage(DAM);
                     }
                 }
+                else if (TakeNonRigidBodyDamage)
+                {
+                    //Hit Static Geometry.
+                    var V = collision.relativeVelocity;
+                    float v = V.magnitude;
+                    if (v > GameEnv.CollisionDamageSpeedThreshold)
+                    {
+                        var DELTA = v - GameEnv.CollisionDamageSpeedThreshold;
+                        var DAM = DELTA * GameEnv.CollisionDamageIntensity;
+                        var obj = collision.collider.GetComponent<PhysicsObject>();
+                        if (obj != null)
+                        {
+                            Damage(DAM, new DamageDescription
+                            {
+                                Origin = obj.Emitter,
+                                DamageInformation = new DamageInformation
+                                {
+                                    Type = DamageType.Collision,
+                                    DamageAmount = DAM
+                                }
+                            });
+
+                        }
+                        else
+                            Damage(DAM);
+                    }
+                }
             }
+
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void OnCollisionEnter(Collision collision)
+        {
+            OnProcessingCollisionEnter(collision);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -104,7 +137,8 @@ namespace Site13Kernel.Core
             if (HitSound != null)
                 HitSound.Play();
             if (isInvincible) return false;
-            CurrentHP = math.max(0, CurrentHP - V);
+            //CurrentHP = math.max(0, CurrentHP - V);
+            CurrentHP = CurrentHP - V;
             if (CurrentHP <= 0)
             {
                 Die(LastCause);
@@ -116,19 +150,25 @@ namespace Site13Kernel.Core
         }
         public virtual bool Damage(float V, DamageDescription Origin)
         {
-            if (Origin.Origin == this)
+            if (Origin != null)
             {
-                if (LastCause == null)
+                if (Origin.Origin == this)
                 {
-                    LastCause = Origin;
+                    if (LastCause == null)
+                    {
+                        LastCause = Origin;
 
+                    }
                 }
+                else
+                    LastCause = Origin;
             }
-            else
-                LastCause = Origin;
             var v = Damage(V);
-            Origin.Origin.OnCauseDamage.Invoke(this, Origin.DamageInformation, v);
-            OnBeingDamage.Invoke(Origin.Origin, V);
+            if (Origin != null)
+            {
+                Origin.Origin.OnCauseDamage.Invoke(this, Origin.DamageInformation, v);
+                OnBeingDamage.Invoke(Origin.Origin, V);
+            }
             return v;
         }
 
@@ -169,7 +209,7 @@ namespace Site13Kernel.Core
             }
             catch (Exception e)
             {
-                Debugger.CurrentDebugger.Log(e);
+                Debugger.CurrentDebugger.Log("Body Gen Failed:" + e);
             }
             if (Controller != null)
                 Controller.DestroyEntity(this);
@@ -192,23 +232,30 @@ namespace Site13Kernel.Core
             {
                 case DeathBodyType.Entity:
                     {
+                        DamagableEntity DE;
                         if (Controller != null && DeathBodyReplacementID != -1)
                         {
                             if (ControlledObject != null)
                             {
-                                Controller.Instantiate(DeathBodyReplacementID, ControlledObject.transform.position, ControlledObject.transform.rotation, ControlledObject.transform.parent);
+                                (_, DE) = Controller.Instantiate(DeathBodyReplacementID, ControlledObject.transform.position, ControlledObject.transform.rotation, ControlledObject.transform.parent);
+
                             }
                             else
-                                Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
+                                (_, DE) = Controller.Instantiate(DeathBodyReplacementID, this.transform.position, this.transform.rotation, this.transform.parent);
                         }
                         else
                         {
                             if (ControlledObject != null)
                             {
-                                ObjectGenerator.Instantiate(DR.TargetPrefab, ControlledObject.transform.position, ControlledObject.transform.rotation, ControlledObject.transform.parent);
+                                DE = ObjectGenerator.Instantiate(DR.TargetPrefab, ControlledObject.transform.position, ControlledObject.transform.rotation, ControlledObject.transform.parent).GetComponent<DamagableEntity>();
                             }
                             else
-                                ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
+                                DE = ObjectGenerator.Instantiate(DR.TargetPrefab, this.transform.position, this.transform.rotation, this.transform.parent).GetComponent<DamagableEntity>();
+                        }
+                        if (DE != null)
+                        {
+                            if (DR.InheritOverflowDamage)
+                                DE.Damage(Math.Abs(CurrentHP), Cause);
                         }
                     }
                     break;
@@ -241,7 +288,8 @@ namespace Site13Kernel.Core
                         }
                         else
                             effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);
-                        effect.GetComponent<ExplosionEffect>().Cause = Cause.Origin;
+                        if (Cause != null)
+                            effect.GetComponent<ExplosionEffect>().Cause = Cause.Origin;
                         effect.GetComponent<ExplosionEffect>().Explode();
                     }
                     break;

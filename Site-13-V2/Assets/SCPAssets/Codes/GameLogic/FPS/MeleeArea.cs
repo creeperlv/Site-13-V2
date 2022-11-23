@@ -22,10 +22,10 @@ namespace Site13Kernel.GameLogic.FPS
         public AudioSource HitDamagable;
         bool __audio_flag_0 = false;
         bool __audio_flag_1 = false;
-        private void OnTriggerEnter(Collider collision)
-        {
-            Hit(collision.gameObject);
-        }
+        //private void OnTriggerEnter(Collider collision)
+        //{
+        //    Hit(collision.gameObject);
+        //}
         private void OnCollisionEnter(Collision collision)
         {
             Hit(collision.gameObject);
@@ -51,10 +51,12 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (isDetecting)
             {
+                if (collision.GetComponent<NotMeleeableObject>() != null) return;
                 byte __final_effect = 0;
                 var DE = collision.GetComponent<DamagableEntity>();
                 var PhyObj = collision.GetComponentInChildren<PhysicsObject>();
                 var DEREF = collision.GetComponent<DamagableEntityReference>();
+
                 if (PhyObj != null)
                 {
                     PhyObj.Emitter = OriginEntity;

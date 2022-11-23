@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7746042301164902261}
   - component: {fileID: 7746042301164902266}
   - component: {fileID: 7746042301164902267}
+  - component: {fileID: 1604663507045674160}
   m_Layer: 0
   m_Name: Flag
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MonoBehaviour:
   OriginalParent: {fileID: 0}
   OriginalScale: {x: 0, y: 0, z: 0}
   TargetAnimationSetID: HCB
+  OriginalLayer: 0
   ContolledObject: {fileID: 7746042301164902264}
   CanThrowOut: 0
   ThrowOutForce: 10
@@ -113,6 +115,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1604663507045674160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746042301164902264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c4a231c45aa914c830a8c26a7aa135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7746042301489443845
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +138,7 @@ GameObject:
   - component: {fileID: 7746042301489443844}
   - component: {fileID: 7746042301489443846}
   - component: {fileID: 7746042301489443847}
+  - component: {fileID: 1976330780416431866}
   m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
@@ -212,6 +227,18 @@ MonoBehaviour:
   AmmoDispTexts: []
   AssociatedGenericWeapon: {fileID: 0}
   AssociatedHoldableObject: {fileID: 7746042301164902261}
+--- !u!114 &1976330780416431866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746042301489443845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c4a231c45aa914c830a8c26a7aa135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7746042300182369182
 PrefabInstance:
   m_ObjectHideFlags: 0

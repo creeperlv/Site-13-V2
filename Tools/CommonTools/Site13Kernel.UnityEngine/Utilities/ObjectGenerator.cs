@@ -212,6 +212,15 @@ namespace Site13Kernel.Utilities
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetLayerForChildrenWithZero(GameObject obj,int Layer)
+        {
+            obj.layer = Layer;
+            for (int i = 0; i < obj.transform.childCount; i++)
+            {
+                SetLayerForChildrenWithZero(obj.transform.GetChild(i).gameObject,Layer);
+            }
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameObject Instantiate(GameObject gameObject, Transform parent, int ID)
         {
             var _Object = GameObject.Instantiate(gameObject, parent);

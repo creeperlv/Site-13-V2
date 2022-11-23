@@ -8,5 +8,6 @@ namespace Site13Kernel.Data
     {
         public PrefabReference TargetPrefab;
         public DeathBodyType BodyType;
+        public bool InheritOverflowDamage;
     }
 }

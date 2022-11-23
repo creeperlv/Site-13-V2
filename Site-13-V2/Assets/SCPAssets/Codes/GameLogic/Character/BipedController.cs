@@ -450,7 +450,7 @@ namespace Site13Kernel.GameLogic.Character
         public override void Run()
         {
             CancelZoom();
-            if (!ALLOW_FIRE_FLAG_5) return;
+            if (!ALLOW_FIRE_FLAG_5) { if(!Entity.EntityBag.HoldableObject.AllowRun) return; }
             if (ALLOW_FIRE_FLAG_1 == false) return;
             if (ALLOW_FIRE_FLAG_2 == false) return;
             if (ALLOW_FIRE_FLAG_3 == false) return;
@@ -481,7 +481,7 @@ namespace Site13Kernel.GameLogic.Character
         IEnumerator __ThrowOutAnimation()
         {
             FLAG_IS_THROWING= true;
-            Debug.Log("Throwing out...");
+            //Debug.Log("Throwing out...");
             yield return null;
             var c = ControlledAnimator.SetTrigger("Throw-Out");
             yield return new WaitForSeconds(c.Length);

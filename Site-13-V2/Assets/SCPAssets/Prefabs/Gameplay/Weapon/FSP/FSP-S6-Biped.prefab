@@ -331,6 +331,7 @@ MonoBehaviour:
   AmmoRenderers: []
   AmmoDispTexts: []
   AssociatedGenericWeapon: {fileID: 992207202095397831}
+  AssociatedHoldableObject: {fileID: 0}
 --- !u!1 &6674957414387298912
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +344,7 @@ GameObject:
   - component: {fileID: 4589017298748029848}
   - component: {fileID: 389807500031184006}
   - component: {fileID: 992207202095397831}
+  - component: {fileID: 7633682328274973790}
   m_Layer: 13
   m_Name: FSP-S6-Biped
   m_TagString: Untagged
@@ -525,11 +527,25 @@ MonoBehaviour:
   CamShakeSpeed: 50
   CameraShakeIntensity: 1
   CreateBullet: 1
+  AimAssistDistance: 30
+  AimAssistRotationResistance: 0.25
   Holder: {fileID: 0}
   FIRE3: 0
   FIRE1: 0
   FIRE2: 0
   WeaponMode: 1
+--- !u!114 &7633682328274973790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674957414387298912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 698659814, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8273292464494992119
 GameObject:
   m_ObjectHideFlags: 0

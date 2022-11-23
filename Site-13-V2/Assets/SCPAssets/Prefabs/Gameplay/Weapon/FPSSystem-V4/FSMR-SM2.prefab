@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4950656035733649937}
   - component: {fileID: 6863894111300944271}
   - component: {fileID: 8503873139619232031}
+  - component: {fileID: 6754401345976136146}
   m_Layer: 13
   m_Name: FSMR-SM2
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Transform:
   - {fileID: 283363140294579774}
   - {fileID: 1108541987464753807}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4950656035733649937
 BoxCollider:
@@ -210,6 +211,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6754401345976136146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125323898626131191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 698659814, guid: 0bc6a3a57c92bc74883f1f9b779cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3900364350894089665
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +940,7 @@ MonoBehaviour:
   - {fileID: 7462931407081477584}
   AmmoDispTexts: []
   AssociatedGenericWeapon: {fileID: 6863894111300944271}
+  AssociatedHoldableObject: {fileID: 0}
 --- !u!1 &8053025076799790506
 GameObject:
   m_ObjectHideFlags: 0

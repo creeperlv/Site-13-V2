@@ -21,6 +21,7 @@ namespace Site13Kernel.GameLogic.Props
         public int OriginalLayer;
         public GameObject ContolledObject;
         public bool CanThrowOut;
+        public bool AllowRun;
         public float ThrowOutForce = 10;
         public float MeleeDamage;
         public BipedEntity Holder;
@@ -45,7 +46,8 @@ namespace Site13Kernel.GameLogic.Props
                     item.enabled = true;
                 }
                 this.gameObject.AddComponent<Rigidbody>();
-                ObjectGenerator.SetLayerForChildren(this.gameObject, OriginalLayer);
+                Debug.Log("Trying to set layer.");
+                ObjectGenerator.SetLayerForChildrenWithZero(this.gameObject, OriginalLayer);
                 this.Pickup.gameObject.layer = GameRuntime.CurrentGlobals.PickupableTriggerLayer;
             }
             else
