@@ -97,6 +97,10 @@ namespace Site13Kernel.GameLogic.Character
         /// Holding Object.
         /// </summary>
         public bool ALLOW_FIRE_FLAG_5 = true;
+        /// <summary>
+        /// Using Equipment.
+        /// </summary>
+        public bool ALLOW_FIRE_FLAG_6 = true;
         public bool FLAG_IS_THROWING = false;
         Vector3 _MOVE;
         public AnimationCollection CurrentCollection;
@@ -508,6 +512,7 @@ namespace Site13Kernel.GameLogic.Character
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;
             if (!ALLOW_FIRE_FLAG_3) return;
+            if (!ALLOW_FIRE_FLAG_6) return;
             if (!Fire)
             {
                 if (Entity.EntityBag.Weapons.Count >= Entity.EntityBag.CurrentWeapon + 1)

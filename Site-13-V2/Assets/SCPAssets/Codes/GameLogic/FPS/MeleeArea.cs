@@ -22,10 +22,10 @@ namespace Site13Kernel.GameLogic.FPS
         public AudioSource HitDamagable;
         bool __audio_flag_0 = false;
         bool __audio_flag_1 = false;
-        //private void OnTriggerEnter(Collider collision)
-        //{
-        //    Hit(collision.gameObject);
-        //}
+        private void OnTriggerEnter(Collider collision)
+        {
+            Hit(collision.gameObject);
+        }
         private void OnCollisionEnter(Collision collision)
         {
             Hit(collision.gameObject);
@@ -66,6 +66,7 @@ namespace Site13Kernel.GameLogic.FPS
                     DE = DEREF.Reference;
                 }
                 var RIG = collision.GetComponent<Rigidbody>();
+
                 if (RIG == null)
                 {
                     var CLD = collision.GetComponent<Collider>();
@@ -76,6 +77,7 @@ namespace Site13Kernel.GameLogic.FPS
                 }
                 if (RIG != null)
                 {
+                    if (RIG.GetComponent<NotMeleeableObject>() != null) return;
                     var ForceDirection = (Holder.transform.position - collision.transform.position).normalized;
                     var _Force = -ForceDirection * Force;
                     RIG.AddForce(_Force, ForceMode.Impulse);
