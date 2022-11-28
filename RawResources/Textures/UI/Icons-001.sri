@@ -1,0 +1,26 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="White">
+		<SubImage  X="0" Y="0" Width="0.1" Height="0.1" ScaledWidthRatio="1" ScaledHeightRatio="1" Rotation="0">
+			<Rectangle X="0" Y="0" Width="0.1" Height="0.1" Size="0" Fill="True" Color="#333333"/>
+			<Ellipse X="0.035" Y="0.02" Width="0.03" Height="0.03" Size="0.002" Fill="False" Color="#FFFFFF"/>
+			<Path Size="0.002" Fill="False">
+				<PathNode X="0.025" Y="0.08" Type="Line" />
+				<PathNode X="0.04" Y="0.055" Type="Line" />
+				<PathNode X="0.04" Y="0.055" Type="Bezier3" />
+				<PathNode X="0.05" Y="0.06" Type="Bezier3" />
+				<PathNode X="0.06" Y="0.055" Type="Bezier3" />
+				<PathNode X="0.06" Y="0.055" Type="Line" />
+				<PathNode X="0.075" Y="0.08" Type="Line" />
+			</Path>
+		</SubImage>
+		
+		
+		<Group Visible="DESIGN">
+			<For Variable="i" InitialValue="0" EndValue="1" Step="0.1" >
+				<For Variable="j" InitialValue="0" EndValue="1" Step="0.1" >
+					<Rectangle X="i-0.0005" Y="j-0.0005" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
+				</For>
+			</For>
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>

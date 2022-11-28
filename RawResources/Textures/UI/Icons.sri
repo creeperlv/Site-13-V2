@@ -1,46 +1,11 @@
 <ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
 	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="White">
 		<Group Visible="DESIGN">
-			<Rectangle X="0" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.1" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.2" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.3" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.4" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.5" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.6" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.7" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.8" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.9" Y="0" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.1" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.2" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.3" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.4" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.5" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.6" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.7" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.8" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.9" Y="0.1" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.1" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.2" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.3" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.4" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.5" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.6" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.7" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.8" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.9" Y="0.2" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.1" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.2" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.3" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.4" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.5" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.6" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.7" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.8" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
-			<Rectangle X="0.9" Y="0.3" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
+			<For Variable="i" InitialValue="0" EndValue="1" Step="0.1" >
+				<For Variable="j" InitialValue="0" EndValue="1" Step="0.1" >
+					<Rectangle X="i" Y="j" Width="0.1" Height="0.1" Size="0.001" Fill="False" Color="#00FF00"/>
+				</For>
+			</For>
 		</Group>
 		<SetSymbol Name="OutlineColor" Value="#AAAAAA" />
 		<SetSymbol Name="StarColor" Value="#EEEEEE" />

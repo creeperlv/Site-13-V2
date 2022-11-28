@@ -7,12 +7,15 @@ using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.GameLogic.FPS;
 using Site13Kernel.GameLogic.Level;
 using Site13Kernel.GameLogic.Physic;
+using Site13Kernel.GameLogic.RuntimeScenes;
 using Site13Kernel.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -106,6 +109,43 @@ namespace Site13Kernel.GameLogic.Character
         public AnimationCollection CurrentCollection;
         public AuxiliaryBipedControls ABC;
         public SimulatedRigidBodyOverCharacterController SRBoCC;
+        #region Registry
+
+        [Header("BipedShield")]
+        public string ShieldKey = "MobileSRA";
+        public string MaxShieldQuery = "MaxShield";
+        public bool RegisteredShield;
+        public float ShieldRecoverDelay = 5;
+        public float ShieldRecoverSpeed = 15f;
+        public float MaxShield = 100f;
+        bool _ShieldEnabled;
+        #endregion
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void RegistryRelated(float DeltaTime)
+        {
+            if (RegisteredShield)
+            {
+                var ShieldEnabled = LevelRuntimeRegistry.QueryBool(ShieldKey);
+
+                if (ShieldEnabled != _ShieldEnabled)
+                {
+                    if (ShieldEnabled)
+                    {
+                        MaxShield = LevelRuntimeRegistry.QueryFloat(MaxShieldQuery, MaxShield);
+                        Entity.ShieldRecoverDelay = ShieldRecoverDelay;
+                        Entity.ShieldRecoverSpeed = ShieldRecoverSpeed;
+                        Entity.MaxShield = MaxShield;
+                    }
+                    else
+                    {
+                        Entity.ShieldRecoverSpeed = 0;
+                        Entity.CurrentShield = 0;
+                    }
+                    _ShieldEnabled = ShieldEnabled;
+                }
+            }
+        }
         public void Start()
         {
             if (UseControlledBehaviorWorkflow) return;
@@ -332,6 +372,11 @@ namespace Site13Kernel.GameLogic.Character
             CancelAim();
             CancelFire();
             CancelZoom();
+            var interative=LevelRuntimeRegistry.QueryBool("IsInspIUI", false);
+            if (interative)
+            {
+                GenericInputControl.Instance.isUIControl = true;
+            }
         }
         public override void ThrowGrenade()
         {
@@ -454,7 +499,7 @@ namespace Site13Kernel.GameLogic.Character
         public override void Run()
         {
             CancelZoom();
-            if (!ALLOW_FIRE_FLAG_5) { if(!Entity.EntityBag.HoldableObject.AllowRun) return; }
+            if (!ALLOW_FIRE_FLAG_5) { if (!Entity.EntityBag.HoldableObject.AllowRun) return; }
             if (ALLOW_FIRE_FLAG_1 == false) return;
             if (ALLOW_FIRE_FLAG_2 == false) return;
             if (ALLOW_FIRE_FLAG_3 == false) return;
@@ -484,7 +529,7 @@ namespace Site13Kernel.GameLogic.Character
         }
         IEnumerator __ThrowOutAnimation()
         {
-            FLAG_IS_THROWING= true;
+            FLAG_IS_THROWING = true;
             //Debug.Log("Throwing out...");
             yield return null;
             var c = ControlledAnimator.SetTrigger("Throw-Out");
@@ -493,7 +538,7 @@ namespace Site13Kernel.GameLogic.Character
             yield return null;
             ApplyWeapon();
             StartCoroutine(__TakeoutAnimation());
-            FLAG_IS_THROWING= false;
+            FLAG_IS_THROWING = false;
         }
         public bool Fire = false;
         public override void StartFire()

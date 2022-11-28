@@ -1,21 +1,27 @@
 <ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="Outlines" Value="True"/>
+	<Define Name="Texts" Value="False"/>
 	<ImageNodeRoot RelativeWidth="20" RelativeHeight="10" Background="Black" Foreground="White">
-		<Ellipse X="1" Y="-1.75" Width="18" Height="3" Size="0.025" Fill="False" />
-		<Ellipse X="0" Y="-2.1" Width="20" Height="4" Size="0.025" Fill="False" />
-		<Rectangle X="8" Y="0.15" Width="4" Height="0.4" Size="0.025" Fill="False" />
-		<Rectangle X="9" Y="0.56" Width="2" Height="0.15" Size="0.025" Fill="False" />
-		<Text Content="FOUNDATION Neural Implant V 11.0.14393.2401" 
-			FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.1" X="3" Y="0.1" Width="5" Height="0.5" Align="Near" VerticalAlign="Near" />
-		<Group Visible="Blur">
-			<BlurAbrove RadiusValue="0.175" SamplePixelSkipCount="1" PixelSkipCount="1" BlurMode="0" useWeight="False" isRoundRange="True" />
+		<Group Visible="Outlines">
+			<Ellipse X="1" Y="-1.75" Width="18" Height="3" Size="0.025" Fill="False" />
+			<Ellipse X="0" Y="-2.1" Width="20" Height="4" Size="0.025" Fill="False" />
+			<Rectangle X="8" Y="0.15" Width="4" Height="0.4" Size="0.025" Fill="False" />
+			<Rectangle X="9" Y="0.56" Width="2" Height="0.15" Size="0.025" Fill="False" />
+			<Group Visible="Blur">
+				<BlurAbrove RadiusValue="0.175" SamplePixelSkipCount="1" PixelSkipCount="1" BlurMode="0" useWeight="False" isRoundRange="True" />
+			</Group>
+			<Ellipse X="1" Y="-1.75" Width="18" Height="3" Size="0.02" Fill="False" />
+			<Rectangle X="8" Y="0.15" Width="4" Height="0.4" Size="0.02" Fill="False" />
+			<Rectangle X="9" Y="0.56" Width="2" Height="0.15" Size="0.02" Fill="False" />
+			<Rectangle X="8" Y="0.15" Width="4" Height="0.4" Size="0.02" Fill="True" Color="#808080" />
+			<Rectangle X="9" Y="0.56" Width="2" Height="0.15" Size="0.02" Fill="True" Color="#808080" />
+			<Ellipse X="0" Y="-2.1" Width="20" Height="4" Size="0.02" Fill="False" />
 		</Group>
-		<Ellipse X="1" Y="-1.75" Width="18" Height="3" Size="0.02" Fill="False" />
-		<Rectangle X="8" Y="0.15" Width="4" Height="0.4" Size="0.02" Fill="False" />
-		<Rectangle X="9" Y="0.56" Width="2" Height="0.15" Size="0.02" Fill="False" />
-		<Rectangle X="8" Y="0.15" Width="4" Height="0.4" Size="0.02" Fill="True" Color="#808080" />
-		<Rectangle X="9" Y="0.56" Width="2" Height="0.15" Size="0.02" Fill="True" Color="#808080" />
-		<Ellipse X="0" Y="-2.1" Width="20" Height="4" Size="0.02" Fill="False" />
-		<Text Content="FOUNDATION Neural Implant V 11.0.14393.2401" 
-			FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.1" X="3" Y="0.1" Width="5" Height="0.5" Align="Near" VerticalAlign="Near" />
+		<Group Visible="Texts">
+			<Text Content="FOUNDATION Neural Implant V 11.0.14393.2401" 
+				FontFamily="Sarasa Mono CL" FontStyle="Bold" Size="0.1" X="3" Y="0.1" Width="5" Height="0.5" Align="Near" VerticalAlign="Near" />
+			<Text Content="FOUNDATION Neural Implant V 11.0.14393.2401" 
+				FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.1" X="3" Y="0.1" Width="5" Height="0.5" Align="Near" VerticalAlign="Near" />
+		</Group>
 	</ImageNodeRoot>
 </ScalableRelativeImage>
