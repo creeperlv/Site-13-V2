@@ -159,7 +159,7 @@ namespace Site13Kernel.GameLogic.Character
         void __init()
         {
             _Grenades = Grenades.ObtainMap();
-            ControlledAnimator.ControlledAnimator.keepAnimatorControllerStateOnDisable = true;
+            ControlledAnimator.ControlledAnimator.keepAnimatorStateOnDisable = true;
             Entity.EntityBag.OnObtainWeapon.Add((w) =>
             {
                 w.OnSingleFire.Add(() =>
