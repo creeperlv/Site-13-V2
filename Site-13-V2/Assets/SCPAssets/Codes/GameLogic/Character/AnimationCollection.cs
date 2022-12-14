@@ -1,7 +1,6 @@
 ﻿using Site13Kernel.Data;
 using System;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Site13Kernel.GameLogic.Character
