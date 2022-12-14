@@ -1,0 +1,102 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="MAIN" Value="True"/>
+	<Define Name="NOR" Value="True"/>
+	<Define Name="MTL" Value="False"/>
+	<Define Name="EMI" Value="False"/>
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent">
+		<Group Visible="MAIN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="../../../RefTextures/Metal041A_4K_Color.png" />
+			
+			<SubImage X="0.225*0.5" Y="0+0.375*0.7" Width="2" Height="2" ScaledWidthRatio="0.5" ScaledHeightRatio="0.3" Background="Transparent" Rotation="0" >
+			<Text Content="🔥" FontFamily="Noto Emoji" FontStyle="Regular" 
+				Size="0.007" X="0.225" Y="0.375" Width="0.15" Height="0.04" Align="Near" VerticalAlign="Near" Color="Red"/>
+			</SubImage>
+			<SubImage X="0.165*0.5" Y="0+0.485*0.7" Width="2" Height="2" ScaledWidthRatio="0.5" ScaledHeightRatio="0.3" Background="Transparent" Rotation="0" >
+				<Text Content="🔥" FontFamily="Noto Emoji" FontStyle="Regular" 
+				Size="0.007" X="0.165" Y="0.485" Width="0.15" Height="0.04" Align="Near" VerticalAlign="Near" Color="Red"/>
+			</SubImage>
+			<Dot X="0.395" Y="0.3" Size="0.01" Color="#FFAA33"/>
+			<Dot X="0.405" Y="0.3" Size="0.01" Color="#FFAA33"/>
+			<Dot X="0.395" Y="0.31" Size="0.01" Color="#FFAA33"/>
+			<Dot X="0.405" Y="0.31" Size="0.01" Color="#FFAA33"/>
+			<For Variable="i" InitialValue="0" EndValue="0.025" Step="0.01" >
+				<Triangle Point1="i+0.1525,0.3925" Point2="i+0.15,0.397" Point3="i+0.155,0.397" Size="0" Fill="True" Color="Red"/>
+			</For>
+			<For Variable="i" InitialValue="0-0.002" EndValue="0.01" Step="0.005" >
+				<Triangle Point1="0.2675,i+0.484" Point2="0.265,i+0.486" Point3="0.2675,i+0.488" Size="0" Fill="True" Color="Red"/>
+			</For>
+			<For Variable="i" InitialValue="0" EndValue="0.014" Step="0.005" >
+				<Triangle Point1="0.1325,i+0.374" Point2="0.135,i+0.376" Point3="0.1325,i+0.378" Size="0" Fill="True" Color="Red"/>
+			</For>
+			<For Variable="i" InitialValue="0" EndValue="0.025" Step="0.01" >
+				<Triangle Point1="i+0.2125,0.50" Point2="i+0.21,0.5045" Point3="i+0.215,0.5045" Size="0" Fill="True" Color="Red"/>
+			</For>
+		</Group>
+		<Group Visible="MTL">
+			
+			<Dot X="0.395" Y="0.3" Size="0.01" Color="#FFFFFF"/>
+			<Dot X="0.405" Y="0.3" Size="0.01" Color="#FFFFFF"/>
+			<Dot X="0.395" Y="0.31" Size="0.01" Color="#FFFFFF"/>
+			<Dot X="0.405" Y="0.31" Size="0.01" Color="#FFFFFF"/>
+		</Group>
+		<Group Visible="NOR">
+			<For Variable="i" InitialValue="0" EndValue="0.1" Step="0.01" >
+				<Line StartX="0.29" StartY="i+0.05" EndX="0.31" EndY="i+0.05" Size="0.005" Color="#000000"/>
+			</For>
+			
+			<SetSymbol Name="OutlineColor" Value="#FFFFFF" />
+			<Group Visible="False" >
+				<SubImage  X="0" Y="0" Width="0.1" Height="0.1" Name="FOP" ScaledWidthRatio="1" ScaledHeightRatio="1" Rotation="0">
+					<Path Size="0.003" Fill="False" Color="OutlineColor">
+						<PathNode X="0.0182" Y="0.04" Type="Line" />
+						<PathNode X="0.0182" Y="0.04" Type="Bezier3" />
+						<PathNode X="0.022" Y="0.023" Type="Bezier3" />
+						<PathNode X="0.04" Y="0.0175" Type="Bezier3" />
+						<PathNode X="0.04" Y="0.0175" Type="Line" />
+						<PathNode X="0.04" Y="0.01" Type="Line" />
+						<PathNode X="0.06" Y="0.01" Type="Line" />
+						<PathNode X="0.06" Y="0.0175" Type="Line" />
+						<PathNode X="0.06" Y="0.0175" Type="Bezier3" />
+						<PathNode X="0.077" Y="0.023" Type="Bezier3" />
+						<PathNode X="0.08245" Y="0.04" Type="Bezier3" />
+					</Path>
+			</SubImage>
+			</Group>
+			
+			<SubImage  X="0.5" Y="0.1685" Width="1" Height="1" Name="FO" ScaledWidthRatio="0.19" ScaledHeightRatio="0.19" Rotation="0">
+				<RefImage X="0" Y="0" Width="0.1" Height="0.1" ScaledWidthRatio="1" ScaledHeightRatio="1" Rotation="0" Background="Transparent" Source="Ref:FOP" />
+				<RefImage X="0" Y="0" Width="0.1" Height="0.1" ScaledWidthRatio="1" ScaledHeightRatio="1" Rotation="120" Background="Transparent" Source="Ref:FOP" />
+				<RefImage X="0" Y="0" Width="0.1" Height="0.1" ScaledWidthRatio="1" ScaledHeightRatio="1" Rotation="240" Background="Transparent" Source="Ref:FOP" />
+			</SubImage>
+			<Dot X="0.395" Y="0.3" Size="0.01" Color="#000000"/>
+			<Dot X="0.405" Y="0.3" Size="0.01" Color="#000000"/>
+			<Dot X="0.395" Y="0.31" Size="0.01" Color="#000000"/>
+			<Dot X="0.405" Y="0.31" Size="0.01" Color="#000000"/>
+			
+			<Dot X="0.425" Y="0.07" Size="0.005" Color="Black"/>
+			<Dot X="0.43" Y="0.085" Size="0.005" Color="Black"/>
+			<Dot X="0.575" Y="0.07" Size="0.005" Color="Black"/>
+			<Dot X="0.575" Y="0.085" Size="0.005" Color="Black"/>
+			<Dot X="0.425" Y="0.17" Size="0.005" Color="Black"/>
+			<Dot X="0.425" Y="0.185" Size="0.005" Color="Black"/>
+			<Dot X="0.575" Y="0.17" Size="0.005" Color="Black"/>
+			<Dot X="0.57" Y="0.185" Size="0.005" Color="Black"/>
+			<Text Content="Foundation Experimental Pistol Series 6 Plasma" FontFamily="Sarasa Mono CL" FontStyle="Regular" 
+			Size="0.0035" X="0.43" Y="0.07" Width="0.1" Height="0.02" Align="Center" VerticalAlign="Near" Color="White"/>
+			<Text Content="Foundation Advanced Armory Lab." FontFamily="Sarasa Mono CL" FontStyle="Regular" 
+			Size="0.0035" X="0.43" Y="0.17" Width="0.075" Height="0.02" Align="Center" VerticalAlign="Near" Color="White"/>
+			<Text Content="🔬" FontFamily="Noto Emoji" FontStyle="Regular" 
+			Size="0.003" X="0.503" Y="0.175" Width="0.075" Height="0.02" Align="Near" VerticalAlign="Near" Color="White"/>
+			<Text Content="⚔️" FontFamily="Noto Emoji" FontStyle="Regular" 
+			Size="0.003" X="0.5075" Y="0.175" Width="0.075" Height="0.02" Align="Near" VerticalAlign="Near" Color="White"/>
+		</Group>
+		<Group Visible="EMI">
+			<For Variable="i" InitialValue="0" EndValue="0.1" Step="0.01" >
+				<Line StartX="0.29" StartY="i+0.05" EndX="0.31" EndY="i+0.05" Size="0.005" Color="#FFFFFF"/>
+			</For>
+		</Group>
+		<Group Visible="DESIGN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="../Main-UV.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>

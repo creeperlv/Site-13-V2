@@ -589,6 +589,19 @@ MonoBehaviour:
       ID: 0
     WeaponIcon: {fileID: 21300000, guid: c65f0923aa55d2d41b01ead5194215ea, type: 3}
     WeaponMaterial: {fileID: 2100000, guid: 845a665888367bf4794d5a77c027e466, type: 2}
+  - Name: FEP-S6P
+    NameFallback: Experimental Pistol, Series 6 Plasma
+    FPSPrefab:
+      useString: 1
+      Key: FSP-S6-FPS
+      ID: 0
+    NPCPrefab: {fileID: 0}
+    PickablePrefab:
+      useString: 1
+      Key: FSP-S6-PICKUPABLE
+      ID: 0
+    WeaponIcon: {fileID: 21300000, guid: c65f0923aa55d2d41b01ead5194215ea, type: 3}
+    WeaponMaterial: {fileID: 2100000, guid: 845a665888367bf4794d5a77c027e466, type: 2}
   - Name: FSR-S5
     NameFallback: Standard Rifle, Series 5
     FPSPrefab:
@@ -6759,7 +6772,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &416048326498690821
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6776,7 +6789,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7649020543418221796
 GameObject:
   m_ObjectHideFlags: 0
