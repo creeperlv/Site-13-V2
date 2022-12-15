@@ -17,6 +17,7 @@ namespace Site13Kernel.Data
         public float CurrentHeat;
         public float HeatPerShot;
         public float Cooldown;
+        public float ActiveCooldown;
         public WeaponFireType WeaponFireType0;
         public WeaponFireType WeaponFireType1;// For 2-mode weapons.
         public Weapon Duplicate()

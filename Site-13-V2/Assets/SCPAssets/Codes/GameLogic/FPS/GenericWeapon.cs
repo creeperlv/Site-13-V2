@@ -96,6 +96,7 @@ namespace Site13Kernel.GameLogic.FPS
         public Site13Event OnSingleFire = new Site13Event();
         public Site13Event OnRealProjetileFire = new Site13Event();
         public Site13Event OnOverheat = new Site13Event();
+        public Site13Event OnCooled = new Site13Event();
         public Site13Event OnHit = new Site13Event();
         bool FIRE0;
         public bool FIRE3 = false;
@@ -168,7 +169,8 @@ namespace Site13Kernel.GameLogic.FPS
                     if (WeaponData.CurrentHeat > WeaponData.MaxHeat)
                     {
                         WeaponMode = WeaponConstants.WEAPON_MODE_OVERHEAT;
-
+                        if (OnOverheat != null)
+                            OnOverheat.Invoke();
                         if (WeaponAnimation != null)
                             WeaponAnimation.SetTrigger("Overheat");
                     }
@@ -327,7 +329,7 @@ namespace Site13Kernel.GameLogic.FPS
             var b = Entity.Damage(Damage, new DamageDescription
             {
                 Origin = this.Holder,
-                DamageInformation=new DamageInformation
+                DamageInformation = new DamageInformation
                 {
                     Type = DamageType.GunFire,
                     DamageOriginID = this.WeaponData.WeaponID
@@ -434,7 +436,32 @@ namespace Site13Kernel.GameLogic.FPS
                         }
                     }
                 }
+                if(WeaponMode== WeaponConstants.WEAPON_MODE_OVERHEAT)
+                {
 
+                    if (WeaponData.CurrentHeat > 0)
+                    {
+                        WeaponData.CurrentHeat -= WeaponData.ActiveCooldown * DeltaT;
+                    }
+                    else if (WeaponData.CurrentHeat != 0)
+                    {
+                        WeaponMode = WeaponConstants.WEAPON_MODE_NORMAL;
+                        if (OnCooled != null)
+                            OnCooled.Invoke();
+                        StartCoroutine(SetStateTrigger());
+                    }
+                }
+                else
+                {
+                    if (WeaponData.CurrentHeat > 0)
+                    {
+                        WeaponData.CurrentHeat -= WeaponData.Cooldown * DeltaT;
+                    }
+                    else if (WeaponData.CurrentHeat != 0)
+                    {
+                        WeaponData.CurrentHeat = 0;
+                    }
+                }
                 if (Recoil > 0)
                 {
                     Recoil -= RecoilRecoverSpeed * DeltaT;
@@ -442,14 +469,6 @@ namespace Site13Kernel.GameLogic.FPS
                 else if (Recoil != 0)
                 {
                     Recoil = 0;
-                }
-                if (WeaponData.CurrentHeat > 0)
-                {
-                    WeaponData.CurrentHeat -= WeaponData.Cooldown * DeltaT;
-                }
-                else if (WeaponData.CurrentHeat != 0)
-                {
-                    WeaponData.CurrentHeat = 0;
                 }
             }
         }
@@ -517,13 +536,20 @@ namespace Site13Kernel.GameLogic.FPS
         IEnumerator SetStateTrigger()
         {
             yield return null;
-            if (WeaponData.CurrentMagazine == 0)
+            if (WeaponMode == WeaponConstants.WEAPON_MODE_OVERHEAT)
             {
-                this.WeaponAnimation.SetTrigger(Trigger_Empty);
+                this.WeaponAnimation.SetTrigger(Trigger_Overheat);
             }
             else
             {
-                this.WeaponAnimation.SetTrigger(Trigger_Idle);
+                if (WeaponData.CurrentMagazine == 0)
+                {
+                    this.WeaponAnimation.SetTrigger(Trigger_Empty);
+                }
+                else
+                {
+                    this.WeaponAnimation.SetTrigger(Trigger_Idle);
+                }
             }
         }
         public void ApplyObjectStatus(bool isPickupable = false)
