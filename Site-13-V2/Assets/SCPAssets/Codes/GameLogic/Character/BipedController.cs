@@ -104,6 +104,8 @@ namespace Site13Kernel.GameLogic.Character
         /// Using Equipment.
         /// </summary>
         public bool ALLOW_FIRE_FLAG_6 = true;
+
+        public bool IsInOverheat = false;
         public bool FLAG_IS_THROWING = false;
         Vector3 _MOVE;
         public AnimationCollection CurrentCollection;
@@ -167,6 +169,8 @@ namespace Site13Kernel.GameLogic.Character
                     ControlledAnimator.SetTrigger("Fire");
                     ControlledAnimator.LastTrigger = "";
                 });
+                w.OnOverheat.Add(OnOverheat);
+                w.OnCooled.Add(OnCooled);
                 w.isHoldByPlayer = isPlayer;
                 ApplyWeapon();
                 StartCoroutine(PlayPickup());
@@ -193,6 +197,15 @@ namespace Site13Kernel.GameLogic.Character
         void ApplyHoldable()
         {
             StartCoroutine(DAH());
+        }
+
+        void OnOverheat()
+        {
+            //ControlledAnimator.SetTrigger("Overheat");
+        }
+        void OnCooled()
+        {
+            //ControlledAnimator.SetTrigger("Idle");
         }
         IEnumerator DAH()
         {
@@ -372,7 +385,7 @@ namespace Site13Kernel.GameLogic.Character
             CancelAim();
             CancelFire();
             CancelZoom();
-            var interative=LevelRuntimeRegistry.QueryBool("IsInspIUI", false);
+            var interative = LevelRuntimeRegistry.QueryBool("IsInspIUI", false);
             if (interative)
             {
                 GenericInputControl.Instance.isUIControl = true;
@@ -794,7 +807,13 @@ namespace Site13Kernel.GameLogic.Character
             {
                 if (DropTime >= 0.1f)
                 {
-                    ControlledAnimator.SetTrigger("Idle");
+                    if (IsInOverheat)
+                    {
+
+                        ControlledAnimator.SetTrigger("Overheat");
+                    }
+                    else
+                        ControlledAnimator.SetTrigger("Idle");
                 }
                 DropTime += DT;
             }
@@ -843,6 +862,7 @@ namespace Site13Kernel.GameLogic.Character
                             case "Crouch":
                             case "HeavyLand":
                             case "Pickup":
+                            case "Overheat":
                             case "":
                                 {
                                     if (SpeedMultiplyer == SprintMultiplyer)
@@ -854,7 +874,13 @@ namespace Site13Kernel.GameLogic.Character
                                     if (SpeedMultiplyer == 1)
                                     {
                                         //Running.
-                                        ControlledAnimator.SetTrigger("Walk");
+                                        if (IsInOverheat)
+                                        {
+                                            ControlledAnimator.SetTrigger("Overheat");
+
+                                        }
+                                        else
+                                            ControlledAnimator.SetTrigger("Walk");
                                     }
                                     else
                                     {
@@ -942,6 +968,12 @@ namespace Site13Kernel.GameLogic.Character
         public void OnFrame(float DT, float UDT)
         {
             {
+                if (Entity.EntityBag.Weapons.Count > 0)
+                    if (Entity.EntityBag.Weapons.Count >= Entity.EntityBag.CurrentWeapon)
+                    {
+                        var w = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon];
+                        IsInOverheat = w.WeaponMode == WeaponConstants.WEAPON_MODE_OVERHEAT;
+                    }
                 _Crouch(DT);
                 Rotation(DT);
                 Move(DT);

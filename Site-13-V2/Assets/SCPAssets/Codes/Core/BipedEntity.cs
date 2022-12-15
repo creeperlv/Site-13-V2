@@ -105,6 +105,8 @@ namespace Site13Kernel.Core
                             w.ApplyObjectStatus(true);
                             w.isHoldByPlayer = false;
                             w.OnSingleFire.Clear();
+                            w.OnOverheat.Clear();
+                            w.OnCooled.Clear();
                             w.gameObject.transform.SetParent(WeaponPool.CurrentPool.transform);
                             w.transform.localScale = Vector3.one;
 

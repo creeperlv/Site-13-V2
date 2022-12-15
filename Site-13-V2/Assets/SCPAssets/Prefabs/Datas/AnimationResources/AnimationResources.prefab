@@ -202,6 +202,48 @@ MonoBehaviour:
             - Trigger: Throw-Grenade
               Length: 1
               WaitUntilDone: 1
+      - Name: FEP-S6P
+        ControllerToUse: {fileID: 9100000, guid: 13d5ce0ccf16f3046827712ff92a2442, type: 2}
+        MappedAnimations:
+          PrefabDefinitions:
+          - Key: Pickup
+            Value:
+            - Trigger: Pickup
+              Length: 0.5
+              WaitUntilDone: 1
+          - Key: Melee
+            Value:
+            - Trigger: Melee0
+              Length: 0.7166666
+              WaitUntilDone: 1
+            - Trigger: Melee1
+              Length: 0.7166666
+              WaitUntilDone: 1
+          - Key: Reload
+            Value:
+            - Trigger: Reload
+              Length: 1
+              WaitUntilDone: 1
+          - Key: Reload-Empty
+            Value:
+            - Trigger: Reload-Empty
+              Length: 1
+              WaitUntilDone: 1
+          - Key: Takeout
+            Value:
+            - Trigger: Takeout
+              Length: 1
+              WaitUntilDone: 1
+          - Key: Throw-Grenade
+            Value:
+            - Trigger: Throw-Grenade
+              Length: 1
+              WaitUntilDone: 1
+          - Key: Overheat
+            Value:
+            - Trigger: Overheat
+              Length: 1
+              WaitUntilDone: 0
       - Name: Fusion-Coils
         ControllerToUse: {fileID: 9100000, guid: 5330ab1d84a63d04e862068a7cff4bdb, type: 2}
         MappedAnimations:

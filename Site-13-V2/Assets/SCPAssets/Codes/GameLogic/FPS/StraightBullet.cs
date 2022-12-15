@@ -45,20 +45,42 @@ namespace Site13Kernel.GameLogic.FPS
                 EffectController.CurrentEffectController.Spawn(HitEffect, collision.ClosestPoint(transform.position), Quaternion.identity, Vector3.one);
             var Entity = collision.gameObject.GetComponent<DamagableEntity>();
             var EntityREF = collision.gameObject.GetComponent<DamagableEntityReference>();
-            if(EntityREF != null)
+            if (EntityREF != null)
             {
                 Entity = EntityREF.Reference;
             }
+            var EMITTER = Emitter.GetComponentInChildren<DamagableEntity>();
             var WeakPoint = collision.gameObject.GetComponent<WeakPoint>();
             if (WeakPoint != null)
             {
                 TrySpawnHitEffect();
-                WeakPoint.AttachedBioEntity.Damage(WeakPointDamage);
+                var desc = new DamageDescription
+                {
+                    Origin = EMITTER,
+                    DamageInformation = new DamageInformation
+                    {
+                        DamageAmount = WeakPointDamage,
+                        isWeakPoint = true,
+                        Type = DamageType.GunFire
+                    }
+                };
+                WeakPoint.AttachedBioEntity.Damage(WeakPointDamage,desc);
             }
             else if (Entity != null)
             {
                 TrySpawnHitEffect();
-                Entity.Damage(BaseDamage);
+                //Entity.Damage(BaseDamage);
+                var desc = new DamageDescription
+                {
+                    Origin = EMITTER,
+                    DamageInformation = new DamageInformation
+                    {
+                        DamageAmount = BaseDamage,
+                        isWeakPoint = false,
+                        Type = DamageType.GunFire
+                    }
+                }; 
+                Entity.Damage(BaseDamage, desc);
             }
 
             ParentSystem.DestoryBullet(this);
