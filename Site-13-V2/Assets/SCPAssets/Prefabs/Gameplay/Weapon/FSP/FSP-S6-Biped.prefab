@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -320,6 +320,7 @@ MonoBehaviour:
     CurrentHeat: 0
     HeatPerShot: 0
     Cooldown: 0
+    ActiveCooldown: 0
     WeaponFireType0: 1
     WeaponFireType1: 1
   GrenadeID: 0
@@ -440,6 +441,7 @@ MonoBehaviour:
     CurrentHeat: 0
     HeatPerShot: 0
     Cooldown: 0
+    ActiveCooldown: 0
     WeaponFireType0: 1
     WeaponFireType1: 1
   AnimationCollectionName: FSP-S6
@@ -697,7 +699,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &3150705136264399606
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -714,4 +716,4 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
