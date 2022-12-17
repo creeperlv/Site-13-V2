@@ -201,11 +201,11 @@ namespace Site13Kernel.GameLogic.Character
 
         void OnOverheat()
         {
-            //ControlledAnimator.SetTrigger("Overheat");
+            ControlledAnimator.SetTrigger("Overheat");
         }
         void OnCooled()
         {
-            //ControlledAnimator.SetTrigger("Idle");
+            ControlledAnimator.SetTrigger("Idle");
         }
         IEnumerator DAH()
         {
