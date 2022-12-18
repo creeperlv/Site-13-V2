@@ -1,0 +1,17 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="NOR" Value="True"/>
+	<Define Name="EMI" Value="True"/>
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="White">
+		<Group Visible="NOR">
+			<For Variable="i" InitialValue="0" EndValue="0.335" Step="0.015">
+				<Line StartX="0.635+i" StartY="0.075" EndX="0.635+i" EndY="0.125" Size="0.005" Color="Black"/>
+			</For>
+		</Group>
+		<Group Visible="EMI">
+			<Rectangle X="0.15" Y="0.54" Width="0.1" Height="0.12" Size="0" Fill="True" Color="White"/>
+		</Group>
+		<Group Visible="DESIGN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="./Chevron-UV.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>
