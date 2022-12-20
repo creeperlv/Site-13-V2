@@ -1,0 +1,121 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	<Define Name="NOR" Value="False"/>
+	<Define Name="MAIN" Value="False"/>
+	<Define Name="EMI" Value="True"/>
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent" Foreground="White">
+		<Group Visible="MAIN">
+			<For Variable="x" InitialValue="1" EndValue="4" Step="1">
+				<For Variable="y" InitialValue="1" EndValue="4" Step="1">
+					<PixImg X="(x-1)/4" Y="(y-1)/4" Width="0.25" Height="0.25" Source="../../../RefTextures/Metal041A_4K_Color.png" />
+				</For>
+			</For>
+			<Rectangle X="0" Y="0" Width="1" Height="1" Size="0" Fill="True" Color="#80808080"/>
+			<Dot X="0.8" Y="0.1" Size="0.02" Color="#80303030"/>
+			<Line StartX="0.8" StartY="0.093" EndX="0.8" EndY="0.107" Size="0.001" Color="#80808080"/>
+			<SubImage X="0.22" Y="0.63" Width="0.1" Height="0.1" ScaledWidthRatio="1" ScaledHeightRatio="1" Rotation="360/24">
+				<Text Content="XOLOTOL 79" FontFamily="Sarasa Mono CL" FontStyle="Regular" Size="0.0075" X="0" Y="0.02" Width="0.1" Height="0.1" Align="Center" VerticalAlign="Near" />
+			</SubImage>
+		</Group>
+		<Group Visible="EMI">
+			<Dot X="0.3" Y="0.125" Size="0.001" Color="White"/>
+			<Dot X="0.29" Y="0.125" Size="0.001" Color="White"/>
+			<Dot X="0.28" Y="0.125" Size="0.001" Color="White"/>
+			<Dot X="0.31" Y="0.125" Size="0.001" Color="White"/>
+			<Dot X="0.32" Y="0.125" Size="0.001" Color="White"/>
+			
+			<Dot X="0.1" Y="0.3" Size="0.001" Color="White"/>
+			<Dot X="0.1" Y="0.29" Size="0.001" Color="White"/>
+			<Dot X="0.1" Y="0.28" Size="0.001" Color="White"/>
+			<Dot X="0.1" Y="0.31" Size="0.001" Color="White"/>
+			<Dot X="0.1" Y="0.32" Size="0.001" Color="White"/>
+			
+			<Dot X="0.4" Y="0.3" Size="0.001" Color="White"/>
+			<Dot X="0.4" Y="0.29" Size="0.001" Color="White"/>
+			<Dot X="0.4" Y="0.28" Size="0.001" Color="White"/>
+			<Dot X="0.4" Y="0.31" Size="0.001" Color="White"/>
+			<Dot X="0.4" Y="0.32" Size="0.001" Color="White"/>
+			
+			
+			<Dot X="0.2" Y="0.4" Size="0.001" Color="White"/>
+			<Dot X="0.19" Y="0.4" Size="0.001" Color="White"/>
+			<Dot X="0.18" Y="0.4" Size="0.001" Color="White"/>
+			<Dot X="0.21" Y="0.4" Size="0.001" Color="White"/>
+			<Dot X="0.22" Y="0.4" Size="0.001" Color="White"/>
+			
+			<Dot X="0.7915" Y="0.1" Size="0.0025" Color="#FFFFFF"/>
+			<Dot X="0.8085" Y="0.1" Size="0.0025" Color="#FFFFFF"/>
+			<Dot X="0.8" Y="0.0915" Size="0.0025" Color="#FFFFFF"/>
+			<Dot X="0.8" Y="0.1085" Size="0.0025" Color="#FFFFFF"/>
+			
+			<Dot X="0.8" Y="0.365" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.8" Y="0.635" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.935" Y="0.5" Size="0.005" Color="#FFFFFF"/>
+			<Dot X="0.665" Y="0.5" Size="0.005" Color="#FFFFFF"/>
+		</Group>
+		<Group Visible="NOR">
+			<Dot X="0.8" Y="0.1" Size="0.02" Color="#303030"/>
+			<Dot X="0.7915" Y="0.1" Size="0.0025" Color="#000000"/>
+			<Dot X="0.8085" Y="0.1" Size="0.0025" Color="#000000"/>
+			<Dot X="0.8" Y="0.0915" Size="0.0025" Color="#000000"/>
+			<Dot X="0.8" Y="0.1085" Size="0.0025" Color="#000000"/>
+			
+			<For Variable="x" InitialValue="0" EndValue="1.1" Step="0.05">
+				<Line StartX="0.745+x/10" StartY="0.1975" EndX="0.745+x/10+0.005" EndY="0.2025" Size="0.001" Color="Black"/>
+				<Line StartX="0.745+x/10+0.005" StartY="0.1975" EndX="0.745+x/10" EndY="0.2025" Size="0.001" Color="Black"/>
+			</For>
+			
+			<SetSymbol Name="_step" Value="0.15" />
+			<SetSymbol Name="offset" Value="0.65" />
+			
+			<For Variable="x" InitialValue="0" EndValue="1.2" Step="_step">
+				<Line StartX="offset+x/10" StartY="0.095" EndX="offset+x/10+_step/20" EndY="0.105" Size="0.001" Color="Black"/>
+				<Line StartX="offset+x/10+_step/20*2" StartY="0.095" EndX="offset+x/10+_step/20" EndY="0.105" Size="0.001" Color="Black"/>
+			</For>
+			
+			
+			<Rectangle X="0.65" Y="0.095" Width="0.135" Height="0.01" Size="0" Fill="True" Color="#80000000"/>
+			<SetSymbol Name="offset" Value="0.815" />
+			
+			<Rectangle X="0.815" Y="0.095" Width="0.135" Height="0.01" Size="0" Fill="True" Color="#80000000"/>
+			<For Variable="x" InitialValue="0" EndValue="1.2" Step="_step">
+				<Line StartX="offset+x/10" StartY="0.095" EndX="offset+x/10+_step/20" EndY="0.105" Size="0.001" Color="Black"/>
+				<Line StartX="offset+x/10+_step/20*2" StartY="0.095" EndX="offset+x/10+_step/20" EndY="0.105" Size="0.001" Color="Black"/>
+			</For>
+			
+			<Rectangle X="0.9195" Y="0.095" Width="0.05" Height="0.01" Size="0" Fill="True" Color="#000000"/>
+			
+			<Rectangle X="0.65" Y="0.095" Width="0.03" Height="0.01" Size="0" Fill="True" Color="#000000"/>
+			
+			<Line StartX="0.8" StartY="0.093" EndX="0.8" EndY="0.107" Size="0.0005" Color="Black"/>
+			
+			
+			<SetSymbol Name="offset_x" Value="0.2" />
+			<SetSymbol Name="offset_y" Value="0.8" />
+			<SetSymbol Name="outer_r" Value="0.1975" />
+			<SetSymbol Name="inner_r" Value="0.14" />
+			<Line StartX="0.79" StartY="0.325" EndX="0.79" EndY="0.65" Size="0.00025" Color="#505050"/>
+			<Line StartX="0.81" StartY="0.325" EndX="0.81" EndY="0.65" Size="0.00025" Color="#505050"/>
+			
+			<Line StartX="0.65" StartY="0.49" EndX="0.97" EndY="0.49" Size="0.00025" Color="#505050"/>
+			<Line StartX="0.65" StartY="0.51" EndX="0.97" EndY="0.51" Size="0.00025" Color="#505050"/>
+			
+			<For Variable="i" InitialValue="0" EndValue="360" Step="12">
+				<SingleParameterFunction Out="the" In="i" Func="Rad" />
+				<SingleParameterFunction Out="the2" In="i+1" Func="Rad" />
+				<SingleParameterFunction Out="sin_the" In="the" Func="sin" />
+				<SingleParameterFunction Out="cos_the" In="the" Func="cos" />
+				<SingleParameterFunction Out="sin_the2" In="the2" Func="sin" />
+				<SingleParameterFunction Out="cos_the2" In="the2" Func="cos" />
+				<SetSymbolExp Name="x" Value="outer_r*cos_the+offset_x" Type="Float" />
+				<SetSymbolExp Name="_x" Value="inner_r*cos_the+offset_x" Type="Float" />
+				<SetSymbolExp Name="y" Value="outer_r*sin_the+offset_y" Type="Float" />
+				<SetSymbolExp Name="_y" Value="inner_r*sin_the+offset_y" Type="Float" />
+				
+				<Line StartX="_x" StartY="_y" EndX="x" EndY="y" Size="0.00025" Color="#606060"/>
+			</For>
+		</Group>
+		<Group Visible="DESIGN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="./Ring-UV.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>

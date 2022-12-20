@@ -4,8 +4,11 @@
 		<Group Visible="NOR">
 			<SetSymbol Name="offset_x" Value="0.2" />
 			<SetSymbol Name="offset_y" Value="0.3" />
-			<SetSymbol Name="outer_r" Value="0.2" />
-			<SetSymbol Name="inner_r" Value="0.1425" />
+			<SetSymbol Name="outer_r" Value="0.1975" />
+			<SetSymbol Name="inner_r" Value="0.1495" />
+			<Ellipse X="0.2-outer_r" Y="0.3-outer_r" Width="0.395" Height="00.395" Size="0.00005" Fill="True" Color="#404040" />
+			<Ellipse X="0.2-outer_r+0.0005" Y="0.3-outer_r+0.0005" Width="0.394" Height="0.394" Size="0.00005" Fill="True" Color="#303030" />
+			<Ellipse X="0.2-outer_r" Y="0.3-outer_r" Width="0.395" Height="00.395" Size="0.00005" Fill="False" Color="#505050" />
 			<For Variable="i" InitialValue="0" EndValue="360" Step="2">
 				<SingleParameterFunction Out="the" In="i" Func="Rad" />
 				<SingleParameterFunction Out="the2" In="i+1" Func="Rad" />
@@ -17,6 +20,11 @@
 				<SetSymbolExp Name="_x" Value="inner_r*cos_the+offset_x" Type="Float" />
 				<SetSymbolExp Name="y" Value="outer_r*sin_the+offset_y" Type="Float" />
 				<SetSymbolExp Name="_y" Value="inner_r*sin_the+offset_y" Type="Float" />
+				
+				<SetSymbolExp Name="x2" Value="0.1451*cos_the+offset_x" Type="Float" />
+				<SetSymbolExp Name="y2" Value="0.1451*sin_the+offset_y" Type="Float" />
+				<Dot X="x2" Y="y2" Size="0.002" Color="Black"/>
+				
 				<SetSymbolExp Name="x2" Value="0.195*cos_the2+offset_x" Type="Float" />
 				<SetSymbolExp Name="y2" Value="0.195*sin_the2+offset_y" Type="Float" />
 				<Dot X="x2" Y="y2" Size="0.002" Color="Black"/>
@@ -25,10 +33,33 @@
 				<Dot X="x2" Y="y2" Size="0.002" Color="Black"/>
 				<Line StartX="_x" StartY="_y" EndX="x" EndY="y" Size="0.0005" Color="Black"/>
 			</For>
+			<SetSymbol Name="inner_r" Value="0.1525" />
+			<SetSymbol Name="offset_x" Value="0.2" />
+			<SetSymbol Name="offset_y" Value="0.3" />
+			<For Variable="i" InitialValue="0" EndValue="360" Step="9">
+				<SingleParameterFunction Out="the" In="i" Func="Rad" />
+				<SingleParameterFunction Out="sin_the" In="the" Func="sin" />
+				<SingleParameterFunction Out="cos_the" In="the" Func="cos" />
+				<SetSymbolExp Name="_x" Value="inner_r*cos_the+offset_x" Type="Float" />
+				<SetSymbolExp Name="_y" Value="inner_r*sin_the+offset_y" Type="Float" />
+				<Circle X="_x" Y="_y" Radius="0.045" Size="00.00025" Fill="False" Color="#101010"/>
+			</For>
+			<SetSymbol Name="offset_x" Value="0.8" />
+			<SetSymbol Name="offset_y" Value="0.3" />
+			<SetSymbol Name="inner_r" Value="0.1525" />
+			<For Variable="i" InitialValue="0" EndValue="360" Step="9">
+				<SingleParameterFunction Out="the" In="i" Func="Rad" />
+				<SingleParameterFunction Out="sin_the" In="the" Func="sin" />
+				<SingleParameterFunction Out="cos_the" In="the" Func="cos" />
+				<SetSymbolExp Name="_x" Value="inner_r*cos_the+offset_x" Type="Float" />
+				<SetSymbolExp Name="_y" Value="inner_r*sin_the+offset_y" Type="Float" />
+				<Circle X="_x" Y="_y" Radius="0.045" Size="00.00025" Fill="False" Color="#101010"/>
+			</For>
 			<SetSymbol Name="offset_x" Value="0.8" />
 			<SetSymbol Name="offset_y" Value="0.3" />
 			<SetSymbol Name="inner_r" Value="0.125" />
 			
+			<Ellipse X="offset_x-outer_r" Y="offset_y-outer_r" Width="0.395" Height="00.395" Size="0.00005" Fill="False" Color="Black" />
 			<For Variable="i" InitialValue="0" EndValue="360" Step="2">
 				<SingleParameterFunction Out="the" In="i" Func="Rad" />
 				<SingleParameterFunction Out="sin_the" In="the" Func="sin" />
@@ -37,11 +68,15 @@
 				<SetSymbolExp Name="_x" Value="inner_r*cos_the+offset_x" Type="Float" />
 				<SetSymbolExp Name="y" Value="outer_r*sin_the+offset_y" Type="Float" />
 				<SetSymbolExp Name="_y" Value="inner_r*sin_the+offset_y" Type="Float" />
-				<Line StartX="_x" StartY="_y" EndX="x" EndY="y" Size="0.001" Color="Black"/>
+				<Line StartX="_x" StartY="_y" EndX="x" EndY="y" Size="0.0001" Color="Black"/>
 			</For>
+			<Line StartX="0.17" StartY="0.79" EndX="0.24" EndY="0.79" Size="0.001" Color="Black"/>
+			<Line StartX="0.17" StartY="0.81" EndX="0.24" EndY="0.81" Size="0.001" Color="Black"/>
 			<For Variable="i" InitialValue="0" EndValue="1" Step="0.1">
 				<Line StartX="0.1825+i/20" StartY="0.7925" EndX="0.1825+i/20" EndY="0.8075" Size="0.001" Color="Black"/>
 			</For>
+			<Line StartX="0.17" StartY="0.5935" EndX="0.23" EndY="0.5935" Size="0.001" Color="Black"/>
+			<Line StartX="0.17" StartY="0.6065" EndX="0.23" EndY="0.6065" Size="0.001" Color="Black"/>
 			<For Variable="i" InitialValue="0" EndValue="1" Step="0.1">
 				<Line StartX="0.18+i/20" StartY="0.595" EndX="0.18+i/20" EndY="0.605" Size="0.001" Color="Black"/>
 			</For>
