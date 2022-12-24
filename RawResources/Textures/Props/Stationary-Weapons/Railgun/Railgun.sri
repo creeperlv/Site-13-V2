@@ -1,0 +1,61 @@
+<ScalableRelativeImage Flavor="CreeperLv.SRI" FormatVersion="1.0.0.0">
+	
+	<Define Name="NOR" Value="True"/>
+	<Define Name="MAIN" Value="False"/>
+	<Define Name="EMI" Value="False"/>
+	<ImageNodeRoot RelativeWidth="1" RelativeHeight="1" Background="Transparent">
+		
+		<Group Visible="EMI">
+			<SetSymbol Name="__offset_x" Value="0.24" />
+			<For Variable="i" InitialValue="0" EndValue="20" Step="0.5">
+				<Line StartX="__offset_x+i/20" StartY="0.785" EndX="__offset_x+i/20" EndY="0.815" Size="0.01" Color="White"/>
+				<Line StartX="__offset_x+i/20" StartY="0.665" EndX="__offset_x+i/20" EndY="0.685" Size="0.01" Color="White"/>
+			</For>
+		</Group>
+		<Group Visible="MAIN">
+				<Dot X="0.7" Y="0.85" Size="0.02" Color="Black"/>
+				<Dot X="0.7" Y="0.955" Size="0.0125" Color="Black"/>
+		</Group>
+		<Group Visible="NOR">
+			<SetSymbol Name="_step" Value="0.3" />
+			<SetSymbol Name="offset" Value="0.29" />
+			<SetSymbol Name="offset_y" Value="0.1" />
+			
+			<Dot X="0.71" Y="0.52" Size="0.0075" Color="Black"/>
+			<Dot X="0.71" Y="0.48" Size="0.0075" Color="Black"/>
+			
+			<Dot X="0.69" Y="0.52" Size="0.0075" Color="Black"/>
+			<Dot X="0.69" Y="0.48" Size="0.0075" Color="Black"/>
+			
+			<Dot X="0.365" Y="0.425" Size="0.0075" Color="Black"/>
+			<Dot X="0.435" Y="0.425" Size="0.0075" Color="Black"/>
+			
+			<Dot X="0.365" Y="0.575" Size="0.0075" Color="Black"/>
+			<Dot X="0.435" Y="0.575" Size="0.0075" Color="Black"/>
+			
+			<Line StartX="0.375" StartY="0.435" EndX="0.425" EndY="0.565" Size="0.01" Color="#333333"/>
+			<Line StartX="0.375" StartY="0.565" EndX="0.425" EndY="0.435" Size="0.01" Color="#333333"/>
+			
+			<Rectangle X="0.29" Y="0.09" Width="0.69" Height="0.02" Size="0" Fill="True" Color="Black"/>
+			<Rectangle X="0.21" Y="0.29" Width="0.69" Height="0.02" Size="0" Fill="True" Color="Black"/>
+			
+			<For Variable="x" InitialValue="0" EndValue="6.8" Step="_step">
+				<Line StartX="offset+x/10" StartY="offset_y-0.01" EndX="offset+x/10+_step/20" EndY="offset_y+0.01" Size="0.002" Color="#303030"/>
+				<Line StartX="offset+x/10+_step/20*2" StartY="offset_y-0.01" EndX="offset+x/10+_step/20" EndY="offset_y+0.01" Size="0.002" Color="#303030"/>
+			</For>
+			<SetSymbol Name="offset" Value="0.21" />
+			<SetSymbol Name="offset_y" Value="0.3" />
+			
+			<For Variable="x" InitialValue="0" EndValue="6.8" Step="_step">
+				<Line StartX="offset+x/10" StartY="offset_y-0.01" EndX="offset+x/10+_step/20" EndY="offset_y+0.01" Size="0.002" Color="#303030"/>
+				<Line StartX="offset+x/10+_step/20*2" StartY="offset_y-0.01" EndX="offset+x/10+_step/20" EndY="offset_y+0.01" Size="0.002" Color="#303030"/>
+			</For>
+			
+			<Rectangle X="00.205" Y="00.08" Width="0.07" Height="0.04" Size="0" Fill="True" Color="White"/>
+			<Rectangle X="00.925" Y="00.28" Width="0.07" Height="0.04" Size="0" Fill="True" Color="White"/>
+		</Group>
+		<Group Visible="DESIGN">
+			<PixImg X="0" Y="0" Width="1" Height="1" Source="./Railgun-Main-UV.png" />
+		</Group>
+	</ImageNodeRoot>
+</ScalableRelativeImage>
