@@ -10,6 +10,7 @@ using Site13Kernel.UI.Combat;
 using Site13Kernel.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -373,6 +374,22 @@ namespace Site13Kernel.UI.HUD
                 item.Value.Hide();
             }
             ZoomOverlays[index].Show();
+        }
+        [Header("MissionHint")]
+        public GameObject MissionHint_HintObject;
+        public Text MissionHint_TextHolder;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void IssueMission(string Text)
+        {
+            MissionHint_TextHolder.text = Text;
+            StartCoroutine(ShowMission());
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        IEnumerator ShowMission()
+        {
+            MissionHint_HintObject.SetActive(false);
+            yield return null;
+            MissionHint_HintObject.SetActive(true);
         }
         public void ShowCrosshair(int index)
         {

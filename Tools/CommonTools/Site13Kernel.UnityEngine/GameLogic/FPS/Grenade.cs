@@ -21,7 +21,7 @@ namespace Site13Kernel.GameLogic.FPS
             TimeD += DeltaTime;
             if (TimeD >= baseGrenade.DetonationDuration)
             {
-                var effect = EffectController.CurrentEffectController.Spawn(baseGrenade.EffectHashCode, this.transform.position, this.transform.rotation, EffectController.CurrentEffectController.transform);
+                var effect = EffectController.CurrentEffectController.Spawn(baseGrenade.EffectHashCode, this.transform.position, this.transform.rotation, Vector3.one, EffectController.CurrentEffectController.transform);
                 var ee = effect.GetComponent<ExplosionEffect>();
                 ee.Cause = Cause;
                 ee.explosionDefinition = baseGrenade.Explosion;

@@ -75,6 +75,10 @@ namespace Site13Kernel.GameLogic.Directors
                     {
                         FPSController.Instance.IssueMission(mission.MissionText);
                     }
+                    if(HUDBase.Instance!= null)
+                    {
+                        HUDBase.Instance.IssueMission(mission.MissionText);
+                    }
                 }
             });
             Actions.Add(typeof(IssueBroadcast), (e) =>

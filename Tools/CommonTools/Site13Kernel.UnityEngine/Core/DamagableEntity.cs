@@ -284,7 +284,7 @@ namespace Site13Kernel.Core
                         GameObject effect;
                         if (ControlledObject != null)
                         {
-                            effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, ControlledObject.transform.position, ControlledObject.transform.rotation);
+                            effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, ControlledObject.transform.position, ControlledObject.transform.rotation, ControlledObject.transform.localScale);
                         }
                         else
                             effect = EffectController.CurrentEffectController.Spawn(DR.TargetPrefab, this.transform.position, this.transform.rotation);

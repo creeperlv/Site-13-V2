@@ -299,6 +299,7 @@ namespace Site13Kernel.GameLogic.Character
             if (!ALLOW_FIRE_FLAG_1) return;
             if (!ALLOW_FIRE_FLAG_2) return;
             if (!ALLOW_FIRE_FLAG_3) return;
+            if (IsInOverheat) return;
             StartCoroutine(ReloadProcess());
         }
         IEnumerator ReloadProcess()
