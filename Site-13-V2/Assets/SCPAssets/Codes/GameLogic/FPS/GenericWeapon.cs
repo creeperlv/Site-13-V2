@@ -74,6 +74,7 @@ namespace Site13Kernel.GameLogic.FPS
         public Pickupable Pickup;
         public List<BoxCollider> AttachedColliders;
         [Header("Effects")]
+        public int BulletsPerShot = 1;
         public float FireInterval;
         public float Recoil = 0;
         public float SingleFireRecoil = 0.5f;
@@ -138,6 +139,124 @@ namespace Site13Kernel.GameLogic.FPS
         {
             NotifyWeaponAmmo();
         }
+        void SingleBulletShot()
+        {
+
+            Quaternion Rotation = CurrentFirePoint.rotation;
+            Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode), Camera.main.fieldOfView);
+            Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
+            //Debug.Log(RecoilAngle);
+            {
+                Vector3 V = Rotation.eulerAngles;
+                V += RecoilAngle;
+                Rotation = Quaternion.Euler(V);
+            }
+            if (EjectionPoint != null)
+            {
+                var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EjectionPrefab, EjectionPoint.position, EjectionPoint.rotation, Vector3.one);
+                //GO.layer = this.gameObject.layer;
+                {
+                    var RIG = GO.GetComponentInChildren<Rigidbody>();
+                    if (RIG != null)
+                    {
+                        RIG.AddForce(EjectionPoint.forward * EjectionForce, ForceMode.Impulse);
+                    }
+                }
+            }
+            if (BulletFireType == BulletFireType.HitScan)
+            {
+                Vector3 _Rotation = CurrentFirePoint.forward;
+                {
+                    _Rotation += CurrentFirePoint.TransformDirection(RecoilAngle2);
+                }
+                RaycastHit info;
+                if (!isHoldByPlayer)
+                    Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludeAirBlock, QueryTriggerInteraction.Ignore);
+                else Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlockAndEventTrigger, QueryTriggerInteraction.Ignore);
+                if (info.collider != null)
+                {
+                    if (info.collider.attachedRigidbody != null)
+                    {
+                        info.collider.attachedRigidbody.AddForce(_Rotation.normalized * WeaponData.PhysicsForce, ForceMode.Impulse);
+
+                    }
+                    //if (useEffectPointInsteadFirePoint)
+                    //{
+                    //    var _d = (info.point - EffectPoint.position).normalized;
+                    //    Rotation = Quaternion.LookRotation(_d);
+                    //}
+                    {
+                        var Hittable = info.collider.GetComponent<IHittable>();
+
+                        Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
+                        if (Hittable != null)
+                        {
+                            var f = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform, true);
+                            f.transform.localScale = new Vector3(1 / f.transform.lossyScale.x, 1 / f.transform.lossyScale.y, 1 / f.transform.lossyScale.z);
+                        }
+                        else
+                        {
+                        }
+                        if (BulletHitEffect != null)
+                        {
+                            var f = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(BulletHitEffect, info.point, quaternion, Vector3.one);
+                            f.transform.parent = info.collider.transform;
+                            f.layer = info.collider.gameObject.layer;
+                            //f.transform.localScale = new Vector3(1f / f.transform.lossyScale.x, 1f / f.transform.lossyScale.y, 1f / f.transform.lossyScale.z);
+                        }
+                        var Entity = info.collider.GetComponent<DamagableEntity>();
+                        var WeakPoint = info.collider.GetComponent<WeakPoint>();
+                        if (WeakPoint != null)
+                        {
+                            //OnHit.Invoke();
+                            CauseDamage(WeakPoint.AttachedBioEntity, Bullet.GetPrefab().GetComponent<BaseBullet>().WeakPointDamage);
+                            //WeakPoint.AttachedBioEntity.Damage(Bullet.GetPrefab().GetComponent<BaseBullet>().WeakPointDamage);
+                        }
+                        else if (Entity != null)
+                        {
+                            CauseDamage(Entity, Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
+                        }
+                        else
+                        {
+                            var Ref = info.collider.GetComponent<DamagableEntityReference>();
+                            if (Ref != null)
+                            {
+                                Entity = Ref.Reference;
+                                CauseDamage(Entity, Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
+                            }
+                        }
+
+                    }
+                }
+
+                if (Bullet != null)
+                {
+                    if (CreateBullet)
+                    {
+                        //if (!useEffectPointInsteadFirePoint)
+                        //    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
+                        //else
+                        {
+
+                            GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(Bullet, CurrentEffectPoint.position, Rotation, Holder.gameObject);
+                        }
+                    }
+                }
+            }
+            else
+            {
+
+                if (Bullet != null)
+                {
+                    //if (!useEffectPointInsteadFirePoint)
+                    //    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
+                    //else
+                    {
+                        GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(Bullet, EffectPoint.position, Rotation, Holder.gameObject);
+                    }
+                }
+            }
+        }
         public void SingleFire()
         {
 
@@ -157,10 +276,6 @@ namespace Site13Kernel.GameLogic.FPS
                     //{
                     //    OnCurrentMagChanged(WeaponData.CurrentMagazine);
                     //}
-                    Quaternion Rotation = CurrentFirePoint.rotation;
-                    Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode), Camera.main.fieldOfView);
-                    Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
-                    //Debug.Log(RecoilAngle);
 
                     if (WeaponAnimation != null)
                         WeaponAnimation.SetTrigger(Trigger_Fire, Trigger_Fire_Length, true);
@@ -169,27 +284,9 @@ namespace Site13Kernel.GameLogic.FPS
                     if (WeaponData.CurrentHeat > WeaponData.MaxHeat)
                     {
                         WeaponMode = WeaponConstants.WEAPON_MODE_OVERHEAT;
-                        if (OnOverheat != null)
-                            OnOverheat.Invoke();
+                        OnOverheat?.Invoke();
                         if (WeaponAnimation != null)
                             WeaponAnimation.SetTrigger("Overheat");
-                    }
-                    {
-                        Vector3 V = Rotation.eulerAngles;
-                        V += RecoilAngle;
-                        Rotation = Quaternion.Euler(V);
-                    }
-                    if (EjectionPoint != null)
-                    {
-                        var GO = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(EjectionPrefab, EjectionPoint.position, EjectionPoint.rotation, Vector3.one);
-                        //GO.layer = this.gameObject.layer;
-                        {
-                            var RIG = GO.GetComponentInChildren<Rigidbody>();
-                            if (RIG != null)
-                            {
-                                RIG.AddForce(EjectionPoint.forward * EjectionForce, ForceMode.Impulse);
-                            }
-                        }
                     }
                     if (EffectPrefab != null)
                     {
@@ -197,98 +294,10 @@ namespace Site13Kernel.GameLogic.FPS
                         GO.layer = CurrentEffectPoint.gameObject.layer;
                         ObjectGenerator.SetLayerForChildren(GO, CurrentEffectPoint.gameObject.layer);
                     }
-                    if (BulletFireType == BulletFireType.HitScan)
-                    {
-                        Vector3 _Rotation = CurrentFirePoint.forward;
-                        {
-                            _Rotation += CurrentFirePoint.TransformDirection(RecoilAngle2);
-                        }
-                        RaycastHit info;
-                        if (!isHoldByPlayer)
-                            Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludeAirBlock, QueryTriggerInteraction.Ignore);
-                        else Physics.Raycast(CurrentFirePoint.position, _Rotation, out info, MaxHitScanDistance, GameRuntime.CurrentGlobals.LayerExcludePlayerAndAirBlockAndEventTrigger, QueryTriggerInteraction.Ignore);
-                        if (info.collider != null)
-                        {
-                            if (info.collider.attachedRigidbody != null)
-                            {
-                                info.collider.attachedRigidbody.AddForce(_Rotation.normalized * WeaponData.PhysicsForce, ForceMode.Impulse);
-
-                            }
-                            //if (useEffectPointInsteadFirePoint)
-                            //{
-                            //    var _d = (info.point - EffectPoint.position).normalized;
-                            //    Rotation = Quaternion.LookRotation(_d);
-                            //}
-                            {
-                                var Hittable = info.collider.GetComponent<IHittable>();
-
-                                Quaternion quaternion = Quaternion.FromToRotation(Vector3.up, info.normal);
-                                if (Hittable != null)
-                                {
-                                    var f = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(Hittable.HitEffectHashCode(), info.point, quaternion, Vector3.one, info.collider.transform, true);
-                                    f.transform.localScale = new Vector3(1 / f.transform.lossyScale.x, 1 / f.transform.lossyScale.y, 1 / f.transform.lossyScale.z);
-                                }
-                                else
-                                {
-                                }
-                                if (BulletHitEffect != null)
-                                {
-                                    var f = GameRuntime.CurrentGlobals.CurrentEffectController.Spawn(BulletHitEffect, info.point, quaternion, Vector3.one);
-                                    f.transform.parent = info.collider.transform;
-                                    f.layer = info.collider.gameObject.layer;
-                                    //f.transform.localScale = new Vector3(1f / f.transform.lossyScale.x, 1f / f.transform.lossyScale.y, 1f / f.transform.lossyScale.z);
-                                }
-                                var Entity = info.collider.GetComponent<DamagableEntity>();
-                                var WeakPoint = info.collider.GetComponent<WeakPoint>();
-                                if (WeakPoint != null)
-                                {
-                                    //OnHit.Invoke();
-                                    CauseDamage(WeakPoint.AttachedBioEntity, Bullet.GetPrefab().GetComponent<BaseBullet>().WeakPointDamage);
-                                    //WeakPoint.AttachedBioEntity.Damage(Bullet.GetPrefab().GetComponent<BaseBullet>().WeakPointDamage);
-                                }
-                                else if (Entity != null)
-                                {
-                                    CauseDamage(Entity, Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
-                                }
-                                else
-                                {
-                                    var Ref = info.collider.GetComponent<DamagableEntityReference>();
-                                    if (Ref != null)
-                                    {
-                                        Entity = Ref.Reference;
-                                        CauseDamage(Entity, Bullet.GetPrefab().GetComponent<BaseBullet>().BaseDamage);
-                                    }
-                                }
-
-                            }
-                        }
-
-                        if (Bullet != null)
-                        {
-                            if (CreateBullet)
-                            {
-                                //if (!useEffectPointInsteadFirePoint)
-                                //    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
-                                //else
-                                {
-
-                                    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(Bullet, CurrentEffectPoint.position, Rotation, Holder.gameObject);
-                                }
-                            }
-                        }
-                    }
-                    else
+                    for (int i = 0; i < BulletsPerShot; i++)
                     {
 
-                        if (Bullet != null)
-                        {
-                            //if (!useEffectPointInsteadFirePoint)
-                            //    GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(BulletPrefab, FirePoint.position, Rotation, ActualHolder);
-                            //else
-                            {
-                                GameRuntime.CurrentGlobals.CurrentBulletSystem.AddBullet(Bullet, EffectPoint.position, Rotation, Holder.gameObject);
-                            }
-                        }
+                        SingleBulletShot();
                     }
                     Recoil = Math.Min(Recoil + SingleFireRecoil, MaxRecoil);
                     if (GunSFXSources.Count > 0)

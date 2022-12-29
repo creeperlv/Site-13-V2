@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Portal
-  m_Shader: {fileID: -6465566751694194690, guid: 88f11b225a3e77f499d1d90bee056f78, type: 3}
+  m_Name: Space-Distortion
+  m_Shader: {fileID: -6465566751694194690, guid: 506db202d25723340b85c96dc0e59951, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -22,7 +22,6 @@ Material:
     RenderType: Transparent
   disabledShaderPasses:
   - SHADOWCASTER
-  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -115,7 +114,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 0
     - _Cutoff: 0.5
-    - _Delta: 0.001
+    - _Delta: 0.07
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
@@ -124,7 +123,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Height_Intensity: -1.81
+    - _Height_Intensity: -0.59
     - _Metallic: 0
     - _Normal_Intensity: -0.67
     - _OcclusionStrength: 1
@@ -139,11 +138,11 @@ Material:
     - _SrcBlendAlpha: 1
     - _Strength: 0
     - _Surface: 1
-    - _UseAlpha: 0
+    - _UseAlpha: 1
     - _WorkflowMode: 1
-    - _ZTest: 4
-    - _ZWrite: 0
-    - _ZWriteControl: 0
+    - _ZTest: 6
+    - _ZWrite: 1
+    - _ZWriteControl: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
