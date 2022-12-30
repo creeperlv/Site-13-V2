@@ -80,7 +80,9 @@ namespace Site13Kernel.GameLogic.FPS
         public float SingleFireRecoil = 0.5f;
         public float MaxRecoil = 2;
         public float RecoilRecoverSpeed = 5;
+        public float MinScatterAngle = 0;
         public float MaxScatterAngle = 0;
+        public float MinScatterAngleAimMode = 0;
         public float MaxScatterAngleAimMode = 0;
         public bool ControlledBehaviorWorkflow;
         [Header("Camera Shake")]
@@ -143,8 +145,17 @@ namespace Site13Kernel.GameLogic.FPS
         {
 
             Quaternion Rotation = CurrentFirePoint.rotation;
-            Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode), Camera.main.fieldOfView);
-            Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1(Recoil / MaxRecoil * (AimingMode == 0 ? MaxScatterAngle : MaxScatterAngleAimMode));
+            float CurrentScatter;
+            if (AimingMode == 0)
+            {
+                CurrentScatter = Mathf.Lerp(MinScatterAngle, MaxScatterAngle, Recoil / MaxRecoil);
+            }
+            else
+            {
+                CurrentScatter = Mathf.Lerp(MinScatterAngleAimMode, MaxScatterAngleAimMode, Recoil / MaxRecoil);
+            }
+            Vector3 RecoilAngle = MathUtilities.RandomDirectionAngleOnXYAndZ0( CurrentScatter, Camera.main.fieldOfView);
+            Vector3 RecoilAngle2 = MathUtilities.RandomDirectionAngleOnXYAndZ1( CurrentScatter);
             //Debug.Log(RecoilAngle);
             {
                 Vector3 V = Rotation.eulerAngles;
