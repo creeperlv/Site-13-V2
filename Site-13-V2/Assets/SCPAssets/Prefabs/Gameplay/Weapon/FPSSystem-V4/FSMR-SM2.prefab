@@ -86,6 +86,7 @@ MonoBehaviour:
     CurrentHeat: 0
     HeatPerShot: 0.1
     Cooldown: 0.085
+    ActiveCooldown: 0
     WeaponFireType0: 1
     WeaponFireType1: 0
   AnimationCollectionName: FSMR-SM2
@@ -163,12 +164,15 @@ MonoBehaviour:
   AttachedColliders:
   - {fileID: 827866368417335763}
   - {fileID: 4950656035733649937}
+  BulletsPerShot: 1
   FireInterval: 0.075
   Recoil: 0
   SingleFireRecoil: 0.1
   MaxRecoil: 1
   RecoilRecoverSpeed: 0.7
+  MinScatterAngle: 0
   MaxScatterAngle: 3
+  MinScatterAngleAimMode: 0
   MaxScatterAngleAimMode: 2
   ControlledBehaviorWorkflow: 0
   BaseCameraShakeIntensity: 0.3
@@ -927,6 +931,7 @@ MonoBehaviour:
     CurrentHeat: 0
     HeatPerShot: 1
     Cooldown: 1.5
+    ActiveCooldown: 0
     WeaponFireType0: 1
     WeaponFireType1: 1
   GrenadeID: 0
@@ -1260,7 +1265,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &7813062738302517352
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1277,7 +1282,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &4506459706651024699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5973948010186890574, guid: c93afa533e4a0e74fb229595129af72f, type: 3}
