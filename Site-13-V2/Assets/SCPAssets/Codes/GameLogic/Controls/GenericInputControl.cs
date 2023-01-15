@@ -72,6 +72,7 @@ namespace Site13Kernel.GameLogic.Controls
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+            if (TakeControl.Instance == null) return;
             var controller = TakeControl.Instance.controller;
             if (controller == null) return;
             if (UseInputProcessor)
