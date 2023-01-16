@@ -10,13 +10,30 @@ namespace Site13Kernel
         public Transform ThisTransform;
         void Start()
         {
-            Instance = this;
-            ThisTransform = transform;
+            TakeControl();
         }
-        private void OnEnable()
+        void TakeControl()
         {
             Instance = this;
             ThisTransform = transform;
+            if (ImmersiveCam.GlobalCam != null)
+            {
+                StartCoroutine(ResetCam());
+            }
         }
+        private IEnumerator ResetCam()
+        {
+            ImmersiveCam.GlobalCam.enabled = false;
+            yield return null;
+            ImmersiveCam.GlobalCam.enabled = true;
+        }
+        private void OnEnable()
+        {
+            TakeControl();
+        }
+        //private void Update()
+        //{
+            
+        //}
     }
 }

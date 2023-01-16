@@ -248,6 +248,9 @@ namespace Site13Kernel.GameLogic.Character
             {
                 Side = Entity.EntityBag.Weapons[Entity.EntityBag.CurrentWeapon == 1 ? 0 : 1];
             }
+#if DEBUG
+            Debug.Log("Biped Apply Weapon.");
+#endif
             ControlledAnimator.UseAnimationCollection(RuntimeAnimationResource.CachedResources[BipedID].Animations[CurrentMain.AnimationCollectionName], false);
             CurrentMain.transform.SetParent(Entity.WeaponHand);
             CurrentMain.transform.localPosition = Vector3.zero;

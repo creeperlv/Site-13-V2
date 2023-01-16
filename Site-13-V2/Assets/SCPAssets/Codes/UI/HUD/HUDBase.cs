@@ -159,8 +159,8 @@ namespace Site13Kernel.UI.HUD
                 BioEntity entity = null;
                 if (UseBipedEntity)
                 {
-
-                    entity = TakeControl.Instance.entity;
+                    if (TakeControl.Instance != null)
+                        entity = TakeControl.Instance.entity;
                 }
                 else
                 {

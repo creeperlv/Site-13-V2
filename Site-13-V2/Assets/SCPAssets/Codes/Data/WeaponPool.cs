@@ -32,7 +32,7 @@ namespace Site13Kernel.Data
         public (GameObject, Pickupable) Instantiate(PrefabReference gameObject, Vector3 Position, Quaternion Rotation, Transform transform)
         {
             GameObject gameObject2 = ObjectGenerator.Instantiate(gameObject, Position, Rotation, transform);
-            Pickupable component = gameObject2.GetComponent<Pickupable>();
+            Pickupable component = gameObject2.GetComponentInChildren<Pickupable>();
 
             return (gameObject2, component);
         }

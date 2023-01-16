@@ -2,6 +2,7 @@ using Site13Kernel.Core;
 using Site13Kernel.Core.Controllers;
 using Site13Kernel.Data;
 using Site13Kernel.Diagnostics;
+using Site13Kernel.GameLogic.Character;
 using Site13Kernel.UI.HUD;
 using Site13Kernel.Utilities;
 using System;
@@ -14,6 +15,17 @@ namespace Site13Kernel.GameLogic.Directors
 {
     public class HLScriptableDirector : ScriptableDirector
     {
+        public bool UseBipedSystem;
+        public List<BipedController> SpawnedBipeds = new List<BipedController>();
+        public IEnumerator STALL(int Frame)
+        {
+            isRunning = false;
+            for (int i = 0; i < Frame; i++)
+            {
+                yield return null;
+            }
+            isRunning = true;
+        }
         public override void SetupActions()
         {
             Actions.Add(typeof(WinEvent), (e) =>
@@ -29,13 +41,22 @@ namespace Site13Kernel.GameLogic.Directors
                     {
 
                         var PLAYER = GlobalBioController.CurrentGlobalBioController.Spawn(SPE.PlayerID, Vector3.zero, Vector3.zero);
-                        PLAYER.transform.GetChild(1).position = L.Position;
-                        PLAYER.transform.GetChild(1).rotation = L.Rotation;
-                        var FPSC = PLAYER.GetComponentInChildren<FPSController>();
+                        if (UseBipedSystem == true)
+                        {
+                            PLAYER.transform.position = L.Position;
+                            PLAYER.transform.rotation = L.Rotation;
+                            //StartCoroutine(STALL(10));
+                        }
+                        else
+                        {
+                            PLAYER.transform.GetChild(1).position = L.Position;
+                            PLAYER.transform.GetChild(1).rotation = L.Rotation;
+                            var FPSC = PLAYER.GetComponentInChildren<FPSController>();
 
-                        LevelController.RegisterRefresh(FPSC);
-                        FPSC.Parent = LevelController;
-                        FPSC.Init();
+                            LevelController.RegisterRefresh(FPSC);
+                            FPSC.Parent = LevelController;
+                            FPSC.Init();
+                        }
                     }
                     catch (Exception _e)
                     {
@@ -75,7 +96,7 @@ namespace Site13Kernel.GameLogic.Directors
                     {
                         FPSController.Instance.IssueMission(mission.MissionText);
                     }
-                    if(HUDBase.Instance!= null)
+                    if (HUDBase.Instance != null)
                     {
                         HUDBase.Instance.IssueMission(mission.MissionText);
                     }
@@ -99,15 +120,15 @@ namespace Site13Kernel.GameLogic.Directors
             {
                 if (e is SpawnAIEvent ai)
                 {
-                    var __ENTITY_ID=ai.ID;
+                    var __ENTITY_ID = ai.ID;
 
                     var L = FromSerializableLocation(ai.SpawnLocation);
-                    var R=UnityEngine.Random.Range(0, ai.RandomDistance);
-                    var Phi=UnityEngine.Random.Range(0, 2 * Mathf.PI);
+                    var R = UnityEngine.Random.Range(0, ai.RandomDistance);
+                    var Phi = UnityEngine.Random.Range(0, 2 * Mathf.PI);
                     var Pos = L.Position;
                     Pos.x += R * Mathf.Cos(Phi);
                     Pos.z += R * Mathf.Sin(Phi);
-                    var agent=AIController.CurrentController.SpawnV2(ai.ID, Pos, L.Rotation.eulerAngles);
+                    var agent = AIController.CurrentController.SpawnV2(ai.ID, Pos, L.Rotation.eulerAngles);
                     //agent.agent.routin
                 }
             });
@@ -120,6 +141,20 @@ namespace Site13Kernel.GameLogic.Directors
                         var BAG = FPSController.Instance.BagHolder;
                         FPSController.Instance.GiveWeapon(GWE.weapon);
                     }
+#if DEBUG
+                    UnityEngine.Debug.Log("Give Weapon.");
+#endif
+                    var weapon = GWE.weapon.WeaponID;
+                    var prefab = WeaponPool.CurrentPool.WeaponItemMap[weapon].PickablePrefab;
+                    var t = WeaponPool.CurrentPool.transform;
+                    var p = WeaponPool.CurrentPool.Instantiate(weapon, Vector3.zero, Quaternion.identity, t);
+                    if (TakeControl.Instance != null)
+                        if (TakeControl.Instance.entity != null)
+                            TakeControl.Instance.entity.EntityBag.TryObatinWeapon(p.Item2.AssociatedGenericWeapon);
+                    //foreach (var item in SpawnedBipeds)
+                    //{
+                    //    //item.GiveWeapon(GWE.weapon);
+                    //}
                 }
             });
         }

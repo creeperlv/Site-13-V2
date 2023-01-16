@@ -73,10 +73,10 @@ namespace Site13Kernel.GameLogic.FPS
         {
             if (Operator is BipedEntity biped)
             {
-                if(ItemType== PickupItem.Weapon)
-                biped.EntityBag.TryObatinWeapon(AssociatedGenericWeapon);
-                if(ItemType== PickupItem.Holdable)
-                biped.EntityBag.TryObtainHoldable(AssociatedHoldableObject);
+                if (ItemType == PickupItem.Weapon)
+                    biped.EntityBag.TryObatinWeapon(AssociatedGenericWeapon);
+                if (ItemType == PickupItem.Holdable)
+                    biped.EntityBag.TryObtainHoldable(AssociatedHoldableObject);
             }
             else
             {
@@ -345,11 +345,12 @@ namespace Site13Kernel.GameLogic.FPS
         }
         public override LocalizedString Hint
         {
-            get {
-                if(ItemType== PickupItem.Weapon)
-                return new LocalizedString(OperateHint, OperateHintFallBack, Language.Find(AssociatedGenericWeapon.WeaponData.WeaponID + ".DispName",
-                        WeaponPool.CurrentPool.WeaponItemMap[AssociatedGenericWeapon.WeaponData.WeaponID].NameFallback));
-                if(ItemType== PickupItem.Holdable) 
+            get
+            {
+                if (ItemType == PickupItem.Weapon)
+                    return new LocalizedString(OperateHint, OperateHintFallBack, Language.Find(AssociatedGenericWeapon.WeaponData.WeaponID + ".DispName",
+                            WeaponPool.CurrentPool.WeaponItemMap[AssociatedGenericWeapon.WeaponData.WeaponID].NameFallback));
+                if (ItemType == PickupItem.Holdable)
                     return new LocalizedString(OperateHint, OperateHintFallBack, NameDefinition.Query(AssociatedHoldableObject.NameID));
                 return new LocalizedString(OperateHint, OperateHintFallBack);
 
@@ -414,7 +415,7 @@ namespace Site13Kernel.GameLogic.FPS
                     Destroy(ControlledEntity);
                 }
             }
-            else if (ItemType== PickupItem.Equipment)
+            else if (ItemType == PickupItem.Equipment)
             {
                 var holder = Biped.EntityBag;
                 if (holder.Equipments.TryGetValue(EquipmentID, out var i))

@@ -72,6 +72,10 @@ namespace Site13Kernel.Core
                     if (EntityBag.Weapons.Count == 1)
                         EntityBag.CurrentWeapon = 1;
                     EntityBag.Weapons.Add(w);
+#if DEBUG
+
+                    Debug.Log("Add to weapons.");
+#endif
                 }
                 else
                 {

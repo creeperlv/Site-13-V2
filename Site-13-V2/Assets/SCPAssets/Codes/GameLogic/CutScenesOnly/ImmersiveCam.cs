@@ -8,6 +8,7 @@ namespace Site13Kernel
 {
     public class ImmersiveCam : MonoBehaviour
     {
+        public static ImmersiveCam GlobalCam;
         public bool FollowCamPosTarget;
         public Transform FollowingTarget;
         public float Speed = 1;
@@ -15,10 +16,12 @@ namespace Site13Kernel
         public bool SmoothFollow = true;
         void Start()
         {
+            GlobalCam = this;
 
         }
         private void OnEnable()
         {
+            GlobalCam = this;
             if (FPSController.Instance != null)
             {
                 var t = FPSController.Instance.MainCam.transform;
@@ -44,10 +47,13 @@ namespace Site13Kernel
             var dt = Time.deltaTime;
             if (FollowCamPosTarget)
             {
-                Follow(CamPosTarget.Instance.ThisTransform, dt);
+                if (CamPosTarget.Instance != null)
+                    Follow(CamPosTarget.Instance.ThisTransform, dt);
                 return;
             }
-            Follow(FollowingTarget, dt);
+            else
+                if (FollowingTarget != null)
+                Follow(FollowingTarget, dt);
         }
     }
 }
