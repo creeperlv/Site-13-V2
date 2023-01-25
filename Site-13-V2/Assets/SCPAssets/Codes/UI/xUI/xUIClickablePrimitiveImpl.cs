@@ -3,16 +3,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Site13Kernel.UI.xUI
 {
-    public class xUIButtonImpl : MonoBehaviour, IClickableImplementation
+    public class xUIClickablePrimitiveImpl : MonoBehaviour, IPointerClickHandler, IClickableImplementation
     {
-        public Button button;
-        private void Start()
+        public void OnPointerClick(PointerEventData eventData)
         {
-            button.onClick.AddListener(OnClick);
+            OnClick();
         }
         public void OnClick()
         {

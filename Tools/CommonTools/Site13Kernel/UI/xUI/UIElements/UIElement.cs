@@ -12,11 +12,37 @@ namespace Site13Kernel.UI.xUI.UIElements
         public List<UIElement> Children { get; set; }
         public UIElement Parent { get; set; }
         public virtual string Name { get; set; }
-
-        public void Initialize()
+        bool _isEnabled;
+        bool _isHitEnabled;
+        public bool IsEnabled
         {
-
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
+                ElementImplementation.SetIsEnable(value);
+            }
         }
+        public bool IsHitEnabled
+        {
+            get => _isHitEnabled;
+            set
+            {
+                _isHitEnabled = value;
+                ElementImplementation.SetHit(value);
+            }
+        }
+        bool _inited = false;
+        public virtual void Initialize()
+        {
+            _inited = true;
+        }
+
+        public bool IsInitialized()
+        {
+            return _inited;
+        }
+
         internal IUIElementImplementation ElementImplementation;
         public void SetIUIElementImplementation(IUIElementImplementation implementation)
         {
@@ -61,8 +87,13 @@ namespace Site13Kernel.UI.xUI.UIElements
         {
 
         }
+
+        public void SetHitEnabledDataOnly(bool hitEnabled)
+        {
+            throw new NotImplementedException();
+        }
     }
-    public class xWindow : UIElement
+    public class xUIWindow : UIElement
     {
         public string Title;
 
@@ -90,6 +121,18 @@ namespace Site13Kernel.UI.xUI.UIElements
         }
 
         public Site13Event ClickEvent;
+    }
+    public class xUIGrid : UIElement, IxUIContainer
+    {
+        public void Add(object content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(object content)
+        {
+            throw new NotImplementedException();
+        }
     }
     public class xUIVerticalStackPanel : UIElement
     {
