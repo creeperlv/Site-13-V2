@@ -9,7 +9,7 @@ namespace Site13Kernel.UI.xUI.Abstraction
 {
     public interface IUIElement
     {
-        List<UIElement> Children { get; set; }
+        List<IUIElement> Children { get; set; }
         UIElement Parent { get; set; }
         string Name { get; set; }
         bool IsEnabled { get; set; }
@@ -30,22 +30,38 @@ namespace Site13Kernel.UI.xUI.Abstraction
         void Add(object content);
         void Remove(object content);
     }
-    public interface ILayoutable
+    public interface IxUILayoutable
     {
+        void SetIxUILayoutableImpl(IxUILayoutableImpl impl);
         xUIAlignment VerticalAlignment { get; set; }
         xUIAlignment HorizontalAlignment { get; set; }
     }
-    public interface IWindow : IFocusable,IContent
+    public interface IxUILayoutableImpl
     {
+        void SetVerticalAlignment(xUIAlignment alignment);
+        void SetHorizontalAlignment(xUIAlignment alignment);
+    }
+    public interface IWindow : IFocusable, IContent
+    {
+        string Title { get; set; }
         bool Resizable { get; set; }
+        WindowMode WindowMode { get; set; }
         void SetIWindowImpl(IWindowImpl impl);
+        IWindowImpl GetIWindowImpl();
         void SetTitle(string title);
         void SetIcon(object obj);
+        void Close();
+        void Show();
+        void Hide();
     }
     public interface IWindowImpl
     {
         void SetTitle(string title);
         void SetIcon(object obj);
+        void SetWindowMode(WindowMode wm);
+        void Close();
+        void Show();
+        void Hide();
     }
     public interface IFocusable
     {
@@ -91,16 +107,13 @@ namespace Site13Kernel.UI.xUI.Abstraction
         void SetIsEnable(bool State);
         void SetHit(bool IsEnabled);
     }
-    public interface IRenderEngine
+    public interface IBackground
     {
-        void CommitUITree(IUIElement element);
-        void AttachUITree(IUIElement Parent, IUIElement Children);
-        void RemoveUITree(IUIElement element);
+        UIElement Background { get; set; }
+        void SetIBackgroundImpl(IBackgroundImpl impl);
     }
-    public abstract class AbstractRenderEngine : IRenderEngine
+    public interface IBackgroundImpl
     {
-        public abstract void AttachUITree(IUIElement Parent, IUIElement Children);
-        public abstract void CommitUITree(IUIElement element);
-        public abstract void RemoveUITree(IUIElement element);
+        void SetBackground(UIElement Background);
     }
 }

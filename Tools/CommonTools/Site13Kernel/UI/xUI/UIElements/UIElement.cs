@@ -9,7 +9,7 @@ namespace Site13Kernel.UI.xUI.UIElements
 {
     public class UIElement : IUIElement, ISize, IPosition
     {
-        public List<UIElement> Children { get; set; }
+        public List<IUIElement> Children { get; set; }
         public UIElement Parent { get; set; }
         public virtual string Name { get; set; }
         bool _isEnabled;
@@ -93,11 +93,6 @@ namespace Site13Kernel.UI.xUI.UIElements
             throw new NotImplementedException();
         }
     }
-    public class xUIWindow : UIElement
-    {
-        public string Title;
-
-    }
     public class xUIText : UIElement
     {
         public string Content;
@@ -122,16 +117,40 @@ namespace Site13Kernel.UI.xUI.UIElements
 
         public Site13Event ClickEvent;
     }
-    public class xUIGrid : UIElement, IxUIContainer
+    public class xUIGrid : UIElement, IxUIContainer, IBackground
     {
+        UIElement _Background;
+        public UIElement Background { get => _Background;
+            set {
+                if (value == null)
+                {
+                    if (IsInitialized())
+                    {
+
+                    }
+                }
+                _Background = value;
+            }
+        }
+
         public void Add(object content)
         {
-            throw new NotImplementedException();
+            Children.Add((UIElement)content);
         }
 
         public void Remove(object content)
         {
-            throw new NotImplementedException();
+            if (IsInitialized())
+            {
+                // Remove From Original Tree.
+            }
+            Children.Add((UIElement)content);
+        }
+        IBackgroundImpl bgimpl = null;
+        public void SetIBackgroundImpl(IBackgroundImpl impl)
+        {
+            if (bgimpl != null) return;
+            bgimpl = impl;
         }
     }
     public class xUIVerticalStackPanel : UIElement
