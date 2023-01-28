@@ -3,6 +3,7 @@ using Site13Kernel.UI.xUI.Composition.Deserialization;
 using Site13Kernel.UI.xUI.UIElements;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Xml;
 
@@ -18,6 +19,7 @@ namespace Site13Kernel.UI.xUI
             Instantiators.Add("Button", new xUIButtonInstantiator());
             Instantiators.Add("Window", new xUIWindowInstantiator());
             Instantiators.Add("Text", new xUITextInstantiator());
+            Instantiators.Add("Grid", new xUIGridInstantiator());
 
         }
         public static void Register(string name, IInstantiatable instantiator)
@@ -34,34 +36,68 @@ namespace Site13Kernel.UI.xUI
         static UIElement ParseRecursively(XmlElement element)
         {
             var _element = Instantiators[element.Name].Instantiate();
+#if DEBUG
+            Trace.WriteLine("Element:"+element.Name);
+#endif
             var attr_c = element.Attributes;
             foreach (XmlAttribute item in attr_c)
             {
                 _element.SetProperty(item.Name, item.Value);
             }
+            bool isContent = false;
+#if DEBUG
+            Trace.WriteLine("XML Child Count:" + element.ChildNodes.Count);
+#endif
             foreach (var item in element.ChildNodes)
             {
-                if (item is XmlElement child)
+#if DEBUG
+                Trace.WriteLine("XML T:"+item.GetType().Name);
+#endif
+
+                if (item is XmlElement childElement)
                 {
 
-                    if (child.Name.Contains('.'))
+                    if (childElement.Name.Contains('.'))
                     {
                         //It's an attribute！
-                        var attr_name = child.Name.Split('.')[1];
-                        _element.SetProperty(attr_name, child.ChildNodes[0].Value);
+                        var attr_name = childElement.Name.Split('.')[1];
+                        _element.SetProperty(attr_name, childElement.ChildNodes[0].Value);
                         //item.Value
                     }
                     else
                     {
+#if DEBUG
+                        Trace.WriteLine($"Find an element:{childElement.Name}");
+#endif
                         if (_element is IxUIContainer c)
                         {
-                            var _c = ParseRecursively(child);
+                            var _c = ParseRecursively(childElement);
                             _c.Parent = _element;
-                            c.Add(c);
+                            c.Add(_c);
+#if DEBUG
+                            Trace.WriteLine("IxUIContainer adding item on:" + element.Name);
+#endif
+                        }
+                        else if (_element is IContent ic)
+                        {
+                            if (isContent==true)
+                            {
+                                throw new Exception($"Expect a container, but {childElement.Name}({_element.GetType().Name}) does not implement IxUIContainer!");
+                            }
+                            else
+                            {
+                                isContent = true;
+                                var _c = ParseRecursively(childElement);
+                                _c.Parent = _element;
+                                ic.Content = _c;
+#if DEBUG
+                                Trace.WriteLine("IContent setting item on:" + element.Name);
+#endif
+                            }
                         }
                         else
                         {
-                            throw new Exception($"Expect a container, but {child.Name} does not implement IxUIContainer!");
+                            throw new Exception($"Expect a container, but {childElement.Name}({_element.GetType().Name}) does not implement IxUIContainer!");
                         }
 
                     }
@@ -76,6 +112,9 @@ namespace Site13Kernel.UI.xUI
                     switch (_element)
                     {
                         case IContent _ic:
+#if DEBUG
+                            Trace.WriteLine("IContent is a string:" + element.Name);
+#endif
                             _ic.Content = t.Value;
                             break;
                         default:
@@ -83,6 +122,13 @@ namespace Site13Kernel.UI.xUI
                     }
                 }
             }
+#if DEBUG
+            if(_element.Children!=null)
+            {
+            Trace.WriteLine("xUI Child Count:" + _element.Children.Count);
+
+            }
+#endif
             return _element;
         }
     }

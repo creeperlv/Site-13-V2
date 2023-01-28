@@ -1,4 +1,5 @@
-﻿using Site13Kernel.Core;
+﻿using Newtonsoft.Json;
+using Site13Kernel.Core;
 using Site13Kernel.UI.xUI.UIElements;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Site13Kernel.UI.xUI.Abstraction
     public interface IUIElement
     {
         List<IUIElement> Children { get; set; }
+        [JsonIgnore]
         UIElement Parent { get; set; }
         string Name { get; set; }
         bool IsEnabled { get; set; }

@@ -21,4 +21,8 @@ namespace Site13Kernel.UI.xUI.Composition.Deserialization
     {
         public UIElement Instantiate() => new xUIText();
     }
+    public class xUIGridInstantiator : IInstantiatable
+    {
+        public UIElement Instantiate() => new xUIGrid();
+    }
 }

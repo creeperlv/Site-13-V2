@@ -1,6 +1,8 @@
-﻿using Site13Kernel.UI.xUI.Abstraction;
+﻿using Site13Kernel.Attributes;
+using Site13Kernel.UI.xUI.Abstraction;
 using Site13Kernel.UI.xUI.Helpers;
 using System;
+using System.Diagnostics;
 
 namespace Site13Kernel.UI.xUI.UIElements
 {
@@ -17,7 +19,14 @@ namespace Site13Kernel.UI.xUI.UIElements
                     wimpl.SetTitle(value);
             }
         }
-        public bool Resizable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        bool _Resizable = true;
+        public bool Resizable
+        {
+            get => _Resizable; set
+            {
+                _Resizable = value;
+            }
+        }
         object _content = null;
         UIElement _content_g = null;
         public object Content
@@ -35,11 +44,17 @@ namespace Site13Kernel.UI.xUI.UIElements
                         }
                     }
                 }
+#if DEBUG
+                Trace.WriteLine("xUIWindow set content to:"+value.GetType().Name);
+#endif
                 _content = value;
             }
         }
-        public xUIAlignment VerticalAlignment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public xUIAlignment HorizontalAlignment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        xUIAlignment _VerticalAlignment = xUIAlignment.Center;
+        public xUIAlignment VerticalAlignment { get => _VerticalAlignment; [TODO] set => _VerticalAlignment=value; }
+        xUIAlignment _HorizontalAlignment= xUIAlignment.Center;
+        public xUIAlignment HorizontalAlignment { get => _HorizontalAlignment; 
+            [TODO]set => _HorizontalAlignment=value; }
         WindowMode _WindowMode = WindowMode.Full;
         public WindowMode WindowMode
         {
@@ -156,7 +171,7 @@ namespace Site13Kernel.UI.xUI.UIElements
         IxUILayoutableImpl ixUILayoutableImpl = null;
         public void SetIxUILayoutableImpl(IxUILayoutableImpl impl)
         {
-            if (impl != null) 
+            if (impl != null)
                 return;
             ixUILayoutableImpl = impl;
         }

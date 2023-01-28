@@ -1,4 +1,5 @@
-﻿using Site13Kernel.Core;
+﻿using Site13Kernel.Attributes;
+using Site13Kernel.Core;
 using Site13Kernel.Data;
 using Site13Kernel.UI.xUI.Abstraction;
 using System;
@@ -57,6 +58,15 @@ namespace Site13Kernel.UI.xUI.uUIImplementation
                     pos.SetIPositionImplementation(posi);
                 }
             }
+        }
+
+        [TODO]
+        public override void AttachUITree(IUIElement Parent, IUIElement Children)
+        {
+        }
+        [TODO]
+        public override void RemoveUITree(IUIElement element)
+        {
         }
     }
 

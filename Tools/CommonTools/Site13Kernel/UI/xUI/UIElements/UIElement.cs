@@ -1,4 +1,5 @@
-﻿using Site13Kernel.Core;
+﻿using Newtonsoft.Json;
+using Site13Kernel.Core;
 using Site13Kernel.UI.xUI.Abstraction;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,9 @@ namespace Site13Kernel.UI.xUI.UIElements
 {
     public class UIElement : IUIElement, ISize, IPosition
     {
-        public List<IUIElement> Children { get; set; }
+        List<IUIElement> _Children=new List<IUIElement>();
+        public virtual List<IUIElement> Children { get=> _Children; set=> _Children=value; }
+        [JsonIgnore]
         public UIElement Parent { get; set; }
         public virtual string Name { get; set; }
         bool _isEnabled;
@@ -137,45 +140,6 @@ namespace Site13Kernel.UI.xUI.UIElements
         public Site13Event ClickEvent;
 
         public object Content { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    }
-    public class xUIGrid : UIElement, IxUIContainer, IBackground
-    {
-        UIElement _Background;
-        public UIElement Background
-        {
-            get => _Background;
-            set
-            {
-                if (value == null)
-                {
-                    if (IsInitialized())
-                    {
-                        AbstractRenderEngine.CurrentEngine.RemoveUITree(_Background);
-                    }
-                }
-                _Background = value;
-            }
-        }
-
-        public void Add(object content)
-        {
-            Children.Add((UIElement)content);
-        }
-
-        public void Remove(object content)
-        {
-            if (IsInitialized())
-            {
-                // Remove From Original Tree.
-            }
-            Children.Add((UIElement)content);
-        }
-        IBackgroundImpl bgimpl = null;
-        public void SetIBackgroundImpl(IBackgroundImpl impl)
-        {
-            if (bgimpl != null) return;
-            bgimpl = impl;
-        }
     }
     public class xUIVerticalStackPanel : UIElement
     {
