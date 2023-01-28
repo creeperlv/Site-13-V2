@@ -36,11 +36,16 @@ namespace Site13Kernel.Tests
             //    }
             //    Trace.WriteLine("Result:" + s);
             //}, a,0);
-            Trace.WriteLine(JsonConvert.SerializeObject(a,new JsonSerializerSettings {  Formatting= Formatting.Indented,TypeNameHandling= TypeNameHandling.Objects, TypeNameAssemblyFormatHandling= TypeNameAssemblyFormatHandling.Simple}));
+            Trace.WriteLine(JsonConvert.SerializeObject(a, new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                TypeNameHandling = TypeNameHandling.Objects,
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple
+            }));
         }
-        void ShowUIElement(Action<string,int> print, IUIElement element,int Depth)
+        void ShowUIElement(Action<string, int> print, IUIElement element, int Depth)
         {
-            print(""+element.GetType().Name,Depth);
+            print("" + element.GetType().Name, Depth);
             if (element is IxUIContainer)
             {
                 if (element.Children != null)
@@ -48,7 +53,7 @@ namespace Site13Kernel.Tests
                     foreach (var item in element.Children)
                     {
                         //print("iContainer Child:" + item.GetType().Name);
-                        ShowUIElement(print, item,Depth+1);
+                        ShowUIElement(print, item, Depth + 1);
                     }
                 }
             }
@@ -63,7 +68,7 @@ namespace Site13Kernel.Tests
                     }
                     else if (c.Content is String)
                     {
-                        print("String Content:" + (String)c.Content, Depth+1);
+                        print("String Content:" + (String)c.Content, Depth + 1);
                     }
             }
         }
