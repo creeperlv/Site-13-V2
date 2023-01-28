@@ -1,13 +1,14 @@
 ﻿using Site13Kernel.UI.xUI.Abstraction;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace Site13Kernel.UI.xUI.Helpers
 {
-    public class PropertyHelper
+    public static class PropertyHelper
     {
-        public static void LayoutAlignment(IxUILayoutable layoutable, string value, bool isVert)
+        public static void LayoutAlignment(this IxUILayoutable layoutable, string value, bool isVert)
         {
             if (Enum.TryParse(typeof(xUIAlignment), value, out var align))
             {
@@ -21,6 +22,12 @@ namespace Site13Kernel.UI.xUI.Helpers
                 }
             }
         }
-        
+        public static void Size(this ISize sizable, string value)
+        {
+            var g = value.Split(',');
+            sizable.Size = new Vector2(
+                float.Parse(g[0]),
+                float.Parse(g[1]));
+        }
     }
 }

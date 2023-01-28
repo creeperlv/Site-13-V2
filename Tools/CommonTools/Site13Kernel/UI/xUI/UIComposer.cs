@@ -39,26 +39,47 @@ namespace Site13Kernel.UI.xUI
             {
                 _element.SetProperty(item.Name, item.Value);
             }
-            foreach (XmlElement item in element.ChildNodes)
+            foreach (var item in element.ChildNodes)
             {
-                if (item.Name.Contains('.'))
+                if (item is XmlElement child)
                 {
-                    //It's an attribute！
-                    var attr_name = item.Name.Split('.')[1];
-                    _element.SetProperty(attr_name, item.Value);
-                    //item.Value
-                }
-                else
-                {
-                    if (_element is IxUIContainer c)
+
+                    if (child.Name.Contains('.'))
                     {
-                        var _c = ParseRecursively(item);
-                        _c.Parent = _element;
-                        c.Add(c);
+                        //It's an attribute！
+                        var attr_name = child.Name.Split('.')[1];
+                        _element.SetProperty(attr_name, child.ChildNodes[0].Value);
+                        //item.Value
                     }
                     else
                     {
-                        throw new Exception($"Expect a container, but {element.Name} does not implement IxUIContainer!");
+                        if (_element is IxUIContainer c)
+                        {
+                            var _c = ParseRecursively(child);
+                            _c.Parent = _element;
+                            c.Add(c);
+                        }
+                        else
+                        {
+                            throw new Exception($"Expect a container, but {child.Name} does not implement IxUIContainer!");
+                        }
+
+                    }
+                }
+                else if (item is XmlText t)
+                {
+                    //if(_element is IContent _ic)
+                    //{
+                    //    _ic.Content = t.Value;
+                    //}else if(_element)
+
+                    switch (_element)
+                    {
+                        case IContent _ic:
+                            _ic.Content = t.Value;
+                            break;
+                        default:
+                            break;
                     }
                 }
             }

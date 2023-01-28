@@ -32,6 +32,16 @@ namespace Site13Kernel.UI.xUI.UIElements
                 ElementImplementation.SetHit(value);
             }
         }
+        Vector2 _Size;
+        public Vector2 Size
+        {
+            get => _Size;
+            set
+            {
+                SetSize(value);
+            }
+        }
+
         bool _inited = false;
         public virtual void Initialize()
         {
@@ -60,7 +70,14 @@ namespace Site13Kernel.UI.xUI.UIElements
 
         public virtual void SetSize(Vector2 Size)
         {
-            SizeImplementation.SetSize(Size);
+            if (IsInitialized())
+            {
+                if (_Size != Size)
+                {
+                    SizeImplementation.SetSize(Size);
+                    _Size = Size;
+                }
+            }
         }
 
         public virtual void SetProperty(string name, object value)
@@ -93,11 +110,7 @@ namespace Site13Kernel.UI.xUI.UIElements
             throw new NotImplementedException();
         }
     }
-    public class xUIText : UIElement
-    {
-        public string Content;
-    }
-    public class xUIButton : UIElement, IClickable
+    public class xUIButton : UIElement, IClickable,IContent
     {
         public void OnClick()
         {
@@ -114,19 +127,30 @@ namespace Site13Kernel.UI.xUI.UIElements
         {
             ClickEvent.ConnectAfterEnd(actions);
         }
+        IContentImpl icimpl=null;
+        public void SetIContentImpl(IContentImpl impl)
+        {
+            if (icimpl != null) return;
+            icimpl = impl;
+        }
 
         public Site13Event ClickEvent;
+
+        public object Content { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
     public class xUIGrid : UIElement, IxUIContainer, IBackground
     {
         UIElement _Background;
-        public UIElement Background { get => _Background;
-            set {
+        public UIElement Background
+        {
+            get => _Background;
+            set
+            {
                 if (value == null)
                 {
                     if (IsInitialized())
                     {
-
+                        AbstractRenderEngine.CurrentEngine.RemoveUITree(_Background);
                     }
                 }
                 _Background = value;

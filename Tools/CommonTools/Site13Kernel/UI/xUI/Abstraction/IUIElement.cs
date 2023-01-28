@@ -2,6 +2,7 @@
 using Site13Kernel.UI.xUI.UIElements;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Numerics;
 using System.Text;
 
@@ -24,6 +25,10 @@ namespace Site13Kernel.UI.xUI.Abstraction
     public interface IContent
     {
         object Content { get; set; }
+        void SetIContentImpl(IContentImpl impl);
+    }
+    public interface IContentImpl { 
+        void SetContent(object content);
     }
     public interface IxUIContainer
     {
@@ -94,6 +99,7 @@ namespace Site13Kernel.UI.xUI.Abstraction
     public interface ISize
     {
         void SetISizeImplementation(ISizeImplementation implementation);
+        Vector2 Size { get; set; }
         void SetSize(Vector2 Size);
         void SetSizeDataOnly(Vector2 Size);
     }

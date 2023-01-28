@@ -1,4 +1,5 @@
 ﻿using Site13Kernel.UI.xUI.Abstraction;
+using Site13Kernel.UI.xUI.Helpers;
 using System;
 
 namespace Site13Kernel.UI.xUI.UIElements
@@ -43,7 +44,8 @@ namespace Site13Kernel.UI.xUI.UIElements
         public WindowMode WindowMode
         {
             get => _WindowMode;
-            set {
+            set
+            {
                 if (IsInitialized())
                 {
                     if (_WindowMode != value)
@@ -86,12 +88,35 @@ namespace Site13Kernel.UI.xUI.UIElements
             switch (name)
             {
                 case "Title":
-                    if (value is string s)
                     {
-                        Title = s;
+                        if (value is string s)
+                        {
+                            Title = s;
+                        }
                     }
                     break;
                 case "HorizontalAlignment":
+                    {
+                        if (value is string s)
+                            PropertyHelper.LayoutAlignment(this, s, false);
+                    }
+                    break;
+                case "VerticalAlignment":
+                    {
+                        if (value is string s)
+                            PropertyHelper.LayoutAlignment(this, s, true);
+                    }
+                    break;
+                case "Size":
+                    {
+                        if (value is string s)
+                            this.Size(s);
+                    }
+                    break;
+                case "Width":
+                    {
+
+                    }
                     break;
                 default:
                     break;
@@ -116,22 +141,31 @@ namespace Site13Kernel.UI.xUI.UIElements
 
         public void Close()
         {
-            throw new NotImplementedException();
+            AbstractRenderEngine.CurrentEngine.RemoveUITree(this);
         }
 
         public void Show()
         {
-            throw new NotImplementedException();
+            this.wimpl.Show();
         }
 
         public void Hide()
         {
-            throw new NotImplementedException();
+            this.wimpl.Hide();
         }
-
+        IxUILayoutableImpl ixUILayoutableImpl = null;
         public void SetIxUILayoutableImpl(IxUILayoutableImpl impl)
         {
-            throw new NotImplementedException();
+            if (impl != null) 
+                return;
+            ixUILayoutableImpl = impl;
+        }
+        IContentImpl contentImpl = null;
+        public void SetIContentImpl(IContentImpl impl)
+        {
+            if (contentImpl != null)
+                return;
+            contentImpl = impl;
         }
     }
 }
