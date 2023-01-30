@@ -1,10 +1,10 @@
-﻿using Site13Kernel.UI.xUI.Abstraction;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using xUI.Core.Abstraction;
 
-namespace Site13Kernel.UI.xUI.Helpers
+namespace xUI.Core.Helpers
 {
     public static class PropertyHelper
     {

@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
 using Site13Kernel.Core;
-using Site13Kernel.UI.xUI.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using xUI.Core.Abstraction;
 
-namespace Site13Kernel.UI.xUI.UIElements
+namespace xUI.Core.UIElements
 {
     public class UIElement : IUIElement, ISize, IPosition
     {
-        List<IUIElement> _Children=new List<IUIElement>();
-        public virtual List<IUIElement> Children { get=> _Children; set=> _Children=value; }
+        List<IUIElement> _Children = new List<IUIElement>();
+        public virtual List<IUIElement> Children { get => _Children; set => _Children = value; }
         [JsonIgnore]
         public UIElement Parent { get; set; }
         public virtual string Name { get; set; }
@@ -113,7 +113,7 @@ namespace Site13Kernel.UI.xUI.UIElements
             throw new NotImplementedException();
         }
     }
-    public class xUIButton : UIElement, IClickable,IContent
+    public class xUIButton : UIElement, IClickable, IContent
     {
         public void OnClick()
         {
@@ -126,20 +126,18 @@ namespace Site13Kernel.UI.xUI.UIElements
             clickableImplementation.SetOnClick(OnClick);
         }
 
-        public void AddEvent(Site13Event actions)
-        {
-            ClickEvent.ConnectAfterEnd(actions);
-        }
-        IContentImpl icimpl=null;
+        IContentImpl icimpl = null;
         public void SetIContentImpl(IContentImpl impl)
         {
             if (icimpl != null) return;
             icimpl = impl;
         }
 
-        public Site13Event ClickEvent;
+        Site13Event ClickEvent = new Site13Event();
 
         public object Content { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public Site13Event OnClickEvent => ClickEvent;
     }
     public class xUIVerticalStackPanel : UIElement
     {

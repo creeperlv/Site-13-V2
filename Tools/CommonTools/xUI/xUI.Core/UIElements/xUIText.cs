@@ -1,6 +1,6 @@
-﻿using Site13Kernel.UI.xUI.Abstraction;
+﻿using xUI.Core.Abstraction;
 
-namespace Site13Kernel.UI.xUI.UIElements
+namespace xUI.Core.UIElements
 {
     public class xUIText : UIElement, IContent
     {
@@ -8,7 +8,7 @@ namespace Site13Kernel.UI.xUI.UIElements
 
         public object Content
         {
-            get => _Content; 
+            get => _Content;
             set
             {
                 var text_content = value as string;
@@ -19,7 +19,7 @@ namespace Site13Kernel.UI.xUI.UIElements
                 _Content = text_content;
             }
         }
-        IContentImpl ICImpl=null;
+        IContentImpl ICImpl = null;
         public void SetIContentImpl(IContentImpl impl)
         {
             if (ICImpl != null) return;

@@ -1,4 +1,4 @@
-﻿namespace Site13Kernel.UI.xUI.Abstraction
+﻿namespace xUI.Core.Abstraction
 {
     public abstract class AbstractRenderEngine : IRenderEngine
     {

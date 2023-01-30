@@ -74,4 +74,48 @@ namespace Site13Kernel.Core
             return e;
         }
     }
+    /// <summary>
+    /// If return true, the process will break.
+    /// </summary>
+    [Serializable]
+    public class BreakableEvent : ConnectableList<Func<bool>>
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Invoke()
+        {
+            foreach (var item in this)
+            {
+                if (item()) return true;
+            }
+            return false;
+        }
+        public static BreakableEvent operator +(BreakableEvent e, Func<bool> a)
+        {
+            e.Add(a);
+            return e;
+        }
+
+    }
+    /// <summary>
+    /// If return true, the process will break.
+    /// </summary>
+    [Serializable]
+    public class BreakableEvent<T> : ConnectableList<Func<T, bool>>
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Invoke(T t)
+        {
+            foreach (var item in this)
+            {
+                if (item(t)) return true;
+            }
+            return false;
+        }
+        public static BreakableEvent<T> operator +(BreakableEvent<T> e, Func<T, bool> a)
+        {
+            e.Add(a);
+            return e;
+        }
+
+    }
 }

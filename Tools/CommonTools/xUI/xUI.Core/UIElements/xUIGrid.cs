@@ -1,12 +1,12 @@
-﻿using Site13Kernel.UI.xUI.Abstraction;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using xUI.Core.Abstraction;
 
-namespace Site13Kernel.UI.xUI.UIElements
+namespace xUI.Core.UIElements
 {
     public class xUIGrid : UIElement, IxUIContainer, IBackground
     {
         UIElement _Background;
-        List<IUIElement> _Children=new List<IUIElement>();
+        List<IUIElement> _Children = new List<IUIElement>();
         public override List<IUIElement> Children { get => _Children; set => _Children = value; }
         public UIElement Background
         {
@@ -26,7 +26,7 @@ namespace Site13Kernel.UI.xUI.UIElements
 
         public void Add(object content)
         {
-            if (_Children == null) _Children = new System.Collections.Generic.List<IUIElement>();
+            if (_Children == null) _Children = new List<IUIElement>();
             if (content is IUIElement element)
             {
                 _Children.Add(element);

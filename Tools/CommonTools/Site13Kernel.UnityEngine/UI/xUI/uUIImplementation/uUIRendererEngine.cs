@@ -1,11 +1,11 @@
 ﻿using Site13Kernel.Attributes;
 using Site13Kernel.Core;
 using Site13Kernel.Data;
-using Site13Kernel.UI.xUI.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using xUI.Core.Abstraction;
 
 namespace Site13Kernel.UI.xUI.uUIImplementation
 {

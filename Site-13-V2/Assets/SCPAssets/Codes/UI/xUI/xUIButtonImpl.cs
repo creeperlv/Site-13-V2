@@ -1,9 +1,9 @@
-using Site13Kernel.UI.xUI.Abstraction;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using xUI.Core.Abstraction;
 
 namespace Site13Kernel.UI.xUI
 {

@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Site13Kernel.Core;
-using Site13Kernel.UI.xUI.UIElements;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using System.Text;
+using xUI.Core.UIElements;
 
-namespace Site13Kernel.UI.xUI.Abstraction
+namespace xUI.Core.Abstraction
 {
     public interface IUIElement
     {
@@ -29,7 +29,8 @@ namespace Site13Kernel.UI.xUI.Abstraction
         object Content { get; set; }
         void SetIContentImpl(IContentImpl impl);
     }
-    public interface IContentImpl { 
+    public interface IContentImpl
+    {
         void SetContent(object content);
     }
     public interface IxUIContainer
@@ -53,6 +54,8 @@ namespace Site13Kernel.UI.xUI.Abstraction
         string Title { get; set; }
         bool Resizable { get; set; }
         WindowMode WindowMode { get; set; }
+        BreakableEvent<Vector2> OnResize { get; }
+        BreakableEvent OnClose { get; }
         void SetIWindowImpl(IWindowImpl impl);
         IWindowImpl GetIWindowImpl();
         void SetTitle(string title);
@@ -69,6 +72,7 @@ namespace Site13Kernel.UI.xUI.Abstraction
         void Close();
         void Show();
         void Hide();
+        void DisableDefaultWindowBackground();
     }
     public interface IFocusable
     {
@@ -80,7 +84,7 @@ namespace Site13Kernel.UI.xUI.Abstraction
     public interface IClickable
     {
         void SetIClickableImplementation(IClickableImplementation implementation);
-        void AddEvent(Site13Event actions);
+        Site13Event OnClickEvent { get; }
         void OnClick();
     }
     public interface IClickableImplementation

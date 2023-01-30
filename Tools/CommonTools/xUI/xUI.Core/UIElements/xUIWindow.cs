@@ -1,10 +1,12 @@
 ﻿using Site13Kernel.Attributes;
-using Site13Kernel.UI.xUI.Abstraction;
-using Site13Kernel.UI.xUI.Helpers;
+using Site13Kernel.Core;
 using System;
 using System.Diagnostics;
+using System.Numerics;
+using xUI.Core.Abstraction;
+using xUI.Core.Helpers;
 
-namespace Site13Kernel.UI.xUI.UIElements
+namespace xUI.Core.UIElements
 {
     public class xUIWindow : UIElement, IWindow, IxUILayoutable
     {
@@ -29,6 +31,7 @@ namespace Site13Kernel.UI.xUI.UIElements
         }
         object _content = null;
         UIElement _content_g = null;
+
         public object Content
         {
             get => _content;
@@ -45,16 +48,20 @@ namespace Site13Kernel.UI.xUI.UIElements
                     }
                 }
 #if DEBUG
-                Trace.WriteLine("xUIWindow set content to:"+value.GetType().Name);
+                Trace.WriteLine("xUIWindow set content to:" + value.GetType().Name);
 #endif
                 _content = value;
             }
         }
         xUIAlignment _VerticalAlignment = xUIAlignment.Center;
-        public xUIAlignment VerticalAlignment { get => _VerticalAlignment; [TODO] set => _VerticalAlignment=value; }
-        xUIAlignment _HorizontalAlignment= xUIAlignment.Center;
-        public xUIAlignment HorizontalAlignment { get => _HorizontalAlignment; 
-            [TODO]set => _HorizontalAlignment=value; }
+        public xUIAlignment VerticalAlignment { get => _VerticalAlignment; [TODO] set => _VerticalAlignment = value; }
+        xUIAlignment _HorizontalAlignment = xUIAlignment.Center;
+        public xUIAlignment HorizontalAlignment
+        {
+            get => _HorizontalAlignment;
+            [TODO]
+            set => _HorizontalAlignment = value;
+        }
         WindowMode _WindowMode = WindowMode.Full;
         public WindowMode WindowMode
         {
@@ -72,6 +79,11 @@ namespace Site13Kernel.UI.xUI.UIElements
                 _WindowMode = value;
             }
         }
+        BreakableEvent<Vector2> _OnResize = new BreakableEvent<Vector2>();
+        public BreakableEvent<Vector2> OnResize => _OnResize;
+
+        BreakableEvent _OnClose = new BreakableEvent();
+        public BreakableEvent OnClose => _OnClose;
 
         public void Focus()
         {
@@ -113,13 +125,13 @@ namespace Site13Kernel.UI.xUI.UIElements
                 case "HorizontalAlignment":
                     {
                         if (value is string s)
-                            PropertyHelper.LayoutAlignment(this, s, false);
+                            this.LayoutAlignment(s, false);
                     }
                     break;
                 case "VerticalAlignment":
                     {
                         if (value is string s)
-                            PropertyHelper.LayoutAlignment(this, s, true);
+                            this.LayoutAlignment(s, true);
                     }
                     break;
                 case "Size":
@@ -161,12 +173,12 @@ namespace Site13Kernel.UI.xUI.UIElements
 
         public void Show()
         {
-            this.wimpl.Show();
+            wimpl.Show();
         }
 
         public void Hide()
         {
-            this.wimpl.Hide();
+            wimpl.Hide();
         }
         IxUILayoutableImpl ixUILayoutableImpl = null;
         public void SetIxUILayoutableImpl(IxUILayoutableImpl impl)

@@ -1,16 +1,24 @@
 using Site13Kernel.UI.xUI;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using xUI.Core.Abstraction;
 
 namespace Site13Kernel.UI.xUI
 {
-    public class xUIWindowImpl : MonoBehaviour
+    public class xUIWindowImpl : MonoBehaviour,IWindowImpl
     {
         public RectTransform ControlledTransform;
         public xUIResizableBorder Border;
         public Vector2 MinSize = new Vector2(300, 50);
         public xUIPointerDownImpl Focus;
+        public xUIButtonImpl CloseBtn;
+        public xUIButtonImpl MinimizeBtn;
+        public xUIButtonImpl MaximizeBtn;
+        public Transform OriginalBackground;
+        public Transform CustomizedBackground;
+        public Transform Content;
+        public Text TitleText;
         void Start()
         {
             WindowManager.RegisterWindow(this);
@@ -38,25 +46,78 @@ namespace Site13Kernel.UI.xUI
         {
             Focus.gameObject.SetActive(false);
         }
-    }
-    public static class WindowManager
-    {
-        public static List<xUIWindowImpl> windows=new List<xUIWindowImpl>();
-        public static void RegisterWindow(xUIWindowImpl windowImpl)
+
+        public void SetTitle(string title)
         {
-            windows.Add(windowImpl);
+            TitleText.text = title;
         }
-        public static void Focus(xUIWindowImpl windowImpl)
+
+        public void SetIcon(object obj)
         {
-            windowImpl.GainFocus();
-            windowImpl.transform.SetAsLastSibling();
-            foreach (var item in windows)
+            throw new System.NotImplementedException();
+        }
+
+        public void SetWindowMode(WindowMode wm)
+        {
+            switch (wm)
             {
-                if (item != windowImpl)
-                {
-                    item.LossFocus();
-                }
+                case WindowMode.Full:
+                    {
+                        CloseBtn.gameObject.SetActive(true);
+                        MinimizeBtn.gameObject.SetActive(true);
+                        MaximizeBtn.gameObject.SetActive(true);
+                        TitleText.gameObject.SetActive(true);
+                    }
+                    break;
+                case WindowMode.NoBorder:
+
+                    {
+                        CloseBtn.gameObject.SetActive(false);
+                        MinimizeBtn.gameObject.SetActive(false);
+                        MaximizeBtn.gameObject.SetActive(false);
+                        TitleText.gameObject.SetActive(false);
+                    }
+                    break;
+                case WindowMode.NoTitle:
+                    {
+                        CloseBtn.gameObject.SetActive(true);
+                        MinimizeBtn.gameObject.SetActive(true);
+                        MaximizeBtn.gameObject.SetActive(true);
+                        TitleText.gameObject.SetActive(false);
+                    }
+                    break;
+                case WindowMode.Minimal:
+                    {
+                        CloseBtn.gameObject.SetActive(true);
+                        MinimizeBtn.gameObject.SetActive(true);
+                        MaximizeBtn.gameObject.SetActive(false);
+                        TitleText.gameObject.SetActive(false);
+
+                    }
+                    break;
+                default:
+                    break;
             }
+        }
+
+        public void Close()
+        {
+            CloseBtn.OnClick();
+        }
+
+        public void Show()
+        {
+            this.gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DisableDefaultWindowBackground()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

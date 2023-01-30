@@ -1,13 +1,13 @@
-﻿using Site13Kernel.UI.xUI.Abstraction;
-using Site13Kernel.UI.xUI.Composition.Deserialization;
-using Site13Kernel.UI.xUI.UIElements;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Xml;
+using xUI.Core.Abstraction;
+using xUI.Core.Composition.Deserialization;
+using xUI.Core.UIElements;
 
-namespace Site13Kernel.UI.xUI
+namespace xUI.Core
 {
     //public static class xUICore {
     //}
@@ -20,6 +20,7 @@ namespace Site13Kernel.UI.xUI
             Instantiators.Add("Window", new xUIWindowInstantiator());
             Instantiators.Add("Text", new xUITextInstantiator());
             Instantiators.Add("Grid", new xUIGridInstantiator());
+            Instantiators.Add("SolidColorRectangle", new xUISolidColorRectangleInstantiator());
 
         }
         public static void Register(string name, IInstantiatable instantiator)
@@ -37,7 +38,7 @@ namespace Site13Kernel.UI.xUI
         {
             var _element = Instantiators[element.Name].Instantiate();
 #if DEBUG
-            Trace.WriteLine("Element:"+element.Name);
+            Trace.WriteLine("Element:" + element.Name);
 #endif
             var attr_c = element.Attributes;
             foreach (XmlAttribute item in attr_c)
@@ -51,7 +52,7 @@ namespace Site13Kernel.UI.xUI
             foreach (var item in element.ChildNodes)
             {
 #if DEBUG
-                Trace.WriteLine("XML T:"+item.GetType().Name);
+                Trace.WriteLine("XML T:" + item.GetType().Name);
 #endif
 
                 if (item is XmlElement childElement)
@@ -80,7 +81,7 @@ namespace Site13Kernel.UI.xUI
                         }
                         else if (_element is IContent ic)
                         {
-                            if (isContent==true)
+                            if (isContent == true)
                             {
                                 throw new Exception($"Expect a container, but {childElement.Name}({_element.GetType().Name}) does not implement IxUIContainer!");
                             }
@@ -123,9 +124,9 @@ namespace Site13Kernel.UI.xUI
                 }
             }
 #if DEBUG
-            if(_element.Children!=null)
+            if (_element.Children != null)
             {
-            Trace.WriteLine("xUI Child Count:" + _element.Children.Count);
+                Trace.WriteLine("xUI Child Count:" + _element.Children.Count);
 
             }
 #endif

@@ -1,9 +1,9 @@
-﻿using Site13Kernel.UI.xUI.UIElements;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using xUI.Core.UIElements;
 
-namespace Site13Kernel.UI.xUI.Composition.Deserialization
+namespace xUI.Core.Composition.Deserialization
 {
     public interface IInstantiatable
     {
@@ -24,5 +24,9 @@ namespace Site13Kernel.UI.xUI.Composition.Deserialization
     public class xUIGridInstantiator : IInstantiatable
     {
         public UIElement Instantiate() => new xUIGrid();
+    }
+    public class xUISolidColorRectangleInstantiator : IInstantiatable
+    {
+        public UIElement Instantiate() => new xUISolidColorRectangle();
     }
 }
