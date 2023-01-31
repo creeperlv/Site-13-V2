@@ -29,4 +29,12 @@ namespace xUI.Core.Composition.Deserialization
     {
         public UIElement Instantiate() => new xUISolidColorRectangle();
     }
+    public class xUIMenuInstantiator : IInstantiatable
+    {
+        public UIElement Instantiate() => new xUIMenu();
+    }
+    public class xUIMenuItemInstantiator : IInstantiatable
+    {
+        public UIElement Instantiate() => new xUIMenuItem();
+    }
 }

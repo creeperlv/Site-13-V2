@@ -1,4 +1,5 @@
-﻿using xUI.Core.Abstraction;
+﻿using Newtonsoft.Json.Linq;
+using xUI.Core.Abstraction;
 
 namespace xUI.Core.UIElements
 {
@@ -20,6 +21,11 @@ namespace xUI.Core.UIElements
             }
         }
         IContentImpl ICImpl = null;
+        public override void Initialize()
+        {
+            var text_content = _Content as string;
+            ICImpl.SetContent(text_content);
+        }
         public void SetIContentImpl(IContentImpl impl)
         {
             if (ICImpl != null) return;

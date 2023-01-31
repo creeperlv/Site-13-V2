@@ -119,5 +119,10 @@ namespace Site13Kernel.UI.xUI
         {
             throw new System.NotImplementedException();
         }
+
+        public void SetMenuBar(IMenu menu)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -85,6 +85,8 @@ namespace xUI.Core.UIElements
         BreakableEvent _OnClose = new BreakableEvent();
         public BreakableEvent OnClose => _OnClose;
 
+        public IMenu MenuBar { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public void Focus()
         {
             IWindowManager.CurrentManager.BringWindowToFront(this);

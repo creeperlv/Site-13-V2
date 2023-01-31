@@ -21,6 +21,8 @@ namespace xUI.Core
             Instantiators.Add("Text", new xUITextInstantiator());
             Instantiators.Add("Grid", new xUIGridInstantiator());
             Instantiators.Add("SolidColorRectangle", new xUISolidColorRectangleInstantiator());
+            Instantiators.Add("Menu", new xUIMenuInstantiator());
+            Instantiators.Add("MenuItem", new xUIMenuItemInstantiator());
 
         }
         public static void Register(string name, IInstantiatable instantiator)

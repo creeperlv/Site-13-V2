@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Site13Kernel.Core;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -85,17 +84,34 @@ namespace xUI.Core.UIElements
 
         public virtual void SetProperty(string name, object value)
         {
-
+            switch (name)
+            {
+                case "Name":
+                    {
+                        this.Name = value as string ?? "";
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         public virtual object GetProperty(string name)
         {
+            switch (name)
+            {
+                case "Name":
+                    return this.Name;
+                default:
+                    break;
+            }
             return null;
         }
-
+        internal IPositionImplementation positionImplementation = null;
         public virtual void SetIPositionImplementation(IPositionImplementation implementation)
         {
-
+            if (positionImplementation != null) return;
+            positionImplementation = implementation;
         }
 
         public virtual void SetPositionDataOnly(Vector2 Position)
@@ -105,42 +121,12 @@ namespace xUI.Core.UIElements
 
         public virtual void SetSizeDataOnly(Vector2 Size)
         {
-
+            this._Size = Size;
         }
 
         public void SetHitEnabledDataOnly(bool hitEnabled)
         {
-            throw new NotImplementedException();
+            ElementImplementation.SetIsEnable(hitEnabled);
         }
-    }
-    public class xUIButton : UIElement, IClickable, IContent
-    {
-        public void OnClick()
-        {
-            ClickEvent.Invoke();
-        }
-        internal IClickableImplementation clickableImplementation;
-        public void SetIClickableImplementation(IClickableImplementation implementation)
-        {
-            clickableImplementation = implementation;
-            clickableImplementation.SetOnClick(OnClick);
-        }
-
-        IContentImpl icimpl = null;
-        public void SetIContentImpl(IContentImpl impl)
-        {
-            if (icimpl != null) return;
-            icimpl = impl;
-        }
-
-        Site13Event ClickEvent = new Site13Event();
-
-        public object Content { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public Site13Event OnClickEvent => ClickEvent;
-    }
-    public class xUIVerticalStackPanel : UIElement
-    {
-
     }
 }

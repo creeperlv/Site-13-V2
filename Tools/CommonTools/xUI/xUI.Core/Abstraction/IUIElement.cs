@@ -56,6 +56,7 @@ namespace xUI.Core.Abstraction
         WindowMode WindowMode { get; set; }
         BreakableEvent<Vector2> OnResize { get; }
         BreakableEvent OnClose { get; }
+        IMenu MenuBar { get; set; }
         void SetIWindowImpl(IWindowImpl impl);
         IWindowImpl GetIWindowImpl();
         void SetTitle(string title);
@@ -68,6 +69,7 @@ namespace xUI.Core.Abstraction
     {
         void SetTitle(string title);
         void SetIcon(object obj);
+        void SetMenuBar(IMenu menu);
         void SetWindowMode(WindowMode wm);
         void Close();
         void Show();
