@@ -34,7 +34,7 @@ namespace xUI.Core.UIElements
                 ElementImplementation.SetHit(value);
             }
         }
-        Vector2 _Size;
+        Vector2 _Size=new Vector2(float.NaN,float.NaN);
         public Vector2 Size
         {
             get => _Size;

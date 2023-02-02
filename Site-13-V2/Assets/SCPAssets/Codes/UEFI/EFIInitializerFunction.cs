@@ -1,9 +1,11 @@
 using Site13Kernel.Assets.KoFMUST.Codes.Utilities;
 using Site13Kernel.Core;
 using Site13Kernel.Data;
+using Site13Kernel.Registry;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering.Universal;
@@ -33,7 +35,12 @@ namespace Site13Kernel.UEFI
             GameEnv.DataPath = Application.persistentDataPath;
             GameEnv.CollisionDamageSpeedThreshold = InitConfiguration.CollisionDamageSpeedThreshold;
             GameEnv.CollisionDamageIntensity = InitConfiguration.CollisionDamageIntensity;
-
+            {
+                var dir = Path.Combine(GameEnv.DataPath, "Registry");
+                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                RegistryCore registryCore = new RegistryCore(new DirectoryInfo(dir));
+                RegistryCore.Instance = registryCore;
+            }
             Settings.Init();
             PlayerWeaponCoatings.Init();
 
@@ -44,9 +51,9 @@ namespace Site13Kernel.UEFI
 
             GameRuntime.CurrentGlobals.Init();
             GameRuntime.CurrentGlobals.UsingAsset = TargetAsset;
-            GameRuntime.CurrentGlobals.PickupableLayer= LayerMask.NameToLayer("Pickupable-Item");
+            GameRuntime.CurrentGlobals.PickupableLayer = LayerMask.NameToLayer("Pickupable-Item");
             GameRuntime.CurrentGlobals.PickupableTriggerLayer = LayerMask.NameToLayer("Pickupable-Item-Trigger");
-            TargetAsset.renderScale = Settings.CurrentSettings.RenderScale/100f;
+            TargetAsset.renderScale = Settings.CurrentSettings.RenderScale / 100f;
             {
 
                 AudioUtility.SetVolume(UI.audioMixer, Settings.CurrentSettings.UI_SFX);
@@ -55,7 +62,7 @@ namespace Site13Kernel.UEFI
                 AudioUtility.SetVolume(BGM.audioMixer, Settings.CurrentSettings.BGM);
             }
             GameRuntime.CurrentGlobals.Scene_LevelBase = SceneID_LevelBase;
-            GameRuntime.CurrentGlobals.Scene_LevelLoader= SceneID_LevelLoader;
+            GameRuntime.CurrentGlobals.Scene_LevelLoader = SceneID_LevelLoader;
             GameRuntime.CurrentGlobals.Scene_WinScene = SceneID_WinScene;
             foreach (var item in SceneMappings)
             {
@@ -70,7 +77,7 @@ namespace Site13Kernel.UEFI
     [Serializable]
     public class SceneMapping
     {
-        public List<string> Names=new List<string>();
+        public List<string> Names = new List<string>();
         public int ID;
     }
     [Serializable]

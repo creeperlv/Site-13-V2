@@ -3,7 +3,7 @@ using xUI.Core.Abstraction;
 
 namespace xUI.Core.UIElements
 {
-    public class xUIText : UIElement, IContent
+    public class xUIText : UIElement, IContent, IxUITextable
     {
         public string _Content;
 
@@ -20,6 +20,32 @@ namespace xUI.Core.UIElements
                 _Content = text_content;
             }
         }
+        int _FS = 12;
+        public int FontSize
+        {
+            get => _FS;
+            set
+            {
+                if (IsInitialized())
+                {
+                    textableImpl.SetFontSize(value);
+                }
+                _FS = value;
+            }
+        }
+        string _FontFamily;
+        public string FontFamily
+        {
+            get => _FontFamily; set
+            {
+                if (IsInitialized())
+                {
+                    textableImpl.SetFontFamily(value);
+                }
+                _FontFamily = value;
+            }
+        }
+
         IContentImpl ICImpl = null;
         public override void Initialize()
         {
@@ -30,6 +56,11 @@ namespace xUI.Core.UIElements
         {
             if (ICImpl != null) return;
             ICImpl = impl;
+        }
+        IxUITextableImpl textableImpl;
+        public void SetIxUITextableImpl(IxUITextableImpl impl)
+        {
+            textableImpl = impl;
         }
     }
 }

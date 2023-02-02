@@ -14,6 +14,7 @@
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="copy &quot;$(OutDir)$(TargetFileName)&quot; &quot;$(SolutionDir)..\..\Site-13-V2\Assets\Plug-in\$(TargetFileName)&quot;" />
 		<Exec Command="copy &quot;$(OutDir)Site13Kernel.dll&quot; &quot;$(SolutionDir)..\..\Site-13-V2\Assets\Plug-in\Site13Kernel.dll&quot;" />
+		<Exec Command="copy &quot;$(OutDir)Site13Kernel.Registry.dll&quot; &quot;$(SolutionDir)..\..\Site-13-V2\Assets\Plug-in\Site13Kernel.Registry.dll&quot;" />
 		<Exec Command="copy &quot;$(OutDir)xUI.Core.dll&quot; &quot;$(SolutionDir)..\..\Site-13-V2\Assets\Plug-in\xUI.Core.dll&quot;" />
 	</Target>
 
@@ -36,6 +37,7 @@
 
 
 	<ItemGroup>
+		<ProjectReference Include="..\Kernel\Site13Kernel.Registry\Site13Kernel.Registry.csproj" />
 		<ProjectReference Include="..\Site13Kernel\Site13Kernel.csproj" />
 		<ProjectReference Include="..\xUI\xUI.Core\xUI.Core.csproj" />
 	</ItemGroup>

@@ -1,10 +1,11 @@
 ﻿using Site13Kernel.Core;
 using System;
 using xUI.Core.Abstraction;
+using xUI.Core.Data;
 
 namespace xUI.Core.UIElements
 {
-    public class xUIButton : UIElement, IClickable, IContent
+    public class xUIButton : UIElement, IClickable, IContent, IxUIPadding
     {
         public void OnClick()
         {
@@ -61,6 +62,28 @@ namespace xUI.Core.UIElements
                 }
             }
         }
+        IxUIPaddingImpl paddingImpl = null;
+        public void SetIPaddingImpl(IxUIPaddingImpl impl)
+        {
+            if (paddingImpl != null)
+            {
+                return;
+            }
+            paddingImpl = impl;
+        }
+
         public Site13Event OnClickEvent => ClickEvent;
+        xUIThickness _Padding = null;
+        public xUIThickness Padding
+        {
+            get => _Padding; set
+            {
+                if (IsInitialized())
+                {
+
+                }
+                _Padding = value;
+            }
+        }
     }
 }

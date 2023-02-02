@@ -47,9 +47,6 @@ namespace xUI.Core.UIElements
                         }
                     }
                 }
-#if DEBUG
-                Trace.WriteLine("xUIWindow set content to:" + value.GetType().Name);
-#endif
                 _content = value;
             }
         }
@@ -86,6 +83,10 @@ namespace xUI.Core.UIElements
         public BreakableEvent OnClose => _OnClose;
 
         public IMenu MenuBar { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool ShowBackButton { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool ExtendContentToTitleBar { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public BreakableEvent BackEvent => throw new NotImplementedException();
 
         public void Focus()
         {
@@ -195,6 +196,11 @@ namespace xUI.Core.UIElements
             if (contentImpl != null)
                 return;
             contentImpl = impl;
+        }
+
+        public void Back()
+        {
+            throw new NotImplementedException();
         }
     }
 }

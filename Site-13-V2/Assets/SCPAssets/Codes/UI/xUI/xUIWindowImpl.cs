@@ -1,3 +1,4 @@
+using Site13Kernel.Attributes;
 using Site13Kernel.UI.xUI;
 using System.Collections;
 using UnityEngine;
@@ -109,18 +110,30 @@ namespace Site13Kernel.UI.xUI
         {
             this.gameObject.SetActive(true);
         }
-
+        [TODO]
         public void Hide()
         {
             throw new System.NotImplementedException();
         }
 
+        [TODO]
         public void DisableDefaultWindowBackground()
         {
             throw new System.NotImplementedException();
         }
 
+        [TODO]
         public void SetMenuBar(IMenu menu)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetExtendContentToTitleBar(bool value)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetBackButton(bool Show)
         {
             throw new System.NotImplementedException();
         }

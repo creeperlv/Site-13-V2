@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Site13Kernel.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,14 +23,12 @@ namespace xUI.Core.Abstraction
         void Initialize();
         bool IsInitialized();
     }
-    public interface IContent
+    public interface IUIElementImplementation
     {
-        object Content { get; set; }
-        void SetIContentImpl(IContentImpl impl);
-    }
-    public interface IContentImpl
-    {
-        void SetContent(object content);
+        void Repaint();
+        void SetIsEnable(bool State);
+        void SetHit(bool IsEnabled);
+        void Bind(IUIElement element);
     }
     public interface IxUIContainer
     {
@@ -49,85 +46,12 @@ namespace xUI.Core.Abstraction
         void SetVerticalAlignment(xUIAlignment alignment);
         void SetHorizontalAlignment(xUIAlignment alignment);
     }
-    public interface IWindow : IFocusable, IContent
-    {
-        string Title { get; set; }
-        bool Resizable { get; set; }
-        WindowMode WindowMode { get; set; }
-        BreakableEvent<Vector2> OnResize { get; }
-        BreakableEvent OnClose { get; }
-        IMenu MenuBar { get; set; }
-        void SetIWindowImpl(IWindowImpl impl);
-        IWindowImpl GetIWindowImpl();
-        void SetTitle(string title);
-        void SetIcon(object obj);
-        void Close();
-        void Show();
-        void Hide();
-    }
-    public interface IWindowImpl
-    {
-        void SetTitle(string title);
-        void SetIcon(object obj);
-        void SetMenuBar(IMenu menu);
-        void SetWindowMode(WindowMode wm);
-        void Close();
-        void Show();
-        void Hide();
-        void DisableDefaultWindowBackground();
-    }
+   
     public interface IFocusable
     {
         void Focus();
         void Unfocus();
         void LostFocus();
         void GainFocus();
-    }
-    public interface IClickable
-    {
-        void SetIClickableImplementation(IClickableImplementation implementation);
-        Site13Event OnClickEvent { get; }
-        void OnClick();
-    }
-    public interface IClickableImplementation
-    {
-        void SetOnClick(Action onClick);
-        void OnClick();
-    }
-    public interface IPosition
-    {
-        void SetIPositionImplementation(IPositionImplementation implementation);
-        void SetPosition(Vector2 Position);
-        void SetPositionDataOnly(Vector2 Position);
-    }
-    public interface IPositionImplementation
-    {
-        void SetPosition(Vector2 Position);
-    }
-    public interface ISize
-    {
-        void SetISizeImplementation(ISizeImplementation implementation);
-        Vector2 Size { get; set; }
-        void SetSize(Vector2 Size);
-        void SetSizeDataOnly(Vector2 Size);
-    }
-    public interface ISizeImplementation
-    {
-        void SetSize(Vector2 Size);
-    }
-    public interface IUIElementImplementation
-    {
-        void Repaint();
-        void SetIsEnable(bool State);
-        void SetHit(bool IsEnabled);
-    }
-    public interface IBackground
-    {
-        UIElement Background { get; set; }
-        void SetIBackgroundImpl(IBackgroundImpl impl);
-    }
-    public interface IBackgroundImpl
-    {
-        void SetBackground(UIElement Background);
     }
 }

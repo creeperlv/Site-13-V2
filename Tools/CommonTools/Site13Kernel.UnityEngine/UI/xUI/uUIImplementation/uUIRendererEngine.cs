@@ -1,39 +1,11 @@
 ﻿using Site13Kernel.Attributes;
-using Site13Kernel.Core;
-using Site13Kernel.Data;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using xUI.Core.Abstraction;
 
 namespace Site13Kernel.UI.xUI.uUIImplementation
 {
-    public class uUIRendererResources : ControlledBehavior
-    {
-        public static uUIRendererResources Instance=null;
-        public KVList<string, GameObject> Primitives = new KVList<string, GameObject>();
-        public Dictionary<string, GameObject> PrimitiveDictionary;
-        public override void Init()
-        {
-            PrimitiveDictionary = Primitives.ObtainMap();
-            Primitives.PrefabDefinitions.Clear();
-            Primitives = null;
-        }
-        public static bool TryGet(string name, out GameObject gameObject)
-        {
-            if (Instance == null)
-            {
-                gameObject = null;
-                return false;
-            }
-            return Instance.PrimitiveDictionary.TryGetValue(name, out gameObject);
-        }
-    }
-    public class uUIRendererHolder : ControlledBehavior
-    {
-        
-    }
     public class uUIRendererEngine : AbstractRenderEngine
     {
         IUIElement root;
