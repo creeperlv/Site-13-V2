@@ -8,12 +8,12 @@ using xUI.Core.UIElements;
 
 namespace Site13Kernel
 {
-    public class xUITextImpl : MonoBehaviour, IContentImpl, IUIElementImplementation, IxUITextableImpl
+    public class xUITextImpl : xUIElementImplBase, IContentImpl, IxUITextableImpl
     {
         public bool isTMP;
         public Text uUIText;
         public xUIText ori;
-        public void Bind(IUIElement element)
+        public override void Bind(IUIElement element)
         {
             if (element is xUIText text)
             {
@@ -21,7 +21,7 @@ namespace Site13Kernel
             }
         }
 
-        public void Repaint()
+        public override void Repaint()
         {
 
         }
@@ -63,7 +63,7 @@ namespace Site13Kernel
             }
         }
 
-        public void SetHit(bool IsEnabled)
+        public override void SetHit(bool IsEnabled)
         {
             if (isTMP)
             {
@@ -75,9 +75,16 @@ namespace Site13Kernel
             }
         }
 
-        public void SetIsEnable(bool State)
+        public override void SetIsEnable(bool State)
         {
-            throw new System.NotImplementedException();
+            if (isTMP)
+            {
+
+            }
+            else
+            {
+                uUIText.gameObject.SetActive(State);
+            }
         }
     }
 }

@@ -1,10 +1,39 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using xUI.Core;
 using xUI.Core.Abstraction;
 using xUI.Core.UIElements;
 
 namespace Site13Kernel.UI.xUI.uUIImplementation
 {
+    public class xUIElementImplBase : UIBehaviour, IUIElementImplementation
+    {
+        public virtual void Bind(IUIElement element)
+        {
+            
+        }
+
+        public virtual void Repaint()
+        {
+            
+        }
+
+        public virtual void SetHit(bool IsEnabled)
+        {
+            
+        }
+
+        public virtual void SetIsEnable(bool State)
+        {
+            
+        }
+
+        public virtual void SetStyles(List<string> styles)
+        {
+            
+        }
+    }
     public class xUIBase : MonoBehaviour
     {
         public TextAsset xUIFile;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Site13Kernel.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -43,6 +44,21 @@ namespace xUI.Core.Data
                 Right = float.Parse(d[2]);
                 Bottom = float.Parse(d[3]);
             }
+        }
+    }
+
+    public class ReactableList<T> : List<T>
+    {
+        public ReactableList() { }
+        public ReactableList(Func<ReactableList<T>, T, bool> f)
+        {
+            ReactChain.Add(f);
+        }
+        public BreakableEvent<ReactableList<T>, T> ReactChain = new BreakableEvent<ReactableList<T>, T>();
+        public new void Add(T t)
+        {
+            base.Add(t);
+            ReactChain.Invoke(this, t);
         }
     }
 }

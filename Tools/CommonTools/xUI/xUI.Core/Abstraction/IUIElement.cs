@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Site13Kernel.Data;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using System.Text;
+using xUI.Core.Data;
 using xUI.Core.UIElements;
 
 namespace xUI.Core.Abstraction
@@ -16,6 +18,8 @@ namespace xUI.Core.Abstraction
         string Name { get; set; }
         bool IsEnabled { get; set; }
         bool IsHitEnabled { get; set; }
+        string Variant { get; set; }
+        ReactableList<string> Styles { get; }
         void SetProperty(string name, object value);
         object GetProperty(string name);
         void SetHitEnabledDataOnly(bool hitEnabled);
@@ -25,6 +29,7 @@ namespace xUI.Core.Abstraction
     }
     public interface IUIElementImplementation
     {
+        void SetStyles(List<string> styles);
         void Repaint();
         void SetIsEnable(bool State);
         void SetHit(bool IsEnabled);
@@ -46,7 +51,7 @@ namespace xUI.Core.Abstraction
         void SetVerticalAlignment(xUIAlignment alignment);
         void SetHorizontalAlignment(xUIAlignment alignment);
     }
-   
+
     public interface IFocusable
     {
         void Focus();

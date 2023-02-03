@@ -1,4 +1,5 @@
 using Site13Kernel.UI.xUI.Utilities;
+using Site13Kernel.UI.xUI.uUIImplementation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using xUI.Core.UIElements;
 
 namespace Site13Kernel.UI.xUI
 {
-    public class xUIButtonImpl : MonoBehaviour, IClickableImplementation, IUIElementImplementation,IxUIPaddingImpl,IContentImpl,ISizeImplementation
+    public class xUIButtonImpl : xUIElementImplBase, IClickableImplementation,IxUIPaddingImpl,IContentImpl,ISizeImplementation
     {
         public RectTransform OuterTransform;
         public RectTransform Content;

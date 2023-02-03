@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Site13Kernel.Data;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 using xUI.Core.Abstraction;
+using xUI.Core.Data;
 
 namespace xUI.Core.UIElements
 {
@@ -34,7 +36,7 @@ namespace xUI.Core.UIElements
                 ElementImplementation.SetHit(value);
             }
         }
-        Vector2 _Size=new Vector2(float.NaN,float.NaN);
+        Vector2 _Size = new Vector2(float.NaN, float.NaN);
         public Vector2 Size
         {
             get => _Size;
@@ -43,10 +45,19 @@ namespace xUI.Core.UIElements
                 SetSize(value);
             }
         }
+        ReactableList<string> _Styles = new ReactableList<string>();
+        public bool StyleReact(ReactableList<string> NewL, string newS)
+        {
+            return false;
+        }
+        public ReactableList<string> Styles => _Styles;
+
+        public string Variant { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         bool _inited = false;
         public virtual void Initialize()
         {
+            _Styles.ReactChain.Add(StyleReact);
             _inited = true;
         }
 
@@ -91,6 +102,43 @@ namespace xUI.Core.UIElements
                         this.Name = value as string ?? "";
                     }
                     break;
+                case "Variant":
+                    {
+                        Variant = value as string;
+                    }
+                    break;
+                case "Styles":
+                    {
+                        var strs = value as string;
+                        if (strs != null)
+                        {
+                            strs = strs.Trim();
+                            if (strs.IndexOf(',') > 0)
+                            {
+                                var _s = strs.Split(',');
+                                foreach (var item in _s)
+                                {
+                                    Styles.Add(item);
+                                }
+                            }
+                            else
+                            {
+                                if (strs.IndexOf(' ') > 0)
+                                {
+                                    var _s = strs.Split(' ');
+                                    foreach (var item in _s)
+                                    {
+                                        Styles.Add(item);
+                                    }
+                                }
+                                else
+                                {
+                                    Styles.Add(strs);
+                                }
+                            }
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -102,6 +150,10 @@ namespace xUI.Core.UIElements
             {
                 case "Name":
                     return this.Name;
+                case "Variant":
+                    return Variant;
+                case "Styles":
+                    return Styles;
                 default:
                     break;
             }

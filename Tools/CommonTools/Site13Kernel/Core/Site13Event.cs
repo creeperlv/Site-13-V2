@@ -118,4 +118,26 @@ namespace Site13Kernel.Core
         }
 
     }
+    /// <summary>
+    /// If return true, the process will break.
+    /// </summary>
+    [Serializable]
+    public class BreakableEvent<T,U> : ConnectableList<Func<T,U, bool>>
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Invoke(T t,U u)
+        {
+            foreach (var item in this)
+            {
+                if (item(t,u)) return true;
+            }
+            return false;
+        }
+        public static BreakableEvent<T,U> operator +(BreakableEvent<T,U> e, Func<T,U, bool> a)
+        {
+            e.Add(a);
+            return e;
+        }
+
+    }
 }
