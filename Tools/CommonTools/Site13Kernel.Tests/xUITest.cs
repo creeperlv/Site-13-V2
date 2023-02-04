@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Site13Kernel.UI.xUI;
-using Site13Kernel.UI.xUI.Abstraction;
-using Site13Kernel.UI.xUI.UIElements;
 using System;
 using System.Diagnostics;
+using xUI.Core;
+using xUI.Core.Abstraction;
 
 namespace Site13Kernel.Tests
 {

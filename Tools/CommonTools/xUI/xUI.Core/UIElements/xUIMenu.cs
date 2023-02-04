@@ -1,4 +1,4 @@
-﻿using Site13Kernel.Core;
+﻿using LibCLCC.NET.Delegates;
 using System;
 using xUI.Core.Abstraction;
 
@@ -20,7 +20,7 @@ namespace xUI.Core.UIElements
     {
         public object Content { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Site13Event OnClickEvent => throw new NotImplementedException();
+        public ChainAction OnClickEvent => throw new NotImplementedException();
 
         public void Add(object content)
         {

@@ -1,4 +1,4 @@
-﻿using Site13Kernel.Core;
+﻿using LibCLCC.NET.Delegates;
 using System;
 using xUI.Core.Abstraction;
 using xUI.Core.Data;
@@ -25,7 +25,7 @@ namespace xUI.Core.UIElements
             icimpl = impl;
         }
 
-        Site13Event ClickEvent = new Site13Event();
+        ChainAction ClickEvent = new ChainAction();
         object? _Content = null;
         public object Content
         {
@@ -72,7 +72,7 @@ namespace xUI.Core.UIElements
             paddingImpl = impl;
         }
 
-        public Site13Event OnClickEvent => ClickEvent;
+        public ChainAction OnClickEvent => ClickEvent;
         xUIThickness _Padding = null;
         public xUIThickness Padding
         {

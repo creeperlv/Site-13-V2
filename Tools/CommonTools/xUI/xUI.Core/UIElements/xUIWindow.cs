@@ -1,5 +1,4 @@
-﻿using Site13Kernel.Attributes;
-using Site13Kernel.Core;
+﻿using LibCLCC.NET.Delegates;
 using System;
 using System.Diagnostics;
 using System.Numerics;
@@ -76,17 +75,17 @@ namespace xUI.Core.UIElements
                 _WindowMode = value;
             }
         }
-        BreakableEvent<Vector2> _OnResize = new BreakableEvent<Vector2>();
-        public BreakableEvent<Vector2> OnResize => _OnResize;
+        BreakableFunc<Vector2> _OnResize = new BreakableFunc<Vector2>();
+        public BreakableFunc<Vector2> OnResize => _OnResize;
 
-        BreakableEvent _OnClose = new BreakableEvent();
-        public BreakableEvent OnClose => _OnClose;
+        BreakableFunc _OnClose = new BreakableFunc();
+        public BreakableFunc OnClose => _OnClose;
 
         public IMenu MenuBar { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public bool ShowBackButton { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public bool ExtendContentToTitleBar { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public BreakableEvent BackEvent => throw new NotImplementedException();
+        public BreakableFunc BackEvent => throw new NotImplementedException();
 
         public void Focus()
         {

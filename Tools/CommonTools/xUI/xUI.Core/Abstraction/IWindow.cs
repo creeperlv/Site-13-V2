@@ -1,4 +1,4 @@
-﻿using Site13Kernel.Core;
+﻿using LibCLCC.NET.Delegates;
 using System.Numerics;
 
 namespace xUI.Core.Abstraction
@@ -9,10 +9,10 @@ namespace xUI.Core.Abstraction
         bool Resizable { get; set; }
         bool ShowBackButton { get; set; }
         bool ExtendContentToTitleBar { get; set; }
-        BreakableEvent BackEvent { get; }
+        BreakableFunc BackEvent { get; }
         WindowMode WindowMode { get; set; }
-        BreakableEvent<Vector2> OnResize { get; }
-        BreakableEvent OnClose { get; }
+        BreakableFunc<Vector2> OnResize { get; }
+        BreakableFunc OnClose { get; }
         IMenu MenuBar { get; set; }
         void SetIWindowImpl(IWindowImpl impl);
         IWindowImpl GetIWindowImpl();

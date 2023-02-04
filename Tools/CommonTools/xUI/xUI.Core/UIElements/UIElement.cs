@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using Site13Kernel.Data;
+﻿using LibCLCC.NET.Collections;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -51,8 +51,8 @@ namespace xUI.Core.UIElements
             return false;
         }
         public ReactableList<string> Styles => _Styles;
-
-        public string Variant { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        string _Variant = null;
+        public string Variant { get => _Variant; set => _Variant = value; }
 
         bool _inited = false;
         public virtual void Initialize()

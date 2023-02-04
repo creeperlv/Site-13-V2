@@ -1,4 +1,4 @@
-﻿using Site13Kernel.Core;
+﻿using LibCLCC.NET.Delegates;
 using System;
 
 namespace xUI.Core.Abstraction
@@ -6,7 +6,7 @@ namespace xUI.Core.Abstraction
     public interface IClickable
     {
         void SetIClickableImplementation(IClickableImplementation implementation);
-        Site13Event OnClickEvent { get; }
+        ChainAction OnClickEvent { get; }
         void OnClick();
     }
     public interface IClickableImplementation

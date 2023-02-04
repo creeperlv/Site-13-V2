@@ -16,15 +16,16 @@ namespace Site13Kernel.UI.xUI.uUIImplementation
             root = element;
             InstantiateRecursively(root, RootTransform);
         }
-        public void InstantiateRecursively(IUIElement element,Transform ParentTransform)
+        public void InstantiateRecursively(IUIElement element, Transform ParentTransform)
         {
             string name = element.GetType().Name;
-            if (uUIRendererResources.TryGet(name, out var obj))
+            string variant = element.Variant;
+            if (uUIRendererResources.TryGet(name, variant, out var obj))
             {
-                var _obj=GameObject.Instantiate(obj, ParentTransform);
-                var implementation=_obj.GetComponent<IUIElementImplementation>();
+                var _obj = GameObject.Instantiate(obj, ParentTransform);
+                var implementation = _obj.GetComponent<IUIElementImplementation>();
                 element.SetIUIElementImplementation(implementation);
-                if(element is IPosition pos)
+                if (element is IPosition pos)
                 {
                     var posi = (IPositionImplementation)implementation;
                     pos.SetIPositionImplementation(posi);
