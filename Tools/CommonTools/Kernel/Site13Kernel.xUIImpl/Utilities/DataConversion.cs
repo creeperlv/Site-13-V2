@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Site13Kernel.UI.xUI.Utilities
+namespace Site13Kernel.xUIImpl.Utilities
 {
     public static class DataConversion
     {

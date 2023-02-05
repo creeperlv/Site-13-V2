@@ -5,7 +5,7 @@ using xUI.Core;
 using xUI.Core.Abstraction;
 using xUI.Core.UIElements;
 
-namespace Site13Kernel.UI.xUI.uUIImplementation
+namespace Site13Kernel.xUIImpl
 {
     public class xUIElementImplBase : UIBehaviour, IUIElementImplementation
     {
@@ -63,7 +63,7 @@ namespace Site13Kernel.UI.xUI.uUIImplementation
 
                 }
             }
-            if (item is IContainer)
+            if (item is IxUIContainer)
             {
                 foreach (UIElement _item in item.Children)
                 {

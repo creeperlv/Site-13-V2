@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-namespace Site13Kernel.UI.xUI.uUIImplementation
+namespace Site13Kernel.xUIImpl
 {
     public class uUIRendererResources : ControlledBehavior
     {

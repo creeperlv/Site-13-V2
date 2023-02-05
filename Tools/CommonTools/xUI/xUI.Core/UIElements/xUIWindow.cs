@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Numerics;
 using xUI.Core.Abstraction;
+using xUI.Core.Attributes;
 using xUI.Core.Helpers;
 
 namespace xUI.Core.UIElements

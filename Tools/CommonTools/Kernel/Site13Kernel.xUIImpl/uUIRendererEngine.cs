@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using xUI.Core.Abstraction;
 
-namespace Site13Kernel.UI.xUI.uUIImplementation
+namespace Site13Kernel.xUIImpl
 {
     public class uUIRendererEngine : AbstractRenderEngine
     {
