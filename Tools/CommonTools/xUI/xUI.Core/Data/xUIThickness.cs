@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace xUI.Core.Data
@@ -45,5 +44,4 @@ namespace xUI.Core.Data
             }
         }
     }
-
 }

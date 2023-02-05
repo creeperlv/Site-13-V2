@@ -53,6 +53,8 @@ namespace xUI.Core.UIElements
         public ReactableList<string> Styles => _Styles;
         string _Variant = null;
         public string Variant { get => _Variant; set => _Variant = value; }
+        Style _Style = null;
+        public Style StyleResources { get => _Style; set => _Style = value; }
 
         bool _inited = false;
         public virtual void Initialize()

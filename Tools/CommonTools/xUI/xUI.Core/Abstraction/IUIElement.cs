@@ -19,6 +19,7 @@ namespace xUI.Core.Abstraction
         bool IsEnabled { get; set; }
         bool IsHitEnabled { get; set; }
         string Variant { get; set; }
+        Style StyleResources { get; set; }
         ReactableList<string> Styles { get; }
         void SetProperty(string name, object value);
         object GetProperty(string name);

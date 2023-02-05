@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using xUI.Core.Abstraction;
 using xUI.Core.Composition.Deserialization;
+using xUI.Core.Data;
 using xUI.Core.UIElements;
 
 namespace xUI.Core
@@ -36,26 +38,75 @@ namespace xUI.Core
             var root = xmlDocument.DocumentElement;
             return ParseRecursively(root);
         }
+        static void ParseStyleProperty(StyleDefinition def, XmlElement xe)
+        {
+            Property property = new Property();
+            property.Key = xe.Attributes["Key"].Value;
+            def.Properties.Add(property);
+            if (xe.HasAttribute("Value"))
+            {
+                property.Value = xe.GetAttribute("Value");
+            }
+            if (xe.ChildNodes.Count > 0)
+            {
+                foreach (var item in xe.ChildNodes)
+                {
+                    if (item is XmlText t)
+                    {
+                        property.Value = t.Value;
+                    }
+                    else if (item is XmlElement __xe)
+                    {
+                        property.Value = ParseRecursively(__xe);
+                    }
+                }
+            }
+        }
+        static void ParseSingleStyle(UIElement uie, XmlElement xe)
+        {
+            StyleDefinition def = new StyleDefinition();
+            def.Name = xe.GetAttribute("Name");
+            uie.StyleResources.Definitions.Add(def);
+            foreach (var item in xe.ChildNodes)
+            {
+                if (item is XmlElement childN)
+                {
+                    if (childN.Name == "Property")
+                    {
+                        ParseStyleProperty(def, childN);
+                    }
+                }
+            }
+        }
+        static void ParseStyles(UIElement uie, XmlElement xe)
+        {
+            uie.StyleResources = new Style();
+            foreach (var item in xe.ChildNodes)
+            {
+                if (item is XmlElement childN)
+                {
+                    if (childN.Name == "Style")
+                    {
+                        ParseSingleStyle(uie, childN);
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
         static UIElement ParseRecursively(XmlElement element)
         {
             var _element = Instantiators[element.Name].Instantiate();
-#if DEBUG
-            Trace.WriteLine("Element:" + element.Name);
-#endif
             var attr_c = element.Attributes;
             foreach (XmlAttribute item in attr_c)
             {
                 _element.SetProperty(item.Name, item.Value);
             }
             bool isContent = false;
-#if DEBUG
-            Trace.WriteLine("XML Child Count:" + element.ChildNodes.Count);
-#endif
             foreach (var item in element.ChildNodes)
             {
-#if DEBUG
-                Trace.WriteLine("XML T:" + item.GetType().Name);
-#endif
 
                 if (item is XmlElement childElement)
                 {
@@ -69,17 +120,16 @@ namespace xUI.Core
                     }
                     else
                     {
-#if DEBUG
-                        Trace.WriteLine($"Find an element:{childElement.Name}");
-#endif
+                        if (childElement.Name == "Styles")
+                        {
+                            ParseStyles(_element, childElement);
+                        }
+                        else
                         if (_element is IxUIContainer c)
                         {
                             var _c = ParseRecursively(childElement);
                             _c.Parent = _element;
                             c.Add(_c);
-#if DEBUG
-                            Trace.WriteLine("IxUIContainer adding item on:" + element.Name);
-#endif
                         }
                         else if (_element is IContent ic)
                         {
@@ -93,9 +143,6 @@ namespace xUI.Core
                                 var _c = ParseRecursively(childElement);
                                 _c.Parent = _element;
                                 ic.Content = _c;
-#if DEBUG
-                                Trace.WriteLine("IContent setting item on:" + element.Name);
-#endif
                             }
                         }
                         else
@@ -107,17 +154,9 @@ namespace xUI.Core
                 }
                 else if (item is XmlText t)
                 {
-                    //if(_element is IContent _ic)
-                    //{
-                    //    _ic.Content = t.Value;
-                    //}else if(_element)
-
                     switch (_element)
                     {
                         case IContent _ic:
-#if DEBUG
-                            Trace.WriteLine("IContent is a string:" + element.Name);
-#endif
                             _ic.Content = t.Value;
                             break;
                         default:
@@ -125,13 +164,6 @@ namespace xUI.Core
                     }
                 }
             }
-#if DEBUG
-            if (_element.Children != null)
-            {
-                Trace.WriteLine("xUI Child Count:" + _element.Children.Count);
-
-            }
-#endif
             return _element;
         }
     }
