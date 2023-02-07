@@ -1,5 +1,6 @@
 using Site13Kernel.Attributes;
 using Site13Kernel.UI.xUI;
+using Site13Kernel.xUIImpl;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ using xUI.Core.Abstraction;
 
 namespace Site13Kernel.UI.xUI
 {
-    public class xUIWindowImpl : MonoBehaviour,IWindowImpl
+    public class xUIWindowImpl : xUIElementImplBase,IWindowImpl
     {
         public RectTransform ControlledTransform;
         public xUIResizableBorder Border;

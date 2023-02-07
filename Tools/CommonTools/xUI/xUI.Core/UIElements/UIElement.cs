@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Text;
 using xUI.Core.Abstraction;
 using xUI.Core.Data;
+using xUI.Core.Helpers;
 
 namespace xUI.Core.UIElements
 {
@@ -59,6 +60,10 @@ namespace xUI.Core.UIElements
         bool _inited = false;
         public virtual void Initialize()
         {
+            foreach (var item in Styles)
+            {
+                this.ApplyStyle(item);
+            }
             _Styles.ReactChain.Add(StyleReact);
             _inited = true;
         }
@@ -115,28 +120,10 @@ namespace xUI.Core.UIElements
                         if (strs != null)
                         {
                             strs = strs.Trim();
-                            if (strs.IndexOf(',') > 0)
+                            var _s = strs.Split(',', ' ');
+                            foreach (var item in _s)
                             {
-                                var _s = strs.Split(',');
-                                foreach (var item in _s)
-                                {
-                                    Styles.Add(item);
-                                }
-                            }
-                            else
-                            {
-                                if (strs.IndexOf(' ') > 0)
-                                {
-                                    var _s = strs.Split(' ');
-                                    foreach (var item in _s)
-                                    {
-                                        Styles.Add(item);
-                                    }
-                                }
-                                else
-                                {
-                                    Styles.Add(strs);
-                                }
+                                Styles.Add(item);
                             }
                         }
                     }

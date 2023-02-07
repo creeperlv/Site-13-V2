@@ -1,4 +1,4 @@
-using Site13Kernel.UI.xUI.uUIImplementation;
+using Site13Kernel.xUIImpl;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,5 +1,5 @@
-using Site13Kernel.UI.xUI.Utilities;
-using Site13Kernel.UI.xUI.uUIImplementation;
+using Site13Kernel.xUIImpl;
+using Site13Kernel.xUIImpl.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,8 +17,9 @@ namespace Site13Kernel.UI.xUI
         public RectTransform Content;
         public Button button;
         public xUIThickness Padding;
-        private void Start()
+        private new void Start()
         {
+            base.Start();
             button.onClick.AddListener(OnClick);
         }
         public void OnClick()
@@ -41,7 +42,7 @@ namespace Site13Kernel.UI.xUI
                 Repaint();
             }
         }
-        public void Repaint()
+        public override void Repaint()
         {
             this.OuterTransform.sizeDelta = Content.sizeDelta;
 
@@ -49,12 +50,12 @@ namespace Site13Kernel.UI.xUI
 
         }
 
-        public void SetIsEnable(bool State)
+        public override void SetIsEnable(bool State)
         {
             this.button.gameObject.SetActive(State);
         }
 
-        public void SetHit(bool IsEnabled)
+        public override void SetHit(bool IsEnabled)
         {
             this.button.image.raycastTarget = IsEnabled;
         }
@@ -64,7 +65,7 @@ namespace Site13Kernel.UI.xUI
             this.Padding = padding;
         }
 
-        public void Bind(IUIElement element)
+        public override void Bind(IUIElement element)
         {
             if(element is xUIButton btn)
             {
