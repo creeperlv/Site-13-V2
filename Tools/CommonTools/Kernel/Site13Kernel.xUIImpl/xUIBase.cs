@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using xUI.Core;
 using xUI.Core.Abstraction;
 using xUI.Core.UIElements;
@@ -9,6 +10,8 @@ namespace Site13Kernel.xUIImpl
 {
     public class xUIElementImplBase : UIBehaviour, IUIElementImplementation
     {
+        public Transform BaseTransform;
+        public ContentSizeFitter ContentSizeFitter;
         public virtual void Bind(IUIElement element)
         {
             

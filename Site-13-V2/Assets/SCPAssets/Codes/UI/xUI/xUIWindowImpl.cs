@@ -38,7 +38,7 @@ namespace Site13Kernel.UI.xUI
                     ControlledTransform.sizeDelta = s;
                 }
             };
-            Focus.onPointerDown=() => { WindowManager.Focus(this); };
+            //Focus.onPointerDown=() => { WindowManager.Focus(this); };
         }
         public void LossFocus()
         {

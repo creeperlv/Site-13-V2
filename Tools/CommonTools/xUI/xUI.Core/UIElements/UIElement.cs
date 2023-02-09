@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using xUI.Core.Abstraction;
 using xUI.Core.Data;
@@ -56,6 +57,7 @@ namespace xUI.Core.UIElements
         public string Variant { get => _Variant; set => _Variant = value; }
         Style _Style = null;
         public Style StyleResources { get => _Style; set => _Style = value; }
+        public Vector2 Position { get => _Pos; set => SetPosition(value); }
 
         bool _inited = false;
         public virtual void Initialize()
@@ -78,9 +80,13 @@ namespace xUI.Core.UIElements
         {
             ElementImplementation = implementation;
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void SetPosition(Vector2 Position)
         {
+            if (_Pos == Position) return;
+            _Pos = Position;
+            if (IsInitialized())
+                positionImplementation.SetPosition(Position);
         }
         internal ISizeImplementation SizeImplementation;
         public virtual void SetISizeImplementation(ISizeImplementation implementation)
@@ -88,16 +94,16 @@ namespace xUI.Core.UIElements
             SizeImplementation = implementation;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void SetSize(Vector2 Size)
         {
+            if (_Size == Size)
+                return;
             if (IsInitialized())
             {
-                if (_Size != Size)
-                {
-                    SizeImplementation.SetSize(Size);
-                    _Size = Size;
-                }
+                SizeImplementation.SetSize(Size);
             }
+            _Size = Size;
         }
 
         public virtual void SetProperty(string name, object value)
@@ -154,10 +160,10 @@ namespace xUI.Core.UIElements
             if (positionImplementation != null) return;
             positionImplementation = implementation;
         }
-
+        Vector2 _Pos;
         public virtual void SetPositionDataOnly(Vector2 Position)
         {
-
+            _Pos = Position;
         }
 
         public virtual void SetSizeDataOnly(Vector2 Size)
