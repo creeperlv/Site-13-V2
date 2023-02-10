@@ -45,11 +45,36 @@ namespace xUI.Core.UIElements
                 _FontFamily = value;
             }
         }
-
+        public override void SetProperty(string name, object value)
+        {
+            switch (name)
+            {
+                case "Text":
+                    {
+                        Content = value;
+                    }
+                    break;
+                case "FontSize":
+                    {
+                        FontSize = int.Parse(value.ToString());
+                    }
+                    break;
+                case "FontFamily":
+                    {
+                        FontFamily = value as string;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            base.SetProperty(name, value);
+        }
         IContentImpl ICImpl = null;
         public override void Initialize()
         {
             var text_content = _Content as string;
+            textableImpl.SetFontSize(_FS);
+            textableImpl.SetFontFamily(_FontFamily);
             ICImpl.SetContent(text_content);
         }
         public void SetIContentImpl(IContentImpl impl)

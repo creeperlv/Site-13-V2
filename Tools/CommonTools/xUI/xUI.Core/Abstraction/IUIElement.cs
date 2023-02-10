@@ -52,12 +52,4 @@ namespace xUI.Core.Abstraction
         void SetVerticalAlignment(xUIAlignment alignment);
         void SetHorizontalAlignment(xUIAlignment alignment);
     }
-
-    public interface IFocusable
-    {
-        void Focus();
-        void Unfocus();
-        void LostFocus();
-        void GainFocus();
-    }
 }

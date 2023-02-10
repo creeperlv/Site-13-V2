@@ -15,6 +15,11 @@ namespace Site13Kernel.xUIImpl
         {
             root = element;
             InstantiateRecursively(root, RootTransform);
+            RecursivelyInitialize(root);
+        }
+        void RecursivelyInitialize(IUIElement element)
+        {
+            element.Initialize();
         }
         public void InstantiateRecursively(IUIElement element, Transform ParentTransform)
         {
@@ -29,6 +34,16 @@ namespace Site13Kernel.xUIImpl
                 {
                     var posi = (IPositionImplementation)implementation;
                     pos.SetIPositionImplementation(posi);
+                }
+                if (element is ISize size)
+                {
+                    var sizei = (ISizeImplementation)implementation;
+                    size.SetISizeImplementation(sizei);
+                }
+                if(element is IContent content)
+                {
+                    var contenti = (IContentImpl)implementation;
+                    content.SetIContentImpl(contenti);
                 }
             }
         }

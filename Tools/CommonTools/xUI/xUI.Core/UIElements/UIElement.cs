@@ -1,4 +1,5 @@
 ﻿using LibCLCC.NET.Collections;
+using LibCLCC.NET.Delegates;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using xUI.Core.Abstraction;
 using xUI.Core.Data;
+using xUI.Core.Events;
 using xUI.Core.Helpers;
 
 namespace xUI.Core.UIElements
 {
-    public class UIElement : IUIElement, ISize, IPosition
+    public class UIElement : IUIElement, ISize, IPosition, IFocusable
     {
         List<IUIElement> _Children = new List<IUIElement>();
         public virtual List<IUIElement> Children { get => _Children; set => _Children = value; }
@@ -58,6 +60,11 @@ namespace xUI.Core.UIElements
         Style _Style = null;
         public Style StyleResources { get => _Style; set => _Style = value; }
         public Vector2 Position { get => _Pos; set => SetPosition(value); }
+        BreakableFunc<FocusEvent> _OnGainFocus = new BreakableFunc<FocusEvent>();
+        public BreakableFunc<FocusEvent> OnGainFocus => _OnGainFocus;
+
+        BreakableFunc<FocusEvent> _OnLostFocus = new BreakableFunc<FocusEvent>();
+        public BreakableFunc<FocusEvent> OnLostFocus => _OnLostFocus;
 
         bool _inited = false;
         public virtual void Initialize()
@@ -134,6 +141,13 @@ namespace xUI.Core.UIElements
                         }
                     }
                     break;
+                case "Size":
+                    {
+                        var s = value as string;
+                        if (s != null)
+                            this.Size(s);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -174,6 +188,33 @@ namespace xUI.Core.UIElements
         public void SetHitEnabledDataOnly(bool hitEnabled)
         {
             ElementImplementation.SetIsEnable(hitEnabled);
+        }
+
+        public virtual void Focus()
+        {
+            GainFocus();
+        }
+
+        public virtual void Unfocus()
+        {
+            LostFocus();
+        }
+
+        public virtual void LostFocus()
+        {
+            if (Parent != null)
+                Parent.LostFocus();
+        }
+
+        public virtual void GainFocus()
+        {
+            if (Parent != null)
+                Parent.GainFocus();
+        }
+
+        public void SetIFocusableImpl(IFocusableImpl impl)
+        {
+            throw new NotImplementedException();
         }
     }
 }

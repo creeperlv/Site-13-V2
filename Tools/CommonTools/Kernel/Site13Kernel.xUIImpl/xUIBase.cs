@@ -10,31 +10,35 @@ namespace Site13Kernel.xUIImpl
 {
     public class xUIElementImplBase : UIBehaviour, IUIElementImplementation
     {
-        public Transform BaseTransform;
+        public RectTransform BaseTransform;
         public ContentSizeFitter ContentSizeFitter;
+        IUIElement _element;
         public virtual void Bind(IUIElement element)
         {
-            
+
         }
 
         public virtual void Repaint()
         {
-            
+
         }
 
         public virtual void SetHit(bool IsEnabled)
         {
-            
         }
 
         public virtual void SetIsEnable(bool State)
         {
-            
+            BaseTransform.gameObject.SetActive(State);
         }
 
         public virtual void SetStyles(List<string> styles)
         {
-            
+            this._element.Styles.Clear();
+            foreach (string style in styles)
+            {
+                this._element.Styles.Add(style);
+            }
         }
     }
     public class xUIBase : MonoBehaviour

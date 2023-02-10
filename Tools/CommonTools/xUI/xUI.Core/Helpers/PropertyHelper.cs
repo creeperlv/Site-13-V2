@@ -29,5 +29,12 @@ namespace xUI.Core.Helpers
                 float.Parse(g[0]),
                 float.Parse(g[1]));
         }
+        public static void Position(this IPosition position, string value)
+        {
+            var g = value.Split(',');
+            position.Position = new Vector2(
+                float.Parse(g[0]),
+                float.Parse(g[1]));
+        }
     }
 }
