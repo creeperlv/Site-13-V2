@@ -13,11 +13,11 @@ namespace xUI.Core.UIElements
             set
             {
                 var text_content = value as string;
+                _Content = text_content;
                 if (IsInitialized())
                 {
                     ICImpl.SetContent(text_content);
                 }
-                _Content = text_content;
             }
         }
         int _FS = 12;
@@ -73,18 +73,33 @@ namespace xUI.Core.UIElements
         public override void Initialize()
         {
             var text_content = _Content as string;
-            textableImpl.SetFontSize(_FS);
-            textableImpl.SetFontFamily(_FontFamily);
-            ICImpl.SetContent(text_content);
+            if (textableImpl != null)
+            {
+                textableImpl.SetFontSize(_FS);
+                textableImpl.SetFontFamily(_FontFamily);
+            }
+            else
+            {
+
+            }
+            if (ICImpl != null)
+            {
+                ICImpl.SetContent(text_content);
+            }
+            else
+            {
+
+            }
         }
         public void SetIContentImpl(IContentImpl impl)
         {
             if (ICImpl != null) return;
             ICImpl = impl;
         }
-        IxUITextableImpl textableImpl;
+        IxUITextableImpl textableImpl = null;
         public void SetIxUITextableImpl(IxUITextableImpl impl)
         {
+            if (textableImpl != null) return;
             textableImpl = impl;
         }
     }

@@ -1,4 +1,5 @@
 using Site13Kernel.xUIImpl;
+using Site13Kernel.xUIImpl.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ using xUI.Core.UIElements;
 
 namespace Site13Kernel
 {
-    public class xUITextImpl : xUIElementImplBase, IContentImpl, IxUITextableImpl
+    public class xUITextImpl : xUIElementImplBase, IContentImpl, IxUITextableImpl, IPositionImplementation, ISizeImplementation
     {
         public bool isTMP;
         public Text uUIText;
@@ -47,7 +48,11 @@ namespace Site13Kernel
             if (isTMP) { }
             else
             {
-                uUIText.font = uUIRendererResources.Instance.FontsDictionary[s];
+                if (s != null)
+                {
+                    uUIText.font = uUIRendererResources.Instance.FontsDictionary[s];
+
+                }
             }
         }
 
@@ -85,6 +90,16 @@ namespace Site13Kernel
             {
                 uUIText.gameObject.SetActive(State);
             }
+        }
+
+        public void SetSize(System.Numerics.Vector2 Size)
+        {
+            BaseTransform.sizeDelta = Size.ToUnityVector();
+        }
+
+        void IPositionImplementation.SetPosition(System.Numerics.Vector2 Position)
+        {
+            BaseTransform.anchoredPosition = Position.ToUnityVector();
         }
     }
 }

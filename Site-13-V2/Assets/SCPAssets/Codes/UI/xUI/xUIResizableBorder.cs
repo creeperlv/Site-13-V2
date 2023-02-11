@@ -38,68 +38,39 @@ namespace Site13Kernel
             {
                 LeftBorder(v);
             };
-            BottomR.OnDragDelta = (v) =>
-            {
-                BottomBorder(v);
-                RightBorder(v);
-                return;
-                var s = TargetTransform.sizeDelta;
-                s.y += v.y;
-                s.x -= v.x;
-                TargetTransform.sizeDelta = s;
-                if (OnSizeChange != null) OnSizeChange(TargetTransform.sizeDelta);
-            };
-            BottomL.OnDragDelta = (v) =>
-            {
+            if (BottomR != null)
+                BottomR.OnDragDelta = (v) =>
+                {
+                    BottomBorder(v);
+                    RightBorder(v);
+                    return;
+                };
+            if (BottomR != null)
+                BottomL.OnDragDelta = (v) =>
+                {
 
-                BottomBorder(v);
-                LeftBorder(v);
-                return;
-                var p = TargetTransform.anchoredPosition;
-                p.x -= v.x;
-                TargetTransform.anchoredPosition = p;
-                var s = TargetTransform.sizeDelta;
-                s.y += v.y;
-                s.x += v.x;
-                TargetTransform.sizeDelta = s;
-                if (OnSizeChange != null) OnSizeChange(TargetTransform.sizeDelta);
-                if (OnPositionChange != null) OnPositionChange(TargetTransform.anchoredPosition);
-            };
-            TopR.OnDragDelta = (v) =>
-            {
+                    BottomBorder(v);
+                    LeftBorder(v);
+                    return;
+                };
+            if (TopR != null)
+                TopR.OnDragDelta = (v) =>
+                {
 
-                TopBorder(v);
-                RightBorder(v);
-                return;
-                var p = TargetTransform.anchoredPosition;
-                p.y -= v.y;
-                TargetTransform.anchoredPosition = p;
-                var s = TargetTransform.sizeDelta;
-                s.y -= v.y;
-                s.x -= v.x;
-                TargetTransform.sizeDelta = s;
-                if (OnSizeChange != null) OnSizeChange(TargetTransform.sizeDelta);
-                if (OnPositionChange != null) OnPositionChange(TargetTransform.anchoredPosition);
+                    TopBorder(v);
+                    RightBorder(v);
+                    return;
 
-            };
-            TopL.OnDragDelta = (v) =>
-            {
+                };
+            if (TopL != null)
+                TopL.OnDragDelta = (v) =>
+                {
 
-                TopBorder(v);
-                LeftBorder(v);
-                return;
-                var p = TargetTransform.anchoredPosition;
-                p.y -= v.y;
-                p.x -= v.x;
-                TargetTransform.anchoredPosition = p;
-                var s = TargetTransform.sizeDelta;
-                s.y -= v.y;
-                s.x += v.x;
-                TargetTransform.sizeDelta = s;
-                if (OnSizeChange != null) OnSizeChange(TargetTransform.sizeDelta);
-                if (OnPositionChange != null) OnPositionChange(TargetTransform.anchoredPosition);
+                    TopBorder(v);
+                    LeftBorder(v);
+                    return;
 
-            };
+                };
         }
 
         private void LeftBorder(Vector2 v)

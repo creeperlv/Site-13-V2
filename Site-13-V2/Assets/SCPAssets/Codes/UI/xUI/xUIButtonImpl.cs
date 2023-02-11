@@ -11,7 +11,7 @@ using xUI.Core.UIElements;
 
 namespace Site13Kernel.UI.xUI
 {
-    public class xUIButtonImpl : xUIElementImplBase, IClickableImplementation,IxUIPaddingImpl,IContentImpl,ISizeImplementation
+    public class xUIButtonImpl : xUIElementImplBase, IClickableImplementation, IxUIPaddingImpl, IContentImpl, ISizeImplementation
     {
         public RectTransform OuterTransform;
         public RectTransform Content;
@@ -37,10 +37,11 @@ namespace Site13Kernel.UI.xUI
         Vector2 oldSize;
         private void Update()
         {
-            if (oldSize != Content.sizeDelta)
-            {
-                Repaint();
-            }
+            if (Content != null)
+                if (oldSize != Content.sizeDelta)
+                {
+                    Repaint();
+                }
         }
         public override void Repaint()
         {
@@ -67,7 +68,7 @@ namespace Site13Kernel.UI.xUI
 
         public override void Bind(IUIElement element)
         {
-            if(element is xUIButton btn)
+            if (element is xUIButton btn)
             {
                 btn.SetIContentImpl(this);
                 btn.SetIPaddingImpl(this);
@@ -79,7 +80,7 @@ namespace Site13Kernel.UI.xUI
 
         public void SetContent(object content)
         {
-            if(content is IUIElement element)
+            if (content is IUIElement element)
             {
 
             }

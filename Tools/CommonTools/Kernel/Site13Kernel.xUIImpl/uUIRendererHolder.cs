@@ -1,4 +1,5 @@
 ﻿using Site13Kernel.Core;
+using System.Collections;
 using UnityEngine;
 using xUI.Core.Abstraction;
 
@@ -9,7 +10,9 @@ namespace Site13Kernel.xUIImpl
         public RectTransform transform;
         void Start()
         {
-            AbstractRenderEngine.CurrentEngine = new uUIRendererEngine();
+            var re= new uUIRendererEngine();
+            re.RootTransform = transform;
+            AbstractRenderEngine.CurrentEngine = re;
         }
     }
 

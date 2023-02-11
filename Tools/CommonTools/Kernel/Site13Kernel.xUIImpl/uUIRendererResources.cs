@@ -17,8 +17,22 @@ namespace Site13Kernel.xUIImpl
         public KVList<string, Font> Fonts = new KVList<string, Font>();
         public ResourceKey RootKey;
         public Dictionary<string, Font> FontsDictionary;
+        internal void UpdateParent(Transform Child, Transform Parent)
+        {
+            StartCoroutine(_UpdateParent(Child, Parent));
+        }
+        IEnumerator _UpdateParent(Transform Child, Transform Parent)
+        {
+            Debug.Log("Will update Parent.");
+            yield return null;
+            Debug.Log("Updating Parent.");
+            if(Parent is null)
+            Debug.Log("Parent is not exist!");
+            Child.SetParent(Parent,false);
+        }
         public override void Init()
         {
+            Instance = this;
             var _d = Primitives.ObtainMap();
             PrimitiveDictionary = new Dictionary<string, Dictionary<string, GameObject>>();
             foreach (var item in _d)
@@ -38,8 +52,8 @@ namespace Site13Kernel.xUIImpl
             {
                 case "site13":
                     {
-                        var path=uri.AbsolutePath;
-                        
+                        var path = uri.AbsolutePath;
+
                     }
                     break;
                 default:
