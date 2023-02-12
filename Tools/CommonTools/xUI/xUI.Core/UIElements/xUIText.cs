@@ -38,11 +38,11 @@ namespace xUI.Core.UIElements
         {
             get => _FontFamily; set
             {
+                _FontFamily = value;
                 if (IsInitialized())
                 {
                     textableImpl.SetFontFamily(value);
                 }
-                _FontFamily = value;
             }
         }
         public override void SetProperty(string name, object value)

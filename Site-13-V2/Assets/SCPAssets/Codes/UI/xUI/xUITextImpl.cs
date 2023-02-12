@@ -50,8 +50,8 @@ namespace Site13Kernel
             {
                 if (s != null)
                 {
-                    uUIText.font = uUIRendererResources.Instance.FontsDictionary[s];
-
+                    if (uUIRendererResources.TryGetFont(s, out var f)) uUIText.font = f;
+                    else Debug.Log("Cannot reach target font.");
                 }
             }
         }

@@ -11,11 +11,12 @@ namespace Site13Kernel
     {
         public override void Start()
         {
-            base.Start();
             xUIText text = new xUIText();
+            text.FontFamily = "SarasaMono";
             text.Content = "Hello, World!";
            
             AbstractRenderEngine.CurrentEngine.CommitUITree(text);
+            Initialize();
         }
     }
 }

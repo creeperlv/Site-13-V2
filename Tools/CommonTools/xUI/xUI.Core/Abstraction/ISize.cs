@@ -11,6 +11,7 @@ namespace xUI.Core.Abstraction
     }
     public interface ISizeImplementation
     {
+        Vector2 GetActualSize();
         void SetSize(Vector2 Size);
     }
 }

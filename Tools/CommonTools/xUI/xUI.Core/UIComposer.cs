@@ -16,6 +16,10 @@ namespace xUI.Core
     public static class UIComposer
     {
         static Dictionary<string, IInstantiatable> Instantiators = new Dictionary<string, IInstantiatable>();
+        static UIComposer()
+        {
+            Init();
+        }
         public static void Init()
         {
             Instantiators.Add("Button", new xUIButtonInstantiator());
@@ -25,6 +29,7 @@ namespace xUI.Core
             Instantiators.Add("SolidColorRectangle", new xUISolidColorRectangleInstantiator());
             Instantiators.Add("Menu", new xUIMenuInstantiator());
             Instantiators.Add("MenuItem", new xUIMenuItemInstantiator());
+            Instantiators.Add("StackPanel", new xUIStackPanelInstantiator());
 
         }
         public static void Register(string name, IInstantiatable instantiator)

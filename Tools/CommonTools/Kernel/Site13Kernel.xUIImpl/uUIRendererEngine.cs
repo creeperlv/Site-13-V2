@@ -66,6 +66,11 @@ namespace Site13Kernel.xUIImpl
                     var contenti = (IContentImpl)implementation;
                     content.SetIContentImpl(contenti);
                 }
+                if (element is IxUITextable textable)
+                {
+                    var xUITextableImpl = (IxUITextableImpl)implementation;
+                    textable.SetIxUITextableImpl(xUITextableImpl);
+                }
             }
         }
 

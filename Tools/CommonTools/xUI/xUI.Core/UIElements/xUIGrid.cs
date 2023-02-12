@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using xUI.Core.Abstraction;
+using xUI.Core.Attributes;
 
 namespace xUI.Core.UIElements
 {
@@ -46,6 +47,11 @@ namespace xUI.Core.UIElements
         {
             if (bgimpl != null) return;
             bgimpl = impl;
+        }
+        [TODO]
+        public void OrganizeLayout()
+        {
+
         }
     }
 }

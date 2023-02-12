@@ -37,4 +37,8 @@ namespace xUI.Core.Composition.Deserialization
     {
         public UIElement Instantiate() => new xUIMenuItem();
     }
+    public class xUIStackPanelInstantiator : IInstantiatable
+    {
+        public UIElement Instantiate() => new xUIStackPanel();
+    }
 }

@@ -38,6 +38,7 @@ namespace xUI.Core.Abstraction
     }
     public interface IxUIContainer
     {
+        void OrganizeLayout();
         void Add(object content);
         void Remove(object content);
     }
