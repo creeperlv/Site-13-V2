@@ -6,7 +6,12 @@ namespace xUI.Core.Abstraction
     {
         void SetISizeImplementation(ISizeImplementation implementation);
         Vector2 Size { get; set; }
+        /// <summary>
+        /// Logical Size
+        /// </summary>
+        /// <param name="Size"></param>
         void SetSize(Vector2 Size);
+        void SetDesireSize(Vector2 Size);
         void SetSizeDataOnly(Vector2 Size);
     }
     public interface ISizeImplementation

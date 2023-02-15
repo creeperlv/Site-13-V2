@@ -211,10 +211,16 @@ namespace xUI.Core.UIElements
             if (Parent != null)
                 Parent.GainFocus();
         }
-
+        IFocusableImpl focusableImpl = null;
         public void SetIFocusableImpl(IFocusableImpl impl)
         {
-            throw new NotImplementedException();
+            if (focusableImpl != null) return;
+            focusableImpl = impl;
+        }
+        Vector2 DesiredSize=new Vector2(float.NaN,float.NaN);
+        public void SetDesireSize(Vector2 Size)
+        {
+            DesiredSize = Size;
         }
     }
 }

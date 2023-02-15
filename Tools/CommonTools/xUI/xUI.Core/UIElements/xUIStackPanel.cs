@@ -27,7 +27,32 @@ namespace xUI.Core.UIElements
         [TODO]
         public void OrganizeLayout()
         {
+            float offset=0;
+            foreach (var item in Children)
+            {
+                switch (Orientation)
+                {
+                    case Orientation.Horizontal:
+                        {
+                            if(item is IPosition p)
+                            {
+                                p.SetPosition(new System.Numerics.Vector2(offset,0));
+                                if(item is ISize s)
+                                {
+                                    offset += s.Size.X;
+                                }
+                            }
+                        }
+                        break;
+                    case Orientation.Vertical:
+                        {
 
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
     public enum Orientation

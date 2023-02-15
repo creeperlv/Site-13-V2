@@ -26,6 +26,7 @@ namespace xUI.Core.Abstraction
         void SetHitEnabledDataOnly(bool hitEnabled);
         void SetIUIElementImplementation(IUIElementImplementation implementation);
         void Initialize();
+        void UpdateLayout();
         bool IsInitialized();
     }
     public interface IUIElementImplementation
@@ -35,6 +36,8 @@ namespace xUI.Core.Abstraction
         void SetIsEnable(bool State);
         void SetHit(bool IsEnabled);
         void Bind(IUIElement element);
+        bool WillTakeOverLayoutUpdate();
+        void UpdateLayout();
     }
     public interface IxUIContainer
     {
