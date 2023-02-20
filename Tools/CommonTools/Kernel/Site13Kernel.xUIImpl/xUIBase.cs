@@ -40,6 +40,15 @@ namespace Site13Kernel.xUIImpl
                 this._element.Styles.Add(style);
             }
         }
+
+        public virtual void UpdateLayout()
+        {
+        }
+
+        public virtual bool WillTakeOverLayoutUpdate()
+        {
+            return false;
+        }
     }
     public class xUIBase : MonoBehaviour
     {

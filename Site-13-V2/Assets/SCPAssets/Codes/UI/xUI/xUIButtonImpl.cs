@@ -92,5 +92,10 @@ namespace Site13Kernel.UI.xUI
             oldSize = Size.ToUnityVector();
             Repaint();
         }
+
+        public System.Numerics.Vector2 GetActualSize()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace Site13Kernel.UI.Containers
         public bool initOnStart = false;
         public float AnimationSpeed = 1;
         int SelectedIndex = 0;
+        public int LastSelectedIndex = 0;
         bool __inited = false;
         public void Start()
         {
@@ -53,6 +54,11 @@ namespace Site13Kernel.UI.Containers
                 }
             }
             __inited = true;
+        }
+
+        internal void UpdateLastIndex()
+        {
+            LastSelectedIndex = SelectedIndex;
         }
     }
 }

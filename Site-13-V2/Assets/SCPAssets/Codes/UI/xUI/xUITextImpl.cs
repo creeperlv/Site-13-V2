@@ -22,6 +22,11 @@ namespace Site13Kernel
             }
         }
 
+        public System.Numerics.Vector2 GetActualSize()
+        {
+            return new System.Numerics.Vector2();
+        }
+
         public override void Repaint()
         {
 

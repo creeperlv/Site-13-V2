@@ -11,6 +11,11 @@ namespace xUI.Core.UIElements
             throw new NotImplementedException();
         }
 
+        public void OrganizeLayout()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Remove(object content)
         {
             throw new NotImplementedException();
@@ -28,6 +33,11 @@ namespace xUI.Core.UIElements
         }
 
         public void OnClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OrganizeLayout()
         {
             throw new NotImplementedException();
         }

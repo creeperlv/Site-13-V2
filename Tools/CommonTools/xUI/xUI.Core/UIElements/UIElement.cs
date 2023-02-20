@@ -222,5 +222,28 @@ namespace xUI.Core.UIElements
         {
             DesiredSize = Size;
         }
+        /// <summary>
+        /// Implementation must override and call base.UpdateLayout(). Because it does nothing other than try update child/children.
+        /// </summary>
+        public virtual void UpdateLayout()
+        {
+            if(this is IContent ic)
+            {
+                if(ic.Content is IUIElement uichild) 
+                {
+                    uichild.UpdateLayout();
+                }
+            }
+            if(this is IxUIContainer)
+            {
+                foreach (var item in Children)
+                {
+                    if(item is IUIElement uichild)
+                    {
+                        uichild.UpdateLayout();
+                    }
+                }
+            }
+        }
     }
 }

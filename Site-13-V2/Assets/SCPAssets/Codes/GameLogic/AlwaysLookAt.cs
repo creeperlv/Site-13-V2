@@ -9,6 +9,7 @@ namespace Site13Kernel.GameLogic
     {
         public Transform Target;
         public bool UseGlobalTargets;
+        public bool UseCamPosTarget=false;
         public bool __Registered = false;
         public override void Init()
         {
@@ -29,6 +30,7 @@ namespace Site13Kernel.GameLogic
                 {
                     this.transform.LookAt(EyeTarget.Instance.ThisTransform);
                 }
+                if(UseCamPosTarget)
                 if (CamPosTarget.Instance != null)
                 {
                     this.transform.position = CamPosTarget.Instance.ThisTransform.position;

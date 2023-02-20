@@ -1,26 +1,26 @@
+using Site13Kernel.GameLogic.Cameras;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Site13Kernel
 {
-    public class CamPosTarget : MonoBehaviour
+    public class CamPosTarget : CamPosTargetBase
     {
-        public static CamPosTarget Instance;
-        public Transform ThisTransform;
+        //public new Transform ThisTransform;
         void Start()
         {
             TakeControl();
         }
-        void TakeControl()
-        {
-            Instance = this;
-            ThisTransform = transform;
-            if (ImmersiveCam.GlobalCam != null)
-            {
-                StartCoroutine(ResetCam());
-            }
-        }
+        //void TakeControl()
+        //{
+        //    Instance = this;
+        //    ThisTransform = transform;
+        //    if (ImmersiveCam.GlobalCam != null)
+        //    {
+        //        StartCoroutine(ResetCam());
+        //    }
+        //}
         private IEnumerator ResetCam()
         {
             ImmersiveCam.GlobalCam.enabled = false;
