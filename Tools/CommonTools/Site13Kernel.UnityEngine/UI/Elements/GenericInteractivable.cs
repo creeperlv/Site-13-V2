@@ -16,6 +16,7 @@ namespace Site13Kernel.UI.Elements
         public List<TextButton> Controlled_TextBUtton;
         public List<Text> Controlled_uGUI_Text;
         public bool initEffect = false;
+        public bool GlobalEffect = false;
         public PrefabReference Effect;
         private Site13Event _onClick = new Site13Event();
         [UnityEngine.SerializeField]
@@ -83,7 +84,9 @@ namespace Site13Kernel.UI.Elements
         {
             if (initEffect)
             {
-                EffectController.CurrentEffectController.Spawn(Effect, Vector3.zero, Quaternion.identity, Vector3.one, this.transform);
+                if (GlobalEffect)
+                    EffectController.CurrentEffectController.Spawn(Effect, Vector3.zero, Quaternion.identity, Vector3.one, null);
+                else EffectController.CurrentEffectController.Spawn(Effect, Vector3.zero, Quaternion.identity, Vector3.one, this.transform);
             }
             _onClick.Invoke();
         }

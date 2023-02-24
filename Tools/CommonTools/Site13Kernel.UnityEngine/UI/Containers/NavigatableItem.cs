@@ -26,6 +26,11 @@ namespace Site13Kernel.UI.Containers
                     if (ImmersiveCamBase.GlobalCam != null)
                         ImmersiveCamBase.GlobalCam.SmoothFollow = willSmooth;
                 }
+                else
+                {
+                    if (ImmersiveCamBase.GlobalCam != null)
+                        ImmersiveCamBase.GlobalCam.SmoothFollow = willSmooth;
+                }
                 ParentContainer.UpdateLastIndex();
             }
             if (TargetCamPos!=null)
