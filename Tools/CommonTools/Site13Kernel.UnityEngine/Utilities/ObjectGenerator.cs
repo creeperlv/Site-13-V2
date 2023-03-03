@@ -181,7 +181,7 @@ namespace Site13Kernel.Utilities
             {
                 _Object.AddComponent<GeneratedObjectData>().PrefabReference = new PrefabReference { useString = true, Key = ID };
             }
-            if (TagSystemManager.Instance != null) TagSystemManager.Instance.AddObject(_Object);
+            TagSystemManager.Instance?.AddObject(_Object);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

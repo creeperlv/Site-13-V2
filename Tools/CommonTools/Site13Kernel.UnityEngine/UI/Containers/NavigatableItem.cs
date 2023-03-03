@@ -11,11 +11,15 @@ namespace Site13Kernel.UI.Containers
     public class NavigatableItem : ControlledBehavior
     {
         public BasicNavigationContainer ParentContainer;
+        public GenericInteractivable BackButton;
         public List<GenericInteractivable> AccessPoints;
         public GameObject ActuallControlledItem;
         public CamPosTargetBase TargetCamPos;
         public bool isSmooth;
         public bool _isShown = true;
+        public void Initialize() {
+            
+        }
         public void OnShown()
         {
             if (ParentContainer != null)
