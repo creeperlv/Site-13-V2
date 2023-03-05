@@ -16,6 +16,10 @@ namespace Site13Kernel.UI.Containers
         public GameObject ActuallControlledItem;
         public CamPosTargetBase TargetCamPos;
         public bool isSmooth;
+        public bool ForceSmoothIn;
+        public bool ForceSmoothOut;
+        //public bool DisallowSmoothIn;
+        public bool DisallowSmoothOut;
         public bool _isShown = true;
         public void Initialize() {
             
@@ -24,7 +28,12 @@ namespace Site13Kernel.UI.Containers
         {
             if (ParentContainer != null)
             {
-                var willSmooth = ParentContainer.Children[ParentContainer.LastSelectedIndex].isSmooth && isSmooth;
+                var Last = ParentContainer.Children[ParentContainer.LastSelectedIndex];
+                var willSmooth = Last.isSmooth && isSmooth;
+                willSmooth |= ForceSmoothIn&&isSmooth;
+                willSmooth |= Last.ForceSmoothOut && Last.isSmooth;
+                willSmooth &= !Last.DisallowSmoothOut;
+                //willSmooth &= !Last.DisallowSmoothIn;
                 if (willSmooth)
                 {
                     if (ImmersiveCamBase.GlobalCam != null)
