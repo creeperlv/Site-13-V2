@@ -1,5 +1,6 @@
 using Site13Kernel.Core;
 using Site13Kernel.GameLogic;
+using Site13Kernel.GameLogic.Controls;
 using Site13Kernel.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Site13Kernel
         public UIButton MainMenu;
         void Start()
         {
+            GenericInputControl.Instance.isUIControl = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             MainMenu.OnClick = () => {
