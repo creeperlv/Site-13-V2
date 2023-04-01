@@ -41,7 +41,7 @@ AudioSource:
   m_GameObject: {fileID: 1124465528250891972}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: a1316350b310ee34ea9af0d6a62de863, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -515,12 +515,15 @@ MonoBehaviour:
   AttachedColliders:
   - {fileID: 5377773661466558276}
   - {fileID: 389807500031184006}
+  BulletsPerShot: 1
   FireInterval: 0.06
   Recoil: 0
   SingleFireRecoil: 0.1
   MaxRecoil: 1
   RecoilRecoverSpeed: 0.5
+  MinScatterAngle: 0
   MaxScatterAngle: 2
+  MinScatterAngleAimMode: 0
   MaxScatterAngleAimMode: 3
   ControlledBehaviorWorkflow: 0
   BaseCameraShakeIntensity: 1
@@ -717,3 +720,4 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
