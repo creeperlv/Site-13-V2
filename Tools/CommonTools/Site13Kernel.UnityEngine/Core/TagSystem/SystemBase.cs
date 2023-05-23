@@ -1,9 +1,9 @@
 ﻿namespace Site13Kernel.Core.TagSystem
 {
-    public class SystemBase:ControlledBehavior
+    public class SystemBase
     {
         public EntityCollection Collection=new EntityCollection();
-        public override void Init()
+        public virtual void Init()
         {
 
         }
