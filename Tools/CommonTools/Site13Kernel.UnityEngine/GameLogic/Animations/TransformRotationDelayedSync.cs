@@ -77,7 +77,7 @@ namespace Site13Kernel.GameLogic.Animations
 				{
 					if (TargetAnimator != null)
 					{
-						TargetAnimator.SetTrigger(AnimationTrigger [ RandomTool.NextInt(AnimationTrigger.Count) ]);
+						TargetAnimator.SetTrigger(AnimationTrigger.PickOne());
 					}
 				}
 			}
