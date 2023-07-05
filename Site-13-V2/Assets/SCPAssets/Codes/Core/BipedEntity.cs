@@ -1,4 +1,5 @@
 ﻿using Site13Kernel.Data;
+using Site13Kernel.GameLogic.Animations;
 using Site13Kernel.GameLogic.Character;
 using Site13Kernel.GameLogic.Firefight;
 using Site13Kernel.Utilities;
@@ -21,6 +22,8 @@ namespace Site13Kernel.Core
         public Bag EntityBag;
         public Site13Event OnSwapWeapon = new Site13Event();
         public Site13Event OnDropHoldable = new Site13Event();
+        public TransformSync SyncedTransform;
+        public TransformRotationDelayedSync RoatationSync;
         public bool SelfRun = false;
         public void Start()
         {

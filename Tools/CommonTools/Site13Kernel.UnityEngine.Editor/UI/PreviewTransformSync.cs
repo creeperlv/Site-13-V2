@@ -29,7 +29,8 @@ namespace Site13Kernel.Editor.UI
 		public void Update()
 		{
 			if (IsPreviewing)
-				target.Update();
+				if (target != null)
+					target.Update();
 		}
 	}
 }
