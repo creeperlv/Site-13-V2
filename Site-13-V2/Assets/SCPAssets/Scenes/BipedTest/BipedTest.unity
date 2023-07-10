@@ -160,6 +160,111 @@ Transform:
   m_Father: {fileID: 292784676}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &57770352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 57770353}
+  - component: {fileID: 57770356}
+  - component: {fileID: 57770355}
+  - component: {fileID: 57770354}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &57770353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57770352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1255876580}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &57770354
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57770352}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &57770355
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57770352}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &57770356
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57770352}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &71039056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2842572813248500732, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
@@ -3730,63 +3835,63 @@ MonoBehaviour:
     RotationDelta: {x: 0.07577008, y: 7.772112e-11, z: -6.087494e-10, w: -0.9971253}
   - Source: {fileID: 1620031953}
     Target: {fileID: 1430630974}
-    PositionDelta: {x: -1.8626452e-10, y: 0, z: 0.000000014901161}
-    RotationDelta: {x: 0.10120977, y: 1.5628655e-10, z: 0.0000000015362531, w: -0.9948651}
+    PositionDelta: {x: -1.862645e-10, y: 0, z: 0.000000014901161}
+    RotationDelta: {x: 0.10120977, y: 1.5628654e-10, z: 0.0000000015362531, w: -0.9948651}
   - Source: {fileID: 921522885}
     Target: {fileID: 211440096}
-    PositionDelta: {x: -1.8626435e-10, y: 0, z: 0.000000029802322}
-    RotationDelta: {x: 0.10120977, y: 1.5628655e-10, z: 0.0000000015362531, w: -0.9948651}
+    PositionDelta: {x: -1.8626427e-10, y: 0, z: 0.000000029802322}
+    RotationDelta: {x: 0.10120977, y: 1.5628654e-10, z: 0.0000000015362531, w: -0.9948651}
   - Source: {fileID: 2090344285}
     Target: {fileID: 172155394}
-    PositionDelta: {x: -1.8626428e-10, y: 0, z: 0.000000052154064}
-    RotationDelta: {x: 0.11554771, y: -4.8365656e-10, z: -0.0000000014664823, w: 0.9933019}
+    PositionDelta: {x: -1.8626417e-10, y: 0, z: 0.000000052154064}
+    RotationDelta: {x: 0.11554771, y: -4.8365656e-10, z: -0.0000000014664818, w: 0.9933019}
   - Source: {fileID: 1455374313}
     Target: {fileID: 1066487864}
-    PositionDelta: {x: 4.2997378e-10, y: 0.21408963, z: 0.05049205}
-    RotationDelta: {x: 0.13095783, y: -4.790225e-10, z: -0.0000000014551829, w: 0.99138796}
+    PositionDelta: {x: 4.29974e-10, y: 0.21408963, z: 0.05049204}
+    RotationDelta: {x: 0.13095783, y: -4.790223e-10, z: -0.0000000014551825, w: 0.99138796}
   - Source: {fileID: 276355473}
     Target: {fileID: 1264733334}
-    PositionDelta: {x: 4.2997322e-10, y: 0.21408951, z: 0.050492033}
-    RotationDelta: {x: 0.025276266, y: 2.7263747e-10, z: 0.0000000015199214, w: -0.9996805}
+    PositionDelta: {x: 4.2997345e-10, y: 0.21408951, z: 0.050492033}
+    RotationDelta: {x: 0.025276266, y: 2.7263747e-10, z: 0.0000000015199213, w: -0.9996805}
   - Source: {fileID: 1817496951}
     Target: {fileID: 1799203947}
-    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492056}
-    RotationDelta: {x: 0.010819717, y: -0.6739753, z: -0.7385308, w: -0.014576974}
+    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492078}
+    RotationDelta: {x: 0.010819689, y: -0.6739753, z: -0.7385308, w: -0.014576949}
   - Source: {fileID: 842209237}
     Target: {fileID: 1715108744}
-    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492056}
-    RotationDelta: {x: 0.010819359, y: 0.6739753, z: 0.7385308, w: -0.014576688}
+    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492078}
+    RotationDelta: {x: 0.010819283, y: 0.67397565, z: 0.7385305, w: -0.014576596}
   - Source: {fileID: 766342547}
     Target: {fileID: 1536549453}
-    PositionDelta: {x: 4.2997333e-10, y: 0.21408975, z: 0.0504921}
+    PositionDelta: {x: 4.2997345e-10, y: 0.21408975, z: 0.05049213}
     RotationDelta: {x: 0.89068466, y: -0.00000001906092, z: -0.00000001906092, w: 0.45462164}
   - Source: {fileID: 391999926}
     Target: {fileID: 2062238347}
-    PositionDelta: {x: -0.0000000011058796, y: 0.21408975, z: 0.050492115}
-    RotationDelta: {x: -0.000000028220681, y: -0.7736754, z: -0.6335822, w: 0.000000034249116}
+    PositionDelta: {x: -0.0000000011058795, y: 0.21408975, z: 0.050492115}
+    RotationDelta: {x: -0.000000028220695, y: -0.7736754, z: -0.6335822, w: 0.000000034249126}
   - Source: {fileID: 1976921474}
     Target: {fileID: 88152428}
-    PositionDelta: {x: 0.0000000015849622, y: 0.21408975, z: 0.050492138}
-    RotationDelta: {x: -0.0000000623656, y: -0.71797234, z: -0.6960717, w: 0.00000006234865}
+    PositionDelta: {x: 0.0000000015849624, y: 0.21408975, z: 0.050492167}
+    RotationDelta: {x: -0.00000006236566, y: -0.71797085, z: -0.6960732, w: 0.000000062348704}
   - Source: {fileID: 905272966}
     Target: {fileID: 123164842}
-    PositionDelta: {x: 0.000000005147487, y: 0.2140894, z: 0.050492212}
-    RotationDelta: {x: -0.000000023752149, y: -0.5183021, z: -0.8551976, w: 0.000000038046387}
+    PositionDelta: {x: 0.000000005147487, y: 0.2140894, z: 0.050492242}
+    RotationDelta: {x: -0.000000023752142, y: -0.5183021, z: -0.8551976, w: 0.000000038046384}
   - Source: {fileID: 1210993793}
     Target: {fileID: 1083979900}
-    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492056}
+    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492078}
     RotationDelta: {x: -0.013097293, y: 0.557476, z: 0.8299877, w: 0.013016252}
   - Source: {fileID: 682182775}
     Target: {fileID: 1726162648}
-    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492056}
+    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492078}
     RotationDelta: {x: -0.013097177, y: -0.557476, z: -0.8299877, w: 0.013016161}
   - Source: {fileID: 957296112}
     Target: {fileID: 2071932270}
-    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492056}
-    RotationDelta: {x: 0.008577041, y: -0.781246, z: -0.62395006, w: -0.016351793}
+    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492078}
+    RotationDelta: {x: 0.008577049, y: -0.781246, z: -0.62395006, w: -0.0163518}
   - Source: {fileID: 118441262}
     Target: {fileID: 762141750}
-    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492056}
+    PositionDelta: {x: 0, y: 0.21408951, z: 0.050492078}
     RotationDelta: {x: 0.008577175, y: 0.7812465, z: 0.6239495, w: -0.016351968}
   - Source: {fileID: 2048085638}
     Target: {fileID: 105124796}
@@ -3794,167 +3899,167 @@ MonoBehaviour:
     RotationDelta: {x: -0.074378446, y: 0.043052703, z: 0.68732095, w: 0.72125185}
   - Source: {fileID: 1952234862}
     Target: {fileID: 1705973185}
-    PositionDelta: {x: -0.00000010430813, y: 0.00000011920929, z: 0.000000037252903}
-    RotationDelta: {x: -0.06679213, y: 0.042985447, z: 0.71546185, w: 0.694122}
+    PositionDelta: {x: -0.00000013411045, y: 0.00000011920929, z: 0.000000044703484}
+    RotationDelta: {x: -0.06679213, y: 0.04298545, z: 0.7154619, w: 0.69412196}
   - Source: {fileID: 1909059302}
     Target: {fileID: 1644599366}
-    PositionDelta: {x: -0.00000020861626, y: 0, z: 0.000000044703484}
-    RotationDelta: {x: 0.07609827, y: -0.1319498, z: -0.6823633, w: -0.7149676}
+    PositionDelta: {x: -0.0000002682209, y: 0, z: 0.000000029802322}
+    RotationDelta: {x: 0.076098256, y: -0.1319498, z: -0.6823634, w: -0.7149675}
   - Source: {fileID: 822713616}
     Target: {fileID: 1538131356}
-    PositionDelta: {x: -0.0000004172325, y: -0.00000011920929, z: 0.00000009685755}
-    RotationDelta: {x: 0.21207637, y: -0.1220395, z: 0.6378316, w: 0.7302745}
+    PositionDelta: {x: -0.00000047683716, y: -0.00000011920929, z: 0.00000009685755}
+    RotationDelta: {x: 0.21207641, y: -0.122039475, z: 0.6378317, w: 0.73027444}
   - Source: {fileID: 342053968}
     Target: {fileID: 807039581}
-    PositionDelta: {x: -0.0000005364418, y: 0, z: 0.000000052154064}
-    RotationDelta: {x: 0.30272287, y: -0.24555117, z: 0.67655617, w: 0.62476814}
+    PositionDelta: {x: -0.0000006556511, y: 0, z: 0.000000014901161}
+    RotationDelta: {x: 0.30272284, y: -0.24555114, z: 0.6765561, w: 0.6247682}
   - Source: {fileID: 1484504429}
     Target: {fileID: 147976187}
-    PositionDelta: {x: -0.0000005364418, y: -0.00000023841858, z: 0.00000008195639}
-    RotationDelta: {x: 0.2666402, y: -0.24152298, z: 0.6910255, w: 0.6269397}
+    PositionDelta: {x: -0.0000006556511, y: -0.00000035762787, z: 0.000000052154064}
+    RotationDelta: {x: 0.26664016, y: -0.24152297, z: 0.69102544, w: 0.6269397}
   - Source: {fileID: 204051759}
     Target: {fileID: 1580005309}
-    PositionDelta: {x: -0.00000029802322, y: -0.00000023841858, z: 0.000000029802322}
-    RotationDelta: {x: 0.30945417, y: -0.24336708, z: 0.71817815, w: 0.5737864}
+    PositionDelta: {x: -0.00000035762787, y: -0.00000023841858, z: -0.000000022351742}
+    RotationDelta: {x: 0.3094542, y: -0.24336714, z: 0.7181781, w: 0.57378626}
   - Source: {fileID: 1340953689}
     Target: {fileID: 145518203}
-    PositionDelta: {x: -0.0000004172325, y: 0, z: 0.000000037252903}
-    RotationDelta: {x: 0.4077338, y: -0.31967792, z: 0.64374775, w: 0.563159}
+    PositionDelta: {x: -0.00000059604645, y: 0, z: 0.000000007450581}
+    RotationDelta: {x: 0.40773383, y: -0.3196779, z: 0.6437477, w: 0.5631589}
   - Source: {fileID: 1273034379}
     Target: {fileID: 1405970372}
-    PositionDelta: {x: -0.00000047683716, y: -0.00000023841858, z: 0.000000014901161}
-    RotationDelta: {x: 0.39413947, y: -0.28093475, z: 0.6412666, w: 0.59540486}
+    PositionDelta: {x: -0.0000005364418, y: -0.00000035762787, z: -0.000000007450581}
+    RotationDelta: {x: 0.39413947, y: -0.2809347, z: 0.6412666, w: 0.59540486}
   - Source: {fileID: 1006497641}
     Target: {fileID: 556720316}
-    PositionDelta: {x: -0.00000023841858, y: -0.00000011920929, z: 0.000000037252903}
-    RotationDelta: {x: 0.4376138, y: -0.29109246, z: 0.65830886, w: 0.53887725}
+    PositionDelta: {x: -0.00000029802322, y: -0.00000011920929, z: 0.000000029802322}
+    RotationDelta: {x: 0.43761382, y: -0.2910925, z: 0.6583088, w: 0.53887737}
   - Source: {fileID: 150564805}
     Target: {fileID: 1138927262}
-    PositionDelta: {x: -0.00000035762787, y: -0.00000023841858, z: 0.000000037252903}
-    RotationDelta: {x: 0.40921515, y: -0.38303643, z: 0.59589523, w: 0.57509553}
+    PositionDelta: {x: -0.00000047683716, y: -0.00000023841858, z: 0.000000007450581}
+    RotationDelta: {x: 0.40921527, y: -0.38303658, z: 0.5958951, w: 0.57509553}
   - Source: {fileID: 1243202061}
     Target: {fileID: 1958081018}
-    PositionDelta: {x: -0.00000059604645, y: -0.00000023841858, z: 0.000000029802322}
-    RotationDelta: {x: 0.4047173, y: -0.35822806, z: 0.58871156, w: 0.6010784}
+    PositionDelta: {x: -0.00000071525574, y: -0.00000035762787, z: 0}
+    RotationDelta: {x: 0.4047173, y: -0.3582281, z: 0.5887116, w: 0.6010784}
   - Source: {fileID: 1618084847}
     Target: {fileID: 1237809888}
-    PositionDelta: {x: -0.00000059604645, y: -0.00000023841858, z: 0.00000009685755}
-    RotationDelta: {x: 0.4139782, y: -0.37060025, z: 0.59516376, w: 0.5805666}
+    PositionDelta: {x: -0.0000007748604, y: -0.00000023841858, z: 0.000000067055225}
+    RotationDelta: {x: 0.4139782, y: -0.37060034, z: 0.5951638, w: 0.5805666}
   - Source: {fileID: 801345174}
     Target: {fileID: 531607611}
     PositionDelta: {x: -0.0000004172325, y: 0, z: 0.000000067055225}
-    RotationDelta: {x: 0.44869912, y: -0.36097044, z: 0.6181835, w: 0.53499407}
+    RotationDelta: {x: 0.44869915, y: -0.36097044, z: 0.61818343, w: 0.534994}
   - Source: {fileID: 1968635550}
     Target: {fileID: 1684697436}
-    PositionDelta: {x: -0.00000023841858, y: -0.00000023841858, z: 0.000000029802322}
-    RotationDelta: {x: 0.4219054, y: -0.31673455, z: 0.6052978, w: 0.5960618}
+    PositionDelta: {x: -0.00000035762787, y: -0.00000023841858, z: 0}
+    RotationDelta: {x: 0.42190534, y: -0.31673443, z: 0.6052978, w: 0.5960619}
   - Source: {fileID: 983702641}
     Target: {fileID: 862045636}
-    PositionDelta: {x: -0.0000006556511, y: -0.00000023841858, z: 0.000000029802322}
-    RotationDelta: {x: 0.47148627, y: -0.33963192, z: 0.626296, w: 0.5197155}
+    PositionDelta: {x: -0.0000008940697, y: -0.00000023841858, z: 0.000000007450581}
+    RotationDelta: {x: 0.4714864, y: -0.33963218, z: 0.62629575, w: 0.5197155}
   - Source: {fileID: 92884710}
     Target: {fileID: 1556176888}
-    PositionDelta: {x: -0.00000023841858, y: -0.00000023841858, z: 0.000000052154064}
-    RotationDelta: {x: 0.8656339, y: -0.27246505, z: -0.3262548, w: 0.26457226}
+    PositionDelta: {x: -0.00000023841858, y: -0.00000023841858, z: 0.000000044703484}
+    RotationDelta: {x: 0.8656339, y: -0.27246502, z: -0.32625479, w: 0.26457232}
   - Source: {fileID: 1728559364}
     Target: {fileID: 1801591696}
-    PositionDelta: {x: -0.00000035762787, y: -0.00000011920929, z: 0.000000044703484}
-    RotationDelta: {x: -0.67644, y: 0.64296037, z: 0.31902426, w: 0.16508937}
+    PositionDelta: {x: -0.0000005364418, y: -0.00000011920929, z: 0.000000014901161}
+    RotationDelta: {x: -0.67643994, y: 0.6429604, z: 0.31902432, w: 0.1650893}
   - Source: {fileID: 134801000}
     Target: {fileID: 304660123}
-    PositionDelta: {x: -0.00000029802322, y: -0.00000023841858, z: 0}
-    RotationDelta: {x: -0.6374971, y: 0.5525119, z: 0.34054202, w: 0.41516152}
+    PositionDelta: {x: -0.00000035762787, y: -0.00000023841858, z: -0.000000037252903}
+    RotationDelta: {x: -0.6374971, y: 0.5525118, z: 0.34054208, w: 0.41516176}
   - Source: {fileID: 94852707}
     Target: {fileID: 699977459}
     PositionDelta: {x: 0.0000000018626451, y: 0, z: 0.000000074505806}
     RotationDelta: {x: -0.07437846, y: -0.043052696, z: -0.6873212, w: 0.7212516}
   - Source: {fileID: 1175756562}
     Target: {fileID: 1664783818}
-    PositionDelta: {x: 0.000000029802322, y: 0, z: 0.000000037252903}
+    PositionDelta: {x: 0.000000044703484, y: 0, z: 0.000000037252903}
     RotationDelta: {x: -0.06679236, y: -0.042985544, z: -0.7154614, w: 0.6941225}
   - Source: {fileID: 1482094284}
     Target: {fileID: 1955701845}
-    PositionDelta: {x: 0.000000059604645, y: 0.00000023841858, z: 0.000000007450581}
+    PositionDelta: {x: 0.00000011920929, y: 0.00000023841858, z: 0.000000007450581}
     RotationDelta: {x: 0.076098055, y: 0.13194974, z: 0.68236256, w: -0.71496826}
   - Source: {fileID: 292784676}
     Target: {fileID: 1100957330}
-    PositionDelta: {x: 0.00000023841858, y: 0.00000011920929, z: -0.000000007450581}
+    PositionDelta: {x: 0.00000029802322, y: 0.00000011920929, z: -0.000000022351742}
     RotationDelta: {x: 0.21207622, y: 0.12203937, z: -0.63783187, w: 0.7302744}
   - Source: {fileID: 41427217}
     Target: {fileID: 2054559700}
-    PositionDelta: {x: 0.000000059604645, y: 0.00000023841858, z: 0.00000009685755}
-    RotationDelta: {x: 0.3027215, y: 0.24555135, z: -0.6765559, w: 0.6247691}
+    PositionDelta: {x: 0.00000011920929, y: 0.00000023841858, z: 0.000000067055225}
+    RotationDelta: {x: 0.30272156, y: 0.24555156, z: -0.67655593, w: 0.62476885}
   - Source: {fileID: 1622134383}
     Target: {fileID: 874799885}
-    PositionDelta: {x: 0.00000017881393, y: 0.00000011920929, z: 0.000000067055225}
-    RotationDelta: {x: 0.2666407, y: 0.2415223, z: -0.691025, w: 0.62694037}
+    PositionDelta: {x: 0.00000023841858, y: 0.00000011920929, z: 0.000000074505806}
+    RotationDelta: {x: 0.26664063, y: 0.24152224, z: -0.6910251, w: 0.62694037}
   - Source: {fileID: 486191829}
     Target: {fileID: 41351608}
-    PositionDelta: {x: -0.000000059604645, y: 0, z: 0}
-    RotationDelta: {x: 0.30945486, y: 0.2433681, z: -0.7181795, w: 0.5737838}
+    PositionDelta: {x: 0, y: 0, z: -0.000000059604645}
+    RotationDelta: {x: 0.30945492, y: 0.24336818, z: -0.71817946, w: 0.57378376}
   - Source: {fileID: 625396688}
     Target: {fileID: 188095633}
-    PositionDelta: {x: 0.00000017881393, y: 0.00000023841858, z: 0.000000067055225}
-    RotationDelta: {x: 0.40773538, y: 0.31967846, z: -0.6437476, w: 0.5631575}
+    PositionDelta: {x: 0.00000023841858, y: 0.00000023841858, z: 0.000000029802322}
+    RotationDelta: {x: 0.40773553, y: 0.31967854, z: -0.6437476, w: 0.56315744}
   - Source: {fileID: 1732292270}
     Target: {fileID: 615339558}
-    PositionDelta: {x: 0.00000035762787, y: 0.00000023841858, z: 0.000000059604645}
+    PositionDelta: {x: 0.0000005364418, y: 0.00000023841858, z: 0.000000059604645}
     RotationDelta: {x: 0.39413854, y: 0.2809347, z: -0.6412666, w: 0.59540546}
   - Source: {fileID: 786062948}
     Target: {fileID: 936388236}
-    PositionDelta: {x: 0.00000011920929, y: 0.00000035762787, z: 0.000000029802322}
-    RotationDelta: {x: 0.43761325, y: 0.2910922, z: -0.65830916, w: 0.5388775}
+    PositionDelta: {x: 0.00000017881393, y: 0.00000035762787, z: 0.000000007450581}
+    RotationDelta: {x: 0.43761343, y: 0.29109216, z: -0.6583093, w: 0.53887737}
   - Source: {fileID: 537075916}
     Target: {fileID: 522378621}
-    PositionDelta: {x: 0.00000017881393, y: 0.00000035762787, z: 0.00000011920929}
-    RotationDelta: {x: 0.4092164, y: 0.3830357, z: -0.5958951, w: 0.57509524}
+    PositionDelta: {x: 0.00000029802322, y: 0.00000035762787, z: 0.00000011175871}
+    RotationDelta: {x: 0.40921658, y: 0.38303563, z: -0.59589493, w: 0.5750953}
   - Source: {fileID: 720176440}
     Target: {fileID: 442935899}
-    PositionDelta: {x: 0.00000029802322, y: 0.00000011920929, z: 0.000000052154064}
-    RotationDelta: {x: 0.40471986, y: 0.3582263, z: -0.5887121, w: 0.60107714}
+    PositionDelta: {x: 0.00000035762787, y: 0.00000011920929, z: 0.000000067055225}
+    RotationDelta: {x: 0.40472, y: 0.35822618, z: -0.58871204, w: 0.6010772}
   - Source: {fileID: 1487023652}
     Target: {fileID: 1890351181}
-    PositionDelta: {x: 0.0000004172325, y: 0.00000035762787, z: 0.00000009685755}
-    RotationDelta: {x: 0.41397795, y: 0.3706007, z: -0.5951624, w: 0.58056796}
+    PositionDelta: {x: 0.00000059604645, y: 0.00000035762787, z: 0.00000008940697}
+    RotationDelta: {x: 0.413978, y: 0.3706008, z: -0.59516233, w: 0.5805679}
   - Source: {fileID: 1988039958}
     Target: {fileID: 1435482786}
-    PositionDelta: {x: 0.000000059604645, y: 0.00000035762787, z: 0.000000059604645}
+    PositionDelta: {x: 0.00000011920929, y: 0.00000035762787, z: 0.000000044703484}
     RotationDelta: {x: 0.44869953, y: 0.36096996, z: -0.6181832, w: 0.53499424}
   - Source: {fileID: 822574198}
     Target: {fileID: 1605066064}
-    PositionDelta: {x: 0.00000011920929, y: 0.00000035762787, z: 0.00000010430813}
-    RotationDelta: {x: 0.4219071, y: 0.31673402, z: -0.6052979, w: 0.59606063}
+    PositionDelta: {x: 0.00000017881393, y: 0.00000035762787, z: 0.00000008940697}
+    RotationDelta: {x: 0.4219072, y: 0.3167341, z: -0.60529786, w: 0.59606063}
   - Source: {fileID: 2031187358}
     Target: {fileID: 1376191744}
-    PositionDelta: {x: 0.00000017881393, y: 0.00000035762787, z: 0.00000011175871}
-    RotationDelta: {x: 0.47148407, y: 0.33963305, z: -0.6262959, w: 0.5197168}
+    PositionDelta: {x: 0.00000029802322, y: 0.00000035762787, z: 0.000000067055225}
+    RotationDelta: {x: 0.47148407, y: 0.33963305, z: -0.6262959, w: 0.5197167}
   - Source: {fileID: 520498864}
     Target: {fileID: 402017795}
-    PositionDelta: {x: -0.00000011920929, y: 0.00000035762787, z: 0.000000067055225}
-    RotationDelta: {x: 0.8656519, y: 0.27239156, z: 0.3262626, w: 0.26457962}
+    PositionDelta: {x: -0.000000059604645, y: 0.00000035762787, z: 0.00000008195639}
+    RotationDelta: {x: 0.86565197, y: 0.2723914, z: 0.3262626, w: 0.26457962}
   - Source: {fileID: 490426513}
     Target: {fileID: 1862044250}
-    PositionDelta: {x: -0.00000011920929, y: 0.00000059604645, z: 0.00000008195639}
-    RotationDelta: {x: -0.6765179, y: -0.6429506, z: -0.3189505, w: 0.16495}
+    PositionDelta: {x: -0.00000017881393, y: 0.00000047683716, z: 0.000000037252903}
+    RotationDelta: {x: -0.676518, y: -0.6429506, z: -0.3189506, w: 0.16495}
   - Source: {fileID: 505071763}
     Target: {fileID: 582349459}
-    PositionDelta: {x: 0.00000047683716, y: 0.00000023841858, z: -0.000000022351742}
-    RotationDelta: {x: -0.6375472, y: -0.5525387, z: -0.3405187, w: 0.4150683}
+    PositionDelta: {x: 0.00000059604645, y: 0.00000023841858, z: -0.000000074505806}
+    RotationDelta: {x: -0.6375472, y: -0.55253863, z: -0.34051865, w: 0.41506833}
   - Source: {fileID: 838525292}
     Target: {fileID: 2031584384}
     PositionDelta: {x: 0, y: 0, z: 0}
     RotationDelta: {x: 0.97596544, y: -0.005148898, z: 0.21386683, w: 0.04154377}
   - Source: {fileID: 1781338715}
     Target: {fileID: 1797409343}
-    PositionDelta: {x: -0.000000014901161, y: 0.000000059604645, z: -0.000000007450581}
+    PositionDelta: {x: -0.000000014901161, y: 0.000000059604645, z: -0.0000000037252903}
     RotationDelta: {x: -0.9997278, y: 0.011485166, z: 0.010788501, w: 0.017204054}
   - Source: {fileID: 1760389609}
     Target: {fileID: 516577765}
-    PositionDelta: {x: 0.000000014901161, y: 0.00000011920929, z: 0.00000011920929}
-    RotationDelta: {x: 0.80549407, y: -0.061653316, z: -0.013813004, w: 0.58922607}
+    PositionDelta: {x: 0.000000014901161, y: 0.000000059604645, z: 0.00000012665987}
+    RotationDelta: {x: 0.8054941, y: -0.061653405, z: -0.013812937, w: 0.58922595}
   - Source: {fileID: 2110410919}
     Target: {fileID: 71039056}
-    PositionDelta: {x: 0.000000044703484, y: 0.00000035762787, z: -0.00000011920929}
+    PositionDelta: {x: 0.000000044703484, y: 0.00000035762787, z: -0.00000013411045}
     RotationDelta: {x: 0.78807914, y: -0.03147921, z: -0.04254312, w: 0.61329466}
   - Source: {fileID: 429413015}
     Target: {fileID: 490859714}
@@ -3962,16 +4067,16 @@ MonoBehaviour:
     RotationDelta: {x: 0.9759655, y: 0.005148918, z: -0.21386658, w: 0.041543763}
   - Source: {fileID: 354614284}
     Target: {fileID: 2054290831}
-    PositionDelta: {x: 0.000000029802322, y: -0.00000017881393, z: -0.000000018626451}
+    PositionDelta: {x: 0.000000029802322, y: -0.00000029802322, z: -0.000000014901161}
     RotationDelta: {x: -0.9997278, y: -0.011485199, z: -0.010788534, w: 0.017204052}
   - Source: {fileID: 1028984036}
     Target: {fileID: 2034002679}
-    PositionDelta: {x: 0.000000029802322, y: -0.00000023841858, z: 0.000000029802322}
-    RotationDelta: {x: 0.8054937, y: 0.06165331, z: 0.01381284, w: 0.5892265}
+    PositionDelta: {x: 0.000000029802322, y: -0.0000004172325, z: 0.000000029802322}
+    RotationDelta: {x: 0.8054936, y: 0.06165324, z: 0.013812773, w: 0.5892267}
   - Source: {fileID: 1007359925}
     Target: {fileID: 790174169}
-    PositionDelta: {x: 0.000000074505806, y: -0.0000005364418, z: 0.000000074505806}
-    RotationDelta: {x: 0.7880782, y: 0.03147856, z: 0.042543128, w: 0.6132959}
+    PositionDelta: {x: 0.00000008940697, y: -0.0000008940697, z: 0.00000011920929}
+    RotationDelta: {x: 0.7880781, y: 0.03147854, z: 0.042543113, w: 0.613296}
   - Source: {fileID: 1414470627}
     Target: {fileID: 353996139}
     PositionDelta: {x: 0, y: 0, z: -0.000000007450581}
@@ -3979,6 +4084,22 @@ MonoBehaviour:
   - Source: {fileID: 1309457771}
     Target: {fileID: 1455374313}
     PositionDelta: {x: 6.151118e-10, y: 0, z: 0}
+    RotationDelta: {x: 0, y: 0, z: 0, w: 1}
+  - Source: {fileID: 1256875045}
+    Target: {fileID: 1716315811}
+    PositionDelta: {x: 0, y: 0, z: 0}
+    RotationDelta: {x: 0, y: 0, z: 0, w: 1}
+  - Source: {fileID: 1255876580}
+    Target: {fileID: 1464692620}
+    PositionDelta: {x: 0, y: 0, z: 0}
+    RotationDelta: {x: 0, y: 0, z: 0, w: 1}
+  - Source: {fileID: 1369337829}
+    Target: {fileID: 1464401658}
+    PositionDelta: {x: 0, y: 0, z: 0}
+    RotationDelta: {x: 0, y: 0, z: 0, w: 1}
+  - Source: {fileID: 1036944825}
+    Target: {fileID: 2131550835}
+    PositionDelta: {x: 0, y: 0, z: 0}
     RotationDelta: {x: 0, y: 0, z: 0, w: 1}
   UsePreBakedData: 1
   GlobalPos: 1
@@ -4968,6 +5089,10 @@ Transform:
   m_Children:
   - {fileID: 1309457771}
   - {fileID: 2025507944}
+  - {fileID: 1716315811}
+  - {fileID: 2131550835}
+  - {fileID: 1464692620}
+  - {fileID: 1464401658}
   m_Father: {fileID: 556557541}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5308,6 +5433,38 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
+--- !u!1 &1036944824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1036944825}
+  m_Layer: 0
+  m_Name: Left Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1036944825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036944824}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.6997285, y: 0.1532048, z: 0.06978073}
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1207085567}
+  m_Father: {fileID: 1309457771}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1066487864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6191329760070716291, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
@@ -5658,6 +5815,111 @@ Transform:
   m_Father: {fileID: 1449738766}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1207085566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1207085567}
+  - component: {fileID: 1207085570}
+  - component: {fileID: 1207085569}
+  - component: {fileID: 1207085568}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1207085567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207085566}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1036944825}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1207085568
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207085566}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1207085569
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207085566}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1207085570
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207085566}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1210993792
 GameObject:
   m_ObjectHideFlags: 0
@@ -5864,6 +6126,70 @@ Transform:
   m_Father: {fileID: 708315608}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1255876579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255876580}
+  m_Layer: 0
+  m_Name: Right  Hand.Hint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1255876580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255876579}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4497285, y: 0.1532048, z: -0.03021928}
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 57770353}
+  m_Father: {fileID: 1309457771}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1256875044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1256875045}
+  m_Layer: 0
+  m_Name: Left Hand.Hint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1256875045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256875044}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.4497285, y: 0.1532048, z: -0.03021928}
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1755961243}
+  m_Father: {fileID: 1309457771}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1264716449
 GameObject:
   m_ObjectHideFlags: 0
@@ -6035,10 +6361,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1414470627}
-  - {fileID: 1716315811}
-  - {fileID: 2131550835}
-  - {fileID: 1464692620}
-  - {fileID: 1464401658}
+  - {fileID: 1256875045}
+  - {fileID: 1255876580}
+  - {fileID: 1369337829}
+  - {fileID: 1036944825}
   m_Father: {fileID: 913578527}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6332,6 +6658,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358568235}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1369337828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1369337829}
+  m_Layer: 0
+  m_Name: Right Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1369337829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369337828}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6997285, y: 0.1532048, z: 0.06978073}
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1633186060}
+  m_Father: {fileID: 1309457771}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1376191744 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2327162021809996510, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
@@ -6644,12 +7002,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464401657}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6997285, y: 0.1532048, z: 0.06978073}
+  m_LocalPosition: {x: 0.6997285, y: 0.44476163, z: -0.054346696}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1912153599}
-  m_Father: {fileID: 1309457771}
+  m_Father: {fileID: 913578527}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1464692619
@@ -6676,12 +7034,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464692619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4497285, y: 0.1532048, z: -0.03021928}
+  m_LocalPosition: {x: 0.4497285, y: 0.44476163, z: -0.1543467}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1826170428}
-  m_Father: {fileID: 1309457771}
+  m_Father: {fileID: 913578527}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1482094283
@@ -7246,6 +7604,111 @@ Transform:
   m_Father: {fileID: 41427217}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1633186059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1633186060}
+  - component: {fileID: 1633186063}
+  - component: {fileID: 1633186062}
+  - component: {fileID: 1633186061}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1633186060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633186059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1369337829}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1633186061
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633186059}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1633186062
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633186059}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1633186063
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633186059}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1644599366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2741734443635486506, guid: af85e2ee426a2554c8457d50dcc75899, type: 3}
@@ -7432,12 +7895,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716315810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4497285, y: 0.1532048, z: -0.03021928}
+  m_LocalPosition: {x: -0.4497285, y: 0.44476163, z: -0.1543467}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1514273623}
-  m_Father: {fileID: 1309457771}
+  m_Father: {fileID: 913578527}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1726162648 stripped
@@ -7509,6 +7972,111 @@ Transform:
   m_Father: {fileID: 625396688}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1755961242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1755961243}
+  - component: {fileID: 1755961246}
+  - component: {fileID: 1755961245}
+  - component: {fileID: 1755961244}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1755961243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755961242}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1256875045}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1755961244
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755961242}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1755961245
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755961242}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1755961246
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755961242}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1758068708
 GameObject:
   m_ObjectHideFlags: 0
@@ -9035,12 +9603,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2131550834}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6997285, y: 0.1532048, z: 0.06978073}
+  m_LocalPosition: {x: -0.6997285, y: 0.44476163, z: -0.054346696}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1872979530}
-  m_Father: {fileID: 1309457771}
+  m_Father: {fileID: 913578527}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2132176853

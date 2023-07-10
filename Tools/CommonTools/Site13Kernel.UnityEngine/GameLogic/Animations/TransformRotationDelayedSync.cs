@@ -17,6 +17,7 @@ namespace Site13Kernel.GameLogic.Animations
 		public bool IsLocalSpace = true;
 		public bool IsMoving;
 		public float Termination = 2;
+		public bool PauseAutoDSync=false;
 		public void Sync()
 		{
 
@@ -38,6 +39,7 @@ namespace Site13Kernel.GameLogic.Animations
 		}
 		public void Update()
 		{
+			if (PauseAutoDSync) return;
 			float angle;
 			Quaternion Src;
 			Quaternion Tgt;

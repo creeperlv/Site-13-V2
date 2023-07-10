@@ -34,6 +34,7 @@ namespace Site13Kernel.GameLogic.Character
 		public float NormalSkinWidth = 0.08f;
 		public float CrouchSkinWidth = 0.008f;
 		public WrappedAnimator ControlledAnimator;
+		public WrappedAnimator LowerPartAnimator;
 		public float WalkFootStepMultiplier = 0.5f;
 		public float SprintFootStepMultiplier = 0.75f;
 		public float CrouchFootStepMultiplier = 0.15f;
