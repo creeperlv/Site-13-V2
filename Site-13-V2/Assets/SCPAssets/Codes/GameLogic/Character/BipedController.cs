@@ -890,7 +890,9 @@ namespace Site13Kernel.GameLogic.Character
 
 										}
 										else
+										{
 											ControlledAnimator.SetTrigger("Walk");
+										}
 									}
 									else
 									{
@@ -901,10 +903,12 @@ namespace Site13Kernel.GameLogic.Character
 							default:
 								break;
 						}
+						AnimateLowerPart(MH , MV);
 					}
 			}
 			else
 			{
+				RestLowerPart();
 				switch (ControlledAnimator.LastTrigger)
 				{
 					case "Run":
@@ -916,6 +920,13 @@ namespace Site13Kernel.GameLogic.Character
 						break;
 				}
 			}
+		}
+		void AnimateLowerPart(float MH,float MV)
+		{
+		}
+		void RestLowerPart()
+		{
+
 		}
 		void _Crouch(float DT)
 		{

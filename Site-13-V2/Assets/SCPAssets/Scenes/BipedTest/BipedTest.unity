@@ -1526,7 +1526,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &402017795 stripped
 Transform:
@@ -3645,15 +3645,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538285594}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1162648388}
   - {fileID: 1449738766}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1753170609}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &538285596
 MonoBehaviour:
@@ -3677,6 +3677,7 @@ MonoBehaviour:
   IsLocalSpace: 1
   IsMoving: 0
   Termination: 2
+  PauseAutoDSync: 0
 --- !u!1 &540507303
 GameObject:
   m_ObjectHideFlags: 0
@@ -7971,6 +7972,210 @@ Transform:
   - {fileID: 786062948}
   m_Father: {fileID: 625396688}
   m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1753170606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1753170609}
+  - component: {fileID: 1753170608}
+  - component: {fileID: 1753170607}
+  m_Layer: 0
+  m_Name: ControlledBiped
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!143 &1753170607
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753170606}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.2
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &1753170608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753170606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b037adaca17d80449c19e9964beec32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControllerFunctions:
+    Movement: 0
+    ViewportRotation: 0
+    Fire: 0
+    Melee: 0
+    Reload: 0
+    Grenade: 0
+    Zoom: 0
+    Interact: 0
+    Equipments: 0
+    SwitchWeapon: 0
+    SwitchGrenade: 0
+    SwitchEquipment: 0
+    Crouch: 0
+    Jump: 0
+    Sprint: 0
+    FlashLight: 0
+    Inspect: 0
+  InputControllable: 1
+  HorizontalTransform: {fileID: 0}
+  VerticalTransform: {fileID: 0}
+  MovingTransform: {fileID: 0}
+  BipedID: 
+  Interactor: {fileID: 0}
+  Entity: {fileID: 0}
+  UseControlledBehaviorWorkflow: 0
+  CC: {fileID: 1753170607}
+  NormalSkinWidth: 0.08
+  CrouchSkinWidth: 0.008
+  ControlledAnimator:
+    ControlledAnimator: {fileID: 0}
+    LastTrigger: 
+    CurrentCollection:
+      Name: 
+      ControllerToUse: {fileID: 0}
+      MappedAnimations:
+        PrefabDefinitions: []
+    AccumulativeTime: 0
+    CurrentClip:
+      Trigger: 
+      Length: 0
+      WaitUntilDone: 0
+    NextClip:
+      Trigger: 
+      Length: 0
+      WaitUntilDone: 0
+  LowerPartAnimator:
+    ControlledAnimator: {fileID: 0}
+    LastTrigger: 
+    CurrentCollection:
+      Name: 
+      ControllerToUse: {fileID: 0}
+      MappedAnimations:
+        PrefabDefinitions: []
+    AccumulativeTime: 0
+    CurrentClip:
+      Trigger: 
+      Length: 0
+      WaitUntilDone: 0
+    NextClip:
+      Trigger: 
+      Length: 0
+      WaitUntilDone: 0
+  WalkFootStepMultiplier: 0.5
+  SprintFootStepMultiplier: 0.75
+  CrouchFootStepMultiplier: 0.15
+  LandFootStepMultiplier: 0.85
+  HeavyLandFootStepMultiplier: 0.9
+  CurrentFootStepMultiplier: 0.5
+  FootStepSoundSource: {fileID: 0}
+  MovementLock:
+    CurrentID: -1
+  CombatLock:
+    CurrentID: -1
+  NormalCharacterHeight: 1.5
+  NormalCharacterOffset_Y: 0.75
+  CrouchCharacterHeight: 0.75
+  CrouchCharacterOffset_Y: 0.325
+  CharacterHeightChangeSpeed: 2
+  MoveState: 0
+  FireID: 100
+  MeleeID: 101
+  RunningJumpHeight: 1
+  MouseVerticalIntensity: 1
+  MouseHoriztonalIntensity: 1
+  MaxV: 50
+  MinV: -50
+  WalkSpeed: 5
+  MoveFriction: 9.8
+  SprintMultiplyer: 1.5
+  CrouchMultiplyer: 1.5
+  SpeedMultiplyer: 1
+  Gravity: 9.8
+  JumpForce: 10
+  RunningJumpForce: 15
+  DropThreshold: 0.5
+  CamPosTarget: {fileID: 0}
+  SmoothCamFollow: 0
+  isPlayer: 0
+  IsFPSBiped: 0
+  FlashLightObject: {fileID: 0}
+  Grenades:
+    PrefabDefinitions: []
+  ALLOW_FIRE_FLAG_0: 1
+  ALLOW_FIRE_FLAG_1: 1
+  ALLOW_FIRE_FLAG_2: 1
+  ALLOW_FIRE_FLAG_3: 1
+  ALLOW_FIRE_FLAG_4: 1
+  ALLOW_FIRE_FLAG_5: 1
+  ALLOW_FIRE_FLAG_6: 1
+  IsInOverheat: 0
+  FLAG_IS_THROWING: 0
+  CurrentCollection:
+    Name: 
+    ControllerToUse: {fileID: 0}
+    MappedAnimations:
+      PrefabDefinitions: []
+  ABC: {fileID: 0}
+  SRBoCC: {fileID: 0}
+  ShieldKey: MobileSRA
+  MaxShieldQuery: MaxShield
+  RegisteredShield: 0
+  ShieldRecoverDelay: 5
+  ShieldRecoverSpeed: 15
+  MaxShield: 100
+  CurrentStandingMaterial: 0
+  Fire: 0
+  DropTime: 0
+  ActiveMovementTime: 0
+  WalkInteval: 0
+  RunInteval: 0
+  CrouchInteval: 0
+--- !u!4 &1753170609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753170606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 538285595}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1755961242
 GameObject:
