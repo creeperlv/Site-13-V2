@@ -7984,6 +7984,7 @@ GameObject:
   - component: {fileID: 1753170609}
   - component: {fileID: 1753170608}
   - component: {fileID: 1753170607}
+  - component: {fileID: 1753170610}
   m_Layer: 0
   m_Name: ControlledBiped
   m_TagString: Untagged
@@ -8053,7 +8054,7 @@ MonoBehaviour:
   MovingTransform: {fileID: 0}
   BipedID: 
   Interactor: {fileID: 0}
-  Entity: {fileID: 0}
+  Entity: {fileID: 1753170610}
   UseControlledBehaviorWorkflow: 0
   CC: {fileID: 1753170607}
   NormalSkinWidth: 0.08
@@ -8177,6 +8178,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1753170610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753170606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a9ef7adecd16c41a65b8eec658f0ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  ProtoTypeID: 
+  MaxHP: 0
+  InitHP: 0
+  CurrentHP: 0
+  HitEffect: 0
+  CanBeBackstabed: 0
+  isInvincible: 0
+  TakeCollisionDamage: 1
+  TakeNonRigidBodyDamage: 0
+  deathBodyType: 0
+  DeathReplacements: []
+  DeathBodyReplacementID: -1
+  DeathBodyReplacementPrefab: {fileID: 0}
+  ControlledObject: {fileID: 0}
+  HitSound: {fileID: 0}
+  Controller: {fileID: 0}
+  TimeToSelfDestruction: -1
+  LowestKillPlane: -500
+  CombatRelationGroup: 0
+  MaxShield: 0
+  CurrentShield: 0
+  ShieldRecoverSpeed: 0
+  HPRecoverSpeed: 0
+  ShieldRecoverDelay: 0
+  HPRecoverDelay: 0
+  ShieldRecoverCountDown: 0
+  HPRecoverCountDown: 0
+  useShieldMat: 0
+  ShieldColor: {r: 0, g: 0, b: 0, a: 0}
+  Shields: []
+  Intensity: 0
+  useShieldDownObject: 0
+  ShieldObjects: []
+  useShieldRecoverObject: 0
+  ShieldRecoverObjects: []
+  isPlayer: 0
+  isTookControl: 0
+  WeaponHand: {fileID: 0}
+  Weapon1: {fileID: 0}
+  Weapon2: {fileID: 0}
+  OverrideFirePoint: 0
+  FirePoint: {fileID: 0}
+  GrenadeEmissionPoint: {fileID: 0}
+  EntityBag:
+    PreDefinedEquipments:
+      PrefabDefinitions: []
+    Weapons: []
+    IsHoldingObject: 0
+    HoldableObject: {fileID: 0}
+    CurrentWeapon: 0
+    CurrentGrenade: 0
+    CurrentEquipment: 0
+    LastSelectedEquipment: 0
+  SyncedTransform: {fileID: 0}
+  RoatationSync: {fileID: 0}
+  SelfRun: 0
 --- !u!1 &1755961242
 GameObject:
   m_ObjectHideFlags: 0

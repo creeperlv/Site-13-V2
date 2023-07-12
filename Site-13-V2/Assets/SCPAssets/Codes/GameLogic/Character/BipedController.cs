@@ -35,6 +35,13 @@ namespace Site13Kernel.GameLogic.Character
 		public float CrouchSkinWidth = 0.008f;
 		public WrappedAnimator ControlledAnimator;
 		public WrappedAnimator LowerPartAnimator;
+		public KVList<int , string> WalkDirectedTriggers;
+		public KVList<int , string> RunDirectedTriggers;
+		public KVList<int , string> CrouchDirectedTriggers;
+		public Dictionary<int , string> WalkDirectedTriggersDict;
+		public Dictionary<int , string> RunDirectedTriggersDict;
+		public Dictionary<int , string> CrouchDirectedTriggersDict;
+		public int AngleLevels;
 		public float WalkFootStepMultiplier = 0.5f;
 		public float SprintFootStepMultiplier = 0.75f;
 		public float CrouchFootStepMultiplier = 0.15f;
@@ -162,6 +169,9 @@ namespace Site13Kernel.GameLogic.Character
 		void __init()
 		{
 			_Grenades = Grenades.ObtainMap();
+			WalkDirectedTriggersDict = WalkDirectedTriggers.ObtainMap();
+			RunDirectedTriggersDict = RunDirectedTriggers.ObtainMap();
+			CrouchDirectedTriggersDict = CrouchDirectedTriggers.ObtainMap();
 			ControlledAnimator.ControlledAnimator.keepAnimatorStateOnDisable = true;
 			Entity.EntityBag.OnObtainWeapon.Add((w) =>
 			{
@@ -903,7 +913,7 @@ namespace Site13Kernel.GameLogic.Character
 							default:
 								break;
 						}
-						AnimateLowerPart(MH , MV);
+						AnimateLowerPart(_MOVE);
 					}
 			}
 			else
@@ -921,8 +931,12 @@ namespace Site13Kernel.GameLogic.Character
 				}
 			}
 		}
-		void AnimateLowerPart(float MH,float MV)
+		void AnimateLowerPart(Vector2 Movement)
 		{
+			var angle=Vector2.SignedAngle(HorizontalTransform.forward, Movement);
+			var id=Mathf.RoundToInt(angle/45);
+
+			LowerPartAnimator.SetTrigger(WalkDirectedTriggersDict [ id ]);
 		}
 		void RestLowerPart()
 		{
