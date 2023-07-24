@@ -68,6 +68,7 @@ namespace Site13Kernel.Core
                 o.Holder = null;
                
             });
+            Debug.Log("BIPED ENTITY INITED.");
             EntityBag.OnObtainWeapon.Add((w) =>
             {
                 if (EntityBag.Weapons.Count < 2)

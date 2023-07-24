@@ -248,11 +248,16 @@ namespace Site13Kernel.GameLogic.Character
 		void ApplyWeapon()
 		{
 			StartCoroutine(DelayedApplyWeapon());
+			//DelayedApplyWeapon();
 		}
 		IEnumerator DelayedApplyWeapon()
+		//void DelayedApplyWeapon()
 		{
 			yield return null;
-
+			//if (Entity.EntityBag.CurrentWeapon < 0 || Entity.EntityBag.CurrentWeapon >= Entity.EntityBag.Weapons.Count)
+			//{
+			//	yield break;
+			//}
 			GenericWeapon CurrentMain = Entity.EntityBag.Weapons [ Entity.EntityBag.CurrentWeapon ];
 			GenericWeapon Side = null;
 			if (Entity.EntityBag.Weapons.Count > 1)
@@ -933,10 +938,16 @@ namespace Site13Kernel.GameLogic.Character
 		}
 		void AnimateLowerPart(Vector2 Movement)
 		{
-			var angle=Vector2.SignedAngle(HorizontalTransform.forward, Movement);
-			var id=Mathf.RoundToInt(angle/45);
+			try
+			{
+				var angle = Vector2.SignedAngle(HorizontalTransform.forward , Movement);
+				var id = Mathf.RoundToInt(angle / 45);
 
-			LowerPartAnimator.SetTrigger(WalkDirectedTriggersDict [ id ]);
+				LowerPartAnimator.SetTrigger(WalkDirectedTriggersDict [ id ]);
+			}
+			catch (Exception)
+			{
+			}
 		}
 		void RestLowerPart()
 		{
