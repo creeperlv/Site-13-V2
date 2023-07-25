@@ -21,7 +21,7 @@ namespace LanguageTool
         {
             MarkdownScrollViewer markdownScrollViewer=new MarkdownScrollViewer();
             markdownScrollViewer.Markdown =LibInfo.GetAboutString("Language Tool");
-            AboutButton.Click += (_, _) => {
+			AboutButton.Click += (_, _) => {
                 Dialog dialog=new Dialog();
                 dialog.Height = 400;
                 dialog._DialogTitle = "About";
@@ -40,20 +40,20 @@ namespace LanguageTool
         //StackPanel CentralEditor;
         //Button AboutButton;
         //Button AddFieldButton;
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-            this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
-            this.ExtendClientAreaToDecorationsHint = true;
-            this.TransparencyLevelHint = WindowTransparencyLevel.Blur;
-            this.TransparencyBackgroundFallback=new SolidColorBrush(Color.FromArgb(255,0,0,0));
-            Trace.WriteLine(this.ActualTransparencyLevel);
-            this.Background = new SolidColorBrush(Colors.Transparent);
-            //CentralEditor=this.FindControl<StackPanel>("CentralEditor");
-            //AboutButton = this.FindControl<Button>("AboutButton");
-            //AddFieldButton = this.FindControl<Button>("AddFieldButton");
-            Init();
-            //this.SystemDecorations = SystemDecorations.BorderOnly;
-        }
+        //private void InitializeComponent()
+        //{
+        //    AvaloniaXamlLoader.Load(this);
+        //    this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
+        //    this.ExtendClientAreaToDecorationsHint = true;
+        //    this.TransparencyLevelHint = WindowTransparencyLevel.Blur;
+        //    this.TransparencyBackgroundFallback=new SolidColorBrush(Color.FromArgb(255,0,0,0));
+        //    Trace.WriteLine(this.ActualTransparencyLevel);
+        //    this.Background = new SolidColorBrush(Colors.Transparent);
+        //    //CentralEditor=this.FindControl<StackPanel>("CentralEditor");
+        //    //AboutButton = this.FindControl<Button>("AboutButton");
+        //    //AddFieldButton = this.FindControl<Button>("AddFieldButton");
+        //    Init();
+        //    //this.SystemDecorations = SystemDecorations.BorderOnly;
+        //}
     }
 }
